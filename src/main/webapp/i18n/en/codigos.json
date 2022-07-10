@@ -1,0 +1,27 @@
+{
+  "projectApp": {
+    "codigos": {
+      "home": {
+        "title": "Codigos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Codigos",
+        "createOrEditLabel": "Create or edit a Codigos",
+        "notFound": "No Codigos found"
+      },
+      "created": "A new Codigos is created with identifier {{ param }}",
+      "updated": "A Codigos is updated with identifier {{ param }}",
+      "deleted": "A Codigos is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Codigos {{ id }}?"
+      },
+      "detail": {
+        "title": "Codigos"
+      },
+      "id": "ID",
+      "codigo": "Codigo",
+      "estado": "Estado",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario"
+    }
+  }
+}

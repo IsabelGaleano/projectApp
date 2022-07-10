@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Startups.
+    -->
+    <changeSet id="20220710195342-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="id_monedero_id"
+                                 baseTableName="startups"
+                                 constraintName="fk_startups__id_monedero_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="monederos"/>
+
+        <addForeignKeyConstraint baseColumnNames="id_categoria_id"
+                                 baseTableName="startups"
+                                 constraintName="fk_startups__id_categoria_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="categorias"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="NotificacionesHeading">
+    <span jhiTranslate="projectApp.notificaciones.home.title">Notificaciones</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.notificaciones.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-notificaciones"
+        [routerLink]="['/notificaciones/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.notificaciones.home.createLabel"> Create a new Notificaciones </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="notificaciones?.length === 0">
+    <span jhiTranslate="projectApp.notificaciones.home.notFound">No notificaciones found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="notificaciones && notificaciones.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.tipo">Tipo</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.fecha">Fecha</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.tipoRemitente">Tipo Remitente</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.tipoReceptor">Tipo Receptor</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.idStartup">Id Startup</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.notificaciones.idUsuario">Id Usuario</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let notificaciones of notificaciones; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/notificaciones', notificaciones.id, 'view']">{{ notificaciones.id }}</a>
+          </td>
+          <td>{{ notificaciones.tipo }}</td>
+          <td>{{ notificaciones.descripcion }}</td>
+          <td>{{ notificaciones.fecha | formatMediumDatetime }}</td>
+          <td>{{ notificaciones.tipoRemitente }}</td>
+          <td>{{ notificaciones.tipoReceptor }}</td>
+          <td>{{ notificaciones.estado }}</td>
+          <td>
+            <div *ngIf="notificaciones.idStartup">
+              <a [routerLink]="['/startups', notificaciones.idStartup?.id, 'view']">{{ notificaciones.idStartup?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="notificaciones.idUsuario">
+              <a [routerLink]="['/usuarios', notificaciones.idUsuario?.id, 'view']">{{ notificaciones.idUsuario?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/notificaciones', notificaciones.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/notificaciones', notificaciones.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(notificaciones)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

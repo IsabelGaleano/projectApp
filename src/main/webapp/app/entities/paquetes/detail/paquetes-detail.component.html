@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="paquetes">
+      <h2 data-cy="paquetesDetailsHeading"><span jhiTranslate="projectApp.paquetes.detail.title">Paquetes</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ paquetes.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.paquetes.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ paquetes.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.paquetes.monto">Monto</span></dt>
+        <dd>
+          <span>{{ paquetes.monto }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.paquetes.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ paquetes.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.paquetes.dimensiones">Dimensiones</span></dt>
+        <dd>
+          <span>{{ paquetes.dimensiones }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.paquetes.estado">Estado</span></dt>
+        <dd>
+          <span>{{ paquetes.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.paquetes.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="paquetes.idStartup">
+            <a [routerLink]="['/startups', paquetes.idStartup?.id, 'view']">{{ paquetes.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/paquetes', paquetes.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

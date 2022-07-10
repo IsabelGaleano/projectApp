@@ -1,0 +1,240 @@
+entity Usuarios {
+    nombre String required minlength(1) maxlength(100),
+    cedula String minlength(1) maxlength(50), 
+    primerApellido String minlength(1) maxlength(100),
+    segundoApellido String minlength(1) maxlength(100),
+    correoElectronico String required unique minlength(1) maxlength(300),
+    genero String,
+    telefono String minlength(1) maxlength(50),
+    fechaNacimiento ZonedDateTime,
+    latitudDireccion String minlength(1) maxlength(50), 
+    longitudDireccion String minlength(1) maxlength(50),
+    imagenURL String minlength(1) maxlength(300),
+    tipoUsuarioFinal String minlength(1) maxlength(50),
+    contrasennia String minlength(1) maxlength(50),
+    estado String minlength(1) maxlength(50)
+  
+}
+ 
+entity Startups {
+    nombreCorto String minlength(1) maxlength(50),
+    nombreLargo String minlength(1) maxlength(200),
+    correoElectronico String required unique minlength(1) maxlength(300),
+    telefono String minlength(1) maxlength(50),
+    contrasennia String minlength(1) maxlength(50),
+    latitudDireccion String minlength(1) maxlength(50),
+    longitudDireccion String minlength(1) maxlength(50),
+    descripcion String minlength(1) maxlength(300),
+    descripcionCorta String minlength(1) maxlength(200),
+    beneficios String minlength(1) maxlength(4000),
+    riesgos String minlength(1) maxlength(4000),
+    panoramaMercado String minlength(1) maxlength(4000),
+    montoMeta Double,
+    tipoMeta String minlength(1) maxlength(50),
+    linkSitioWeb String minlength(1) maxlength(300),
+    imagenURL String minlength(1) maxlength(300),
+    fechaCreacion ZonedDateTime,
+    estado String minlength(1) maxlength(50)
+}
+
+entity RolesUsuarios {
+    rol String required minlength(1) maxlength(50)
+}
+
+entity Monederos {
+    tipo String minlength(1) maxlength(50),
+    saldo Double,
+    estado String minlength(1) maxlength(50)
+}
+
+entity Movimientos {
+    fecha ZonedDateTime,
+    monto Double,
+    tipo String minlength(1) maxlength(50),
+    descripcion String minlength(1) maxlength(300),
+    estado String minlength(1) maxlength(50)
+}
+
+entity Codigos {
+    codigo String minlength(1) maxlength(50),
+    estado String minlength(1) maxlength(50)
+} 
+
+entity Inscripciones {
+    nombre String required minlength(1) maxlength(50),
+    descripcion String minlength(1) maxlength(200),
+    monto Double,
+    tipo String minlength(1) maxlength(50),
+    fechaInicial ZonedDateTime,
+    fechaFinal ZonedDateTime,
+    beneficios String minlength(1) maxlength(4000),
+    estado String minlength(1) maxlength(50),
+    numInscripcion Integer
+}
+
+entity PlanesInversion {
+    nombre String minlength(1) maxlength(100),
+    monto Double,
+    descripcion String minlength(1) maxlength(300),
+    beneficios String minlength(1) maxlength(4000),
+    porcentajeEmpresarial Double,
+    estado String minlength(1) maxlength(50)
+    
+}
+
+entity Notificaciones {
+    tipo String minlength(1) maxlength(50),
+    descripcion String minlength(1) maxlength(300),
+    fecha ZonedDateTime,
+    tipoRemitente String minlength(1) maxlength(50),
+    tipoReceptor String minlength(1) maxlength(50)
+    estado String minlength(1) maxlength(50)
+} 
+
+entity Categorias {
+    categoria String required minlength(1) maxlength(50),
+    estado String minlength(1) maxlength(50)
+} 
+
+entity Paquetes {
+    nombre String minlength(1) maxlength(200),
+    monto Double,
+    descripcion String minlength(1) maxlength(300),
+    dimensiones String minlength(1) maxlength(50),
+    estado String minlength(1) maxlength(50)
+}
+
+entity DonacionesPaquetes {
+    descripcion String minlength(1) maxlength(300),
+    montoEnvio Double
+    montoImpuesto Double,
+    montoTotal Double,
+    fechaDonacion ZonedDateTime,
+    fechaEntrega ZonedDateTime,
+    fechaPosibleEntrega ZonedDateTime,
+    fechaInicialEnvio ZonedDateTime,
+    diasRetraso Double,
+    estado String minlength(1) maxlength(50)
+}
+ 
+entity Rastreador {
+    descripcion String minlength(1) maxlength(300),
+    latitud String minlength(1) maxlength(50),
+    longitud String minlength(1) maxlength(50),
+    fecha ZonedDateTime,
+    estado String minlength(1) maxlength(50)
+}
+
+entity Documentos {
+    nombre String minlength(1) maxlength(100),
+    descripcion String minlength(1) maxlength(300),
+    url String minlength(1) maxlength(300),
+    estado String minlength(1) maxlength(50)
+}
+
+entity Votos {
+    votos Integer,
+    estado String minlength(1) maxlength(50),
+    fecha ZonedDateTime
+}
+
+entity Comentarios {
+    comentario String minlength(1) maxlength(1000),
+    estado String minlength(1) maxlength(50),
+    fecha ZonedDateTime
+}
+
+entity Mensajes { 
+    mensaje String minlength(1) maxlength(2000),
+    fecha ZonedDateTime,
+    tipoRemitente String minlength(1) maxlength(50),
+    tipoReceptor String minlength(1) maxlength(50)
+    estado String minlength(1) maxlength(50)
+    
+}
+
+entity Facturas {
+    monto Double,
+    descripcion String minlength(1) maxlength(300),
+    fecha ZonedDateTime,
+    impuesto Double,
+    adicional Double,
+    nombreReceptor String minlength(1) maxlength(100),
+    apellidoReceptor String minlength(1) maxlength(100),
+    correoReceptor String minlength(1) maxlength(300),
+    nombreStartup String minlength(1) maxlength(100),
+    correoStartup String minlength(1) maxlength(300),
+    estado String minlength(1) maxlength(50)
+}
+
+entity Reuniones {
+    url String minlength(1) maxlength(500),
+    descripcion String minlength(1) maxlength(300),
+    fechaSolicitada ZonedDateTime,
+    fechaReunion ZonedDateTime,
+    horaReunion ZonedDateTime,
+    estado String minlength(1) maxlength(50)
+}
+ 
+
+relationship OneToOne { 
+	//Inscripciones
+    Inscripciones{idStartup(correoElectronico)} to Startups
+    //Monederos
+	Usuarios{idMonedero} to Monederos
+    Startups{idMonedero} to Monederos
+    //Facturas
+    Facturas{idDonacionPaquete} to DonacionesPaquetes
+
+}
+
+relationship OneToMany {
+	//Planes de inversión
+    Startups to PlanesInversion{idStartup(correoElectronico)}
+    //Votos     
+    Startups to Votos{idStartup(correoElectronico)}
+    Usuarios to Votos{idUsuario(correoElectronico)} 
+    //Comentarios
+    Startups to Comentarios{idStartup(correoElectronico)}
+    Usuarios to Comentarios{idUsuario(correoElectronico)}
+    //Mensajes
+    Startups to Mensajes{idStartup(correoElectronico)}
+    //Startups to Mensajes{idStartupRemitente(correoElectronico)}
+    Usuarios to Mensajes{idUsuario(correoElectronico)}
+    //Usuarios to Mensajes{idUsuarioRemitente(correoElectronico)}
+    //Codigos
+    Startups to Codigos{idStartup(correoElectronico)}
+    Usuarios to Codigos{idUsuario(correoElectronico)}
+    //Facturas
+    Startups to Facturas{idStartup(correoElectronico)}
+    Usuarios to Facturas{idUsuario(correoElectronico)}
+
+    //Reuniones        
+    Startups to Reuniones{idStartup(correoElectronico)}
+    Usuarios to Reuniones{idUsuario(correoElectronico)}
+    //Documentos        
+    Startups to Documentos{idStartup(correoElectronico)}
+    Usuarios to Documentos{idUsuario(correoElectronico)}
+    Paquetes to Documentos{idPaquete}
+    //Movimientos
+    Monederos to Movimientos{idMonedero}
+    //Paquetes
+    Startups to Paquetes{idStartup(correoElectronico)}
+    //DonacionesPaquetes
+    Startups to DonacionesPaquetes{idStartup(correoElectronico)}
+    Usuarios to DonacionesPaquetes{idUsuario(correoElectronico)}
+    Paquetes to DonacionesPaquetes{idPaquete}
+    //Rastreador
+    DonacionesPaquetes to Rastreador{idDonacionPaquete}
+    //Notificaciones
+    Startups to Notificaciones{idStartup(correoElectronico)}
+    //Startups to Notificaciones{idStartupRemitente(correoElectronico)}
+    Usuarios to Notificaciones{idUsuario(correoElectronico)}
+    //Usuarios to Notificaciones{idUsuarioRemitente(correoElectronico)}
+    //Startups
+ 	Categorias to Startups{idCategoria} 
+    //Usuarios
+    RolesUsuarios to Usuarios{idRol}
+    
+}
+

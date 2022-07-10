@@ -1,0 +1,92 @@
+<div>
+  <h2 id="page-heading" data-cy="PaquetesHeading">
+    <span jhiTranslate="projectApp.paquetes.home.title">Paquetes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.paquetes.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-paquetes"
+        [routerLink]="['/paquetes/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.paquetes.home.createLabel"> Create a new Paquetes </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="paquetes?.length === 0">
+    <span jhiTranslate="projectApp.paquetes.home.notFound">No paquetes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="paquetes && paquetes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.paquetes.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.paquetes.monto">Monto</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.paquetes.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.paquetes.dimensiones">Dimensiones</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.paquetes.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.paquetes.idStartup">Id Startup</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let paquetes of paquetes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/paquetes', paquetes.id, 'view']">{{ paquetes.id }}</a>
+          </td>
+          <td>{{ paquetes.nombre }}</td>
+          <td>{{ paquetes.monto }}</td>
+          <td>{{ paquetes.descripcion }}</td>
+          <td>{{ paquetes.dimensiones }}</td>
+          <td>{{ paquetes.estado }}</td>
+          <td>
+            <div *ngIf="paquetes.idStartup">
+              <a [routerLink]="['/startups', paquetes.idStartup?.id, 'view']">{{ paquetes.idStartup?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/paquetes', paquetes.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/paquetes', paquetes.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(paquetes)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

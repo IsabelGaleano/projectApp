@@ -1,0 +1,216 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195342",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "startups",
+  "fields": [
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "nombreLargo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "200",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "correoElectronico",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "contrasennia",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "latitudDireccion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "longitudDireccion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "descripcionCorta",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "200",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "beneficios",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "4000",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "riesgos",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "4000",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "panoramaMercado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "4000",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "montoMeta",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tipoMeta",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "linkSitioWeb",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "imagenURL",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Startups",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "monederos",
+      "otherEntityRelationshipName": "startups",
+      "ownerSide": true,
+      "relationshipName": "idMonedero",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "planesInversion",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "planesInversion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "votos",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "votos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comentarios",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "comentarios",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "mensajes",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "mensajes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "codigos",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "codigos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "facturas",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "facturas",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "reuniones",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "reuniones",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "documentos",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "documentos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "paquetes",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "paquetes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "donacionesPaquetes",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "donacionesPaquetes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "notificaciones",
+      "otherEntityRelationshipName": "idStartup",
+      "relationshipName": "notificaciones",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "categorias",
+      "otherEntityRelationshipName": "startups",
+      "relationshipName": "idCategoria",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

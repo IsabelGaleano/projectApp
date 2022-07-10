@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="mensajes">
+      <h2 data-cy="mensajesDetailsHeading"><span jhiTranslate="projectApp.mensajes.detail.title">Mensajes</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ mensajes.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.mensajes.mensaje">Mensaje</span></dt>
+        <dd>
+          <span>{{ mensajes.mensaje }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.mensajes.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ mensajes.fecha | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.mensajes.tipoRemitente">Tipo Remitente</span></dt>
+        <dd>
+          <span>{{ mensajes.tipoRemitente }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.mensajes.tipoReceptor">Tipo Receptor</span></dt>
+        <dd>
+          <span>{{ mensajes.tipoReceptor }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.mensajes.estado">Estado</span></dt>
+        <dd>
+          <span>{{ mensajes.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.mensajes.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="mensajes.idStartup">
+            <a [routerLink]="['/startups', mensajes.idStartup?.id, 'view']">{{ mensajes.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.mensajes.idUsuario">Id Usuario</span></dt>
+        <dd>
+          <div *ngIf="mensajes.idUsuario">
+            <a [routerLink]="['/usuarios', mensajes.idUsuario?.id, 'view']">{{ mensajes.idUsuario?.correoElectronico }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/mensajes', mensajes.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

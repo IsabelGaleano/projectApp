@@ -1,0 +1,31 @@
+{
+  "projectApp": {
+    "reuniones": {
+      "home": {
+        "title": "Reuniones",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Reuniones",
+        "createOrEditLabel": "Create or edit a Reuniones",
+        "notFound": "No Reuniones found"
+      },
+      "created": "A new Reuniones is created with identifier {{ param }}",
+      "updated": "A Reuniones is updated with identifier {{ param }}",
+      "deleted": "A Reuniones is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Reuniones {{ id }}?"
+      },
+      "detail": {
+        "title": "Reuniones"
+      },
+      "id": "ID",
+      "url": "Url",
+      "descripcion": "Descripcion",
+      "fechaSolicitada": "Fecha Solicitada",
+      "fechaReunion": "Fecha Reunion",
+      "horaReunion": "Hora Reunion",
+      "estado": "Estado",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario"
+    }
+  }
+}
