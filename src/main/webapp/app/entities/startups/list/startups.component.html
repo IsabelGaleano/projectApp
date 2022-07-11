@@ -1,0 +1,124 @@
+<div>
+  <h2 id="page-heading" data-cy="StartupsHeading">
+    <span jhiTranslate="projectApp.startups.home.title">Startups</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.startups.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-startups"
+        [routerLink]="['/startups/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.startups.home.createLabel"> Create a new Startups </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="startups?.length === 0">
+    <span jhiTranslate="projectApp.startups.home.notFound">No startups found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="startups && startups.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.nombreCorto">Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.nombreLargo">Nombre Largo</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.correoElectronico">Correo Electronico</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.telefono">Telefono</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.contrasennia">Contrasennia</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.latitudDireccion">Latitud Direccion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.longitudDireccion">Longitud Direccion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.descripcionCorta">Descripcion Corta</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.beneficios">Beneficios</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.riesgos">Riesgos</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.panoramaMercado">Panorama Mercado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.montoMeta">Monto Meta</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.tipoMeta">Tipo Meta</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.linkSitioWeb">Link Sitio Web</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.imagenURL">Imagen URL</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.fechaCreacion">Fecha Creacion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.idMonedero">Id Monedero</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.startups.idCategoria">Id Categoria</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let startups of startups; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/startups', startups.id, 'view']">{{ startups.id }}</a>
+          </td>
+          <td>{{ startups.nombreCorto }}</td>
+          <td>{{ startups.nombreLargo }}</td>
+          <td>{{ startups.correoElectronico }}</td>
+          <td>{{ startups.telefono }}</td>
+          <td>{{ startups.contrasennia }}</td>
+          <td>{{ startups.latitudDireccion }}</td>
+          <td>{{ startups.longitudDireccion }}</td>
+          <td>{{ startups.descripcion }}</td>
+          <td>{{ startups.descripcionCorta }}</td>
+          <td>{{ startups.beneficios }}</td>
+          <td>{{ startups.riesgos }}</td>
+          <td>{{ startups.panoramaMercado }}</td>
+          <td>{{ startups.montoMeta }}</td>
+          <td>{{ startups.tipoMeta }}</td>
+          <td>{{ startups.linkSitioWeb }}</td>
+          <td>{{ startups.imagenURL }}</td>
+          <td>{{ startups.fechaCreacion | formatMediumDatetime }}</td>
+          <td>{{ startups.estado }}</td>
+          <td>
+            <div *ngIf="startups.idMonedero">
+              <a [routerLink]="['/monederos', startups.idMonedero?.id, 'view']">{{ startups.idMonedero?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="startups.idCategoria">
+              <a [routerLink]="['/categorias', startups.idCategoria?.id, 'view']">{{ startups.idCategoria?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/startups', startups.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/startups', startups.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(startups)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

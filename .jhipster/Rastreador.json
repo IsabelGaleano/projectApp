@@ -1,0 +1,55 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195353",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "rastreador",
+  "fields": [
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "latitud",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "longitud",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Rastreador",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "donacionesPaquetes",
+      "otherEntityRelationshipName": "rastreador",
+      "relationshipName": "idDonacionPaquete",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

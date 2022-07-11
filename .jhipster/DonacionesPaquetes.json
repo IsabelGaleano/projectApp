@@ -1,0 +1,89 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195352",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "donaciones_paquetes",
+  "fields": [
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "montoEnvio",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "montoImpuesto",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "montoTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "fechaDonacion",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fechaEntrega",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fechaPosibleEntrega",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fechaInicialEnvio",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "diasRetraso",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "DonacionesPaquetes",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "rastreador",
+      "otherEntityRelationshipName": "idDonacionPaquete",
+      "relationshipName": "rastreador",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "startups",
+      "otherEntityRelationshipName": "donacionesPaquetes",
+      "relationshipName": "idStartup",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "usuarios",
+      "otherEntityRelationshipName": "donacionesPaquetes",
+      "relationshipName": "idUsuario",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "paquetes",
+      "otherEntityRelationshipName": "donacionesPaquetes",
+      "relationshipName": "idPaquete",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

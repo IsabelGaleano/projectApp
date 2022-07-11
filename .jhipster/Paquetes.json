@@ -1,0 +1,68 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195351",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "paquetes",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "200",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "monto",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "dimensiones",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Paquetes",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "documentos",
+      "otherEntityRelationshipName": "idPaquete",
+      "relationshipName": "documentos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "donacionesPaquetes",
+      "otherEntityRelationshipName": "idPaquete",
+      "relationshipName": "donacionesPaquetes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "startups",
+      "otherEntityRelationshipName": "paquetes",
+      "relationshipName": "idStartup",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

@@ -1,0 +1,26 @@
+{
+  "projectApp": {
+    "categorias": {
+      "home": {
+        "title": "Categorias",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Categorias",
+        "createOrEditLabel": "Crear o editar Categorias",
+        "notFound": "Ningún Categorias encontrado"
+      },
+      "created": "Un nuevo Categorias ha sido creado con el identificador {{ param }}",
+      "updated": "Un Categorias ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Categorias ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Categorias {{ id }}?"
+      },
+      "detail": {
+        "title": "Categorias"
+      },
+      "id": "ID",
+      "categoria": "Categoria",
+      "estado": "Estado",
+      "startups": "Startups"
+    }
+  }
+}
