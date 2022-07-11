@@ -1,0 +1,30 @@
+{
+  "projectApp": {
+    "planesInversion": {
+      "home": {
+        "title": "Planes Inversions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Planes Inversion",
+        "createOrEditLabel": "Create or edit a Planes Inversion",
+        "notFound": "No Planes Inversions found"
+      },
+      "created": "A new Planes Inversion is created with identifier {{ param }}",
+      "updated": "A Planes Inversion is updated with identifier {{ param }}",
+      "deleted": "A Planes Inversion is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Planes Inversion {{ id }}?"
+      },
+      "detail": {
+        "title": "Planes Inversion"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "monto": "Monto",
+      "descripcion": "Descripcion",
+      "beneficios": "Beneficios",
+      "porcentajeEmpresarial": "Porcentaje Empresarial",
+      "estado": "Estado",
+      "idStartup": "Id Startup"
+    }
+  }
+}

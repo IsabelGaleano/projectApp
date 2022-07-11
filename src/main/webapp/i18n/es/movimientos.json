@@ -1,0 +1,29 @@
+{
+  "projectApp": {
+    "movimientos": {
+      "home": {
+        "title": "Movimientos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Movimientos",
+        "createOrEditLabel": "Crear o editar Movimientos",
+        "notFound": "Ningún Movimientos encontrado"
+      },
+      "created": "Un nuevo Movimientos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Movimientos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Movimientos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Movimientos {{ id }}?"
+      },
+      "detail": {
+        "title": "Movimientos"
+      },
+      "id": "ID",
+      "fecha": "Fecha",
+      "monto": "Monto",
+      "tipo": "Tipo",
+      "descripcion": "Descripcion",
+      "estado": "Estado",
+      "idMonedero": "Id Monedero"
+    }
+  }
+}

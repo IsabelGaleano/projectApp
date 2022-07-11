@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="votos">
+      <h2 data-cy="votosDetailsHeading"><span jhiTranslate="projectApp.votos.detail.title">Votos</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ votos.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.votos.votos">Votos</span></dt>
+        <dd>
+          <span>{{ votos.votos }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.votos.estado">Estado</span></dt>
+        <dd>
+          <span>{{ votos.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.votos.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ votos.fecha | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.votos.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="votos.idStartup">
+            <a [routerLink]="['/startups', votos.idStartup?.id, 'view']">{{ votos.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.votos.idUsuario">Id Usuario</span></dt>
+        <dd>
+          <div *ngIf="votos.idUsuario">
+            <a [routerLink]="['/usuarios', votos.idUsuario?.id, 'view']">{{ votos.idUsuario?.correoElectronico }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/votos', votos.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

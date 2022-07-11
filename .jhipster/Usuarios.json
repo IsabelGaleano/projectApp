@@ -1,0 +1,176 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195341",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "usuarios",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "cedula",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "primerApellido",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "segundoApellido",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "correoElectronico",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "genero",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "latitudDireccion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "longitudDireccion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "imagenURL",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "tipoUsuarioFinal",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "contrasennia",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Usuarios",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "monederos",
+      "otherEntityRelationshipName": "usuarios",
+      "ownerSide": true,
+      "relationshipName": "idMonedero",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "votos",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "votos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comentarios",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "comentarios",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "mensajes",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "mensajes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "codigos",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "codigos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "facturas",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "facturas",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "reuniones",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "reuniones",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "documentos",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "documentos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "donacionesPaquetes",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "donacionesPaquetes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "notificaciones",
+      "otherEntityRelationshipName": "idUsuario",
+      "relationshipName": "notificaciones",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "rolesUsuarios",
+      "otherEntityRelationshipName": "usuarios",
+      "relationshipName": "idRol",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

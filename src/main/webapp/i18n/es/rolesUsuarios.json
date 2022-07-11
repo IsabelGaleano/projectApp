@@ -1,0 +1,25 @@
+{
+  "projectApp": {
+    "rolesUsuarios": {
+      "home": {
+        "title": "Roles Usuarios",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Roles Usuarios",
+        "createOrEditLabel": "Crear o editar Roles Usuarios",
+        "notFound": "Ningún Roles Usuarios encontrado"
+      },
+      "created": "Un nuevo Roles Usuarios ha sido creado con el identificador {{ param }}",
+      "updated": "Un Roles Usuarios ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Roles Usuarios ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Roles Usuarios {{ id }}?"
+      },
+      "detail": {
+        "title": "Roles Usuarios"
+      },
+      "id": "ID",
+      "rol": "Rol",
+      "usuarios": "Usuarios"
+    }
+  }
+}

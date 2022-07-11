@@ -1,0 +1,27 @@
+{
+  "projectApp": {
+    "codigos": {
+      "home": {
+        "title": "Codigos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Codigos",
+        "createOrEditLabel": "Crear o editar Codigos",
+        "notFound": "Ningún Codigos encontrado"
+      },
+      "created": "Un nuevo Codigos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Codigos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Codigos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Codigos {{ id }}?"
+      },
+      "detail": {
+        "title": "Codigos"
+      },
+      "id": "ID",
+      "codigo": "Codigo",
+      "estado": "Estado",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario"
+    }
+  }
+}
