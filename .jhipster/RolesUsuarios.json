@@ -1,0 +1,30 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195343",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "roles_usuarios",
+  "fields": [
+    {
+      "fieldName": "rol",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "RolesUsuarios",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "usuarios",
+      "otherEntityRelationshipName": "idRol",
+      "relationshipName": "usuarios",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

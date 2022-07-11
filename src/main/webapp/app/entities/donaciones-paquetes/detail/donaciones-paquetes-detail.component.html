@@ -1,0 +1,92 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="donacionesPaquetes">
+      <h2 data-cy="donacionesPaquetesDetailsHeading">
+        <span jhiTranslate="projectApp.donacionesPaquetes.detail.title">Donaciones Paquetes</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.montoEnvio">Monto Envio</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.montoEnvio }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.montoImpuesto">Monto Impuesto</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.montoImpuesto }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.montoTotal">Monto Total</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.montoTotal }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.fechaDonacion">Fecha Donacion</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.fechaDonacion | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.fechaEntrega">Fecha Entrega</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.fechaEntrega | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.fechaPosibleEntrega">Fecha Posible Entrega</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.fechaPosibleEntrega | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.fechaInicialEnvio">Fecha Inicial Envio</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.fechaInicialEnvio | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.diasRetraso">Dias Retraso</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.diasRetraso }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.estado">Estado</span></dt>
+        <dd>
+          <span>{{ donacionesPaquetes.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="donacionesPaquetes.idStartup">
+            <a [routerLink]="['/startups', donacionesPaquetes.idStartup?.id, 'view']">{{
+              donacionesPaquetes.idStartup?.correoElectronico
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.idUsuario">Id Usuario</span></dt>
+        <dd>
+          <div *ngIf="donacionesPaquetes.idUsuario">
+            <a [routerLink]="['/usuarios', donacionesPaquetes.idUsuario?.id, 'view']">{{
+              donacionesPaquetes.idUsuario?.correoElectronico
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.donacionesPaquetes.idPaquete">Id Paquete</span></dt>
+        <dd>
+          <div *ngIf="donacionesPaquetes.idPaquete">
+            <a [routerLink]="['/paquetes', donacionesPaquetes.idPaquete?.id, 'view']">{{ donacionesPaquetes.idPaquete?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/donaciones-paquetes', donacionesPaquetes.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

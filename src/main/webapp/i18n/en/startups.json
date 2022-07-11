@@ -1,0 +1,54 @@
+{
+  "projectApp": {
+    "startups": {
+      "home": {
+        "title": "Startups",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Startups",
+        "createOrEditLabel": "Create or edit a Startups",
+        "notFound": "No Startups found"
+      },
+      "created": "A new Startups is created with identifier {{ param }}",
+      "updated": "A Startups is updated with identifier {{ param }}",
+      "deleted": "A Startups is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Startups {{ id }}?"
+      },
+      "detail": {
+        "title": "Startups"
+      },
+      "id": "ID",
+      "nombreCorto": "Nombre Corto",
+      "nombreLargo": "Nombre Largo",
+      "correoElectronico": "Correo Electronico",
+      "telefono": "Telefono",
+      "contrasennia": "Contrasennia",
+      "latitudDireccion": "Latitud Direccion",
+      "longitudDireccion": "Longitud Direccion",
+      "descripcion": "Descripcion",
+      "descripcionCorta": "Descripcion Corta",
+      "beneficios": "Beneficios",
+      "riesgos": "Riesgos",
+      "panoramaMercado": "Panorama Mercado",
+      "montoMeta": "Monto Meta",
+      "tipoMeta": "Tipo Meta",
+      "linkSitioWeb": "Link Sitio Web",
+      "imagenURL": "Imagen URL",
+      "fechaCreacion": "Fecha Creacion",
+      "estado": "Estado",
+      "idMonedero": "Id Monedero",
+      "planesInversion": "Planes Inversion",
+      "votos": "Votos",
+      "comentarios": "Comentarios",
+      "mensajes": "Mensajes",
+      "codigos": "Codigos",
+      "facturas": "Facturas",
+      "reuniones": "Reuniones",
+      "documentos": "Documentos",
+      "paquetes": "Paquetes",
+      "donacionesPaquetes": "Donaciones Paquetes",
+      "notificaciones": "Notificaciones",
+      "idCategoria": "Id Categoria"
+    }
+  }
+}

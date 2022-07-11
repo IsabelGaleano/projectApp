@@ -1,0 +1,571 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-startups-heading" data-cy="StartupsCreateUpdateHeading" jhiTranslate="projectApp.startups.home.createOrEditLabel">
+        Create or edit a Startups
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.nombreCorto" for="field_nombreCorto">Nombre Corto</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombreCorto"
+            id="field_nombreCorto"
+            data-cy="nombreCorto"
+            formControlName="nombreCorto"
+          />
+          <div *ngIf="editForm.get('nombreCorto')!.invalid && (editForm.get('nombreCorto')!.dirty || editForm.get('nombreCorto')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.nombreLargo" for="field_nombreLargo">Nombre Largo</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombreLargo"
+            id="field_nombreLargo"
+            data-cy="nombreLargo"
+            formControlName="nombreLargo"
+          />
+          <div *ngIf="editForm.get('nombreLargo')!.invalid && (editForm.get('nombreLargo')!.dirty || editForm.get('nombreLargo')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreLargo')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreLargo')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 200 }"
+            >
+              This field cannot be longer than 200 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.correoElectronico" for="field_correoElectronico"
+            >Correo Electronico</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="correoElectronico"
+            id="field_correoElectronico"
+            data-cy="correoElectronico"
+            formControlName="correoElectronico"
+          />
+          <div
+            *ngIf="
+              editForm.get('correoElectronico')!.invalid &&
+              (editForm.get('correoElectronico')!.dirty || editForm.get('correoElectronico')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('correoElectronico')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('correoElectronico')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('correoElectronico')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 300 }"
+            >
+              This field cannot be longer than 300 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.telefono" for="field_telefono">Telefono</label>
+          <input type="text" class="form-control" name="telefono" id="field_telefono" data-cy="telefono" formControlName="telefono" />
+          <div *ngIf="editForm.get('telefono')!.invalid && (editForm.get('telefono')!.dirty || editForm.get('telefono')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefono')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefono')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.contrasennia" for="field_contrasennia">Contrasennia</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contrasennia"
+            id="field_contrasennia"
+            data-cy="contrasennia"
+            formControlName="contrasennia"
+          />
+          <div
+            *ngIf="editForm.get('contrasennia')!.invalid && (editForm.get('contrasennia')!.dirty || editForm.get('contrasennia')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('contrasennia')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('contrasennia')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.latitudDireccion" for="field_latitudDireccion"
+            >Latitud Direccion</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="latitudDireccion"
+            id="field_latitudDireccion"
+            data-cy="latitudDireccion"
+            formControlName="latitudDireccion"
+          />
+          <div
+            *ngIf="
+              editForm.get('latitudDireccion')!.invalid &&
+              (editForm.get('latitudDireccion')!.dirty || editForm.get('latitudDireccion')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('latitudDireccion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('latitudDireccion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.longitudDireccion" for="field_longitudDireccion"
+            >Longitud Direccion</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="longitudDireccion"
+            id="field_longitudDireccion"
+            data-cy="longitudDireccion"
+            formControlName="longitudDireccion"
+          />
+          <div
+            *ngIf="
+              editForm.get('longitudDireccion')!.invalid &&
+              (editForm.get('longitudDireccion')!.dirty || editForm.get('longitudDireccion')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('longitudDireccion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('longitudDireccion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.descripcion" for="field_descripcion">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
+          <div *ngIf="editForm.get('descripcion')!.invalid && (editForm.get('descripcion')!.dirty || editForm.get('descripcion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 300 }"
+            >
+              This field cannot be longer than 300 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.descripcionCorta" for="field_descripcionCorta"
+            >Descripcion Corta</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="descripcionCorta"
+            id="field_descripcionCorta"
+            data-cy="descripcionCorta"
+            formControlName="descripcionCorta"
+          />
+          <div
+            *ngIf="
+              editForm.get('descripcionCorta')!.invalid &&
+              (editForm.get('descripcionCorta')!.dirty || editForm.get('descripcionCorta')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcionCorta')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcionCorta')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 200 }"
+            >
+              This field cannot be longer than 200 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.beneficios" for="field_beneficios">Beneficios</label>
+          <input
+            type="text"
+            class="form-control"
+            name="beneficios"
+            id="field_beneficios"
+            data-cy="beneficios"
+            formControlName="beneficios"
+          />
+          <div *ngIf="editForm.get('beneficios')!.invalid && (editForm.get('beneficios')!.dirty || editForm.get('beneficios')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('beneficios')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('beneficios')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 4000 }"
+            >
+              This field cannot be longer than 4000 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.riesgos" for="field_riesgos">Riesgos</label>
+          <input type="text" class="form-control" name="riesgos" id="field_riesgos" data-cy="riesgos" formControlName="riesgos" />
+          <div *ngIf="editForm.get('riesgos')!.invalid && (editForm.get('riesgos')!.dirty || editForm.get('riesgos')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('riesgos')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('riesgos')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 4000 }"
+            >
+              This field cannot be longer than 4000 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.panoramaMercado" for="field_panoramaMercado">Panorama Mercado</label>
+          <input
+            type="text"
+            class="form-control"
+            name="panoramaMercado"
+            id="field_panoramaMercado"
+            data-cy="panoramaMercado"
+            formControlName="panoramaMercado"
+          />
+          <div
+            *ngIf="
+              editForm.get('panoramaMercado')!.invalid &&
+              (editForm.get('panoramaMercado')!.dirty || editForm.get('panoramaMercado')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('panoramaMercado')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('panoramaMercado')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 4000 }"
+            >
+              This field cannot be longer than 4000 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.montoMeta" for="field_montoMeta">Monto Meta</label>
+          <input type="number" class="form-control" name="montoMeta" id="field_montoMeta" data-cy="montoMeta" formControlName="montoMeta" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.tipoMeta" for="field_tipoMeta">Tipo Meta</label>
+          <input type="text" class="form-control" name="tipoMeta" id="field_tipoMeta" data-cy="tipoMeta" formControlName="tipoMeta" />
+          <div *ngIf="editForm.get('tipoMeta')!.invalid && (editForm.get('tipoMeta')!.dirty || editForm.get('tipoMeta')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoMeta')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoMeta')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.linkSitioWeb" for="field_linkSitioWeb">Link Sitio Web</label>
+          <input
+            type="text"
+            class="form-control"
+            name="linkSitioWeb"
+            id="field_linkSitioWeb"
+            data-cy="linkSitioWeb"
+            formControlName="linkSitioWeb"
+          />
+          <div
+            *ngIf="editForm.get('linkSitioWeb')!.invalid && (editForm.get('linkSitioWeb')!.dirty || editForm.get('linkSitioWeb')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('linkSitioWeb')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('linkSitioWeb')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 300 }"
+            >
+              This field cannot be longer than 300 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.imagenURL" for="field_imagenURL">Imagen URL</label>
+          <input type="text" class="form-control" name="imagenURL" id="field_imagenURL" data-cy="imagenURL" formControlName="imagenURL" />
+          <div *ngIf="editForm.get('imagenURL')!.invalid && (editForm.get('imagenURL')!.dirty || editForm.get('imagenURL')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('imagenURL')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('imagenURL')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 300 }"
+            >
+              This field cannot be longer than 300 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.fechaCreacion" for="field_fechaCreacion">Fecha Creacion</label>
+          <div class="d-flex">
+            <input
+              id="field_fechaCreacion"
+              data-cy="fechaCreacion"
+              type="datetime-local"
+              class="form-control"
+              name="fechaCreacion"
+              formControlName="fechaCreacion"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.estado" for="field_estado">Estado</label>
+          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+          <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estado')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estado')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.idMonedero" for="field_idMonedero">Id Monedero</label>
+          <select class="form-control" id="field_idMonedero" data-cy="idMonedero" name="idMonedero" formControlName="idMonedero">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="monederosOption.id === editForm.get('idMonedero')!.value?.id ? editForm.get('idMonedero')!.value : monederosOption"
+              *ngFor="let monederosOption of idMonederosCollection; trackBy: trackMonederosById"
+            >
+              {{ monederosOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.startups.idCategoria" for="field_idCategoria">Id Categoria</label>
+          <select class="form-control" id="field_idCategoria" data-cy="idCategoria" name="idCategoria" formControlName="idCategoria">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                categoriasOption.id === editForm.get('idCategoria')!.value?.id ? editForm.get('idCategoria')!.value : categoriasOption
+              "
+              *ngFor="let categoriasOption of categoriasSharedCollection; trackBy: trackCategoriasById"
+            >
+              {{ categoriasOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

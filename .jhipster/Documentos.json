@@ -1,0 +1,65 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195354",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "documentos",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Documentos",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "startups",
+      "otherEntityRelationshipName": "documentos",
+      "relationshipName": "idStartup",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "usuarios",
+      "otherEntityRelationshipName": "documentos",
+      "relationshipName": "idUsuario",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "paquetes",
+      "otherEntityRelationshipName": "documentos",
+      "relationshipName": "idPaquete",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

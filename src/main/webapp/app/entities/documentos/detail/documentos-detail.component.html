@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="documentos">
+      <h2 data-cy="documentosDetailsHeading"><span jhiTranslate="projectApp.documentos.detail.title">Documentos</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ documentos.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.documentos.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ documentos.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.documentos.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ documentos.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.documentos.url">Url</span></dt>
+        <dd>
+          <span>{{ documentos.url }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.documentos.estado">Estado</span></dt>
+        <dd>
+          <span>{{ documentos.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.documentos.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="documentos.idStartup">
+            <a [routerLink]="['/startups', documentos.idStartup?.id, 'view']">{{ documentos.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.documentos.idUsuario">Id Usuario</span></dt>
+        <dd>
+          <div *ngIf="documentos.idUsuario">
+            <a [routerLink]="['/usuarios', documentos.idUsuario?.id, 'view']">{{ documentos.idUsuario?.correoElectronico }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.documentos.idPaquete">Id Paquete</span></dt>
+        <dd>
+          <div *ngIf="documentos.idPaquete">
+            <a [routerLink]="['/paquetes', documentos.idPaquete?.id, 'view']">{{ documentos.idPaquete?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/documentos', documentos.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

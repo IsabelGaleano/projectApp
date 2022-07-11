@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="reuniones">
+      <h2 data-cy="reunionesDetailsHeading"><span jhiTranslate="projectApp.reuniones.detail.title">Reuniones</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ reuniones.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.url">Url</span></dt>
+        <dd>
+          <span>{{ reuniones.url }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ reuniones.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.fechaSolicitada">Fecha Solicitada</span></dt>
+        <dd>
+          <span>{{ reuniones.fechaSolicitada | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.fechaReunion">Fecha Reunion</span></dt>
+        <dd>
+          <span>{{ reuniones.fechaReunion | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.horaReunion">Hora Reunion</span></dt>
+        <dd>
+          <span>{{ reuniones.horaReunion | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.estado">Estado</span></dt>
+        <dd>
+          <span>{{ reuniones.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="reuniones.idStartup">
+            <a [routerLink]="['/startups', reuniones.idStartup?.id, 'view']">{{ reuniones.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.reuniones.idUsuario">Id Usuario</span></dt>
+        <dd>
+          <div *ngIf="reuniones.idUsuario">
+            <a [routerLink]="['/usuarios', reuniones.idUsuario?.id, 'view']">{{ reuniones.idUsuario?.correoElectronico }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/reuniones', reuniones.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

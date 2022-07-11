@@ -1,0 +1,31 @@
+{
+  "projectApp": {
+    "paquetes": {
+      "home": {
+        "title": "Paquetes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Paquetes",
+        "createOrEditLabel": "Crear o editar Paquetes",
+        "notFound": "Ningún Paquetes encontrado"
+      },
+      "created": "Un nuevo Paquetes ha sido creado con el identificador {{ param }}",
+      "updated": "Un Paquetes ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Paquetes ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Paquetes {{ id }}?"
+      },
+      "detail": {
+        "title": "Paquetes"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "monto": "Monto",
+      "descripcion": "Descripcion",
+      "dimensiones": "Dimensiones",
+      "estado": "Estado",
+      "documentos": "Documentos",
+      "donacionesPaquetes": "Donaciones Paquetes",
+      "idStartup": "Id Startup"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+<div>
+  <h2 id="page-heading" data-cy="DonacionesPaquetesHeading">
+    <span jhiTranslate="projectApp.donacionesPaquetes.home.title">Donaciones Paquetes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.donacionesPaquetes.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-donaciones-paquetes"
+        [routerLink]="['/donaciones-paquetes/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.donacionesPaquetes.home.createLabel"> Create a new Donaciones Paquetes </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="donacionesPaquetes?.length === 0">
+    <span jhiTranslate="projectApp.donacionesPaquetes.home.notFound">No donacionesPaquetes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="donacionesPaquetes && donacionesPaquetes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.montoEnvio">Monto Envio</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.montoImpuesto">Monto Impuesto</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.montoTotal">Monto Total</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.fechaDonacion">Fecha Donacion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.fechaEntrega">Fecha Entrega</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.fechaPosibleEntrega">Fecha Posible Entrega</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.fechaInicialEnvio">Fecha Inicial Envio</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.diasRetraso">Dias Retraso</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.idStartup">Id Startup</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.idUsuario">Id Usuario</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.donacionesPaquetes.idPaquete">Id Paquete</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donacionesPaquetes of donacionesPaquetes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/donaciones-paquetes', donacionesPaquetes.id, 'view']">{{ donacionesPaquetes.id }}</a>
+          </td>
+          <td>{{ donacionesPaquetes.descripcion }}</td>
+          <td>{{ donacionesPaquetes.montoEnvio }}</td>
+          <td>{{ donacionesPaquetes.montoImpuesto }}</td>
+          <td>{{ donacionesPaquetes.montoTotal }}</td>
+          <td>{{ donacionesPaquetes.fechaDonacion | formatMediumDatetime }}</td>
+          <td>{{ donacionesPaquetes.fechaEntrega | formatMediumDatetime }}</td>
+          <td>{{ donacionesPaquetes.fechaPosibleEntrega | formatMediumDatetime }}</td>
+          <td>{{ donacionesPaquetes.fechaInicialEnvio | formatMediumDatetime }}</td>
+          <td>{{ donacionesPaquetes.diasRetraso }}</td>
+          <td>{{ donacionesPaquetes.estado }}</td>
+          <td>
+            <div *ngIf="donacionesPaquetes.idStartup">
+              <a [routerLink]="['/startups', donacionesPaquetes.idStartup?.id, 'view']">{{
+                donacionesPaquetes.idStartup?.correoElectronico
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="donacionesPaquetes.idUsuario">
+              <a [routerLink]="['/usuarios', donacionesPaquetes.idUsuario?.id, 'view']">{{
+                donacionesPaquetes.idUsuario?.correoElectronico
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="donacionesPaquetes.idPaquete">
+              <a [routerLink]="['/paquetes', donacionesPaquetes.idPaquete?.id, 'view']">{{ donacionesPaquetes.idPaquete?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/donaciones-paquetes', donacionesPaquetes.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/donaciones-paquetes', donacionesPaquetes.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(donacionesPaquetes)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

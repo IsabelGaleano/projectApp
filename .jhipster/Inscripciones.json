@@ -1,0 +1,76 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195347",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inscripciones",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "200",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "monto",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fechaInicial",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fechaFinal",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "beneficios",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "4000",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "numInscripcion",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Inscripciones",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "startups",
+      "otherEntityRelationshipName": "inscripciones",
+      "ownerSide": true,
+      "relationshipName": "idStartup",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

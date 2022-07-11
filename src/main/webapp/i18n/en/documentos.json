@@ -1,0 +1,30 @@
+{
+  "projectApp": {
+    "documentos": {
+      "home": {
+        "title": "Documentos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Documentos",
+        "createOrEditLabel": "Create or edit a Documentos",
+        "notFound": "No Documentos found"
+      },
+      "created": "A new Documentos is created with identifier {{ param }}",
+      "updated": "A Documentos is updated with identifier {{ param }}",
+      "deleted": "A Documentos is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Documentos {{ id }}?"
+      },
+      "detail": {
+        "title": "Documentos"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "descripcion": "Descripcion",
+      "url": "Url",
+      "estado": "Estado",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario",
+      "idPaquete": "Id Paquete"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "projectApp": {
+    "mensajes": {
+      "home": {
+        "title": "Mensajes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Mensajes",
+        "createOrEditLabel": "Create or edit a Mensajes",
+        "notFound": "No Mensajes found"
+      },
+      "created": "A new Mensajes is created with identifier {{ param }}",
+      "updated": "A Mensajes is updated with identifier {{ param }}",
+      "deleted": "A Mensajes is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Mensajes {{ id }}?"
+      },
+      "detail": {
+        "title": "Mensajes"
+      },
+      "id": "ID",
+      "mensaje": "Mensaje",
+      "fecha": "Fecha",
+      "tipoRemitente": "Tipo Remitente",
+      "tipoReceptor": "Tipo Receptor",
+      "estado": "Estado",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario"
+    }
+  }
+}
