@@ -128,51 +128,51 @@ body.light-theme.app.body-style1 {
 /***********Leftmenu Image Styles****************/
 .leftbgimage1 {
   .app-sidebar {
-    //background: url(../../../img/backgrounds/01.png) !important;
+    background: url(../../../img/backgrounds/01.png) !important;
     background-size: cover !important;
   }
   &.sidenav-toggled.sidenav-toggled-open .app-sidebar {
-    //background: url(../../../img/backgrounds/01.png) !important;
+    background: url(../../../img/backgrounds/01.png) !important;
     background-size: cover !important;
   }
 }
 .leftbgimage2 {
   .app-sidebar {
-    //background: url(../../../img/backgrounds/02.png) !important;
+    background: url(../../../img/backgrounds/02.png) !important;
     background-size: cover !important;
   }
   &.sidenav-toggled.sidenav-toggled-open .app-sidebar {
-    background: url(../../../img/backgrounds/02.png) !important;
+    //background: url(../../../img/backgrounds/02.png) !important;
     background-size: cover !important;
   }
 }
 .leftbgimage3 {
   .app-sidebar {
-    //background: url(../../../img/backgrounds/03.png) !important;
+    background: url(../../../img/backgrounds/03.png) !important;
     background-size: cover !important;
   }
   &.sidenav-toggled.sidenav-toggled-open .app-sidebar {
-    background: url(../../../img/backgrounds/03.png) !important;
+    //background: url(../../../img/backgrounds/03.png) !important;
     background-size: cover !important;
   }
 }
 .leftbgimage4 {
   .app-sidebar {
-    //background: url(../../../img/backgrounds/04.png) !important;
+    background: url(../../../img/backgrounds/04.png) !important;
     background-size: cover !important;
   }
   &.sidenav-toggled.sidenav-toggled-open .app-sidebar {
-    //background: url(../../../img/backgrounds/04.png) !important;
+    background: url(../../../img/backgrounds/04.png) !important;
     background-size: cover !important;
   }
 }
 .leftbgimage5 {
   .app-sidebar {
-    //background: url(../../../img/backgrounds/05.png) !important;
+    background: url(../../../img/backgrounds/05.png) !important;
     background-size: cover !important;
   }
   &.sidenav-toggled.sidenav-toggled-open .app-sidebar {
-    //background: url(../../../img/backgrounds/05.png) !important;
+    background: url(../../../img/backgrounds/05.png) !important;
     background-size: cover !important;
   }
 }
@@ -392,14 +392,14 @@ body.light-theme.app.body-style1 {
         background: $transparent-body !important;
       }
       &.bg-img1 {
-        //background: url(../../../img/media/bg-img1.jpg) !important;
+        background: url(../../../img/media/bg-img1.jpg) !important;
         background-blend-mode: overlay !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
         background-attachment: fixed !important;
         .page {
-          //background: url(../../../img/media/bg-img1.jpg);
+          background: url(../../../img/media/bg-img1.jpg);
           background-blend-mode: overlay;
           background-size: cover;
           background-position: center;
@@ -412,14 +412,14 @@ body.light-theme.app.body-style1 {
         }
       }
       &.bg-img2 {
-        //background: url(../../../img/media/bg-img2.jpg) !important;
+        background: url(../../../img/media/bg-img2.jpg) !important;
         background-blend-mode: overlay !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
         background-attachment: fixed !important;
         .page {
-          //background: url(../../../img/media/bg-img2.jpg);
+          background: url(../../../img/media/bg-img2.jpg);
           background-blend-mode: overlay;
           background-size: cover;
           background-position: center;
@@ -432,14 +432,14 @@ body.light-theme.app.body-style1 {
         }
       }
       &.bg-img3 {
-        //background: url(../../../img/media/bg-img3.jpg) !important;
+        background: url(../../../img/media/bg-img3.jpg) !important;
         background-blend-mode: overlay !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
         background-attachment: fixed !important;
         .page {
-          //background: url(../../../img/media/bg-img3.jpg);
+          background: url(../../../img/media/bg-img3.jpg);
           background-blend-mode: overlay;
           background-size: cover;
           background-position: center;
@@ -452,14 +452,14 @@ body.light-theme.app.body-style1 {
         }
       }
       &.bg-img4 {
-        //background: url(../../../img/media/bg-img4.jpg) !important;
+        background: url(../../../img/media/bg-img4.jpg) !important;
         background-blend-mode: overlay !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
         background-attachment: fixed !important;
         .page {
-          //background: url(../../../img/media/bg-img4.jpg);
+          background: url(../../../img/media/bg-img4.jpg);
           background-blend-mode: overlay;
           background-size: cover;
           background-position: center;
