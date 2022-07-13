@@ -52,8 +52,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
         next: () => {
           this.authenticationError = false;
           if (!this.router.getCurrentNavigation()) {
-            // There were no routing during login (eg from navigationToStoredUrl)
-            this.router.navigate(['']);
+            this.accountService.getAuthenticationState().subscribe(account => {
+              if (account) {
+                // eslint-disable-next-line no-console
+                console.log(account);
+                if (account.authorities[1]) {
+                  this.router.navigate(['admin/profile-admin']);
+                } else if (account.authorities[0]) {
+                  if (account.authorities[0] === 'ROLE_USER') {
+                    this.router.navigate(['usuario-final/perfil-usuario-final']);
+                  } else if (account.authorities[0] === 'ROLE_STARTUP') {
+                    this.router.navigate(['startup/perfil-startup']);
+                  }
+                }
+              }
+            });
           }
         },
         error: () => (this.authenticationError = true),

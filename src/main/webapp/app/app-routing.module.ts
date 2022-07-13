@@ -7,7 +7,7 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { RegistroUsuarioFinalComponent } from './components/registro-usuario-final/registro-usuario-final.component';
+import { RegistroUsuarioFinalComponent } from 'app/components/registros/registro-usuario-final/registro-usuario-final.component';
 
 @NgModule({
   imports: [
@@ -20,6 +20,22 @@ import { RegistroUsuarioFinalComponent } from './components/registro-usuario-fin
           },
           canActivate: [UserRouteAccessService],
           loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
+        },
+        {
+          path: 'usuario-final',
+          data: {
+            authorities: [Authority.USER],
+          },
+          canActivate: [UserRouteAccessService],
+          loadChildren: () => import('./usuarioFinal/usuario-final-routing.model').then(m => m.UsuarioFinalRoutingModule),
+        },
+        {
+          path: 'startup',
+          data: {
+            authorities: [Authority.STARTUP],
+          },
+          canActivate: [UserRouteAccessService],
+          loadChildren: () => import('./startup/startup-routing.model').then(m => m.StartupRoutingModule),
         },
         {
           path: 'account',
