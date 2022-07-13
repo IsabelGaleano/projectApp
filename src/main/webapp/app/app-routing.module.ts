@@ -7,7 +7,7 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { RegistroUsuarioFinalComponent } from 'app/components/registros/registro-usuario-final/registro-usuario-final.component';
+import { RegistroUsuarioFinalComponent } from 'app/registros/registro-usuario-final/registro-usuario-final.component';
 
 @NgModule({
   imports: [
