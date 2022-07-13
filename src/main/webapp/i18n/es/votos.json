@@ -1,0 +1,28 @@
+{
+  "projectApp": {
+    "votos": {
+      "home": {
+        "title": "Votos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Votos",
+        "createOrEditLabel": "Crear o editar Votos",
+        "notFound": "Ningún Votos encontrado"
+      },
+      "created": "Un nuevo Votos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Votos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Votos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Votos {{ id }}?"
+      },
+      "detail": {
+        "title": "Votos"
+      },
+      "id": "ID",
+      "votos": "Votos",
+      "estado": "Estado",
+      "fecha": "Fecha",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario"
+    }
+  }
+}

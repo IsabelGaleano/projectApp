@@ -1,0 +1,27 @@
+{
+  "projectApp": {
+    "monederos": {
+      "home": {
+        "title": "Monederos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Monederos",
+        "createOrEditLabel": "Crear o editar Monederos",
+        "notFound": "Ningún Monederos encontrado"
+      },
+      "created": "Un nuevo Monederos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Monederos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Monederos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Monederos {{ id }}?"
+      },
+      "detail": {
+        "title": "Monederos"
+      },
+      "id": "ID",
+      "tipo": "Tipo",
+      "saldo": "Saldo",
+      "estado": "Estado",
+      "movimientos": "Movimientos"
+    }
+  }
+}

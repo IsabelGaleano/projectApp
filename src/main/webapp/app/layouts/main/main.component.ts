@@ -5,6 +5,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import dayjs from 'dayjs/esm';
 
 import { AccountService } from 'app/core/auth/account.service';
+import { NavbarUsuarioComponent } from '../navbar/navbar-usuario/navbar-usuario.component';
 
 @Component({
   selector: 'jhi-main',
@@ -12,6 +13,7 @@ import { AccountService } from 'app/core/auth/account.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
+  user = false;
   private renderer: Renderer2;
 
   constructor(
@@ -38,6 +40,15 @@ export class MainComponent implements OnInit {
       this.updateTitle();
       dayjs.locale(langChangeEvent.lang);
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
+    });
+    this.accountService.getAuthenticationState().subscribe(account => {
+      if (account) {
+        // eslint-disable-next-line no-console
+        console.log(account);
+        this.user = true;
+      } else {
+        this.user = false;
+      }
     });
   }
 

@@ -12,15 +12,10 @@
     <link rel="icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.webapp" />
     <link rel="stylesheet" href="content/css/loading.css" />
-    <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
+    <link rel="stylesheet" href="content/css/style.css" />
+    <link rel="stylesheet" href="content/css/animate.css" />
   </head>
   <body>
-    <!--[if lt IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve
-        your experience.
-      </p>
-    <![endif]-->
     <jhi-main>
       <div class="app-loading">
         <div class="lds-pacman">
@@ -40,7 +35,7 @@
         <div id="jhipster-error" style="display: none">
           <!-- This content is for troubleshooting purpose and will be removed when app renders -->
           <h1>An error has occurred :-(</h1>
-          <h2>Usual error causes</h2>
+          <h2>Usual error causes!</h2>
           <ol>
             <li>
               You started the application from an IDE and you didn't run <code style="color: red">npm start</code> or
@@ -115,14 +110,22 @@
         }
       }
     </script>
-    <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>-->
+
+    <!-- JQuery min js -->
+    <script src="./content/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script src="./content/assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="./content/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="./content/assets/plugins/moment/moment.js"></script>
+    <script src="./content/assets/plugins/side-menu/sidemenu.js"></script>
+
+    <script src="./content/assets/plugins/sidebar/sidebar.js"></script>
+    <script src="./content/assets/plugins/sidebar/sidebar-custom.js"></script>
+
+    <script src="./content/assets/js/sticky.js"></script>
+    <!-- custom js -->
+    <script src="./content/assets/js/custom.js"></script>
   </body>
 </html>

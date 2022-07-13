@@ -1,0 +1,63 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195357",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "mensajes",
+  "fields": [
+    {
+      "fieldName": "mensaje",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "2000",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "tipoRemitente",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "tipoReceptor",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Mensajes",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "startups",
+      "otherEntityRelationshipName": "mensajes",
+      "relationshipName": "idStartup",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "usuarios",
+      "otherEntityRelationshipName": "mensajes",
+      "relationshipName": "idUsuario",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

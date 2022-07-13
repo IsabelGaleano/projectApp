@@ -1,0 +1,221 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-notificaciones-heading"
+        data-cy="NotificacionesCreateUpdateHeading"
+        jhiTranslate="projectApp.notificaciones.home.createOrEditLabel"
+      >
+        Create or edit a Notificaciones
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.tipo" for="field_tipo">Tipo</label>
+          <input type="text" class="form-control" name="tipo" id="field_tipo" data-cy="tipo" formControlName="tipo" />
+          <div *ngIf="editForm.get('tipo')!.invalid && (editForm.get('tipo')!.dirty || editForm.get('tipo')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipo')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipo')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.descripcion" for="field_descripcion">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
+          <div *ngIf="editForm.get('descripcion')!.invalid && (editForm.get('descripcion')!.dirty || editForm.get('descripcion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 300 }"
+            >
+              This field cannot be longer than 300 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.fecha" for="field_fecha">Fecha</label>
+          <div class="d-flex">
+            <input
+              id="field_fecha"
+              data-cy="fecha"
+              type="datetime-local"
+              class="form-control"
+              name="fecha"
+              formControlName="fecha"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.tipoRemitente" for="field_tipoRemitente">Tipo Remitente</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tipoRemitente"
+            id="field_tipoRemitente"
+            data-cy="tipoRemitente"
+            formControlName="tipoRemitente"
+          />
+          <div
+            *ngIf="
+              editForm.get('tipoRemitente')!.invalid && (editForm.get('tipoRemitente')!.dirty || editForm.get('tipoRemitente')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoRemitente')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoRemitente')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.tipoReceptor" for="field_tipoReceptor">Tipo Receptor</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tipoReceptor"
+            id="field_tipoReceptor"
+            data-cy="tipoReceptor"
+            formControlName="tipoReceptor"
+          />
+          <div
+            *ngIf="editForm.get('tipoReceptor')!.invalid && (editForm.get('tipoReceptor')!.dirty || editForm.get('tipoReceptor')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoReceptor')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoReceptor')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.estado" for="field_estado">Estado</label>
+          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+          <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estado')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estado')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.idStartup" for="field_idStartup">Id Startup</label>
+          <select class="form-control" id="field_idStartup" data-cy="idStartup" name="idStartup" formControlName="idStartup">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="startupsOption.id === editForm.get('idStartup')!.value?.id ? editForm.get('idStartup')!.value : startupsOption"
+              *ngFor="let startupsOption of startupsSharedCollection; trackBy: trackStartupsById"
+            >
+              {{ startupsOption.correoElectronico }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.notificaciones.idUsuario" for="field_idUsuario">Id Usuario</label>
+          <select class="form-control" id="field_idUsuario" data-cy="idUsuario" name="idUsuario" formControlName="idUsuario">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="usuariosOption.id === editForm.get('idUsuario')!.value?.id ? editForm.get('idUsuario')!.value : usuariosOption"
+              *ngFor="let usuariosOption of usuariosSharedCollection; trackBy: trackUsuariosById"
+            >
+              {{ usuariosOption.correoElectronico }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

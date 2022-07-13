@@ -1,0 +1,29 @@
+{
+  "projectApp": {
+    "rastreador": {
+      "home": {
+        "title": "Rastreadors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Rastreador",
+        "createOrEditLabel": "Create or edit a Rastreador",
+        "notFound": "No Rastreadors found"
+      },
+      "created": "A new Rastreador is created with identifier {{ param }}",
+      "updated": "A Rastreador is updated with identifier {{ param }}",
+      "deleted": "A Rastreador is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Rastreador {{ id }}?"
+      },
+      "detail": {
+        "title": "Rastreador"
+      },
+      "id": "ID",
+      "descripcion": "Descripcion",
+      "latitud": "Latitud",
+      "longitud": "Longitud",
+      "fecha": "Fecha",
+      "estado": "Estado",
+      "idDonacionPaquete": "Id Donacion Paquete"
+    }
+  }
+}

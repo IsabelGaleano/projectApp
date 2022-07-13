@@ -1,0 +1,94 @@
+<div>
+  <h2 id="page-heading" data-cy="RastreadorHeading">
+    <span jhiTranslate="projectApp.rastreador.home.title">Rastreadors</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.rastreador.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-rastreador"
+        [routerLink]="['/rastreador/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.rastreador.home.createLabel"> Create a new Rastreador </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="rastreadors?.length === 0">
+    <span jhiTranslate="projectApp.rastreador.home.notFound">No rastreadors found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="rastreadors && rastreadors.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.rastreador.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.rastreador.latitud">Latitud</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.rastreador.longitud">Longitud</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.rastreador.fecha">Fecha</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.rastreador.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.rastreador.idDonacionPaquete">Id Donacion Paquete</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rastreador of rastreadors; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/rastreador', rastreador.id, 'view']">{{ rastreador.id }}</a>
+          </td>
+          <td>{{ rastreador.descripcion }}</td>
+          <td>{{ rastreador.latitud }}</td>
+          <td>{{ rastreador.longitud }}</td>
+          <td>{{ rastreador.fecha | formatMediumDatetime }}</td>
+          <td>{{ rastreador.estado }}</td>
+          <td>
+            <div *ngIf="rastreador.idDonacionPaquete">
+              <a [routerLink]="['/donaciones-paquetes', rastreador.idDonacionPaquete?.id, 'view']">{{
+                rastreador.idDonacionPaquete?.id
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/rastreador', rastreador.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/rastreador', rastreador.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(rastreador)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

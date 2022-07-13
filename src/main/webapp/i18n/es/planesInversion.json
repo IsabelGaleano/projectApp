@@ -1,0 +1,30 @@
+{
+  "projectApp": {
+    "planesInversion": {
+      "home": {
+        "title": "Planes Inversions",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Planes Inversion",
+        "createOrEditLabel": "Crear o editar Planes Inversion",
+        "notFound": "Ningún Planes Inversions encontrado"
+      },
+      "created": "Un nuevo Planes Inversion ha sido creado con el identificador {{ param }}",
+      "updated": "Un Planes Inversion ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Planes Inversion ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Planes Inversion {{ id }}?"
+      },
+      "detail": {
+        "title": "Planes Inversion"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "monto": "Monto",
+      "descripcion": "Descripcion",
+      "beneficios": "Beneficios",
+      "porcentajeEmpresarial": "Porcentaje Empresarial",
+      "estado": "Estado",
+      "idStartup": "Id Startup"
+    }
+  }
+}
