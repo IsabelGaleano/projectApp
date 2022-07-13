@@ -1,0 +1,52 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195345",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "movimientos",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "monto",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Movimientos",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "monederos",
+      "otherEntityRelationshipName": "movimientos",
+      "relationshipName": "idMonedero",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

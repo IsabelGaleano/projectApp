@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="inscripciones">
+      <h2 data-cy="inscripcionesDetailsHeading"><span jhiTranslate="projectApp.inscripciones.detail.title">Inscripciones</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ inscripciones.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ inscripciones.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ inscripciones.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.monto">Monto</span></dt>
+        <dd>
+          <span>{{ inscripciones.monto }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.tipo">Tipo</span></dt>
+        <dd>
+          <span>{{ inscripciones.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.fechaInicial">Fecha Inicial</span></dt>
+        <dd>
+          <span>{{ inscripciones.fechaInicial | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.fechaFinal">Fecha Final</span></dt>
+        <dd>
+          <span>{{ inscripciones.fechaFinal | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.beneficios">Beneficios</span></dt>
+        <dd>
+          <span>{{ inscripciones.beneficios }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.estado">Estado</span></dt>
+        <dd>
+          <span>{{ inscripciones.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.numInscripcion">Num Inscripcion</span></dt>
+        <dd>
+          <span>{{ inscripciones.numInscripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.inscripciones.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="inscripciones.idStartup">
+            <a [routerLink]="['/startups', inscripciones.idStartup?.id, 'view']">{{ inscripciones.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/inscripciones', inscripciones.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

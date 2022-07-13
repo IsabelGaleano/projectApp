@@ -1,0 +1,37 @@
+{
+  "projectApp": {
+    "donacionesPaquetes": {
+      "home": {
+        "title": "Donaciones Paquetes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Donaciones Paquetes",
+        "createOrEditLabel": "Create or edit a Donaciones Paquetes",
+        "notFound": "No Donaciones Paquetes found"
+      },
+      "created": "A new Donaciones Paquetes is created with identifier {{ param }}",
+      "updated": "A Donaciones Paquetes is updated with identifier {{ param }}",
+      "deleted": "A Donaciones Paquetes is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Donaciones Paquetes {{ id }}?"
+      },
+      "detail": {
+        "title": "Donaciones Paquetes"
+      },
+      "id": "ID",
+      "descripcion": "Descripcion",
+      "montoEnvio": "Monto Envio",
+      "montoImpuesto": "Monto Impuesto",
+      "montoTotal": "Monto Total",
+      "fechaDonacion": "Fecha Donacion",
+      "fechaEntrega": "Fecha Entrega",
+      "fechaPosibleEntrega": "Fecha Posible Entrega",
+      "fechaInicialEnvio": "Fecha Inicial Envio",
+      "diasRetraso": "Dias Retraso",
+      "estado": "Estado",
+      "rastreador": "Rastreador",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario",
+      "idPaquete": "Id Paquete"
+    }
+  }
+}

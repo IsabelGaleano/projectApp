@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-/* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
+import { PerfilAdminComponent } from './perfil/perfil-admin.component';
 
 @NgModule({
   imports: [
-    /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     RouterModule.forChild([
+      {
+        path: 'profile-admin',
+        component: PerfilAdminComponent,
+        data: {
+          pageTitle: 'profile-admin.home.title',
+        },
+      },
       {
         path: 'user-management',
         loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule),

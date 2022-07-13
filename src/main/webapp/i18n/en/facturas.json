@@ -1,0 +1,37 @@
+{
+  "projectApp": {
+    "facturas": {
+      "home": {
+        "title": "Facturas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Facturas",
+        "createOrEditLabel": "Create or edit a Facturas",
+        "notFound": "No Facturas found"
+      },
+      "created": "A new Facturas is created with identifier {{ param }}",
+      "updated": "A Facturas is updated with identifier {{ param }}",
+      "deleted": "A Facturas is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Facturas {{ id }}?"
+      },
+      "detail": {
+        "title": "Facturas"
+      },
+      "id": "ID",
+      "monto": "Monto",
+      "descripcion": "Descripcion",
+      "fecha": "Fecha",
+      "impuesto": "Impuesto",
+      "adicional": "Adicional",
+      "nombreReceptor": "Nombre Receptor",
+      "apellidoReceptor": "Apellido Receptor",
+      "correoReceptor": "Correo Receptor",
+      "nombreStartup": "Nombre Startup",
+      "correoStartup": "Correo Startup",
+      "estado": "Estado",
+      "idDonacionPaquete": "Id Donacion Paquete",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario"
+    }
+  }
+}

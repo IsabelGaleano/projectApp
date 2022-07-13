@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="DocumentosHeading">
+    <span jhiTranslate="projectApp.documentos.home.title">Documentos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.documentos.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-documentos"
+        [routerLink]="['/documentos/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.documentos.home.createLabel"> Create a new Documentos </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="documentos?.length === 0">
+    <span jhiTranslate="projectApp.documentos.home.notFound">No documentos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="documentos && documentos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.documentos.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.documentos.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.documentos.url">Url</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.documentos.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.documentos.idStartup">Id Startup</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.documentos.idUsuario">Id Usuario</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.documentos.idPaquete">Id Paquete</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let documentos of documentos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/documentos', documentos.id, 'view']">{{ documentos.id }}</a>
+          </td>
+          <td>{{ documentos.nombre }}</td>
+          <td>{{ documentos.descripcion }}</td>
+          <td>{{ documentos.url }}</td>
+          <td>{{ documentos.estado }}</td>
+          <td>
+            <div *ngIf="documentos.idStartup">
+              <a [routerLink]="['/startups', documentos.idStartup?.id, 'view']">{{ documentos.idStartup?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="documentos.idUsuario">
+              <a [routerLink]="['/usuarios', documentos.idUsuario?.id, 'view']">{{ documentos.idUsuario?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="documentos.idPaquete">
+              <a [routerLink]="['/paquetes', documentos.idPaquete?.id, 'view']">{{ documentos.idPaquete?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/documentos', documentos.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/documentos', documentos.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(documentos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

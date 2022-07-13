@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="InscripcionesHeading">
+    <span jhiTranslate="projectApp.inscripciones.home.title">Inscripciones</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.inscripciones.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-inscripciones"
+        [routerLink]="['/inscripciones/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.inscripciones.home.createLabel"> Create a new Inscripciones </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="inscripciones?.length === 0">
+    <span jhiTranslate="projectApp.inscripciones.home.notFound">No inscripciones found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="inscripciones && inscripciones.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.monto">Monto</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.tipo">Tipo</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.fechaInicial">Fecha Inicial</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.fechaFinal">Fecha Final</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.beneficios">Beneficios</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.numInscripcion">Num Inscripcion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.inscripciones.idStartup">Id Startup</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inscripciones of inscripciones; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/inscripciones', inscripciones.id, 'view']">{{ inscripciones.id }}</a>
+          </td>
+          <td>{{ inscripciones.nombre }}</td>
+          <td>{{ inscripciones.descripcion }}</td>
+          <td>{{ inscripciones.monto }}</td>
+          <td>{{ inscripciones.tipo }}</td>
+          <td>{{ inscripciones.fechaInicial | formatMediumDatetime }}</td>
+          <td>{{ inscripciones.fechaFinal | formatMediumDatetime }}</td>
+          <td>{{ inscripciones.beneficios }}</td>
+          <td>{{ inscripciones.estado }}</td>
+          <td>{{ inscripciones.numInscripcion }}</td>
+          <td>
+            <div *ngIf="inscripciones.idStartup">
+              <a [routerLink]="['/startups', inscripciones.idStartup?.id, 'view']">{{ inscripciones.idStartup?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/inscripciones', inscripciones.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/inscripciones', inscripciones.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(inscripciones)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

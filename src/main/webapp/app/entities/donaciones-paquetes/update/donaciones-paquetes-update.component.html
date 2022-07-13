@@ -1,0 +1,246 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-donaciones-paquetes-heading"
+        data-cy="DonacionesPaquetesCreateUpdateHeading"
+        jhiTranslate="projectApp.donacionesPaquetes.home.createOrEditLabel"
+      >
+        Create or edit a Donaciones Paquetes
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.descripcion" for="field_descripcion">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
+          <div *ngIf="editForm.get('descripcion')!.invalid && (editForm.get('descripcion')!.dirty || editForm.get('descripcion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 300 }"
+            >
+              This field cannot be longer than 300 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.montoEnvio" for="field_montoEnvio">Monto Envio</label>
+          <input
+            type="number"
+            class="form-control"
+            name="montoEnvio"
+            id="field_montoEnvio"
+            data-cy="montoEnvio"
+            formControlName="montoEnvio"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.montoImpuesto" for="field_montoImpuesto"
+            >Monto Impuesto</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="montoImpuesto"
+            id="field_montoImpuesto"
+            data-cy="montoImpuesto"
+            formControlName="montoImpuesto"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.montoTotal" for="field_montoTotal">Monto Total</label>
+          <input
+            type="number"
+            class="form-control"
+            name="montoTotal"
+            id="field_montoTotal"
+            data-cy="montoTotal"
+            formControlName="montoTotal"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.fechaDonacion" for="field_fechaDonacion"
+            >Fecha Donacion</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_fechaDonacion"
+              data-cy="fechaDonacion"
+              type="datetime-local"
+              class="form-control"
+              name="fechaDonacion"
+              formControlName="fechaDonacion"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.fechaEntrega" for="field_fechaEntrega">Fecha Entrega</label>
+          <div class="d-flex">
+            <input
+              id="field_fechaEntrega"
+              data-cy="fechaEntrega"
+              type="datetime-local"
+              class="form-control"
+              name="fechaEntrega"
+              formControlName="fechaEntrega"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.fechaPosibleEntrega" for="field_fechaPosibleEntrega"
+            >Fecha Posible Entrega</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_fechaPosibleEntrega"
+              data-cy="fechaPosibleEntrega"
+              type="datetime-local"
+              class="form-control"
+              name="fechaPosibleEntrega"
+              formControlName="fechaPosibleEntrega"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.fechaInicialEnvio" for="field_fechaInicialEnvio"
+            >Fecha Inicial Envio</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_fechaInicialEnvio"
+              data-cy="fechaInicialEnvio"
+              type="datetime-local"
+              class="form-control"
+              name="fechaInicialEnvio"
+              formControlName="fechaInicialEnvio"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.diasRetraso" for="field_diasRetraso">Dias Retraso</label>
+          <input
+            type="number"
+            class="form-control"
+            name="diasRetraso"
+            id="field_diasRetraso"
+            data-cy="diasRetraso"
+            formControlName="diasRetraso"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.estado" for="field_estado">Estado</label>
+          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+          <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estado')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estado')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.idStartup" for="field_idStartup">Id Startup</label>
+          <select class="form-control" id="field_idStartup" data-cy="idStartup" name="idStartup" formControlName="idStartup">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="startupsOption.id === editForm.get('idStartup')!.value?.id ? editForm.get('idStartup')!.value : startupsOption"
+              *ngFor="let startupsOption of startupsSharedCollection; trackBy: trackStartupsById"
+            >
+              {{ startupsOption.correoElectronico }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.idUsuario" for="field_idUsuario">Id Usuario</label>
+          <select class="form-control" id="field_idUsuario" data-cy="idUsuario" name="idUsuario" formControlName="idUsuario">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="usuariosOption.id === editForm.get('idUsuario')!.value?.id ? editForm.get('idUsuario')!.value : usuariosOption"
+              *ngFor="let usuariosOption of usuariosSharedCollection; trackBy: trackUsuariosById"
+            >
+              {{ usuariosOption.correoElectronico }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.donacionesPaquetes.idPaquete" for="field_idPaquete">Id Paquete</label>
+          <select class="form-control" id="field_idPaquete" data-cy="idPaquete" name="idPaquete" formControlName="idPaquete">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="paquetesOption.id === editForm.get('idPaquete')!.value?.id ? editForm.get('idPaquete')!.value : paquetesOption"
+              *ngFor="let paquetesOption of paquetesSharedCollection; trackBy: trackPaquetesById"
+            >
+              {{ paquetesOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

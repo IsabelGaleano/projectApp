@@ -1,0 +1,116 @@
+<div>
+  <h2 id="page-heading" data-cy="UsuariosHeading">
+    <span jhiTranslate="projectApp.usuarios.home.title">Usuarios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.usuarios.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-usuarios"
+        [routerLink]="['/usuarios/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.usuarios.home.createLabel"> Create a new Usuarios </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="usuarios?.length === 0">
+    <span jhiTranslate="projectApp.usuarios.home.notFound">No usuarios found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="usuarios && usuarios.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.cedula">Cedula</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.primerApellido">Primer Apellido</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.segundoApellido">Segundo Apellido</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.correoElectronico">Correo Electronico</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.genero">Genero</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.telefono">Telefono</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.fechaNacimiento">Fecha Nacimiento</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.latitudDireccion">Latitud Direccion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.longitudDireccion">Longitud Direccion</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.imagenURL">Imagen URL</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.tipoUsuarioFinal">Tipo Usuario Final</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.contrasennia">Contrasennia</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.idMonedero">Id Monedero</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.usuarios.idRol">Id Rol</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuarios of usuarios; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/usuarios', usuarios.id, 'view']">{{ usuarios.id }}</a>
+          </td>
+          <td>{{ usuarios.nombre }}</td>
+          <td>{{ usuarios.cedula }}</td>
+          <td>{{ usuarios.primerApellido }}</td>
+          <td>{{ usuarios.segundoApellido }}</td>
+          <td>{{ usuarios.correoElectronico }}</td>
+          <td>{{ usuarios.genero }}</td>
+          <td>{{ usuarios.telefono }}</td>
+          <td>{{ usuarios.fechaNacimiento | formatMediumDatetime }}</td>
+          <td>{{ usuarios.latitudDireccion }}</td>
+          <td>{{ usuarios.longitudDireccion }}</td>
+          <td>{{ usuarios.imagenURL }}</td>
+          <td>{{ usuarios.tipoUsuarioFinal }}</td>
+          <td>{{ usuarios.contrasennia }}</td>
+          <td>{{ usuarios.estado }}</td>
+          <td>
+            <div *ngIf="usuarios.idMonedero">
+              <a [routerLink]="['/monederos', usuarios.idMonedero?.id, 'view']">{{ usuarios.idMonedero?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="usuarios.idRol">
+              <a [routerLink]="['/roles-usuarios', usuarios.idRol?.id, 'view']">{{ usuarios.idRol?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/usuarios', usuarios.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/usuarios', usuarios.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(usuarios)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

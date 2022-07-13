@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="notificaciones">
+      <h2 data-cy="notificacionesDetailsHeading"><span jhiTranslate="projectApp.notificaciones.detail.title">Notificaciones</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ notificaciones.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.tipo">Tipo</span></dt>
+        <dd>
+          <span>{{ notificaciones.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ notificaciones.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ notificaciones.fecha | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.tipoRemitente">Tipo Remitente</span></dt>
+        <dd>
+          <span>{{ notificaciones.tipoRemitente }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.tipoReceptor">Tipo Receptor</span></dt>
+        <dd>
+          <span>{{ notificaciones.tipoReceptor }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.estado">Estado</span></dt>
+        <dd>
+          <span>{{ notificaciones.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="notificaciones.idStartup">
+            <a [routerLink]="['/startups', notificaciones.idStartup?.id, 'view']">{{ notificaciones.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.notificaciones.idUsuario">Id Usuario</span></dt>
+        <dd>
+          <div *ngIf="notificaciones.idUsuario">
+            <a [routerLink]="['/usuarios', notificaciones.idUsuario?.id, 'view']">{{ notificaciones.idUsuario?.correoElectronico }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/notificaciones', notificaciones.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

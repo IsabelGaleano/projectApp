@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="startups">
+      <h2 data-cy="startupsDetailsHeading"><span jhiTranslate="projectApp.startups.detail.title">Startups</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ startups.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ startups.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.nombreLargo">Nombre Largo</span></dt>
+        <dd>
+          <span>{{ startups.nombreLargo }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.correoElectronico">Correo Electronico</span></dt>
+        <dd>
+          <span>{{ startups.correoElectronico }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.telefono">Telefono</span></dt>
+        <dd>
+          <span>{{ startups.telefono }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.contrasennia">Contrasennia</span></dt>
+        <dd>
+          <span>{{ startups.contrasennia }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.latitudDireccion">Latitud Direccion</span></dt>
+        <dd>
+          <span>{{ startups.latitudDireccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.longitudDireccion">Longitud Direccion</span></dt>
+        <dd>
+          <span>{{ startups.longitudDireccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ startups.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.descripcionCorta">Descripcion Corta</span></dt>
+        <dd>
+          <span>{{ startups.descripcionCorta }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.beneficios">Beneficios</span></dt>
+        <dd>
+          <span>{{ startups.beneficios }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.riesgos">Riesgos</span></dt>
+        <dd>
+          <span>{{ startups.riesgos }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.panoramaMercado">Panorama Mercado</span></dt>
+        <dd>
+          <span>{{ startups.panoramaMercado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.montoMeta">Monto Meta</span></dt>
+        <dd>
+          <span>{{ startups.montoMeta }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.tipoMeta">Tipo Meta</span></dt>
+        <dd>
+          <span>{{ startups.tipoMeta }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.linkSitioWeb">Link Sitio Web</span></dt>
+        <dd>
+          <span>{{ startups.linkSitioWeb }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.imagenURL">Imagen URL</span></dt>
+        <dd>
+          <span>{{ startups.imagenURL }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.fechaCreacion">Fecha Creacion</span></dt>
+        <dd>
+          <span>{{ startups.fechaCreacion | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.estado">Estado</span></dt>
+        <dd>
+          <span>{{ startups.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.idMonedero">Id Monedero</span></dt>
+        <dd>
+          <div *ngIf="startups.idMonedero">
+            <a [routerLink]="['/monederos', startups.idMonedero?.id, 'view']">{{ startups.idMonedero?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.startups.idCategoria">Id Categoria</span></dt>
+        <dd>
+          <div *ngIf="startups.idCategoria">
+            <a [routerLink]="['/categorias', startups.idCategoria?.id, 'view']">{{ startups.idCategoria?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/startups', startups.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,56 +1,96 @@
-<div>
-  <div class="d-flex justify-content-center">
-    <div class="col-lg-6 col-md-8 col-sm-10">
-      <h1 jhiTranslate="login.title" data-cy="loginTitle">Sign in</h1>
-      <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication" data-cy="loginError">
-        <strong>Failed to sign in!</strong> Please check your credentials and try again.
+<div class="page">
+  <div class="main-container container-fluid">
+    <div class="row no-gutter">
+      <!-- The image half -->
+      <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
+        <div class="row wd-100p mx-auto text-center">
+          <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
+            <img src="../../content/images/startup.jpg" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo" />
+          </div>
+        </div>
       </div>
-      <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
-        <div class="mb-3">
-          <label class="username-label" for="username" jhiTranslate="global.form.username.label">Login</label>
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            id="username"
-            placeholder="{{ 'global.form.username.placeholder' | translate }}"
-            formControlName="username"
-            #username
-            data-cy="username"
-          />
+      <!-- The content half -->
+      <div class="col-md-6 col-lg-6 col-xl-5 bg-white py-4">
+        <div class="login d-flex align-items-center py-2">
+          <!-- Demo content-->
+          <div class="container p-0">
+            <div class="row">
+              <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
+                <div class="card-sigin">
+                  <div class="mb-5 d-flex">
+                    <a routerLink="/">
+                      <img src="../../content/images/StatupSafe-horizontal-azul.png" class="ht-60" alt="logo" />
+                    </a>
+                  </div>
+                  <div class="card-sigin">
+                    <div class="main-signup-header">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h1 jhiTranslate="login.title" data-cy="loginTitle">Sign in</h1>
+                        <div
+                          class="alert alert-danger"
+                          *ngIf="authenticationError"
+                          jhiTranslate="login.messages.error.authentication"
+                          data-cy="loginError"
+                        >
+                          <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                        </div>
+                        <h2>Welcome back!</h2>
+                        <h5 class="fw-semibold mb-4">Please sign in to continue.</h5>
+                        <form role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+                          <div class="form-group">
+                            <label for="username" jhiTranslate="global.form.username.label" class="font-weight-bold text-dark">Email</label>
+                            <input
+                              class="form-control"
+                              placeholder="Enter your email"
+                              type="text"
+                              name="username"
+                              id="username"
+                              placeholder="{{ 'global.form.username.placeholder' | translate }}"
+                              formControlName="username"
+                              #username
+                              data-cy="username"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="password" jhiTranslate="login.form.password" class="font-weight-bold text-dark">Password</label>
+                            <input
+                              class="form-control"
+                              placeholder="Enter your password"
+                              type="password"
+                              name="password"
+                              id="password"
+                              placeholder="{{ 'login.form.password.placeholder' | translate }}"
+                              formControlName="password"
+                              data-cy="password"
+                            />
+                          </div>
+                          <button class="btn btn-main-primary btn-block" jhiTranslate="login.form.button" data-cy="submit">Sign In</button>
+                          <div class="row row-xs">
+                            <div class="col-sm-6">
+                              <button class="btn btn-block"><i class="fab fa-facebook-f"></i> Signup with Facebook</button>
+                            </div>
+                            <div class="col-sm-6 mg-t-10 mg-sm-t-0">
+                              <button class="btn btn-info btn-block btn-b"><i class="fab fa-twitter"></i> Signup with Twitter</button>
+                            </div>
+                          </div>
+                        </form>
+                        <div class="main-signin-footer mt-5">
+                          <p><a href="">Forgot password?</a></p>
+                          <p>
+                            Don't have an account?
+                            <a routerLink="/account/register" jhiTranslate="global.messages.info.register.link">Create an Account</a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End -->
+          </div>
         </div>
-
-        <div class="mb-3">
-          <label for="password" jhiTranslate="login.form.password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            name="password"
-            id="password"
-            placeholder="{{ 'login.form.password.placeholder' | translate }}"
-            formControlName="password"
-            data-cy="password"
-          />
-        </div>
-
-        <div class="form-check">
-          <label class="form-check-label" for="rememberMe">
-            <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" />
-            <span jhiTranslate="login.form.rememberme">Remember me</span>
-          </label>
-        </div>
-
-        <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button" data-cy="submit">Sign in</button>
-      </form>
-      <div class="mt-3 alert alert-warning">
-        <a class="alert-link" routerLink="/account/reset/request" jhiTranslate="login.password.forgot" data-cy="forgetYourPasswordSelector"
-          >Did you forget your password?</a
-        >
-      </div>
-
-      <div class="alert alert-warning">
-        <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
-        <a class="alert-link" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+        <!-- End -->
       </div>
     </div>
   </div>
