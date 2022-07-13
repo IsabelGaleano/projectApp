@@ -1,0 +1,48 @@
+{
+  "projectApp": {
+    "usuarios": {
+      "home": {
+        "title": "Usuarios",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Usuarios",
+        "createOrEditLabel": "Create or edit a Usuarios",
+        "notFound": "No Usuarios found"
+      },
+      "created": "A new Usuarios is created with identifier {{ param }}",
+      "updated": "A Usuarios is updated with identifier {{ param }}",
+      "deleted": "A Usuarios is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Usuarios {{ id }}?"
+      },
+      "detail": {
+        "title": "Usuarios"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "cedula": "Cedula",
+      "primerApellido": "Primer Apellido",
+      "segundoApellido": "Segundo Apellido",
+      "correoElectronico": "Correo Electronico",
+      "genero": "Genero",
+      "telefono": "Telefono",
+      "fechaNacimiento": "Fecha Nacimiento",
+      "latitudDireccion": "Latitud Direccion",
+      "longitudDireccion": "Longitud Direccion",
+      "imagenURL": "Imagen URL",
+      "tipoUsuarioFinal": "Tipo Usuario Final",
+      "contrasennia": "Contrasennia",
+      "estado": "Estado",
+      "idMonedero": "Id Monedero",
+      "votos": "Votos",
+      "comentarios": "Comentarios",
+      "mensajes": "Mensajes",
+      "codigos": "Codigos",
+      "facturas": "Facturas",
+      "reuniones": "Reuniones",
+      "documentos": "Documentos",
+      "donacionesPaquetes": "Donaciones Paquetes",
+      "notificaciones": "Notificaciones",
+      "idRol": "Id Rol"
+    }
+  }
+}

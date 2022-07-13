@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195344",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "monederos",
+  "fields": [
+    {
+      "fieldName": "tipo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "saldo",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Monederos",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "movimientos",
+      "otherEntityRelationshipName": "idMonedero",
+      "relationshipName": "movimientos",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

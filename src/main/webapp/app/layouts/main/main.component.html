@@ -1,13 +1,20 @@
-<jhi-page-ribbon></jhi-page-ribbon>
+<jhi-navbar *ngIf="!user"></jhi-navbar>
+<jhi-navbar-usuario *ngIf="user"></jhi-navbar-usuario>
+
+<!-- 
+  <jhi-navbar-usuario *jhiHasAnyAuthority="'ROLE_USER' || 'ROLE_STARTUP'"></jhi-navbar-usuario>
+<jhi-navbar-usuario *jhiHasAnyAuthority="'ROLE_ADMIN'"></jhi-navbar-usuario>
+ -->
 
 <div>
-  <router-outlet name="navbar"></router-outlet>
-</div>
+  <jhi-menu-startup *jhiHasAnyAuthority="'ROLE_STARTUP'"></jhi-menu-startup>
+  <jhi-menu-usuario-final *jhiHasAnyAuthority="'ROLE_USER'"></jhi-menu-usuario-final>
+  <jhi-menu-admin *jhiHasAnyAuthority="'ROLE_ADMIN'"></jhi-menu-admin>
 
-<div>
   <div>
-    <router-outlet></router-outlet>
+    <router-outlet class="main-content app-content"></router-outlet>
   </div>
-
-  <jhi-footer></jhi-footer>
 </div>
+
+<jhi-footer *ngIf="!user"></jhi-footer>
+<jhi-logged-footer *jhiHasAnyAuthority="'ROLE_ADMIN' || 'ROLE_USER'"></jhi-logged-footer>

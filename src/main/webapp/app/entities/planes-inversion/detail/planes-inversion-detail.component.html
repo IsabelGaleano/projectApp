@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="planesInversion">
+      <h2 data-cy="planesInversionDetailsHeading"><span jhiTranslate="projectApp.planesInversion.detail.title">Planes Inversion</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ planesInversion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.planesInversion.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ planesInversion.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.planesInversion.monto">Monto</span></dt>
+        <dd>
+          <span>{{ planesInversion.monto }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.planesInversion.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ planesInversion.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.planesInversion.beneficios">Beneficios</span></dt>
+        <dd>
+          <span>{{ planesInversion.beneficios }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.planesInversion.porcentajeEmpresarial">Porcentaje Empresarial</span></dt>
+        <dd>
+          <span>{{ planesInversion.porcentajeEmpresarial }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.planesInversion.estado">Estado</span></dt>
+        <dd>
+          <span>{{ planesInversion.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.planesInversion.idStartup">Id Startup</span></dt>
+        <dd>
+          <div *ngIf="planesInversion.idStartup">
+            <a [routerLink]="['/startups', planesInversion.idStartup?.id, 'view']">{{ planesInversion.idStartup?.correoElectronico }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/planes-inversion', planesInversion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

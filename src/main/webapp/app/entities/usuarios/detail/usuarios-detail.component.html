@@ -1,0 +1,96 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="usuarios">
+      <h2 data-cy="usuariosDetailsHeading"><span jhiTranslate="projectApp.usuarios.detail.title">Usuarios</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ usuarios.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ usuarios.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.cedula">Cedula</span></dt>
+        <dd>
+          <span>{{ usuarios.cedula }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.primerApellido">Primer Apellido</span></dt>
+        <dd>
+          <span>{{ usuarios.primerApellido }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.segundoApellido">Segundo Apellido</span></dt>
+        <dd>
+          <span>{{ usuarios.segundoApellido }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.correoElectronico">Correo Electronico</span></dt>
+        <dd>
+          <span>{{ usuarios.correoElectronico }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.genero">Genero</span></dt>
+        <dd>
+          <span>{{ usuarios.genero }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.telefono">Telefono</span></dt>
+        <dd>
+          <span>{{ usuarios.telefono }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.fechaNacimiento">Fecha Nacimiento</span></dt>
+        <dd>
+          <span>{{ usuarios.fechaNacimiento | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.latitudDireccion">Latitud Direccion</span></dt>
+        <dd>
+          <span>{{ usuarios.latitudDireccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.longitudDireccion">Longitud Direccion</span></dt>
+        <dd>
+          <span>{{ usuarios.longitudDireccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.imagenURL">Imagen URL</span></dt>
+        <dd>
+          <span>{{ usuarios.imagenURL }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.tipoUsuarioFinal">Tipo Usuario Final</span></dt>
+        <dd>
+          <span>{{ usuarios.tipoUsuarioFinal }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.contrasennia">Contrasennia</span></dt>
+        <dd>
+          <span>{{ usuarios.contrasennia }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.estado">Estado</span></dt>
+        <dd>
+          <span>{{ usuarios.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.idMonedero">Id Monedero</span></dt>
+        <dd>
+          <div *ngIf="usuarios.idMonedero">
+            <a [routerLink]="['/monederos', usuarios.idMonedero?.id, 'view']">{{ usuarios.idMonedero?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="projectApp.usuarios.idRol">Id Rol</span></dt>
+        <dd>
+          <div *ngIf="usuarios.idRol">
+            <a [routerLink]="['/roles-usuarios', usuarios.idRol?.id, 'view']">{{ usuarios.idRol?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/usuarios', usuarios.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

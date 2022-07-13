@@ -1,0 +1,103 @@
+{
+  "applications": "*",
+  "changelogDate": "20220710195358",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "facturas",
+  "fields": [
+    {
+      "fieldName": "monto",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "impuesto",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adicional",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "nombreReceptor",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "apellidoReceptor",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "correoReceptor",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "nombreStartup",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "correoStartup",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "300",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Facturas",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "donacionesPaquetes",
+      "otherEntityRelationshipName": "facturas",
+      "ownerSide": true,
+      "relationshipName": "idDonacionPaquete",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "startups",
+      "otherEntityRelationshipName": "facturas",
+      "relationshipName": "idStartup",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "correoElectronico",
+      "otherEntityName": "usuarios",
+      "otherEntityRelationshipName": "facturas",
+      "relationshipName": "idUsuario",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

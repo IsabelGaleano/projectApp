@@ -1,0 +1,30 @@
+{
+  "projectApp": {
+    "documentos": {
+      "home": {
+        "title": "Documentos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Documentos",
+        "createOrEditLabel": "Crear o editar Documentos",
+        "notFound": "Ningún Documentos encontrado"
+      },
+      "created": "Un nuevo Documentos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Documentos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Documentos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Documentos {{ id }}?"
+      },
+      "detail": {
+        "title": "Documentos"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "descripcion": "Descripcion",
+      "url": "Url",
+      "estado": "Estado",
+      "idStartup": "Id Startup",
+      "idUsuario": "Id Usuario",
+      "idPaquete": "Id Paquete"
+    }
+  }
+}

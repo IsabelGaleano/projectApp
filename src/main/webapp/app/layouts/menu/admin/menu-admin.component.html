@@ -1,0 +1,172 @@
+<div class="sticky">
+  <aside class="app-sidebar sidebar-scroll">
+    <div class="main-sidebar-header active">
+      <a class="desktop-logo logo-light active" href="index.html"
+        ><img src="../../../../content/images/StatupSafe-horizontal-azul.png" class="main-logo" alt="logo"
+      /></a>
+    </div>
+    <div class="main-sidemenu">
+      <div class="app-sidebar__user clearfix">
+        <div class="dropdown user-pro-body">
+          <div class="">
+            <img class="avatar avatar-xl brround" src="../assets/img/faces/6.jpg" /><span
+              class="avatar-status profile-status bg-green"
+            ></span>
+          </div>
+          <div class="user-info">
+            <h4 class="fw-semibold mt-3 mb-0">{{ accountInfo.email }}</h4>
+            <span class="mb-0 text-muted">Premium Member</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-left disabled" id="slide-left">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" />
+        </svg>
+      </div>
+      <ul class="side-menu">
+        <li class="slide">
+          <a class="side-menu__item" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="side-menu__icon"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-grid-1x2-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"
+              />
+            </svg>
+            <span class="side-menu__label">Inicio</span></a
+          >
+        </li>
+        <li class="slide">
+          <a class="side-menu__item" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="side-menu__icon"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-person-circle"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            <span class="side-menu__label">Perfil</span></a
+          >
+        </li>
+        <li class="slide">
+          <a class="side-menu__item" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="side-menu__icon"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-bell-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"
+              />
+            </svg>
+            <span class="side-menu__label">Notificaciones</span></a
+          >
+        </li>
+        <li class="slide">
+          <a class="side-menu__item" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="side-menu__icon"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-people-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+              <path
+                fill-rule="evenodd"
+                d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"
+              />
+              <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+            </svg>
+
+            <span class="side-menu__label">Usuarios</span></a
+          >
+        </li>
+        <li class="slide">
+          <a class="side-menu__item" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="side-menu__icon"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-person-lines-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"
+              />
+            </svg>
+            <span class="side-menu__label">Administradores</span></a
+          >
+        </li>
+        <li class="slide">
+          <a class="side-menu__item" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="side-menu__icon"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-clipboard2-check-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z"
+              />
+              <path
+                d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585c.055.156.085.325.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5c0-.175.03-.344.085-.5Zm6.769 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708.708Z"
+              />
+            </svg>
+            <span class="side-menu__label">Planes</span></a
+          >
+        </li>
+        <li class="slide">
+          <a class="side-menu__item" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="side-menu__icon"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-graph-up-arrow"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"
+              />
+            </svg>
+            <span class="side-menu__label">Reportes</span></a
+          >
+        </li>
+      </ul>
+      <div class="slide-right" id="slide-right">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z" />
+        </svg>
+      </div>
+    </div>
+  </aside>
+</div>

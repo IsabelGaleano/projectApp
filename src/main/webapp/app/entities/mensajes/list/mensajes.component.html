@@ -1,0 +1,98 @@
+<div>
+  <h2 id="page-heading" data-cy="MensajesHeading">
+    <span jhiTranslate="projectApp.mensajes.home.title">Mensajes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="projectApp.mensajes.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-mensajes"
+        [routerLink]="['/mensajes/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="projectApp.mensajes.home.createLabel"> Create a new Mensajes </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="mensajes?.length === 0">
+    <span jhiTranslate="projectApp.mensajes.home.notFound">No mensajes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="mensajes && mensajes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.mensajes.mensaje">Mensaje</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.mensajes.fecha">Fecha</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.mensajes.tipoRemitente">Tipo Remitente</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.mensajes.tipoReceptor">Tipo Receptor</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.mensajes.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.mensajes.idStartup">Id Startup</span></th>
+          <th scope="col"><span jhiTranslate="projectApp.mensajes.idUsuario">Id Usuario</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mensajes of mensajes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/mensajes', mensajes.id, 'view']">{{ mensajes.id }}</a>
+          </td>
+          <td>{{ mensajes.mensaje }}</td>
+          <td>{{ mensajes.fecha | formatMediumDatetime }}</td>
+          <td>{{ mensajes.tipoRemitente }}</td>
+          <td>{{ mensajes.tipoReceptor }}</td>
+          <td>{{ mensajes.estado }}</td>
+          <td>
+            <div *ngIf="mensajes.idStartup">
+              <a [routerLink]="['/startups', mensajes.idStartup?.id, 'view']">{{ mensajes.idStartup?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="mensajes.idUsuario">
+              <a [routerLink]="['/usuarios', mensajes.idUsuario?.id, 'view']">{{ mensajes.idUsuario?.correoElectronico }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/mensajes', mensajes.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/mensajes', mensajes.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(mensajes)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

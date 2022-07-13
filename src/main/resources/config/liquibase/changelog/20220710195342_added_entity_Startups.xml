@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Startups.
+    -->
+    <changeSet id="20220710195342-1" author="jhipster">
+        <createTable tableName="startups">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nombre_corto" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="nombre_largo" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+            <column name="correo_electronico" type="varchar(300)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_startups__correo_electronico" />
+            </column>
+            <column name="telefono" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="contrasennia" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="latitud_direccion" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="longitud_direccion" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="descripcion" type="varchar(300)">
+                <constraints nullable="true" />
+            </column>
+            <column name="descripcion_corta" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+            <column name="beneficios" type="varchar(4000)">
+                <constraints nullable="true" />
+            </column>
+            <column name="riesgos" type="varchar(4000)">
+                <constraints nullable="true" />
+            </column>
+            <column name="panorama_mercado" type="varchar(4000)">
+                <constraints nullable="true" />
+            </column>
+            <column name="monto_meta" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="tipo_meta" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="link_sitio_web" type="varchar(300)">
+                <constraints nullable="true" />
+            </column>
+            <column name="imagen_url" type="varchar(300)">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_creacion" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="estado" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="id_monedero_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_startups__id_monedero_id" />
+            </column>
+            <column name="id_categoria_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="startups" columnName="fecha_creacion" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20220710195342-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/startups.csv"
+                  separator=";"
+                  tableName="startups"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="nombre_corto" type="string"/>
+            <column name="nombre_largo" type="string"/>
+            <column name="correo_electronico" type="string"/>
+            <column name="telefono" type="string"/>
+            <column name="contrasennia" type="string"/>
+            <column name="latitud_direccion" type="string"/>
+            <column name="longitud_direccion" type="string"/>
+            <column name="descripcion" type="string"/>
+            <column name="descripcion_corta" type="string"/>
+            <column name="beneficios" type="string"/>
+            <column name="riesgos" type="string"/>
+            <column name="panorama_mercado" type="string"/>
+            <column name="monto_meta" type="numeric"/>
+            <column name="tipo_meta" type="string"/>
+            <column name="link_sitio_web" type="string"/>
+            <column name="imagen_url" type="string"/>
+            <column name="fecha_creacion" type="date"/>
+            <column name="estado" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
