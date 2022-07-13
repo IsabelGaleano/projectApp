@@ -28,7 +28,9 @@ export class RegistroUsuarioFinalComponent implements OnInit {
 
   constructor(private registroUsuarioFinalService: RegistroUsuarioFinalService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const data = {};
+  }
 
   createUsuarioFinal(): void {
     const data = {
