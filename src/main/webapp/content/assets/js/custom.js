@@ -14,6 +14,7 @@ $(function () {
   // Shows header dropdown while hiding others
   $('.main-header .dropdown > a').on('click', function (e) {
     e.preventDefault();
+    console.log('nav click');
     $(this).parent().toggleClass('show');
     $(this).parent().siblings().removeClass('show');
     $(this).find('.drop-flag').removeClass('show');
@@ -214,9 +215,6 @@ $(function () {
   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl);
   });
-
-  // Enable Eva-icons with SVG markup
-  eva.replace();
 
   // ______________Horizontal-menu Active Class
   $(document).ready(function () {
