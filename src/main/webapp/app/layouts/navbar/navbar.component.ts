@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
+  user = false;
 
   constructor(
     private loginService: LoginService,
@@ -46,6 +47,11 @@ export class NavbarComponent implements OnInit {
     });
 
     this.accountService.getAuthenticationState().subscribe(account => {
+      if (account) {
+        // eslint-disable-next-line no-console
+        console.log(account);
+        this.user = true;
+      }
       this.account = account;
     });
   }

@@ -39,7 +39,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/main/webapp/content/assetsLanding/css/quick-website.css",
               "src/main/webapp/content/assetsLanding/css/all.min.css",
-              "src/main/webapp/content/assets/css/style.css"
+              "src/main/webapp/content/css/style.css",
+              "src/main/webapp/content/css/animate.css",
+              "src/main/webapp/content/css/loading.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -47,8 +49,7 @@
               "src/main/webapp/content/assetsLanding/libs/bootstrap.bundle.min.js",
               "src/main/webapp/content/assetsLanding/libs/feather.min.js",
               "src/main/webapp/content/assetsLanding/libs/svg-injector.min.js",
-              "src/main/webapp/content/assetsLanding/js/quick-website.js",
-              "src/main/webapp/content/assets/js/form-wizard.js"
+              "src/main/webapp/content/assetsLanding/js/quick-website.js"
             ]
           },
           "configurations": {
@@ -113,6 +114,7 @@
   },
   "defaultProject": "project-app",
   "cli": {
+    "analytics": false,
     "cache": {
       "enabled": true,
       "path": "./target/angular/",
