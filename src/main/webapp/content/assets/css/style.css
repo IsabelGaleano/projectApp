@@ -42054,10 +42054,9 @@ body.dark-theme {
   color: #dde3ea;
 }
 
-/*
 .dark-theme .minus {
-  //background: url(../plugins/dtree/images/misc.png) -18px -59px no-repeat transparent;
-}*/
+  background: url(../plugins/dtree/images/misc.png) -18px -59px no-repeat transparent;
+}
 
 .dark-theme .dTree a {
   color: #dde3ea;
