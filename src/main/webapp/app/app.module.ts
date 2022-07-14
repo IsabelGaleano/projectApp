@@ -32,6 +32,7 @@ import { MenuUsuarioComponent } from './layouts/menu/usuario-final/menu-usuario-
 import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.compon
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    PasswordRecoveryComponent,
   ],
   bootstrap: [MainComponent],
 })
