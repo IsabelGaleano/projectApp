@@ -31,6 +31,7 @@ import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
+import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.component';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    ListaUsuariosComponent,
   ],
   bootstrap: [MainComponent],
 })

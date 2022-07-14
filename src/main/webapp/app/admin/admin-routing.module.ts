@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ListaUsuariosComponent } from './lista-usuarios/lista-usuarios.component';
 import { PerfilAdminComponent } from './perfil/perfil-admin.component';
 
 @NgModule({
@@ -10,6 +11,13 @@ import { PerfilAdminComponent } from './perfil/perfil-admin.component';
         component: PerfilAdminComponent,
         data: {
           pageTitle: 'profile-admin.home.title',
+        },
+      },
+      {
+        path: 'lista-usuarios',
+        component: ListaUsuariosComponent,
+        data: {
+          pageTitle: 'lista-usuarios.home.title',
         },
       },
       {
