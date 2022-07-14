@@ -14,7 +14,7 @@ li.folder-group {
 }
 
 .folder {
-  background: url('../../../assets/plugins/dtree/images/misc.png') 0px -39px no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') 0px -39px no-repeat;
   padding-left: 20px;
   height: 18px;
   display: inline-block;
@@ -22,7 +22,7 @@ li.folder-group {
 }
 
 .folder-open {
-  background: url('../../../assets/plugins/dtree/images/misc.png') -21px -39px no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') -21px -39px no-repeat;
   padding-left: 20px;
   height: 18px;
   display: inline-block;
@@ -30,14 +30,14 @@ li.folder-group {
 }
 
 .main {
-  background: url('../../../assets/plugins/dtree/images/misc.png') 2px 0 no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') 2px 0 no-repeat;
   width: 18px;
   height: 18px;
   display: inline-block;
 }
 
 .folder-group {
-  background: url('../../../assets/plugins/dtree/images/misc.png') -46px -2px repeat-y;
+  // background: url('../../../assets/plugins/dtree/images/misc.png') -46px -2px repeat-y;
 
   &.last {
     background: none;
@@ -45,42 +45,42 @@ li.folder-group {
 }
 
 .plus {
-  background: url('../../../assets/plugins/dtree/images/misc.png') 0px -59px no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') 0px -59px no-repeat;
   padding-left: 20px;
   display: inline-block;
   height: 18px;
 }
 
 .last .plus {
-  background: url('../../../assets/plugins/dtree/images/misc.png') 0px -82px no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') 0px -82px no-repeat;
   padding-left: 20px;
   display: inline-block;
   height: 18px;
 }
 
 .folder-group.last .minus {
-  background: url('../../../assets/plugins/dtree/images/misc.png') -18px -82px no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') -18px -82px no-repeat;
   padding-left: 20px;
   display: inline-block;
   height: 18px;
 }
 
 .minus {
-  background: url('../../../assets/plugins/dtree/images/misc.png') -18px -59px no-repeat $white;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') -18px -59px no-repeat $white;
   padding-left: 20px;
   display: inline-block;
   height: 18px;
 }
 
 .join {
-  background: url('../../../assets/plugins/dtree/images/misc.png') 0 -20px no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') 0 -20px no-repeat;
   width: 18px;
   height: 18px;
   display: inline-block;
 }
 
 .join-last .join {
-  background: url('../../../assets/plugins/dtree/images/misc.png') -18px -20px no-repeat;
+  //background: url('../../../assets/plugins/dtree/images/misc.png') -18px -20px no-repeat;
   width: 18px;
   height: 18px;
   display: inline-block;
@@ -106,7 +106,7 @@ li.folder-group {
   }
 
   .page-tree {
-    background: url('../../../assets/plugins/dtree/images/misc.png') no-repeat;
+    //background: url('../../../assets/plugins/dtree/images/misc.png') no-repeat;
     width: 25px;
     height: 18px;
     display: inline-block;
