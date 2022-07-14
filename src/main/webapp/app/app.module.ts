@@ -1,4 +1,5 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/es';
@@ -25,6 +26,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { RegistroUsuarioFinalComponent } from 'app/registros/registro-usuario-final/registro-usuario-final.component';
 import { NavbarUsuarioComponent } from './layouts/navbar/navbar-usuario/navbar-usuario.component';
 import { MenuUsuarioComponent } from './layouts/menu/usuario-final/menu-usuario-final.component';
 import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
@@ -33,18 +35,6 @@ import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.compon
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    SharedModule,
-    HomeModule,
-    AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-    HttpClientModule,
-    FontAwesomeModule,
-
-    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
-    TranslationModule,
-  ],
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'es' },
@@ -64,6 +54,19 @@ import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    SharedModule,
+    HomeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
+    HttpClientModule,
+    FontAwesomeModule,
+
+    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+    TranslationModule,
   ],
   bootstrap: [MainComponent],
 })
