@@ -1395,7 +1395,7 @@ body.transparent-theme {
   .ff_fileupload_wrap .ff_fileupload_dropzone {
     border-color: $transparent-border;
     background-color: $transparent-body;
-    background-image: url(../../../assets/plugins/fancyuploder/fancy_upload-dark.png);
+    //background-image: url(../../../assets/plugins/fancyuploder/fancy_upload-dark.png);
 
     &:hover,
     &:focus,
@@ -2565,7 +2565,7 @@ body.transparent-theme {
   }
 
   .sa-icon.sa-custom {
-    background-image: url(../../../img/brand/logo-white.png) !important;
+    //background-image: url(../../../img/brand/logo-white.png) !important;
   }
 
   .dropdown-menu-left {
@@ -3015,7 +3015,7 @@ body.transparent-theme {
     color: $transparent-color;
   }
   .minus {
-    background: url(../../../plugins/dtree/images/misc.png) -18px -59px no-repeat transparent;
+    //(../../../plugins/dtree/images/misc.png) -18px -59px no-repeat transparent;
   }
   .dTree a {
     color: $transparent-color;
@@ -4111,7 +4111,7 @@ body.transparent-theme {
 
 /************background-transparent-images***********************/
 body.transparent-theme.bg-img1 {
-  background: url(../../../img/media/bg-img1.jpg) !important;
+  //background: url(../../../img/media/bg-img1.jpg) !important;
   background-blend-mode: overlay;
   background-size: cover !important;
   background-position: center !important;
@@ -4124,14 +4124,14 @@ body.transparent-theme.bg-img1 {
   width: 100%;
   position: absolute;
   .demo_changer {
-    background: url(../../../img/media/bg-img1.jpg) !important;
+    //background: url(../../../img/media/bg-img1.jpg) !important;
     background-size: cover !important;
     background-position: center !important;
   }
 }
 
 body.transparent-theme.bg-img2 {
-  background: url(../../../img/media/bg-img2.jpg) !important;
+  //background: url(../../../img/media/bg-img2.jpg) !important;
   background-blend-mode: overlay;
   background-size: cover !important;
   background-position: center !important;
@@ -4144,14 +4144,14 @@ body.transparent-theme.bg-img2 {
   width: 100%;
   position: absolute;
   .demo_changer {
-    background: url(../../../img/media/bg-img2.jpg) !important;
+    //background: url(../../../img/media/bg-img2.jpg) !important;
     background-size: cover !important;
     background-position: center !important;
   }
 }
 
 body.transparent-theme.bg-img3 {
-  background: url(../../../img/media/bg-img3.jpg) !important;
+  //background: url(../../../img/media/bg-img3.jpg) !important;
   background-blend-mode: overlay;
   background-size: cover !important;
   background-position: center !important;
@@ -4164,14 +4164,14 @@ body.transparent-theme.bg-img3 {
   width: 100%;
   position: absolute;
   .demo_changer {
-    background: url(../../../img/media/bg-img3.jpg) !important;
+    //background: url(../../../img/media/bg-img3.jpg) !important;
     background-size: cover !important;
     background-position: center !important;
   }
 }
 
 body.transparent-theme.bg-img4 {
-  background: url(../../../img/media/bg-img4.jpg) !important;
+  //background: url(../../../img/media/bg-img4.jpg) !important;
   background-blend-mode: overlay;
   background-size: cover !important;
   background-position: center !important;
@@ -4184,7 +4184,7 @@ body.transparent-theme.bg-img4 {
   width: 100%;
   position: absolute;
   .demo_changer {
-    background: url(../../../img/media/bg-img4.jpg) !important;
+    //background: url(../../../img/media/bg-img4.jpg) !important;
     background-size: cover !important;
     background-position: center !important;
   }
