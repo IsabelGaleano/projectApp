@@ -55,9 +55,41 @@ export class RegisterComponent implements AfterViewInit {
     } else {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
-      this.registerService
-        .saveFinalUser({ login, email, password })
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+      // const nombre = 'default';
+      // const cedula = login;
+      // const primer_apellido = 'default';
+      // const segundo_apellido = 'default';
+      // const correo_electronico = email;
+      // const genero = 'default';
+      // const telefono = 'default';
+      // const fecha_nacimiento = new Date(0);
+      // const latitud_direccion = 'default';
+      // const longitud_direccion = 'default';
+      // const imagen_url = 'default';
+      // const tipo_usuario_final = 'default';
+      // const contrasennia = password;
+      // const estado = 'Pendiente';
+      // const id_monedero = 1;
+      // const id_rol = 1
+      // this.registerService
+      //   .saveFinalUser({
+      //     nombre,
+      //     cedula, primer_apellido,
+      //     segundo_apellido,
+      //     correo_electronico,
+      //     genero,
+      //     telefono,
+      //     fecha_nacimiento,
+      //     latitud_direccion,
+      //     longitud_direccion,
+      //     imagen_url,
+      //     tipo_usuario_final,
+      //     contrasennia,
+      //     estado,
+      //     id_monedero,
+      //     id_rol
+      //    })
+      //   .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
       this.registerService
         .save({ login, email, password, langKey: this.translateService.currentLang })
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });

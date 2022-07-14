@@ -16,13 +16,13 @@ public class SendEmail {
 
     private Encriptar encriptar;
 
-    public void correoVerificacionUsuario(String correo) {
+    public void correoVerificacionUsuario(int codigo, String correo) {
         String templateId = "d-708a8389bb764fc8b2566d28ba78a19e";
         Mail mail = new Mail();
         mail.setFrom(new Email("dcoto37@gmail.com", "Tripnary"));
         mail.setTemplateId(templateId);
         Personalization personalization = new Personalization();
-        personalization.addDynamicTemplateData("header", Integer.parseInt(generateOTP()));
+        personalization.addDynamicTemplateData("header", String.valueOf(codigo));
         personalization.addTo(new Email(correo));
         mail.addPersonalization(personalization);
         sendInternal(mail);
@@ -43,9 +43,5 @@ public class SendEmail {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public String generateOTP() {
-        return new DecimalFormat("000000").format(new Random().nextInt(999999));
     }
 }

@@ -2,6 +2,7 @@ package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.UsuariosRepository;
+import com.project.myapp.security.AuthoritiesConstants;
 import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -55,8 +57,6 @@ public class UsuariosResource {
             throw new BadRequestAlertException("A new usuarios cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Usuarios result = usuariosRepository.save(usuarios);
-        SendEmail sendEmail = new SendEmail();
-        sendEmail.correoVerificacionUsuario(usuarios.getCorreoElectronico());
         return ResponseEntity
             .created(new URI("/api/usuarios/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
