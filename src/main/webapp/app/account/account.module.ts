@@ -11,6 +11,7 @@ import { PasswordResetFinishComponent } from './password-reset/finish/password-r
 import { SettingsComponent } from './settings/settings.component';
 import { accountState } from './account.route';
 import { VerificacionCodigoUsuarioFinalComponent } from './verificacion-codigo-usuario-final/verificacion-codigo-usuario-final.component';
+import { RegisterStartupComponent } from './register-startup/register-startup.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(accountState)],
@@ -23,6 +24,7 @@ import { VerificacionCodigoUsuarioFinalComponent } from './verificacion-codigo-u
     PasswordResetFinishComponent,
     SettingsComponent,
     VerificacionCodigoUsuarioFinalComponent,
+    RegisterStartupComponent,
   ],
 })
 export class AccountModule {}
