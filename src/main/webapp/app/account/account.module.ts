@@ -10,6 +10,8 @@ import { PasswordResetInitComponent } from './password-reset/init/password-reset
 import { PasswordResetFinishComponent } from './password-reset/finish/password-reset-finish.component';
 import { SettingsComponent } from './settings/settings.component';
 import { accountState } from './account.route';
+import { VerificacionCodigoUsuarioFinalComponent } from './verificacion-codigo-usuario-final/verificacion-codigo-usuario-final.component';
+import { RegisterStartupComponent } from './register-startup/register-startup.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(accountState)],
@@ -21,6 +23,8 @@ import { accountState } from './account.route';
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
+    VerificacionCodigoUsuarioFinalComponent,
+    RegisterStartupComponent,
   ],
 })
 export class AccountModule {}
