@@ -205,6 +205,13 @@ public class UsuariosResource {
         return ResponseUtil.wrapOrNotFound(usuarios);
     }
 
+    @GetMapping("/usuariosByCorreo/{correo}")
+    public ResponseEntity<Usuarios> getUsuariosByCorrreo(@PathVariable String correo) {
+        log.debug("REST request to get Usuarios : {}", correo);
+        Optional<Usuarios> usuarios = usuariosRepository.getUsuariosByCorreoElectronico(correo);
+        return ResponseUtil.wrapOrNotFound(usuarios);
+    }
+
     /**
      * {@code DELETE  /usuarios/:id} : delete the "id" usuarios.
      *

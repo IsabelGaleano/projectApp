@@ -78,7 +78,7 @@ public class AccountResource {
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         Usuarios usuario = new Usuarios(
-            "default",
+            " ",
             user.getLogin(),
             " ",
             " ",

@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,7 +36,12 @@ export class RegisterComponent implements AfterViewInit {
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
 
-  constructor(private translateService: TranslateService, private registerService: RegisterService, private fb: FormBuilder) {}
+  constructor(
+    private translateService: TranslateService,
+    private registerService: RegisterService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngAfterViewInit(): void {
     if (this.login) {
@@ -55,44 +61,11 @@ export class RegisterComponent implements AfterViewInit {
     } else {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
-      // const nombre = 'default';
-      // const cedula = login;
-      // const primer_apellido = 'default';
-      // const segundo_apellido = 'default';
-      // const correo_electronico = email;
-      // const genero = 'default';
-      // const telefono = 'default';
-      // const fecha_nacimiento = new Date(0);
-      // const latitud_direccion = 'default';
-      // const longitud_direccion = 'default';
-      // const imagen_url = 'default';
-      // const tipo_usuario_final = 'default';
-      // const contrasennia = password;
-      // const estado = 'Pendiente';
-      // const id_monedero = 1;
-      // const id_rol = 1
-      // this.registerService
-      //   .saveFinalUser({
-      //     nombre,
-      //     cedula, primer_apellido,
-      //     segundo_apellido,
-      //     correo_electronico,
-      //     genero,
-      //     telefono,
-      //     fecha_nacimiento,
-      //     latitud_direccion,
-      //     longitud_direccion,
-      //     imagen_url,
-      //     tipo_usuario_final,
-      //     contrasennia,
-      //     estado,
-      //     id_monedero,
-      //     id_rol
-      //    })
-      //   .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+      sessionStorage.setItem('usuarioFinalPendiente', email);
       this.registerService
         .save({ login, email, password, langKey: this.translateService.currentLang })
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+      this.router.navigate(['account/verificacion-codigo-usuario-final']);
     }
   }
 
