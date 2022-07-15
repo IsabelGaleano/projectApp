@@ -1,15 +1,23 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.*;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.User;
+import com.project.myapp.repository.CodigosRepository;
+import com.project.myapp.repository.MonederosRepository;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.repository.UserRepository;
+import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.SecurityUtils;
-import com.project.myapp.service.MailService;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.service.UserService;
 import com.project.myapp.service.dto.AdminUserDTO;
 import com.project.myapp.service.dto.PasswordChangeDTO;
 import com.project.myapp.web.rest.errors.*;
 import com.project.myapp.web.rest.vm.KeyAndPasswordVM;
 import com.project.myapp.web.rest.vm.ManagedUserVM;
+import java.text.DecimalFormat;
+import java.time.ZonedDateTime;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -36,15 +44,30 @@ public class AccountResource {
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     private final UserRepository userRepository;
+    private final StartupsRepository startupsRepository;
+
+    private final UsuariosRepository usuariosRepository;
+
+    private final CodigosRepository codigosRepository;
+
+    private final MonederosRepository monederosRepository;
 
     private final UserService userService;
 
-    private final MailService mailService;
-
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(
+        UserRepository userRepository,
+        UserService userService,
+        UsuariosRepository usuariosRepository,
+        CodigosRepository codigosRepository,
+        MonederosRepository monederosRepository,
+        StartupsRepository startupsRepository
+    ) {
         this.userRepository = userRepository;
         this.userService = userService;
-        this.mailService = mailService;
+        this.usuariosRepository = usuariosRepository;
+        this.codigosRepository = codigosRepository;
+        this.monederosRepository = monederosRepository;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -58,11 +81,60 @@ public class AccountResource {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+        SendEmail sendEmail = new SendEmail();
         if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
+        Monederos monedero = new Monederos("USUARIO", 0.0, "Activo");
+        Monederos monederoCreado = monederosRepository.save(monedero);
+        Usuarios usuario = new Usuarios(
+            " ",
+            user.getLogin(),
+            " ",
+            " ",
+            user.getEmail(),
+            " ",
+            " ",
+            ZonedDateTime.now(),
+            " ",
+            " ",
+            " ",
+            "UsuarioFinal",
+            managedUserVM.getPassword(),
+            "Pendiente",
+            monederoCreado,
+            new RolesUsuarios(3L)
+        );
+        String codigo = generateOTP();
+        Codigos codigoDTO = new Codigos(codigo, "Activo", usuario);
+        sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), usuario.getCorreoElectronico());
+        usuariosRepository.save(usuario);
+        codigosRepository.save(codigoDTO);
+    }
+
+    /**
+     * {@code POST  /register} : register the user.
+     *
+     * @param managedUserVM the managed user View Model.
+     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
+     * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
+     * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
+     */
+    @PostMapping("/registerStartup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerAccountStartup(@Valid @RequestBody ManagedUserVM managedUserVM) {
+        if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        User user = userService.registerStartup(managedUserVM, managedUserVM.getPassword());
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(managedUserVM.getEmail());
+        if (startups.isEmpty()) {
+            Startups startupsSave = new Startups();
+            startupsSave.setCorreoElectronico(managedUserVM.getEmail());
+            startupsSave.setNombreCorto(managedUserVM.getLogin());
+            startupsRepository.save(startupsSave);
+        }
     }
 
     /**
@@ -156,9 +228,7 @@ public class AccountResource {
     @PostMapping(path = "/account/reset-password/init")
     public void requestPasswordReset(@RequestBody String mail) {
         Optional<User> user = userService.requestPasswordReset(mail);
-        if (user.isPresent()) {
-            mailService.sendPasswordResetMail(user.get());
-        } else {
+        if (user.isPresent()) {} else {
             // Pretend the request has been successful to prevent checking which emails really exist
             // but log that an invalid attempt has been made
             log.warn("Password reset requested for non existing mail");
@@ -190,5 +260,9 @@ public class AccountResource {
             password.length() < ManagedUserVM.PASSWORD_MIN_LENGTH ||
             password.length() > ManagedUserVM.PASSWORD_MAX_LENGTH
         );
+    }
+
+    public String generateOTP() {
+        return new DecimalFormat("000000").format(new Random().nextInt(999999));
     }
 }
