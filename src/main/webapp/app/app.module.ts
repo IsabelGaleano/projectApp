@@ -8,6 +8,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -31,6 +32,7 @@ import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
+import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
 
 @NgModule({
   imports: [
@@ -44,6 +46,8 @@ import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final
 
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     TranslationModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     Title,
@@ -64,7 +68,9 @@ import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    PerfilAdminComponent,
   ],
+  exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
 })
 export class AppModule {
