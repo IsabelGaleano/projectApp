@@ -11,18 +11,22 @@ export class AppService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
-    return this.http.get(this.rootURL + '/usuarios');
+    const ruta = '/api/usuarios';
+    return this.http.get(ruta);
   }
 
   getUsersById(id: string): Observable<any> {
-    return this.http.get(this.rootURL + '/usuarios/' + id);
+    const ruta = '/api/usuarios/' + id;
+    return this.http.get(ruta);
   }
 
   addUser(user: any): any {
-    return this.http.post(this.rootURL + '/user', { user });
+    const ruta = '/api/user';
+    return this.http.post(ruta, { user });
   }
 
   updateUser(user: any, id: string): any {
-    return this.http.put(this.rootURL + '/usuarios/' + id, user);
+    const ruta = '/api/usuarios/' + id;
+    return this.http.put(ruta, user);
   }
 }
