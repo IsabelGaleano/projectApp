@@ -113,6 +113,15 @@ public class AccountResource {
         codigosRepository.save(codigoDTO);
     }
 
+    @GetMapping("/reenviarCodigo/{usuario}")
+    public void reenviarCodigo(@PathVariable Usuarios usuario) {
+        SendEmail sendEmail = new SendEmail();
+        String codigo = generateOTP();
+        Codigos codigoDTO = new Codigos(codigo, "Activo", usuario);
+        sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), usuario.getCorreoElectronico());
+        codigosRepository.save(codigoDTO);
+    }
+
     /**
      * {@code POST  /register} : register the user.
      *
