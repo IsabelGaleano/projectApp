@@ -130,9 +130,13 @@ public class AccountResource {
         User user = userService.registerStartup(managedUserVM, managedUserVM.getPassword());
         Optional<Startups> startups = startupsRepository.findByCorreoElectronico(managedUserVM.getEmail());
         if (startups.isEmpty()) {
+            Monederos monedero = new Monederos("STARTUP", 0.0, "Pendiente");
+            Monederos monederoCreado = monederosRepository.save(monedero);
             Startups startupsSave = new Startups();
             startupsSave.setCorreoElectronico(managedUserVM.getEmail());
             startupsSave.setNombreCorto(managedUserVM.getLogin());
+            startupsSave.estado("Pendiente");
+            startupsSave.setIdMonedero(monederoCreado);
             startupsRepository.save(startupsSave);
         }
     }
