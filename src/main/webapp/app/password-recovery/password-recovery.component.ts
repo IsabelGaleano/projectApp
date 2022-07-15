@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CodigosService } from '../entities/codigos/service/codigos.service';
 
 @Component({
   selector: 'jhi-password-recovery',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PasswordRecoveryComponent  { //implements OnInit {
 
-  //constructor() { }
+  email : string;
+
+  constructor(private codeService:CodigosService) { 
+
+  }
 
   //ngOnInit(): void {
   //}
+
+  async sendCode() {
+    let response = await this.codeService.sendCode(this.email)
+     console.log(response);
+  }
 
 }

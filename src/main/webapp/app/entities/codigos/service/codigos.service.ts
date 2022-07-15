@@ -57,4 +57,8 @@ export class CodigosService {
     }
     return codigosCollection;
   }
+
+  sendCode(email: string): Observable<EntityResponseType> {
+    return this.http.post<any>(this.resourceUrl+'/send', email, { observe: 'response' });
+  }
 }
