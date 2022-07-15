@@ -1,9 +1,8 @@
 package com.project.myapp.web.rest;
 
-import com.project.myapp.domain.Codigos;
-import com.project.myapp.domain.User;
-import com.project.myapp.domain.Usuarios;
+import com.project.myapp.domain.*;
 import com.project.myapp.repository.CodigosRepository;
+import com.project.myapp.repository.MonederosRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.SecurityUtils;
@@ -47,18 +46,22 @@ public class AccountResource {
 
     private final CodigosRepository codigosRepository;
 
+    private final MonederosRepository monederosRepository;
+
     private final UserService userService;
 
     public AccountResource(
         UserRepository userRepository,
         UserService userService,
         UsuariosRepository usuariosRepository,
-        CodigosRepository codigosRepository
+        CodigosRepository codigosRepository,
+        MonederosRepository monederosRepository
     ) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.usuariosRepository = usuariosRepository;
         this.codigosRepository = codigosRepository;
+        this.monederosRepository = monederosRepository;
     }
 
     /**
@@ -77,6 +80,8 @@ public class AccountResource {
             throw new InvalidPasswordException();
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        Monederos monedero = new Monederos("USUARIO", 0.0, "Activo");
+        Monederos monederoCreado = monederosRepository.save(monedero);
         Usuarios usuario = new Usuarios(
             " ",
             user.getLogin(),
@@ -91,7 +96,9 @@ public class AccountResource {
             " ",
             "UsuarioFinal",
             managedUserVM.getPassword(),
-            "Pendiente"
+            "Pendiente",
+            monederoCreado,
+            new RolesUsuarios(3L)
         );
         String codigo = generateOTP();
         Codigos codigoDTO = new Codigos(codigo, "Activo", usuario);

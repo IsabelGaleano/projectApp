@@ -153,7 +153,9 @@ public class Usuarios implements Serializable {
         String imagenURL,
         String tipoUsuarioFinal,
         String contrasennia,
-        String estado
+        String estado,
+        Monederos idMonedero,
+        RolesUsuarios idRol
     ) {
         this.nombre = nombre;
         this.cedula = cedula;
@@ -169,6 +171,8 @@ public class Usuarios implements Serializable {
         this.tipoUsuarioFinal = tipoUsuarioFinal;
         this.contrasennia = contrasennia;
         this.estado = estado;
+        this.idMonedero = idMonedero;
+        this.idRol = idRol;
     }
 
     public Long getId() {
