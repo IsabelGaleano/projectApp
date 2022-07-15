@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -211,6 +212,13 @@ public class StartupsResource {
     public ResponseEntity<Startups> getStartups(@PathVariable Long id) {
         log.debug("REST request to get Startups : {}", id);
         Optional<Startups> startups = startupsRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(startups);
+    }
+
+    @GetMapping("/startups/findbyCorreo/{correo}")
+    public ResponseEntity<Startups> getStartupsByCorreo(@PathVariable String correo) {
+        log.debug("REST request to get Startups : {}", correo);
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
         return ResponseUtil.wrapOrNotFound(startups);
     }
 

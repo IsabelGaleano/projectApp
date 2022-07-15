@@ -1,6 +1,8 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.User;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.security.SecurityUtils;
 import com.project.myapp.service.MailService;
@@ -36,15 +38,22 @@ public class AccountResource {
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     private final UserRepository userRepository;
+    private final StartupsRepository startupsRepository;
 
     private final UserService userService;
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(
+        UserRepository userRepository,
+        UserService userService,
+        MailService mailService,
+        StartupsRepository startupsRepository
+    ) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -62,6 +71,31 @@ public class AccountResource {
             throw new InvalidPasswordException();
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        mailService.sendActivationEmail(user);
+    }
+
+    /**
+     * {@code POST  /register} : register the user.
+     *
+     * @param managedUserVM the managed user View Model.
+     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
+     * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
+     * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
+     */
+    @PostMapping("/registerStartup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerAccountStartup(@Valid @RequestBody ManagedUserVM managedUserVM) {
+        if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        User user = userService.registerStartup(managedUserVM, managedUserVM.getPassword());
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(managedUserVM.getEmail());
+        if (startups.isEmpty()) {
+            Startups startupsSave = new Startups();
+            startupsSave.setCorreoElectronico(managedUserVM.getEmail());
+            startupsSave.setNombreCorto(managedUserVM.getLogin());
+            startupsRepository.save(startupsSave);
+        }
         mailService.sendActivationEmail(user);
     }
 
