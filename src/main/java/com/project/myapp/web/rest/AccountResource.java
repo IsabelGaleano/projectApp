@@ -1,10 +1,10 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.*;
-import com.project.myapp.repository.CodigosRepository;
-import com.project.myapp.repository.MonederosRepository;
 import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.User;
+import com.project.myapp.repository.CodigosRepository;
+import com.project.myapp.repository.MonederosRepository;
 import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
@@ -60,7 +60,6 @@ public class AccountResource {
         UsuariosRepository usuariosRepository,
         CodigosRepository codigosRepository,
         MonederosRepository monederosRepository,
-        MailService mailService,
         StartupsRepository startupsRepository
     ) {
         this.userRepository = userRepository;
@@ -136,7 +135,6 @@ public class AccountResource {
             startupsSave.setNombreCorto(managedUserVM.getLogin());
             startupsRepository.save(startupsSave);
         }
-        mailService.sendActivationEmail(user);
     }
 
     /**
