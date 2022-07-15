@@ -42,7 +42,7 @@
               "src/main/webapp/content/css/style.css",
               "src/main/webapp/content/css/animate.css",
               "src/main/webapp/content/css/loading.css",
-              "src/main/webapp/content/scss/style.scss"
+              "src/main/webapp/content/css/scss/style.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
