@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,7 +36,12 @@ export class RegisterComponent implements AfterViewInit {
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
 
-  constructor(private translateService: TranslateService, private registerService: RegisterService, private fb: FormBuilder) {}
+  constructor(
+    private translateService: TranslateService,
+    private registerService: RegisterService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngAfterViewInit(): void {
     if (this.login) {
@@ -55,9 +61,11 @@ export class RegisterComponent implements AfterViewInit {
     } else {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
+      sessionStorage.setItem('usuarioFinalPendiente', email);
       this.registerService
         .save({ login, email, password, langKey: this.translateService.currentLang })
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+      this.router.navigate(['account/verificacion-codigo-usuario-final']);
     }
   }
 
