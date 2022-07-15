@@ -11,9 +11,14 @@ export class VerificacionCodigoUsuarioFinalService {
   constructor(private http: HttpClient) {}
 
   getCodesById(id: number): Observable<any> {
-    return this.http.get(this.rootURL + '/codigos/' + id);
+    return this.http.get(this.rootURL.concat('/codigos/', id.toString()));
   }
+
   getUsersByMail(correo: string | null): Observable<any> {
-    return this.http.get(this.rootURL + '/usuarios/' + correo);
+    if (correo != null) {
+      return this.http.get(this.rootURL.concat('/usuarios/', correo.toString()));
+    } else {
+      return this.http.get(this.rootURL.concat('/usuarios'));
+    }
   }
 }
