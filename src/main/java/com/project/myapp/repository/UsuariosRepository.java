@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Usuarios;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {}
+public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
+    public Optional<Usuarios> getUsuariosByCorreoElectronico(String correo);
+}
