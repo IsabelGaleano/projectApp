@@ -137,6 +137,44 @@ public class Usuarios implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public Usuarios() {}
+
+    public Usuarios(
+        String nombre,
+        String cedula,
+        String primerApellido,
+        String segundoApellido,
+        String correoElectronico,
+        String genero,
+        String telefono,
+        ZonedDateTime fechaNacimiento,
+        String latitudDireccion,
+        String longitudDireccion,
+        String imagenURL,
+        String tipoUsuarioFinal,
+        String contrasennia,
+        String estado,
+        Monederos idMonedero,
+        RolesUsuarios idRol
+    ) {
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.correoElectronico = correoElectronico;
+        this.genero = genero;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
+        this.latitudDireccion = latitudDireccion;
+        this.longitudDireccion = longitudDireccion;
+        this.imagenURL = imagenURL;
+        this.tipoUsuarioFinal = tipoUsuarioFinal;
+        this.contrasennia = contrasennia;
+        this.estado = estado;
+        this.idMonedero = idMonedero;
+        this.idRol = idRol;
+    }
+
     public Long getId() {
         return this.id;
     }
