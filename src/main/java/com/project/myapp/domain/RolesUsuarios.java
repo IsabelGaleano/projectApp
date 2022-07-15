@@ -51,6 +51,12 @@ public class RolesUsuarios implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public RolesUsuarios(Long id) {
+        this.id = id;
+    }
+
+    public RolesUsuarios() {}
+
     public Long getId() {
         return this.id;
     }
