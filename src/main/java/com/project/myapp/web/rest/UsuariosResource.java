@@ -2,6 +2,8 @@ package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.UsuariosRepository;
+import com.project.myapp.security.AuthoritiesConstants;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -199,6 +202,13 @@ public class UsuariosResource {
     public ResponseEntity<Usuarios> getUsuarios(@PathVariable Long id) {
         log.debug("REST request to get Usuarios : {}", id);
         Optional<Usuarios> usuarios = usuariosRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(usuarios);
+    }
+
+    @GetMapping("/usuariosByCorreo/{correo}")
+    public ResponseEntity<Usuarios> getUsuariosByCorrreo(@PathVariable String correo) {
+        log.debug("REST request to get Usuarios : {}", correo);
+        Optional<Usuarios> usuarios = usuariosRepository.getUsuariosByCorreoElectronico(correo);
         return ResponseUtil.wrapOrNotFound(usuarios);
     }
 
