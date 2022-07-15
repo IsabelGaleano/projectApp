@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Codigos;
+import com.project.myapp.domain.Usuarios;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,8 @@ public interface CodigosRepository extends JpaRepository<Codigos, Long> {
     default Page<Codigos> findAllWithEagerRelationships(Pageable pageable) {
         return this.findAllWithToOneRelationships(pageable);
     }
+
+    public List<Codigos> findCodigosByIdUsuario(Usuarios usuario);
 
     @Query(
         value = "select distinct codigos from Codigos codigos left join fetch codigos.idStartup left join fetch codigos.idUsuario",
