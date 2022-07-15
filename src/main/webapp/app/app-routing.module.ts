@@ -8,6 +8,7 @@ import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-final/registro-usuario-final.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-fin
           path: '',
           loadChildren: () => import(`./entities/entity-routing.module`).then(m => m.EntityRoutingModule),
         },
+        { path: 'passwordRecovery', component: PasswordRecoveryComponent },
         navbarRoute,
         ...errorRoute,
       ],

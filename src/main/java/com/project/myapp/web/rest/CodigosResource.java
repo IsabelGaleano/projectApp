@@ -2,7 +2,10 @@ package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Codigos;
 import com.project.myapp.repository.CodigosRepository;
+import com.project.myapp.service.SendGridService;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -181,5 +184,9 @@ public class CodigosResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+    @PostMapping("/send")
+    public String sendWithTemplate() throws IOException {
+        return SendGridService.send();
     }
 }
