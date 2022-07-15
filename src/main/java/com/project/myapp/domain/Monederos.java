@@ -42,6 +42,14 @@ public class Monederos implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public Monederos(String tipo, Double saldo, String estado) {
+        this.tipo = tipo;
+        this.saldo = saldo;
+        this.estado = estado;
+    }
+
+    public Monederos() {}
+
     public Long getId() {
         return this.id;
     }
