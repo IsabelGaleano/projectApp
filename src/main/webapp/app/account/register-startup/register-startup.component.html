@@ -58,13 +58,13 @@
                       <div>
                         <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
                           <div class="form-group">
-                            <label class="form-label" for="login" jhiTranslate="global.form.username.label">Nombre del startup</label>
+                            <label class="form-label" for="login">Nombre del startup</label>
                             <input
                               type="text"
                               class="form-control"
                               id="login"
                               name="login"
-                              placeholder="{{ 'global.form.username.placeholder' | translate }}"
+                              placeholder="Ingrese el nombre"
                               formControlName="login"
                               data-cy="username"
                               #login
@@ -76,36 +76,20 @@
                                 (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)
                               "
                             >
-                              <small
-                                class="form-text text-danger"
-                                *ngIf="registerForm.get('login')?.errors?.required"
-                                jhiTranslate="register.messages.validate.login.required"
-                              >
-                                Your username is required.
+                              <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required">
+                                Su nombre de starup es requerido.
                               </small>
 
-                              <small
-                                class="form-text text-danger"
-                                *ngIf="registerForm.get('login')?.errors?.minlength"
-                                jhiTranslate="register.messages.validate.login.minlength"
-                              >
-                                Your username is required to be at least 1 character.
+                              <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.minlength">
+                                Se requiere que el nombre de su startup tenga al menos 1 carácter.
                               </small>
 
-                              <small
-                                class="form-text text-danger"
-                                *ngIf="registerForm.get('login')?.errors?.maxlength"
-                                jhiTranslate="register.messages.validate.login.maxlength"
-                              >
-                                Your username cannot be longer than 50 characters.
+                              <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.maxlength">
+                                Su nombre de startup no puede tener más de 50 caracteres.
                               </small>
 
-                              <small
-                                class="form-text text-danger"
-                                *ngIf="registerForm.get('login')?.errors?.pattern"
-                                jhiTranslate="register.messages.validate.login.pattern"
-                              >
-                                Your username can only contain letters and digits.
+                              <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.pattern">
+                                Su nombre de startup solo puede contener letras y dígitos.
                               </small>
                             </div>
                           </div>
@@ -254,27 +238,19 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <button
-                              type="submit"
-                              [disabled]="registerForm.invalid"
-                              class="btn btn-main-primary btn-block"
-                              jhiTranslate="register.form.button"
-                              data-cy="submit"
-                            >
-                              Register
-                            </button>
+                            <button type="submit" class="btn btn-main-primary btn-block" data-cy="submit">Crear una cuenta</button>
                           </div>
                           <div class="row row-xs">
                             <div class="col-sm-6">
-                              <button class="btn btn-block"><i class="fab fa-facebook-f"></i> Signup with Facebook</button>
+                              <button class="btn btn-block"><i class="fab fa-facebook-f"></i> Iniciar con Facebook</button>
                             </div>
                             <div class="col-sm-6 mg-t-10 mg-sm-t-0">
-                              <button class="btn btn-info btn-block btn-b"><i class="fab fa-twitter"></i> Signup with Twitter</button>
+                              <button class="btn btn-info btn-block btn-b"><i class="fab fa-twitter"></i> Iniciar con Twitter</button>
                             </div>
                           </div>
                         </form>
                         <div class="main-signup-footer mt-5">
-                          <p>Already have an account? <a href="">Sign In</a></p>
+                          <p>¿Ya tienes una cuenta? <a href="">Iniciar sesión</a></p>
                         </div>
                       </div>
                     </div>
