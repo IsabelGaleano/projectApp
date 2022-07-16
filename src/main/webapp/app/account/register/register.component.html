@@ -83,50 +83,6 @@
                         <div>
                           <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
                             <div class="form-group">
-                              <label class="form-label" for="login">Cédula</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="login"
-                                name="login"
-                                placeholder="Cédula"
-                                formControlName="login"
-                                data-cy="username"
-                                #login
-                              />
-                              <div
-                                *ngIf="
-                                  registerForm.get('login')!.invalid &&
-                                  (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)
-                                "
-                              >
-                                <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required">
-                                  Cédula requerida.
-                                </small>
-
-                                <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.minlength">
-                                  Cédula debe ser mayor a 1 dígito.
-                                </small>
-
-                                <small
-                                  class="form-text text-danger"
-                                  *ngIf="registerForm.get('login')?.errors?.maxlength"
-                                  jhiTranslate="register.messages.validate.login.maxlength"
-                                >
-                                  Your username cannot be longer than 50 characters.
-                                </small>
-
-                                <small
-                                  class="form-text text-danger"
-                                  *ngIf="registerForm.get('login')?.errors?.pattern"
-                                  jhiTranslate="register.messages.validate.login.pattern"
-                                >
-                                  Your username can only contain letters and digits.
-                                </small>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
                               <label class="form-label" for="email" jhiTranslate="global.form.email.label">Correo electrónico</label>
                               <input
                                 type="email"
