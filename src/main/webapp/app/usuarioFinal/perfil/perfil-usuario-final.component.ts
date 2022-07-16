@@ -65,7 +65,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
         this.user = true;
         this.perfilUsuarioFinalService.getUsersByMail(account.email).subscribe((dataUsuario: any) => {
           const loader = new Loader({
-            apiKey: 'AIzaSyBUedgqnVlHekWA76jnq4zIJRK6Ofg1nF4',
+            apiKey: '',
           });
           loader.load().then(() => {
             console.warn('loaded map');
