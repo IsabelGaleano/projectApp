@@ -64,8 +64,9 @@ export class PerfilUsuarioFinalComponent implements OnInit {
         console.warn(account);
         this.user = true;
         this.perfilUsuarioFinalService.getUsersByMail(account.email).subscribe((dataUsuario: any) => {
+          const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
           const loader = new Loader({
-            apiKey: '',
+            apiKey: key,
           });
           loader.load().then(() => {
             console.warn('loaded map');
@@ -166,5 +167,25 @@ export class PerfilUsuarioFinalComponent implements OnInit {
         location.reload();
       });
     });
+  }
+  desencriptar(s: string): string {
+    const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+    let strDescodificado = '';
+    let caracter;
+    for (let i = 0; i < s.length; i++) {
+      caracter = s.charAt(i);
+      const pos = abecedario.indexOf(caracter);
+      if (pos === -1) {
+        strDescodificado += caracter;
+      } else {
+        if (pos - 3 < 0) {
+          strDescodificado += abecedario.charAt(abecedario.length + (pos - 3));
+        } else {
+          strDescodificado += abecedario.charAt((pos - 3) % abecedario.length);
+        }
+      }
+    }
+
+    return strDescodificado;
   }
 }
