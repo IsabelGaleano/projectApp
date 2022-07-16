@@ -1,5 +1,6 @@
 package com.project.myapp.repository;
 
+import com.project.myapp.domain.Authority;
 import com.project.myapp.domain.User;
 import java.time.Instant;
 import java.util.List;
@@ -35,6 +36,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);
 
-    @Query("SELECT C FROM User C WHERE C.email LIKE ?1")
-    Optional<User> findByEmail(String email);
+    @Query("SELECT C.authorities FROM User C WHERE C.email LIKE ?1")
+    List<Authority> findByEmail(String email);
 }

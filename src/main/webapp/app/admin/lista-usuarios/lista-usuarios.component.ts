@@ -8,14 +8,25 @@ import { AppService } from './lista-usuarios.service';
   styleUrls: ['./lista-usuarios.component.scss'],
 })
 export class ListaUsuariosComponent implements OnInit {
-  callJsonGetRestApiResponse: any[] = [];
+  usuarios: any[] = [];
   // show:boolean;
 
   constructor(private appService: AppService, private router: Router) {}
 
   ngOnInit(): void {
     this.appService.getUsers().subscribe((data: any) => {
-      this.callJsonGetRestApiResponse = data;
+      // this.usuarios = data;
+
+      data.forEach((usuario: any) => {
+        this.appService.getUsersByEmail(usuario.correoElectronico).subscribe((roles: any) => {
+          roles.forEach((rol: any) => {
+            // console.warn(ro)
+            if (rol.name === 'ROLE_USER' && roles.length === 1) {
+              this.usuarios.push(usuario);
+            }
+          });
+        });
+      });
     });
   }
 
@@ -49,11 +60,20 @@ export class ListaUsuariosComponent implements OnInit {
 
   verPerfil(correo: string): void {
     this.appService.setCorreo(correo);
+    // this.router.navigate(['/admin/perfil-visualizable-usuario-final']);
 
-    this.router.navigate(['/admin/perfil-visualizable-usuario-final']);
+    this.appService.getUsersByEmail(correo).subscribe((roles: any) => {
+      console.warn(roles);
 
-    this.appService.getUsersByEmail(correo).subscribe((usuario: any) => {
-      console.warn(usuario.authenticate);
+      roles.forEach((element: any) => {
+        console.warn(element);
+
+        if (element.name === 'ROLE_ADMIN') {
+          // this.router.navigate(['/admin/perfil-visualizable-usuario-final']);
+        } else if (element.name === 'ROLE_USER') {
+          this.router.navigate(['/admin/perfil-visualizable-usuario-final']);
+        }
+      });
     });
   }
 

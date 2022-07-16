@@ -209,10 +209,10 @@ public class UserResource {
     }
 
     @GetMapping("/usersEmail/{email}")
-    public ResponseEntity<User> getUserByCorreo(@PathVariable String email) {
+    public List<Authority> getUserByCorreo(@PathVariable String email) {
         log.debug("REST request to get User : {}", email);
         // return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
-        Optional<User> user = userRepository.findByEmail(email);
-        return ResponseUtil.wrapOrNotFound(user);
+
+        return userRepository.findByEmail(email);
     }
 }

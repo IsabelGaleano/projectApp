@@ -33,7 +33,7 @@
                     <th class="table-header-centered">Perfil</th>
                   </tr>
                 </thead>
-                <tbody *ngFor="let usuario of callJsonGetRestApiResponse; index as i">
+                <tbody *ngFor="let usuario of usuarios; index as i">
                   <tr>
                     <td>{{ usuario.nombre }}</td>
                     <td>{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</td>

@@ -13,6 +13,7 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
   ngOnInit(): void {
     this.appService.getCorreo().subscribe(correo => {
       console.warn('Alex, este es el correo: ' + correo);
+      // this.appService.getUserRolesByEmail(correo).subscribe((roles:any) => {});
     });
   }
 }
