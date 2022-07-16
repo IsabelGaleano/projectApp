@@ -4,13 +4,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/config/error.constants';
-import { RegisterStartupService } from './register-startup.service';
+import { RegisterStartupService } from '../register-startup/register-startup.service';
+import { VerificacionStartupService } from './verificacion-startup.service';
 
 @Component({
-  selector: 'jhi-register-startup',
-  templateUrl: './register-startup.component.html',
+  selector: 'jhi-verificacion-startup',
+  templateUrl: './verificacion-startup.component.html',
 })
-export class RegisterStartupComponent implements AfterViewInit {
+export class VerificacionStartupComponent implements AfterViewInit {
   @ViewChild('login', { static: false })
   login?: ElementRef;
 
@@ -26,18 +27,15 @@ export class RegisterStartupComponent implements AfterViewInit {
       [
         Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(50),
+        Validators.maxLength(6),
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     ],
-    email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
 
   constructor(
     private translateService: TranslateService,
-    private registerService: RegisterStartupService,
+    private verificacionService: VerificacionStartupService,
     private fb: FormBuilder,
     private router: Router
   ) {}
@@ -48,24 +46,17 @@ export class RegisterStartupComponent implements AfterViewInit {
     }
   }
 
-  register(): void {
+  verificarCuenta(): void {
     this.doNotMatch = false;
     this.error = false;
     this.errorEmailExists = false;
     this.errorUserExists = false;
 
-    const password = this.registerForm.get(['password'])!.value;
-    if (password !== this.registerForm.get(['confirmPassword'])!.value) {
-      this.doNotMatch = true;
-    } else {
-      const login = this.registerForm.get(['login'])!.value;
-      const email = this.registerForm.get(['email'])!.value;
-      sessionStorage.setItem('startupPendiente', email);
-      this.registerService
-        .save({ login, email, password, langKey: this.translateService.currentLang })
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
-      this.router.navigate(['account/verificacion-startup']);
-    }
+    const login = this.registerForm.get(['login'])!.value;
+
+    this.verificacionService.verificarCuenta(sessionStorage.getItem('startupPendiente'), login).subscribe((verificacion: any) => {
+      console.warn(verificacion);
+    });
   }
 
   private processError(response: HttpErrorResponse): void {

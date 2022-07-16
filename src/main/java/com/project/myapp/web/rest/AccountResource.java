@@ -136,9 +136,11 @@ public class AccountResource {
         if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
+
         User user = userService.registerStartup(managedUserVM, managedUserVM.getPassword());
         Optional<Startups> startups = startupsRepository.findByCorreoElectronico(managedUserVM.getEmail());
         if (startups.isEmpty()) {
+            SendEmail sendEmail = new SendEmail();
             Monederos monedero = new Monederos("STARTUP", 0.0, "Pendiente");
             Monederos monederoCreado = monederosRepository.save(monedero);
             Startups startupsSave = new Startups();
@@ -146,7 +148,14 @@ public class AccountResource {
             startupsSave.setNombreCorto(managedUserVM.getLogin());
             startupsSave.estado("Pendiente");
             startupsSave.setIdMonedero(monederoCreado);
+            //OTP
+            String codigo = generateOTP();
+            Codigos codigoDTO = new Codigos(codigo, "Activo", startupsSave);
+            sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), startupsSave.getCorreoElectronico());
+
+            //Save usuario
             startupsRepository.save(startupsSave);
+            codigosRepository.save(codigoDTO);
         }
     }
 

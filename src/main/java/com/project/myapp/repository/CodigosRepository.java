@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Codigos;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Usuarios;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,8 @@ public interface CodigosRepository extends JpaRepository<Codigos, Long> {
     }
 
     public List<Codigos> findCodigosByIdUsuario(Usuarios usuario);
+
+    public List<Codigos> findCodigosByIdStartup(Startups startups);
 
     @Query(
         value = "select distinct codigos from Codigos codigos left join fetch codigos.idStartup left join fetch codigos.idUsuario",
