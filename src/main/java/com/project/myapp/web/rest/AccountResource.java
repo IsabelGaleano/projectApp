@@ -1,8 +1,11 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.*;
+import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.User;
 import com.project.myapp.repository.CodigosRepository;
 import com.project.myapp.repository.MonederosRepository;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.SecurityUtils;
@@ -41,6 +44,7 @@ public class AccountResource {
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     private final UserRepository userRepository;
+    private final StartupsRepository startupsRepository;
 
     private final UsuariosRepository usuariosRepository;
 
@@ -55,13 +59,15 @@ public class AccountResource {
         UserService userService,
         UsuariosRepository usuariosRepository,
         CodigosRepository codigosRepository,
-        MonederosRepository monederosRepository
+        MonederosRepository monederosRepository,
+        StartupsRepository startupsRepository
     ) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.usuariosRepository = usuariosRepository;
         this.codigosRepository = codigosRepository;
         this.monederosRepository = monederosRepository;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -114,6 +120,34 @@ public class AccountResource {
         Codigos codigoDTO = new Codigos(codigo, "Activo", usuario);
         sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), usuario.getCorreoElectronico());
         codigosRepository.save(codigoDTO);
+    }
+
+    /**
+     * {@code POST  /register} : register the user.
+     *
+     * @param managedUserVM the managed user View Model.
+     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
+     * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
+     * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
+     */
+    @PostMapping("/registerStartup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerAccountStartup(@Valid @RequestBody ManagedUserVM managedUserVM) {
+        if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        User user = userService.registerStartup(managedUserVM, managedUserVM.getPassword());
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(managedUserVM.getEmail());
+        if (startups.isEmpty()) {
+            Monederos monedero = new Monederos("STARTUP", 0.0, "Pendiente");
+            Monederos monederoCreado = monederosRepository.save(monedero);
+            Startups startupsSave = new Startups();
+            startupsSave.setCorreoElectronico(managedUserVM.getEmail());
+            startupsSave.setNombreCorto(managedUserVM.getLogin());
+            startupsSave.estado("Pendiente");
+            startupsSave.setIdMonedero(monederoCreado);
+            startupsRepository.save(startupsSave);
+        }
     }
 
     /**
