@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.accountService.getAuthenticationState().subscribe(account => {
               if (account) {
                 // eslint-disable-next-line no-console
-                console.log(account);
+                console.warn(account);
                 if (account.authorities[1]) {
                   this.router.navigate(['admin/profile-admin']);
                 } else if (account.authorities[0]) {
