@@ -23,7 +23,7 @@ export class LoginService {
 
   getStartupByCorreo(correo: string | null): Observable<any> {
     if (correo != null) {
-      return this.http.get(this.rootURL.concat('/usuariosByCorreo/', correo.toString()));
+      return this.http.get(this.rootURL.concat('/startups/findbyCorreo/', correo.toString()));
     } else {
       return this.http.get(this.rootURL.concat('/startups'));
     }
