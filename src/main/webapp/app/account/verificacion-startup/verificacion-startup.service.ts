@@ -17,4 +17,12 @@ export class VerificacionStartupService {
       return this.http.get(this.rootURL.concat('/startups/'));
     }
   }
+
+  reenviarCodigo(correo: string | null): Observable<any> {
+    if (correo != null) {
+      return this.http.get(this.rootURL.concat('/startups/reenviarCodigo/').concat(correo));
+    } else {
+      return this.http.get(this.rootURL.concat('/startups/'));
+    }
+  }
 }

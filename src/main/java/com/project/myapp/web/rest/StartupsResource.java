@@ -2,8 +2,10 @@ package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Codigos;
 import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.CodigosRepository;
 import com.project.myapp.repository.StartupsRepository;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -243,7 +245,7 @@ public class StartupsResource {
                         }
                     }
 
-                    startups.get().estado("PendienteInsripcion");
+                    startups.get().setEstado("PendienteInscripcion");
                     startupsRepository.save(startups.get());
                 }
             }

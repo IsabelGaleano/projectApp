@@ -6,7 +6,7 @@
         <div class="row wd-100p mx-auto text-center">
           <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
             <img
-              src="../../../content/images/undraw_team_work_k-80-m.svg"
+              src="../../../content/images/undraw_personal_email_re_4lx7.svg"
               class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto"
               alt="logo"
             />
@@ -28,13 +28,19 @@
                     </a>
                   </div>
                   <div class="main-signup-header">
-                    <h2 class="text-primary">Bienvenido!</h2>
-                    <h5 class="fw-normal mb-4">Registrarse es gratis.</h5>
+                    <h2 class="text-primary">Verifique su cuenta</h2>
+                    <h5 class="fw-normal mb-4">Ingrese el código que fue enviado a su correo electrónico</h5>
                     <div>
                       <div>
                         <div class="col-md-8">
                           <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
-                            <strong>Registration saved!</strong> Please check your email for confirmation.
+                            <strong>Cuenta verificada!</strong> Ya puede iniciar sesión.
+                          </div>
+                          <div class="alert alert-success" *ngIf="codigoReenviado">
+                            <strong>Código reenviado</strong> Por favor revise su correo electrónico.
+                          </div>
+                          <div class="alert alert-danger" *ngIf="codigoIncorrecto">
+                            <strong>Código incorrecto!</strong> Por favor ingreselo de nuevo.
                           </div>
 
                           <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
@@ -58,13 +64,13 @@
                       <div>
                         <form name="form" role="form" (ngSubmit)="verificarCuenta()" [formGroup]="registerForm" *ngIf="!success">
                           <div class="form-group">
-                            <label class="form-label" for="login">Nombre del startup</label>
+                            <label class="form-label" for="login">Código de verificación</label>
                             <input
-                              type="text"
+                              type="number"
                               class="form-control"
                               id="login"
                               name="login"
-                              placeholder="Ingrese el nombre"
+                              placeholder="Digite el código"
                               formControlName="login"
                               data-cy="username"
                               #login
@@ -77,29 +83,28 @@
                               "
                             >
                               <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required">
-                                Su nombre de starup es requerido.
+                                El código es requerido.
                               </small>
 
                               <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.minlength">
-                                Se requiere que el nombre de su startup tenga al menos 1 carácter.
+                                Se requiere que el código tenga mínimo 6 digitos.
                               </small>
 
                               <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.maxlength">
-                                Su nombre de startup no puede tener más de 50 caracteres.
-                              </small>
-
-                              <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.pattern">
-                                Su nombre de startup solo puede contener letras y dígitos.
+                                El código no puede tener más de 6 digitos.
                               </small>
                             </div>
                           </div>
 
                           <div class="form-group">
-                            <button type="submit" class="btn btn-main-primary btn-block" data-cy="submit">Crear una cuenta</button>
+                            <button type="submit" class="btn btn-main-primary btn-block" data-cy="submit">Verificar cuenta</button>
                           </div>
                         </form>
                         <div class="main-signup-footer mt-5">
-                          <p>¿Ya tienes una cuenta? <a href="">Iniciar sesión</a></p>
+                          <p>
+                            ¿No recibió el código?
+                            <button class="btn btn-link" (click)="reenviarCodigo()">Reenviar código</button>
+                          </p>
                         </div>
                       </div>
                     </div>

@@ -49,6 +49,7 @@ export class RegisterStartupComponent implements AfterViewInit {
   }
 
   register(): void {
+    const router = this.router;
     this.doNotMatch = false;
     this.error = false;
     this.errorEmailExists = false;
@@ -64,7 +65,9 @@ export class RegisterStartupComponent implements AfterViewInit {
       this.registerService
         .save({ login, email, password, langKey: this.translateService.currentLang })
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
-      this.router.navigate(['account/verificacion-startup']);
+      window.setTimeout(function () {
+        router.navigate(['account/verificacion-startup']);
+      }, 3000);
     }
   }
 

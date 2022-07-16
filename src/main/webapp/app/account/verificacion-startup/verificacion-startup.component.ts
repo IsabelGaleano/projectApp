@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/config/error.constants';
-import { RegisterStartupService } from '../register-startup/register-startup.service';
 import { VerificacionStartupService } from './verificacion-startup.service';
 
 @Component({
@@ -20,17 +19,11 @@ export class VerificacionStartupComponent implements AfterViewInit {
   errorEmailExists = false;
   errorUserExists = false;
   success = false;
+  codigoReenviado = false;
+  codigoIncorrecto = false;
 
   registerForm = this.fb.group({
-    login: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(6),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    ],
+    login: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
   });
 
   constructor(
@@ -47,6 +40,7 @@ export class VerificacionStartupComponent implements AfterViewInit {
   }
 
   verificarCuenta(): void {
+    const router = this.router;
     this.doNotMatch = false;
     this.error = false;
     this.errorEmailExists = false;
@@ -56,6 +50,23 @@ export class VerificacionStartupComponent implements AfterViewInit {
 
     this.verificacionService.verificarCuenta(sessionStorage.getItem('startupPendiente'), login).subscribe((verificacion: any) => {
       console.warn(verificacion);
+      if (verificacion) {
+        this.success = true;
+        window.setTimeout(function () {
+          router.navigate(['login']);
+        }, 5000);
+      } else {
+        this.codigoIncorrecto = true;
+      }
+    });
+  }
+
+  reenviarCodigo(): void {
+    const login = this.registerForm.get(['login'])!.value;
+
+    this.verificacionService.reenviarCodigo(sessionStorage.getItem('startupPendiente')).subscribe((result: any) => {
+      console.warn(result);
+      this.codigoReenviado = true;
     });
   }
 
