@@ -30,8 +30,8 @@ export class PerfilAdminService {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/account/change-password'), { currentPassword, newPassword });
   }
 
-  updateContrasenniaUsuarios(correoElectronico: string, contrasenniaActual: string, contrasenniaNueva: string): Observable<any> {
-    const ruta = '/api/usuariosContrasennia/' + correoElectronico;
-    return this.http.put(ruta, contrasenniaNueva);
-  }
+  // updateContrasenniaUsuarios(correoElectronico: string, contrasenniaActual: string, contrasenniaNueva: string): Observable<any> {
+  //   const ruta = '/api/usuariosContrasennia/' + correoElectronico;
+  //   return this.http.put(ruta, contrasenniaNueva);
+  // }
 }

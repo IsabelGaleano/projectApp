@@ -13,6 +13,7 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 
 import { PerfilAdminService } from './perfil-admin.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -32,7 +33,9 @@ export class PerfilAdminComponent implements OnInit {
   user = false;
   usuario: any;
   error = false;
-  errorVacias = false;
+  errorInvalida = false;
+  errorVacia = false;
+  errorNuevasVacias = false;
 
   formInfoBasica = new FormGroup({
     nombre: new FormControl(),
@@ -45,6 +48,7 @@ export class PerfilAdminComponent implements OnInit {
   });
 
   formContrasennia = new FormGroup({
+    contrasenniaActual: new FormControl(),
     nuevaContrasennia: new FormControl(),
     confirmacionNuevaContrasennia: new FormControl(),
   });
@@ -141,9 +145,9 @@ export class PerfilAdminComponent implements OnInit {
   }
 
   actualizarContrasennia(): void {
+    const contrasenniaActual = this.formContrasennia.get(['contrasenniaActual'])!.value;
     const nuevaContrasennia = this.formContrasennia.get(['nuevaContrasennia'])!.value;
     const confirmacionNuevaContrasennia = this.formContrasennia.get(['confirmacionNuevaContrasennia'])!.value;
-    const contrasenniaActual = this.usuario.contrasennia;
 
     if (nuevaContrasennia !== confirmacionNuevaContrasennia) {
       this.error = true;
@@ -151,15 +155,45 @@ export class PerfilAdminComponent implements OnInit {
       this.error = false;
     }
 
-    if (nuevaContrasennia === confirmacionNuevaContrasennia && nuevaContrasennia != null && nuevaContrasennia !== '') {
+    if (contrasenniaActual === '' || contrasenniaActual == null) {
+      this.errorVacia = true;
+    } else {
+      this.errorVacia = false;
+    }
+
+    if (
+      nuevaContrasennia === '' ||
+      nuevaContrasennia == null ||
+      confirmacionNuevaContrasennia === '' ||
+      confirmacionNuevaContrasennia == null
+    ) {
+      this.errorNuevasVacias = true;
+    } else {
+      this.errorNuevasVacias = false;
+    }
+
+    if (
+      nuevaContrasennia === confirmacionNuevaContrasennia &&
+      nuevaContrasennia != null &&
+      nuevaContrasennia !== '' &&
+      contrasenniaActual != null &&
+      contrasenniaActual !== '' &&
+      contrasenniaActual !== nuevaContrasennia
+    ) {
       this.error = false;
-      this.errorVacias = false;
 
-      this.adminService.save(contrasenniaActual, nuevaContrasennia).subscribe();
+      this.adminService.save(contrasenniaActual, nuevaContrasennia).subscribe(
+        () => {
+          window.location.reload();
+        },
+        (error: HttpErrorResponse) => {
+          this.errorInvalida = true;
+        }
+      );
 
-      this.adminService
-        .updateContrasenniaUsuarios(this.usuario.correoElectronico, contrasenniaActual, nuevaContrasennia)
-        .subscribe(() => window.location.reload());
+      // this.adminService
+      //   .updateContrasenniaUsuarios(this.usuario.correoElectronico, contrasenniaActual, nuevaContrasennia)
+      //   .subscribe(() => window.location.reload());
     }
 
     console.warn(contrasenniaActual);

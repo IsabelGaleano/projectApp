@@ -13,7 +13,10 @@
             <div class="ps-0">
               <div class="main-profile-overview">
                 <div class="main-img-user profile-user">
-                  <img alt="" src="../assets/img/faces/6.jpg" /><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                  <img alt="Foto de Perfil" src="{{ usuario.imagenURL }}" /><a
+                    class="fas fa-camera profile-edit"
+                    href="JavaScript:void(0);"
+                  ></a>
                 </div>
                 <div class="d-flex justify-content-between mg-b-20">
                   <div>
@@ -250,11 +253,15 @@
                                 <input
                                   type="text"
                                   class="form-control"
-                                  [readonly]="true"
                                   formControlName="contrasenniaActual"
-                                  value="{{ usuario.contrasennia }}"
-                                  placeholder="{{ usuario.contrasennia }}"
+                                  placeholder="Contraseña antigua"
                                 />
+                                <div class="alert alert-danger" *ngIf="errorInvalida">
+                                  <strong>Contraseña antigua inválida.</strong>
+                                </div>
+                                <div class="alert alert-danger" *ngIf="errorVacia">
+                                  <strong>La contraseña antigua no puede ser vacía.</strong>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -289,6 +296,9 @@
                                 />
                                 <div class="alert alert-danger" *ngIf="error">
                                   <strong>Las contraseñas deben de coincidir.</strong>
+                                </div>
+                                <div class="alert alert-danger" *ngIf="errorNuevasVacias">
+                                  <strong>Las contraseñas nuevas no pueden ser vacías.</strong>
                                 </div>
                               </div>
                             </div>
