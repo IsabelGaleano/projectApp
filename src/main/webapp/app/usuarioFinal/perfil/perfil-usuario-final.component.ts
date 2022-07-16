@@ -30,6 +30,8 @@ export class PerfilUsuarioFinalComponent implements OnInit {
   entitiesNavbarItems: any[] = [];
   user = false;
   map: google.maps.Map | undefined;
+  latitudMarker = 0;
+  longitudMarker = 0;
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
@@ -69,11 +71,12 @@ export class PerfilUsuarioFinalComponent implements OnInit {
             apiKey: key,
           });
           loader.load().then(() => {
-            console.warn('loaded map');
+            const latitudValue: number = +dataUsuario.latitudDireccion;
+            const longitudValue: number = +dataUsuario.longitudDireccion;
 
             const location = {
-              lat: 10.087256286732499,
-              lng: -84.47017199931729,
+              lat: latitudValue,
+              lng: longitudValue,
             };
 
             this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
@@ -85,14 +88,17 @@ export class PerfilUsuarioFinalComponent implements OnInit {
               position: location,
               map: this.map,
               draggable: true,
-              title: 'Si desea cambiar su ubicación, arrastre el marcador',
             });
-            // const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
-            // latitudDireccionForm.value = location.lat.toString();
+            google.maps.event.addListener(marker, 'dragend', function (evt) {
+              const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
+              latitudDireccionForm.value = evt.latLng.lat().toString();
+
+              const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitudDireccionForm');
+              longitudDireccionForm.value = evt.latLng.lng();
+            });
           });
 
           this.usuarioFinal = dataUsuario.correoElectronico;
-          console.warn(dataUsuario);
           nombreHeader.insertAdjacentText('beforeend', dataUsuario.nombre);
           apellidosHeader.insertAdjacentText('beforeend', dataUsuario.primerApellido.concat(dataUsuario.segundoApellido));
           correoSidebar.insertAdjacentText('beforeend', dataUsuario.correoElectronico);
@@ -100,7 +106,6 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           cedulaSidebar.insertAdjacentText('beforeend', dataUsuario.cedula);
           estadoSidebar.insertAdjacentText('beforeend', dataUsuario.estado);
           monederoEstadoSidebar.insertAdjacentText('beforeend', dataUsuario.idMonedero.estado);
-
           // Form values
           const nombreForm = <HTMLInputElement>document.getElementById('nombreForm');
           nombreForm.value = dataUsuario.nombre;
@@ -119,12 +124,6 @@ export class PerfilUsuarioFinalComponent implements OnInit {
 
           const telefonoForm = <HTMLInputElement>document.getElementById('telefonoForm');
           telefonoForm.value = dataUsuario.telefono;
-
-          const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
-          latitudDireccionForm.value = dataUsuario.latitudDireccion;
-
-          const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitudDireccionForm');
-          longitudDireccionForm.value = dataUsuario.longitudDireccion;
 
           const fechaNacimientoForm = <HTMLInputElement>document.getElementById('fechaNacimientoForm');
           const fechaFormato = dataUsuario.fechaNacimiento.split('T', 2);
