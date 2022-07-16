@@ -17,4 +17,8 @@ export class PerfilUsuarioFinalService {
       return this.http.get(this.rootURL.concat('/usuarios'));
     }
   }
+
+  updateUsers(id: number, usuarios: Record<string, unknown>): Observable<any> {
+    return this.http.put(this.rootURL.concat('/usuarios/', id.toString()), usuarios);
+  }
 }
