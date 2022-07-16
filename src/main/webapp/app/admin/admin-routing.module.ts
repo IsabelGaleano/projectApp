@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ListaUsuariosComponent } from './lista-usuarios/lista-usuarios.component';
+import { PerfilVisualizableUsuarioFinalComponent } from './perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
 import { PerfilAdminComponent } from './perfil/perfil-admin.component';
 
 @NgModule({
@@ -18,6 +19,13 @@ import { PerfilAdminComponent } from './perfil/perfil-admin.component';
         component: ListaUsuariosComponent,
         data: {
           pageTitle: 'lista-usuarios.home.title',
+        },
+      },
+      {
+        path: 'perfil-visualizable-usuario-final',
+        component: PerfilVisualizableUsuarioFinalComponent,
+        data: {
+          pageTitle: 'perfil-visualizable-usuario-final.home.title',
         },
       },
       {

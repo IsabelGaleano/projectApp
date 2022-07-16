@@ -32,6 +32,7 @@ import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-foo
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
 import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.component';
+import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.co
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
     ListaUsuariosComponent,
+    PerfilVisualizableUsuarioFinalComponent,
   ],
   bootstrap: [MainComponent],
 })

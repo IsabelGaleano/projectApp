@@ -1,8 +1,10 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.config.Constants;
+import com.project.myapp.domain.Authority;
 import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
+import com.project.myapp.repository.AuthorityRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.AuthoritiesConstants;
@@ -204,5 +206,13 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.deleted", login)).build();
+    }
+
+    @GetMapping("/usersEmail/{email}")
+    public ResponseEntity<User> getUserByCorreo(@PathVariable String email) {
+        log.debug("REST request to get User : {}", email);
+        // return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
+        Optional<User> user = userRepository.findByEmail(email);
+        return ResponseUtil.wrapOrNotFound(user);
     }
 }

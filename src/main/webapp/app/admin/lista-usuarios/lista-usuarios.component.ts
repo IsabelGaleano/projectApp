@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppService } from './lista-usuarios.service';
 
 @Component({
@@ -10,9 +11,7 @@ export class ListaUsuariosComponent implements OnInit {
   callJsonGetRestApiResponse: any[] = [];
   // show:boolean;
 
-  constructor(private appService: AppService) {
-    let b;
-  }
+  constructor(private appService: AppService, private router: Router) {}
 
   ngOnInit(): void {
     this.appService.getUsers().subscribe((data: any) => {
@@ -46,6 +45,16 @@ export class ListaUsuariosComponent implements OnInit {
         this.appService.updateUser(data, idXestado[0]).subscribe().then(window.location.reload());
       });
     }
+  }
+
+  verPerfil(correo: string): void {
+    this.appService.setCorreo(correo);
+
+    this.router.navigate(['/admin/perfil-visualizable-usuario-final']);
+
+    this.appService.getUsersByEmail(correo).subscribe((usuario: any) => {
+      console.warn(usuario.authenticate);
+    });
   }
 
   // getAllUsers():void{
