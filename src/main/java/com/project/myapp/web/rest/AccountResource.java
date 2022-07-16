@@ -74,7 +74,7 @@ public class AccountResource {
      * {@code POST  /register} : register the user.
      *
      * @param managedUserVM the managed user View Model.
-     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
+     * @throws InvalidPasswordException  {@code 400 (Bad Request)} if the password is incorrect.
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
@@ -126,7 +126,7 @@ public class AccountResource {
      * {@code POST  /register} : register the user.
      *
      * @param managedUserVM the managed user View Model.
-     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
+     * @throws InvalidPasswordException  {@code 400 (Bad Request)} if the password is incorrect.
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
@@ -136,9 +136,11 @@ public class AccountResource {
         if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
+
         User user = userService.registerStartup(managedUserVM, managedUserVM.getPassword());
         Optional<Startups> startups = startupsRepository.findByCorreoElectronico(managedUserVM.getEmail());
         if (startups.isEmpty()) {
+            SendEmail sendEmail = new SendEmail();
             Monederos monedero = new Monederos("STARTUP", 0.0, "Pendiente");
             Monederos monederoCreado = monederosRepository.save(monedero);
             Startups startupsSave = new Startups();
@@ -146,8 +148,34 @@ public class AccountResource {
             startupsSave.setNombreCorto(managedUserVM.getLogin());
             startupsSave.estado("Pendiente");
             startupsSave.setIdMonedero(monederoCreado);
+            //OTP
+            String codigo = generateOTP();
+            Codigos codigoDTO = new Codigos(codigo, "Activo", startupsSave);
+            sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), startupsSave.getCorreoElectronico());
+
+            //Save usuario
             startupsRepository.save(startupsSave);
+            codigosRepository.save(codigoDTO);
         }
+    }
+
+    @GetMapping("/startups/reenviarCodigo/{correo}")
+    public void reenviarCodigoStartups(@PathVariable String correo) {
+        SendEmail sendEmail = new SendEmail();
+        String codigoGenerado = generateOTP();
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
+        List<Codigos> codigos = codigosRepository.findCodigosByIdStartup(startups.get());
+        //Pasar todos los codigos actuales a inactivos
+
+        for (Codigos codigoTemp : codigos) {
+            if (codigoTemp.getEstado().equals("Activo")) {
+                codigoTemp.setEstado("Inactivo");
+                codigosRepository.save(codigoTemp);
+            }
+        }
+        Codigos codigoDTO = new Codigos(codigoGenerado, "Activo", startups.get());
+        sendEmail.correoVerificacionUsuario(Integer.parseInt(codigoGenerado), startups.get().getCorreoElectronico());
+        codigosRepository.save(codigoDTO);
     }
 
     /**
@@ -195,7 +223,7 @@ public class AccountResource {
      *
      * @param userDTO the current user information.
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
-     * @throws RuntimeException {@code 500 (Internal Server Error)} if the user login wasn't found.
+     * @throws RuntimeException          {@code 500 (Internal Server Error)} if the user login wasn't found.
      */
     @PostMapping("/account")
     public void saveAccount(@Valid @RequestBody AdminUserDTO userDTO) {
@@ -253,7 +281,7 @@ public class AccountResource {
      *
      * @param keyAndPassword the generated key and the new password.
      * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
-     * @throws RuntimeException {@code 500 (Internal Server Error)} if the password could not be reset.
+     * @throws RuntimeException         {@code 500 (Internal Server Error)} if the password could not be reset.
      */
     @PostMapping(path = "/account/reset-password/finish")
     public void finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
