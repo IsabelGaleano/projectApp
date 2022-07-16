@@ -11,37 +11,50 @@
                 </div>
                 <div class="d-flex justify-content-between mg-b-20">
                   <div>
-                    <h5 class="main-profile-name">Nombre</h5>
-                    <p class="main-profile-name-text">Apellidos o correo</p>
+                    <h5 class="main-profile-name" id="nombreHeader"></h5>
+                    <p class="main-profile-name-text" id="apellidosHeader"></p>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
-                <label class="main-content-label tx-13 mg-b-20">Información social</label>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="main-profile-name tx-20 mg-b-20">Información social</label>
+                  </div>
+                </div>
                 <div class="main-profile-social-list">
-                  <div class="media">
-                    <div class="media-icon bg-primary-transparent text-primary">
-                      <i class="icon ion-md-link"></i>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div id="correoSidebar" class="mg-b-25 tx-13">
+                        <span class="tx-18 font-weight-semibold">Correo</span>
+                        <div></div>
+                      </div>
                     </div>
-                    <div class="media-body"><span>Correo</span> <a href="">github.com/spruko</a></div>
                   </div>
-                  <div class="media">
-                    <div class="media-icon bg-success-transparent text-success">
-                      <i class="icon ion-md-phone-portrait"></i>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div id="telefonoSidebar" class="mg-b-25">
+                        <span class="tx-18 font-weight-semibold">Teléfono</span>
+                        <div></div>
+                      </div>
                     </div>
-                    <div class="media-body"><span>Teléfono</span> <a href="">twitter.com/spruko.me</a></div>
                   </div>
-                  <div class="media">
-                    <div class="media-icon bg-info-transparent text-info">
-                      <i class="icon ion-md-locate"></i>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div id="cedulaSidebar" class="mg-b-25 tx-13">
+                        <span class="tx-18 font-weight-semibold">Cédula</span>
+                        <div></div>
+                      </div>
                     </div>
-                    <div class="media-body"><span>Cédula</span> <a href="">linkedin.com/in/spruko</a></div>
                   </div>
-                  <div class="media">
-                    <div class="media-icon bg-danger-transparent text-danger">
-                      <i class="icon ion-md-contacts"></i>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="mg-b-25 tx-13">
+                        <span class="tx-20 font-weight-semibold"> Tipo de usuario</span>
+                        <div>Cliente</div>
+                      </div>
                     </div>
-                    <div class="media-body"><span>Tipo de usuario</span> <a href="">Cliente o Inversionista</a></div>
                   </div>
+                  <div></div>
                 </div>
                 <hr class="mg-y-30" />
               </div>
@@ -51,33 +64,18 @@
         </div>
         <div class="card mg-b-20">
           <div class="card-body">
-            <div class="main-content-label tx-13 mg-b-25">Información de sitio</div>
-            <div class="main-profile-contact-list">
-              <div class="media">
-                <div class="media-icon bg-primary-transparent text-primary">
-                  <i class="icon ion-md-phone-portrait"></i>
-                </div>
-                <div class="media-body">
-                  <span>Estado de cuenta</span>
-                  <div>Activo</div>
+            <div class="main-content-label tx-18 mg-b-25">Información de sitio</div>
+            <div>
+              <div>
+                <div>
+                  <span class="main-content-label">Estado de cuenta</span>
+                  <div id="estadoSidebar" class="mg-b-25 tx-13"></div>
                 </div>
               </div>
-              <div class="media">
-                <div class="media-icon bg-success-transparent text-success">
-                  <i class="icon ion-logo-slack"></i>
-                </div>
-                <div class="media-body">
-                  <span>Monedero</span>
-                  <div>Activo</div>
-                </div>
-              </div>
-              <div class="media">
-                <div class="media-icon bg-info-transparent text-info">
-                  <i class="icon ion-md-locate"></i>
-                </div>
-                <div class="media-body">
-                  <span>Ubicación actual</span>
-                  <div>San Francisco, CA</div>
+              <div>
+                <div>
+                  <span class="main-content-label">Monedero</span>
+                  <div id="monederoEstadoSidebar" class="mg-b-25 tx-13"></div>
                 </div>
               </div>
             </div>
@@ -90,7 +88,7 @@
           <div class="card-body">
             <div>
               <h6 class="card-title mb-1">Información personal</h6>
-              <p class="text-muted card-sub-title">Ingrese a cada pestaña para revisar su información</p>
+              <p class="text-muted card-sub-title">Ingrese a cada pestaña para completar o actualizar su información</p>
             </div>
             <div class="text-wrap">
               <div class="example">
@@ -115,7 +113,7 @@
                                 <label class="form-label">Nombre</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="David" />
+                                <input type="text" class="form-control" placeholder="User Name" id="nombreForm" />
                               </div>
                             </div>
                           </div>
@@ -126,7 +124,7 @@
                                 <label class="form-label">Primer apellido</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="First Name" value="Rodríguez" />
+                                <input type="text" class="form-control" placeholder="First Name" id="apellido1Form" />
                               </div>
                             </div>
                           </div>
@@ -137,7 +135,7 @@
                                 <label class="form-label">Segundo apellido</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Last Name" value="Coto" />
+                                <input type="text" class="form-control" placeholder="Last Name" id="apellido2Form" />
                               </div>
                             </div>
                           </div>
@@ -149,7 +147,7 @@
                                 <label class="form-label">Cédula</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="118920211" />
+                                <input type="text" class="form-control" placeholder="User Name" id="cedulaForm" />
                               </div>
                             </div>
                           </div>
@@ -160,7 +158,7 @@
                                 <label class="form-label">Correo electrónico</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Email" value="drodriguezc1@ucenfotec.ac.card-footer" />
+                                <input type="text" class="form-control" placeholder="Email" id="correoForm" />
                               </div>
                             </div>
                           </div>
@@ -171,7 +169,7 @@
                                 <label class="form-label">Teléfono</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="phone number" value="+245 354 654" />
+                                <input type="text" class="form-control" placeholder="phone number" id="telefonoForm" />
                               </div>
                             </div>
                           </div>
@@ -193,7 +191,7 @@
                                 <label class="form-label">Latitud</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" name="example-textarea-input" rows="2" placeholder="12321313" />
+                                <input class="form-control" name="example-textarea-input" rows="2" id="latitudDireccionForm" />
                               </div>
                             </div>
                           </div>
@@ -204,7 +202,7 @@
                                 <label class="form-label">Longitud</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" name="example-textarea-input" rows="2" placeholder="-12321313" />
+                                <input class="form-control" name="example-textarea-input" rows="2" id="longitudDireccionForm" />
                               </div>
                             </div>
                           </div>
@@ -216,7 +214,7 @@
                                 <label class="form-label">Fecha de nacimiento</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="date" class="form-control" />
+                                <input type="date" class="form-control" id="fechaNacimientoForm" />
                               </div>
                             </div>
                           </div>
