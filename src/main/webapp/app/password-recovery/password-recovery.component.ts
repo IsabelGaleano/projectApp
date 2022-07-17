@@ -13,11 +13,13 @@ export class PasswordRecoveryComponent  { //implements OnInit {
   public email : string;
   public error : boolean;
   public errorMessage : string;
+  public loading: boolean;
 
   constructor(private codeService:CodigosService, private router: Router) {
     this.email = "";
     this.error = false;
     this.errorMessage = '';
+    this.loading = false;
   }
 
   //ngOnInit(): void {
@@ -25,15 +27,18 @@ export class PasswordRecoveryComponent  { //implements OnInit {
 
   sendCode(): void {
     try {
+      this.loading = true;
       this.codeService.sendCode(this.email).subscribe(
         (response: any) => {
         if (response.status) {
           this.router.navigate(['/validateotp']);
         }
+        this.loading = false;
       },
         (err: any) => {
           this.error = true;
           this.errorMessage = err.error.title;
+          this.loading = false;
           console.error('ERROR AL ENVIAR OTP', err);
         },
       );

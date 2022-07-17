@@ -13,12 +13,14 @@ export class ValidateotpComponent {//implements OnInit {
   public info : boolean;
   public errorMessage : string;
   public infoMessage : string;
+  public loading: boolean;
   constructor(private codeService:CodigosService, private router: Router) {
     this.code = "";
     this.error = false;
     this.info = false;
     this.errorMessage = '';
     this.infoMessage = '';
+    this.loading = false;
   }
 
  // ngOnInit(): void {
@@ -26,16 +28,20 @@ export class ValidateotpComponent {//implements OnInit {
 
   validate(): void {
     try {
+      this.loading = true;
       this.codeService.validate(this.code).subscribe(
         (response: any) => {
           if (response.status) {
-            this.router.navigate(['/validateotp']);
+            localStorage.setItem('UserUpdatePassword', JSON.stringify(response.body.idUsuario));
+            this.router.navigate(['/resetPassword']);
           }
+          this.loading = false;
         },
         (err: any) => {
           this.error = true;
           this.errorMessage = err.error.title;
           this.infoMessage = '';
+          this.loading = false;
           console.error('ERROR AL VALIDAR OTP', err);
         },
       );

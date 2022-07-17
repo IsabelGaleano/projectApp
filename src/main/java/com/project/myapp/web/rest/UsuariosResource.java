@@ -1,6 +1,8 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
+import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.AuthoritiesConstants;
 import com.project.myapp.sendgrid.SendEmail;
@@ -12,11 +14,14 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import com.project.myapp.web.rest.errors.UserNotFoundedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -39,8 +44,15 @@ public class UsuariosResource {
 
     private final UsuariosRepository usuariosRepository;
 
-    public UsuariosResource(UsuariosRepository usuariosRepository) {
+    private PasswordEncoder passwordEncoder;
+
+    private UserRepository userRepository;
+
+
+    public UsuariosResource(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.usuariosRepository = usuariosRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -227,4 +239,21 @@ public class UsuariosResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @PostMapping("/usuarios/resetPassword")
+    public User resetPassword(@Valid @RequestBody Usuarios userToUpdate) {
+        User finalUpdatedUser = new User();
+        String encryptedPassword = passwordEncoder.encode(userToUpdate.getContrasennia());
+        if (userRepository.findOneByEmailIgnoreCase(userToUpdate.getCorreoElectronico()).isPresent()) {
+            finalUpdatedUser = userRepository.findOneByEmail(userToUpdate.getCorreoElectronico());
+            finalUpdatedUser.setPassword(encryptedPassword);
+            userRepository.save(finalUpdatedUser);
+            return finalUpdatedUser;
+        }
+        else {
+            throw new UserNotFoundedError();
+        }
+    }
+
+
 }

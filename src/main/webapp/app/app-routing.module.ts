@@ -19,6 +19,7 @@ import {StartupsComponent} from "./entities/startups/list/startups.component";
 import { CategoriasComponent } from './entities/categorias/list/categorias.component';
 import {UsuariosComponent} from "./entities/usuarios/list/usuarios.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/registro-adicional-startup.component";
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import {ResetPasswordComponent} from "./reset-password/reset-password.component"
         { path: 'temporalRolRegistry', component: RolesUsuariosComponent  },
         // ruta de prueba para registrar startups
         { path: 'categoria', component: CategoriasComponent  },
+        { path: 'registroAdicionalStartup', component: RegistroAdicionalStartupComponent  },
         navbarRoute,
         ...errorRoute,
       ],

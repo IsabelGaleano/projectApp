@@ -34,6 +34,7 @@ import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { ValidateotpComponent } from './validateotp/validateotp.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     PasswordRecoveryComponent,
     ValidateotpComponent,
     ResetPasswordComponent,
+    RegistroAdicionalStartupComponent,
   ],
   bootstrap: [MainComponent],
 })
