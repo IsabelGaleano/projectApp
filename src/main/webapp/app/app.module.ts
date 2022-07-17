@@ -8,6 +8,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -38,6 +39,7 @@ import { ListaAdministradoresComponent } from './admin/lista-administradores/lis
 import { PerfilVisualizableAdminComponent } from './admin/perfil-visualizable-admin/perfil-visualizable-admin.component';
 import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
 import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
+import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
 
 @NgModule({
   imports: [
@@ -51,6 +53,8 @@ import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-star
 
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     TranslationModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     Title,
@@ -78,7 +82,9 @@ import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-star
     PagoInscripcionStartupComponent,
     ListaAdministradoresComponent,
     PerfilVisualizableAdminComponent,
+    PerfilAdminComponent,
   ],
+  exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
 })
 export class AppModule {
