@@ -364,4 +364,26 @@ public class UserService {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
     }
+
+    public Optional<AdminUserDTO> updateUserInfoBasica(AdminUserDTO userDTO) {
+        return Optional
+            .of(userRepository.findById(userDTO.getId()))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .map(user -> {
+                this.clearUserCaches(user);
+                user.setLogin(userDTO.getLogin().toLowerCase());
+                user.setFirstName(userDTO.getFirstName());
+                user.setLastName(userDTO.getLastName());
+                if (userDTO.getEmail() != null) {
+                    user.setEmail(userDTO.getEmail().toLowerCase());
+                }
+                user.setImageUrl(userDTO.getImageUrl());
+
+                this.clearUserCaches(user);
+                log.debug("Changed Information for User: {}", user);
+                return user;
+            })
+            .map(AdminUserDTO::new);
+    }
 }

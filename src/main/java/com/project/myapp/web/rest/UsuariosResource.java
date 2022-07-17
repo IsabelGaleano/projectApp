@@ -227,4 +227,56 @@ public class UsuariosResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    /**
+     * {@code GET  /usuarios/:correoElectronico} : get the "correoElectronico" usuarios.
+     *
+     * @param correoElectronico the correoElectronico of the usuarios to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the usuarios, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/usuariosCorreoElectronico/{correoElectronico}")
+    public ResponseEntity<Usuarios> getUsuariosByCorreoElectronico(@PathVariable String correoElectronico) {
+        log.debug("REST request to get Usuarios : {}", correoElectronico);
+        Optional<Usuarios> usuarios = usuariosRepository.findByCorreoElectronico(correoElectronico);
+        return ResponseUtil.wrapOrNotFound(usuarios);
+    }
+
+    @PutMapping("/usuariosCorreo/{correoElectrónico}")
+    public ResponseEntity<Usuarios> updateUsuarios(
+        @PathVariable(value = "correoElectrónico", required = false) final String correoElectrónico,
+        @Valid @RequestBody Usuarios usuarios
+    ) throws URISyntaxException {
+        log.debug("REST request to update Usuarios : {}, {}", correoElectrónico, usuarios);
+        if (usuarios.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(correoElectrónico, usuarios.getCorreoElectronico())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!usuariosRepository.existsById(usuarios.getId())) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        Usuarios result = usuariosRepository.save(usuarios);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, usuarios.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/usuariosContrasennia/{correoElectronico}")
+    public ResponseEntity<Integer> updateContrasenniaUsuarios(
+        @PathVariable(value = "correoElectronico", required = false) final String correoElectronico,
+        @Valid @RequestBody String contrasennia
+    ) throws URISyntaxException {
+        log.debug("REST request to update Usuarios : {}, {}", correoElectronico, contrasennia);
+        if (usuariosRepository.findByCorreoElectronico(correoElectronico) == null) {
+            throw new BadRequestAlertException("Invalid correo", ENTITY_NAME, "correonull");
+        }
+
+        usuariosRepository.updateContrasenniaUsuarios(contrasennia, correoElectronico);
+
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert(applicationName, "", ENTITY_NAME)).body(200);
+    }
 }

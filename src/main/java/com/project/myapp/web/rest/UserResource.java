@@ -1,8 +1,10 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.config.Constants;
+import com.project.myapp.domain.Authority;
 import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
+import com.project.myapp.repository.AuthorityRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.AuthoritiesConstants;
@@ -204,5 +206,59 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.deleted", login)).build();
+    }
+
+    @GetMapping("/usersEmail/{email}")
+    public List<Authority> getUserByCorreo(@PathVariable String email) {
+        log.debug("REST request to get User : {}", email);
+        // return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
+
+        return userRepository.findByEmail(email);
+    }
+
+    @PutMapping("/userActivated/{email}")
+    public HttpStatus updateUserActivated(@PathVariable String email, @Valid @RequestBody String state) {
+        Optional<User> updatedUser;
+        log.debug("REST request to update User : {}", state);
+        // Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(email);
+
+        // if(existingUser.get().getId() != null){
+        //     userService.updateUser(existingUser);
+        // }
+
+        if (state.equals("Activo")) {
+            userRepository.updateUserActivated(email, true);
+            return HttpStatus.OK;
+        } else if (state.equals("Inactivo")) {
+            userRepository.updateUserActivated(email, false);
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.BAD_REQUEST;
+        // return ResponseUtil.wrapOrNotFound(updatedUser);
+    }
+
+    @PutMapping("/usersPerfil")
+    public ResponseEntity<AdminUserDTO> updateJHIUser(@Valid @RequestBody AdminUserDTO userDTO) {
+        log.debug("REST request to update User : {}", userDTO);
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new EmailAlreadyUsedException();
+        }
+        existingUser = userRepository.findOneByLogin(userDTO.getLogin().toLowerCase());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new LoginAlreadyUsedException();
+        }
+        Optional<AdminUserDTO> updatedUser = userService.updateUserInfoBasica(userDTO);
+
+        return ResponseUtil.wrapOrNotFound(
+            updatedUser,
+            HeaderUtil.createAlert(applicationName, "userManagement.updated", userDTO.getLogin())
+        );
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "Hola";
     }
 }
