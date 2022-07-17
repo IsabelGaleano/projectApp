@@ -19,6 +19,12 @@ export class PlanInscripcionStartupComponent {
       console.warn(result);
       this.router.navigate(['startup/pago-inscripcion-startup']);
     });
+    const producto = {
+      descripcion: 'Pago de la inscripción mensual',
+      precio: '8.00',
+    };
+
+    sessionStorage.setItem('productInscripcion', JSON.stringify(producto));
   }
 
   registrarPlanInscripcionAnual(): void {
@@ -28,5 +34,11 @@ export class PlanInscripcionStartupComponent {
       console.warn(result);
       this.router.navigate(['startup/pago-inscripcion-startup']);
     });
+    const producto = {
+      descripcion: 'Pago de la inscripción anual',
+      precio: '65.00',
+    };
+
+    sessionStorage.setItem('productInscripcion', JSON.stringify(producto));
   }
 }

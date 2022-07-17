@@ -92,6 +92,8 @@ public class InscripcionesResource {
             inscripciones.tipo("Anual");
             inscripciones.monto(65.00);
         }
+        startups.get().setEstado("Activo");
+        startupsRepository.save(startups.get());
         Inscripciones result = inscripcionesRepository.save(inscripciones);
         return ResponseEntity
             .created(new URI("/api/registrarInscripcion/" + result.getId()))

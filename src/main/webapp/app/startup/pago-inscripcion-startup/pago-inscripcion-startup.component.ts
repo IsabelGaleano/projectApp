@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 declare const paypal: any;
 
@@ -9,23 +10,18 @@ export class PagoInscripcionStartupComponent implements OnInit {
   @ViewChild('paypal', { static: true })
   paypalElement!: ElementRef;
 
-  producto = {
-    descripcion: 'Pago de la inscripción',
-    precio: '8.00',
-    img: 'Imagen de tu producto',
-  };
-
   ngOnInit(): void {
+    var producto = JSON.parse(sessionStorage.productInscripcion);
     paypal
       .Buttons({
         createOrder: (data: any, actions: any) => {
           return actions.order.create({
             purchase_units: [
               {
-                description: this.producto.descripcion,
+                description: producto.descripcion,
                 amount: {
                   currency_code: 'USD',
-                  value: this.producto.precio,
+                  value: producto.precio,
                 },
               },
             ],
