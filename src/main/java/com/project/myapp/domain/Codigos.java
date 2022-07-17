@@ -70,6 +70,20 @@ public class Codigos implements Serializable {
     )
     private Usuarios idUsuario;
 
+    public Codigos(String codigo, String estado, Usuarios usuario) {
+        this.codigo = codigo;
+        this.estado = estado;
+        this.idUsuario = usuario;
+    }
+
+    public Codigos(String codigo, String estado, Startups startups) {
+        this.codigo = codigo;
+        this.estado = estado;
+        this.idStartup = startups;
+    }
+
+    public Codigos() {}
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
