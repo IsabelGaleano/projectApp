@@ -1,7 +1,11 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.Codigos;
 import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
+import com.project.myapp.repository.CodigosRepository;
 import com.project.myapp.repository.StartupsRepository;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,9 +40,11 @@ public class StartupsResource {
     private String applicationName;
 
     private final StartupsRepository startupsRepository;
+    private final CodigosRepository codigosRepository;
 
-    public StartupsResource(StartupsRepository startupsRepository) {
+    public StartupsResource(StartupsRepository startupsRepository, CodigosRepository codigosRepository) {
         this.startupsRepository = startupsRepository;
+        this.codigosRepository = codigosRepository;
     }
 
     /**
@@ -220,6 +226,31 @@ public class StartupsResource {
         log.debug("REST request to get Startups : {}", correo);
         Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
         return ResponseUtil.wrapOrNotFound(startups);
+    }
+
+    @GetMapping("/startups/verificarStartup/{correo}/{codigo}")
+    public boolean verificarStartup(@PathVariable String correo, @PathVariable String codigo) {
+        log.debug("REST request to get Startups : {}", correo);
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
+        List<Codigos> codigos = codigosRepository.findCodigosByIdStartup(startups.get());
+        boolean result = false;
+        for (Codigos codigoTemp : codigos) {
+            if (codigoTemp.getEstado().equals("Activo")) {
+                if (codigoTemp.getCodigo().equals(codigo)) {
+                    result = true;
+                    if (codigos.size() > 1) {
+                        for (Codigos codigoUpdate : codigos) {
+                            codigoUpdate.setEstado("Inactivo");
+                            codigosRepository.save(codigoUpdate);
+                        }
+                    }
+
+                    startups.get().setEstado("PendienteInscripcion");
+                    startupsRepository.save(startups.get());
+                }
+            }
+        }
+        return result;
     }
 
     /**

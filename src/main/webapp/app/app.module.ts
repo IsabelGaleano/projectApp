@@ -34,6 +34,8 @@ import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.compon
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
 import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.component';
 import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
+import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
+import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
 
 @NgModule({
   imports: [
@@ -70,6 +72,8 @@ import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualiz
     RegistroUsuarioFinalComponent,
     ListaUsuariosComponent,
     PerfilVisualizableUsuarioFinalComponent,
+    PlanInscripcionStartupComponent,
+    PagoInscripcionStartupComponent,
   ],
   bootstrap: [MainComponent],
 })
