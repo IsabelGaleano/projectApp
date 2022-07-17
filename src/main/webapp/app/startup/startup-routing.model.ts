@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { PagoInscripcionStartupComponent } from './pago-inscripcion-startup/pago-inscripcion-startup.component';
 import { PerfilStartupComponent } from './perfil-startup/perfil-startup.component';
 import { PlanInscripcionStartupComponent } from './plan-inscripcion-startup/plan-inscripcion-startup.component';
 
@@ -18,6 +19,13 @@ import { PlanInscripcionStartupComponent } from './plan-inscripcion-startup/plan
         component: PlanInscripcionStartupComponent,
         data: {
           pageTitle: 'plan.inscripcion.startup.title',
+        },
+      },
+      {
+        path: 'pago-inscripcion-startup',
+        component: PagoInscripcionStartupComponent,
+        data: {
+          pageTitle: 'pago.inscripcion.startup.title',
         },
       },
     ]),

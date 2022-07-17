@@ -17,6 +17,7 @@ export class PlanInscripcionStartupComponent {
 
     this.planInscripcionService.registrarInscripcion(sessionStorage.getItem('startupLogin'), 'Mensual').subscribe((result: any) => {
       console.warn(result);
+      this.router.navigate(['startup/pago-inscripcion-startup']);
     });
   }
 
@@ -25,6 +26,7 @@ export class PlanInscripcionStartupComponent {
 
     this.planInscripcionService.registrarInscripcion(sessionStorage.getItem('startupLogin'), 'Anual').subscribe((result: any) => {
       console.warn(result);
+      this.router.navigate(['startup/pago-inscripcion-startup']);
     });
   }
 }

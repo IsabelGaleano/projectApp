@@ -32,6 +32,7 @@ import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-foo
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
 import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
+import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-star
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
     PlanInscripcionStartupComponent,
+    PagoInscripcionStartupComponent,
   ],
   bootstrap: [MainComponent],
 })
