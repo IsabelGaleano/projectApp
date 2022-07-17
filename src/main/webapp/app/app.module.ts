@@ -8,6 +8,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -31,6 +32,10 @@ import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
+import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.component';
+import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
+import { ListaAdministradoresComponent } from './admin/lista-administradores/lista-administradores.component';
+import { PerfilVisualizableAdminComponent } from './admin/perfil-visualizable-admin/perfil-visualizable-admin.component';
 import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
 import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
 
@@ -52,6 +57,7 @@ import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-star
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
+    DatePipe,
   ],
   declarations: [
     MainComponent,
@@ -66,8 +72,12 @@ import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-star
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    ListaUsuariosComponent,
+    PerfilVisualizableUsuarioFinalComponent,
     PlanInscripcionStartupComponent,
     PagoInscripcionStartupComponent,
+    ListaAdministradoresComponent,
+    PerfilVisualizableAdminComponent,
   ],
   bootstrap: [MainComponent],
 })
