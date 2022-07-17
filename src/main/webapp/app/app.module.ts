@@ -31,6 +31,8 @@ import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
+import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
+import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
 
 @NgModule({
   imports: [
@@ -64,6 +66,8 @@ import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    PlanInscripcionStartupComponent,
+    PagoInscripcionStartupComponent,
   ],
   bootstrap: [MainComponent],
 })
