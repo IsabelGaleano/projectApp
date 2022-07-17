@@ -1,3 +1,6 @@
+<br />
+<br />
+<br />
 <!-- main-content -->
 <div class="main-content app-content">
   <!-- container -->
@@ -10,12 +13,15 @@
             <div class="ps-0">
               <div class="main-profile-overview">
                 <div class="main-img-user profile-user">
-                  <img alt="" src="../assets/img/faces/6.jpg" /><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                  <img alt="Foto de Perfil" src="{{ usuario.imagenURL }}" /><a
+                    class="fas fa-camera profile-edit"
+                    href="JavaScript:void(0);"
+                  ></a>
                 </div>
                 <div class="d-flex justify-content-between mg-b-20">
                   <div>
-                    <h5 class="main-profile-name">Nombre</h5>
-                    <p class="main-profile-name-text">Apellidos o correo</p>
+                    <h5 class="main-profile-name">{{ usuario.nombre }}</h5>
+                    <p class="main-profile-name-text">{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</p>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
@@ -25,19 +31,25 @@
                     <div class="media-icon bg-primary-transparent text-primary">
                       <i class="icon ion-md-link"></i>
                     </div>
-                    <div class="media-body"><span>Correo</span> <a href="">github.com/spruko</a></div>
+                    <div class="media-body">
+                      <span>Correo</span> <a href="">{{ usuario.correoElectronico }}</a>
+                    </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
                       <i class="icon ion-md-phone-portrait"></i>
                     </div>
-                    <div class="media-body"><span>Teléfono</span> <a href="">twitter.com/spruko.me</a></div>
+                    <div class="media-body">
+                      <span>Teléfono</span> <a href="">{{ usuario.telefono }}</a>
+                    </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
                       <i class="icon ion-md-locate"></i>
                     </div>
-                    <div class="media-body"><span>Cédula</span> <a href="">linkedin.com/in/spruko</a></div>
+                    <div class="media-body">
+                      <span>Cédula</span> <a href="">{{ usuario.cedula }}</a>
+                    </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-danger-transparent text-danger">
@@ -62,7 +74,7 @@
                 </div>
                 <div class="media-body">
                   <span>Estado de cuenta</span>
-                  <div>Activo</div>
+                  <div>{{ usuario.estado }}</div>
                 </div>
               </div>
               <div class="media">
@@ -71,7 +83,7 @@
                 </div>
                 <div class="media-body">
                   <span>Monedero</span>
-                  <div>Activo</div>
+                  <div>{{ usuario.idMonedero.estado }}</div>
                 </div>
               </div>
             </div>
@@ -101,7 +113,7 @@
                   <div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab1">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" (ngSubmit)="actualizarAdmin()" [formGroup]="formInfoBasica">
                           <div class="mb-4 main-content-label">Nombre</div>
                           <div class="form-group">
                             <div class="row">
@@ -109,7 +121,14 @@
                                 <label class="form-label">Nombre</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="David" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="nombre"
+                                  placeholder="User Name"
+                                  value="{{ usuario.nombre }}"
+                                  formControlName="nombre"
+                                />
                               </div>
                             </div>
                           </div>
@@ -120,7 +139,13 @@
                                 <label class="form-label">Primer apellido</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="First Name" value="Rodríguez" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="First Name"
+                                  value="{{ usuario.primerApellido }}"
+                                  formControlName="primerApellido"
+                                />
                               </div>
                             </div>
                           </div>
@@ -131,7 +156,13 @@
                                 <label class="form-label">Segundo apellido</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Last Name" value="Coto" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Last Name"
+                                  formControlName="segundoApellido"
+                                  value="{{ usuario.segundoApellido }}"
+                                />
                               </div>
                             </div>
                           </div>
@@ -143,7 +174,13 @@
                                 <label class="form-label">Cédula</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="118920211" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="User Name"
+                                  [readonly]="true"
+                                  value="{{ usuario.cedula }}"
+                                />
                               </div>
                             </div>
                           </div>
@@ -154,7 +191,13 @@
                                 <label class="form-label">Correo electrónico</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Email" value="drodriguezc1@ucenfotec.ac.card-footer" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Email"
+                                  [readonly]="true"
+                                  value="{{ usuario.correoElectronico }}"
+                                />
                               </div>
                             </div>
                           </div>
@@ -165,7 +208,13 @@
                                 <label class="form-label">Teléfono</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="phone number" value="+245 354 654" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Teléfono"
+                                  formControlName="telefono"
+                                  value="{{ usuario.telefono }}"
+                                />
                               </div>
                             </div>
                           </div>
@@ -178,16 +227,22 @@
                                 <label class="form-label">Fecha de nacimiento</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="date" class="form-control" />
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  formControlName="fechaNacimiento"
+                                  placeholder="{{ usuario.fechaNacimiento }}"
+                                />
                               </div>
                             </div>
                           </div>
+                          <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
                         </form>
+
                         <p></p>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
                       </div>
                       <div class="tab-pane" id="tab2">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" (ngSubmit)="actualizarContrasennia()" [formGroup]="formContrasennia">
                           <h4 class="tx-18 mb-3">Actualizar contraseña</h4>
                           <div class="form-group">
                             <div class="row">
@@ -195,7 +250,18 @@
                                 <label class="form-label">Contraseña antigua</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Contraseña antigua" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="contrasenniaActual"
+                                  placeholder="Contraseña antigua"
+                                />
+                                <div class="alert alert-danger" *ngIf="errorInvalida">
+                                  <strong>Contraseña antigua inválida.</strong>
+                                </div>
+                                <div class="alert alert-danger" *ngIf="errorVacia">
+                                  <strong>La contraseña antigua no puede ser vacía.</strong>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -206,7 +272,12 @@
                                 <label class="form-label">Nueva contraseña</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Nueva contraseña" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="nuevaContrasennia"
+                                  placeholder="Nueva contraseña"
+                                />
                               </div>
                             </div>
                           </div>
@@ -217,12 +288,23 @@
                                 <label class="form-label">Confirmar nueva contraseña</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Confirmar contraseña" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="confirmacionNuevaContrasennia"
+                                  placeholder="Confirmar contraseña"
+                                />
+                                <div class="alert alert-danger" *ngIf="error">
+                                  <strong>Las contraseñas deben de coincidir.</strong>
+                                </div>
+                                <div class="alert alert-danger" *ngIf="errorNuevasVacias">
+                                  <strong>Las contraseñas nuevas no pueden ser vacías.</strong>
+                                </div>
                               </div>
                             </div>
                           </div>
+                          <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar</button>
                         </form>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar</button>
                       </div>
                     </div>
                   </div>

@@ -1,19 +1,24 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.config.Constants;
+import com.project.myapp.domain.Authority;
 import com.project.myapp.domain.User;
+import com.project.myapp.domain.Usuarios;
+import com.project.myapp.repository.AuthorityRepository;
 import com.project.myapp.repository.UserRepository;
+import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.AuthoritiesConstants;
-import com.project.myapp.service.MailService;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.service.UserService;
+import com.project.myapp.service.UsuariosService;
 import com.project.myapp.service.dto.AdminUserDTO;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import com.project.myapp.web.rest.errors.EmailAlreadyUsedException;
 import com.project.myapp.web.rest.errors.LoginAlreadyUsedException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.*;
-import java.util.Collections;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import org.slf4j.Logger;
@@ -83,14 +88,14 @@ public class UserResource {
 
     private final UserService userService;
 
+    private final UsuariosRepository usuariosRepository;
+
     private final UserRepository userRepository;
 
-    private final MailService mailService;
-
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    public UserResource(UserService userService, UserRepository userRepository, UsuariosRepository usuariosRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
-        this.mailService = mailService;
+        this.usuariosRepository = usuariosRepository;
     }
 
     /**
@@ -102,11 +107,10 @@ public class UserResource {
      *
      * @param userDTO the user to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new user, or with status {@code 400 (Bad Request)} if the login or email is already in use.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @throws URISyntaxException       if the Location URI syntax is incorrect.
      * @throws BadRequestAlertException {@code 400 (Bad Request)} if the login or email is already in use.
      */
     @PostMapping("/users")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<User> createUser(@Valid @RequestBody AdminUserDTO userDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
 
@@ -119,7 +123,6 @@ public class UserResource {
             throw new EmailAlreadyUsedException();
         } else {
             User newUser = userService.createUser(userDTO);
-            mailService.sendCreationEmail(newUser);
             return ResponseEntity
                 .created(new URI("/api/admin/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert(applicationName, "userManagement.created", newUser.getLogin()))
@@ -203,5 +206,59 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.deleted", login)).build();
+    }
+
+    @GetMapping("/usersEmail/{email}")
+    public List<Authority> getUserByCorreo(@PathVariable String email) {
+        log.debug("REST request to get User : {}", email);
+        // return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
+
+        return userRepository.findByEmail(email);
+    }
+
+    @PutMapping("/userActivated/{email}")
+    public HttpStatus updateUserActivated(@PathVariable String email, @Valid @RequestBody String state) {
+        Optional<User> updatedUser;
+        log.debug("REST request to update User : {}", state);
+        // Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(email);
+
+        // if(existingUser.get().getId() != null){
+        //     userService.updateUser(existingUser);
+        // }
+
+        if (state.equals("Activo")) {
+            userRepository.updateUserActivated(email, true);
+            return HttpStatus.OK;
+        } else if (state.equals("Inactivo")) {
+            userRepository.updateUserActivated(email, false);
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.BAD_REQUEST;
+        // return ResponseUtil.wrapOrNotFound(updatedUser);
+    }
+
+    @PutMapping("/usersPerfil")
+    public ResponseEntity<AdminUserDTO> updateJHIUser(@Valid @RequestBody AdminUserDTO userDTO) {
+        log.debug("REST request to update User : {}", userDTO);
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new EmailAlreadyUsedException();
+        }
+        existingUser = userRepository.findOneByLogin(userDTO.getLogin().toLowerCase());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new LoginAlreadyUsedException();
+        }
+        Optional<AdminUserDTO> updatedUser = userService.updateUserInfoBasica(userDTO);
+
+        return ResponseUtil.wrapOrNotFound(
+            updatedUser,
+            HeaderUtil.createAlert(applicationName, "userManagement.updated", userDTO.getLogin())
+        );
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "Hola";
     }
 }

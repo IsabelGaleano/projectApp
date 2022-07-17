@@ -2,6 +2,8 @@ package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.UsuariosRepository;
+import com.project.myapp.security.AuthoritiesConstants;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -202,6 +205,13 @@ public class UsuariosResource {
         return ResponseUtil.wrapOrNotFound(usuarios);
     }
 
+    @GetMapping("/usuariosByCorreo/{correo}")
+    public ResponseEntity<Usuarios> getUsuariosByCorrreo(@PathVariable String correo) {
+        log.debug("REST request to get Usuarios : {}", correo);
+        Optional<Usuarios> usuarios = usuariosRepository.getUsuariosByCorreoElectronico(correo);
+        return ResponseUtil.wrapOrNotFound(usuarios);
+    }
+
     /**
      * {@code DELETE  /usuarios/:id} : delete the "id" usuarios.
      *
@@ -216,5 +226,57 @@ public class UsuariosResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code GET  /usuarios/:correoElectronico} : get the "correoElectronico" usuarios.
+     *
+     * @param correoElectronico the correoElectronico of the usuarios to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the usuarios, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/usuariosCorreoElectronico/{correoElectronico}")
+    public ResponseEntity<Usuarios> getUsuariosByCorreoElectronico(@PathVariable String correoElectronico) {
+        log.debug("REST request to get Usuarios : {}", correoElectronico);
+        Optional<Usuarios> usuarios = usuariosRepository.findByCorreoElectronico(correoElectronico);
+        return ResponseUtil.wrapOrNotFound(usuarios);
+    }
+
+    @PutMapping("/usuariosCorreo/{correoElectrónico}")
+    public ResponseEntity<Usuarios> updateUsuarios(
+        @PathVariable(value = "correoElectrónico", required = false) final String correoElectrónico,
+        @Valid @RequestBody Usuarios usuarios
+    ) throws URISyntaxException {
+        log.debug("REST request to update Usuarios : {}, {}", correoElectrónico, usuarios);
+        if (usuarios.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(correoElectrónico, usuarios.getCorreoElectronico())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!usuariosRepository.existsById(usuarios.getId())) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        Usuarios result = usuariosRepository.save(usuarios);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, usuarios.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/usuariosContrasennia/{correoElectronico}")
+    public ResponseEntity<Integer> updateContrasenniaUsuarios(
+        @PathVariable(value = "correoElectronico", required = false) final String correoElectronico,
+        @Valid @RequestBody String contrasennia
+    ) throws URISyntaxException {
+        log.debug("REST request to update Usuarios : {}, {}", correoElectronico, contrasennia);
+        if (usuariosRepository.findByCorreoElectronico(correoElectronico) == null) {
+            throw new BadRequestAlertException("Invalid correo", ENTITY_NAME, "correonull");
+        }
+
+        usuariosRepository.updateContrasenniaUsuarios(contrasennia, correoElectronico);
+
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert(applicationName, "", ENTITY_NAME)).body(200);
     }
 }

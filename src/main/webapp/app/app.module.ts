@@ -1,14 +1,15 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/es';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -26,12 +27,19 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
-import { RegistroUsuarioFinalComponent } from 'app/components/registros/registro-usuario-final/registro-usuario-final.component';
 import { NavbarUsuarioComponent } from './layouts/navbar/navbar-usuario/navbar-usuario.component';
 import { MenuUsuarioComponent } from './layouts/menu/usuario-final/menu-usuario-final.component';
 import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
+import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
+import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.component';
+import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
+import { ListaAdministradoresComponent } from './admin/lista-administradores/lista-administradores.component';
+import { PerfilVisualizableAdminComponent } from './admin/perfil-visualizable-admin/perfil-visualizable-admin.component';
+import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
+import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
+import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
 
 @NgModule({
   imports: [
@@ -45,12 +53,15 @@ import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.compon
 
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     TranslationModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
+    DatePipe,
   ],
   declarations: [
     MainComponent,
@@ -65,7 +76,15 @@ import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.compon
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    ListaUsuariosComponent,
+    PerfilVisualizableUsuarioFinalComponent,
+    PlanInscripcionStartupComponent,
+    PagoInscripcionStartupComponent,
+    ListaAdministradoresComponent,
+    PerfilVisualizableAdminComponent,
+    PerfilAdminComponent,
   ],
+  exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
 })
 export class AppModule {
