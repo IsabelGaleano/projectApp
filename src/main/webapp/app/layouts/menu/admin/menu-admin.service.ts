@@ -10,7 +10,8 @@ export class MenuAdminService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   getUsuariosByCorreoElectronico(correoElectronico: string): Observable<any> {
-    const ruta = '/api/usuariosCorreoElectronico/' + correoElectronico;
+    let ruta = '/api/usuariosCorreoElectronico/';
+    ruta = ruta.concat(correoElectronico);
     return this.http.get(ruta);
   }
 }

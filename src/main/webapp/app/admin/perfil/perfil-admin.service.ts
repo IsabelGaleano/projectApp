@@ -13,12 +13,14 @@ export class PerfilAdminService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   getUsuariosByCorreoElectronico(correoElectronico: string): Observable<any> {
-    const ruta = '/api/usuariosCorreoElectronico/' + correoElectronico;
+    let ruta = '/api/usuariosCorreoElectronico/';
+    ruta = ruta.concat(correoElectronico);
     return this.http.get(ruta);
   }
 
   updateInfoBasicaUsuarios(correoUsuario: string, usuario: any): Observable<any> {
-    const ruta = '/api/usuariosCorreo/' + correoUsuario;
+    let ruta = '/api/usuariosCorreo/';
+    ruta = ruta.concat(correoUsuario);
     return this.http.put(ruta, usuario);
   }
   updateInfoBasicaJHI(jhi_user: any): Observable<any> {
