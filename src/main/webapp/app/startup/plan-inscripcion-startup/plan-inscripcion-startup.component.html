@@ -1,0 +1,43 @@
+<div class="main-content app-content text-center">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between"></div>
+    <!-- breadcrumb -->
+    <h4 class="mt-6 text-center">Seleccione el plan de inscripción</h4>
+    <div class="mt-4 row justify-content-center">
+      <div class="" style="width: 60%">
+        <div class="card">
+          <div class="card-body text-center pricing">
+            <div class="card-category">Beneficios del plan premium</div>
+            <h2>$8.00</h2>
+            <ul class="list-unstyled leading-loose">
+              <li class="beneficiosPlan" style="font-size: 18px; color: black">Potenciar su empresa</li>
+              <li class="beneficiosPlan" style="font-size: 18px; color: black">Más acercamiento a la experiencia de clientes</li>
+              <li class="beneficiosPlan" style="font-size: 18px; color: black">Accesibilidad a clientes</li>
+              <li class="beneficiosPlan" style="font-size: 18px; color: black">Interacción con posibles clientes</li>
+              <li class="beneficiosPlan" style="font-size: 18px; color: black">Acceso a inversionistas</li>
+              <li class="beneficiosPlan" style="font-size: 18px; color: black">
+                Interacción con posibles inversionistas a través de reuniones
+              </li>
+              <li class="beneficiosPlan" style="font-size: 18px; color: black">Posibilidad de conseguir donaciones de forma rápida</li>
+            </ul>
+            <div class="row row-xs">
+              <div class="col-sm-6">
+                <button (click)="registrarPlanInscripcionMensual()" class="btn btn-block" style="background-color: #4ea588; color: white">
+                  Mensual ($8.00)
+                </button>
+              </div>
+              <div class="col-sm-6 mg-t-10 mg-sm-t-0">
+                <button (click)="registrarPlanInscripcionAnual()" class="btn btn-block" style="background-color: #d09240; color: white">
+                  Anual ($65.00)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Container closed -->
+</div>
