@@ -1,6 +1,8 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Codigos;
+import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.CodigosRepository;
 import com.project.myapp.service.SendGridService;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
@@ -168,6 +170,18 @@ public class CodigosResource {
         log.debug("REST request to get Codigos : {}", id);
         Optional<Codigos> codigos = codigosRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(codigos);
+    }
+
+    @GetMapping("/codigosByIdUsuario/{id}")
+    public List<Codigos> getCodigosByIdUsuario(@PathVariable Usuarios id) {
+        log.debug("REST request to get Codigos : {}", id);
+        return codigosRepository.findCodigosByIdUsuario(id);
+    }
+
+    @GetMapping("/codigosByStartup/{id}")
+    public List<Codigos> getCodigosByStartup(@PathVariable Startups id) {
+        log.debug("REST request to get Codigos : {}", id);
+        return codigosRepository.findCodigosByIdStartup(id);
     }
 
     /**
