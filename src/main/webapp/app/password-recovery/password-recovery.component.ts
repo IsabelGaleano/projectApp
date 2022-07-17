@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CodigosService } from '../entities/codigos/service/codigos.service';
+import {Router} from "@angular/router";
+import {AlertError} from "../shared/alert/alert-error.model";
 
 @Component({
   selector: 'jhi-password-recovery',
@@ -8,18 +10,36 @@ import { CodigosService } from '../entities/codigos/service/codigos.service';
 })
 export class PasswordRecoveryComponent  { //implements OnInit {
 
-  email : string = '';
+  public email : string;
+  public error : boolean;
+  public errorMessage : string;
 
-  constructor(private codeService:CodigosService) { 
-
+  constructor(private codeService:CodigosService, private router: Router) {
+    this.email = "";
+    this.error = false;
+    this.errorMessage = '';
   }
 
   //ngOnInit(): void {
   //}
 
-  async sendCode() {
-    let response = await this.codeService.sendCode(this.email)
-     console.log(response);
+  sendCode(): void {
+    try {
+      this.codeService.sendCode(this.email).subscribe(
+        (response: any) => {
+        if (response.status) {
+          this.router.navigate(['/validateotp']);
+        }
+      },
+        (err: any) => {
+          this.error = true;
+          this.errorMessage = err.error.title;
+          console.error('ERROR AL ENVIAR OTP', err);
+        },
+      );
+    } catch (e) {
+      this.error = true;
+    }
   }
 
 }

@@ -315,15 +315,11 @@
             <artifactId>sendgrid-java</artifactId>
             <version>4.4.1</version>
         </dependency>
+        <!-- https://mavenlibs.com/maven/dependency/com.github.holgerbrandl/jsonbuilder -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sendgrid</groupId>
-            <artifactId>sendgrid-java</artifactId>
-            <version>4.0.1</version>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>

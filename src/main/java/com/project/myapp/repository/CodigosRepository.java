@@ -32,6 +32,8 @@ public interface CodigosRepository extends JpaRepository<Codigos, Long> {
 
     public List<Codigos> findCodigosByIdStartup(Startups startups);
 
+    public Optional<Codigos> findCodigosByCodigoAndIdUsuario(String codigo, Usuarios idUsuario);
+
     @Query(
         value = "select distinct codigos from Codigos codigos left join fetch codigos.idStartup left join fetch codigos.idUsuario",
         countQuery = "select count(distinct codigos) from Codigos codigos"

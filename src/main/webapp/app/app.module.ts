@@ -32,6 +32,8 @@ import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-foo
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -66,6 +68,8 @@ import { PasswordRecoveryComponent } from './password-recovery/password-recovery
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
     PasswordRecoveryComponent,
+    ValidateotpComponent,
+    ResetPasswordComponent,
   ],
   bootstrap: [MainComponent],
 })

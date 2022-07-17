@@ -2,12 +2,14 @@ package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Codigos;
 import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.CodigosRepository;
+import com.project.myapp.repository.UserRepository;
+import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.service.SendGridService;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -15,6 +17,9 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import com.project.myapp.web.rest.errors.CodigoNotFoundedException;
+import com.project.myapp.web.rest.errors.UserNotFoundedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,8 +46,16 @@ public class CodigosResource {
 
     private final CodigosRepository codigosRepository;
 
-    public CodigosResource(CodigosRepository codigosRepository) {
+    private final UserRepository userRepository;
+
+    private UsuariosRepository usuariosRepository;
+
+    private Usuarios foundedCodeUsuario;
+
+    public CodigosResource(CodigosRepository codigosRepository, UserRepository userRepository, UsuariosRepository usuariosRepository) {
         this.codigosRepository = codigosRepository;
+        this.userRepository = userRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
     /**
@@ -199,8 +212,39 @@ public class CodigosResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
-    @PostMapping("/send")
-    public String sendWithTemplate() throws IOException {
-        return SendGridService.send();
+    @PostMapping("/codigos/send")
+    public Codigos sendWithTemplate(@RequestBody String correoElectronico)  {
+        this.foundedCodeUsuario = usuariosRepository.findOneBycorreoElectronicoIgnoreCase(correoElectronico);
+        if (!Objects.isNull(this.foundedCodeUsuario)) {
+            SendGridService sendGridService = new SendGridService(codigosRepository);
+            String result = sendGridService.sendOTP(correoElectronico, this.foundedCodeUsuario);
+            Codigos codigo = new Codigos();
+            return codigo;
+        } else {
+            throw new UserNotFoundedError();
+        }
     }
+
+    @PostMapping("/codigos/validate")
+    public Optional<Codigos> validateOTP(@RequestBody String codigo)  {
+        Optional<Codigos> foundedCodigo = codigosRepository.findCodigosByCodigoAndIdUsuario(codigo, this.foundedCodeUsuario);
+        if (foundedCodigo.isPresent()) {
+            return foundedCodigo;
+        } else {
+            throw new CodigoNotFoundedException();
+        }
+    }
+
+    @PostMapping("/codigos/reSendCode")
+    public Codigos reSendCode(@RequestBody String body)  {
+        if (!Objects.isNull(this.foundedCodeUsuario)) {
+            SendGridService sendGridService = new SendGridService(codigosRepository);
+            String result = sendGridService.sendOTP(this.foundedCodeUsuario.getCorreoElectronico(), this.foundedCodeUsuario);
+            Codigos codigo = new Codigos();
+            return codigo;
+        } else {
+            throw new UserNotFoundedError();
+        }
+    }
+
 }
