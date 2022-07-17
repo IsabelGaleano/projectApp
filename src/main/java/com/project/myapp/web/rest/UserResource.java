@@ -215,4 +215,26 @@ public class UserResource {
 
         return userRepository.findByEmail(email);
     }
+
+    @PutMapping("/userActivated/{email}")
+    public HttpStatus updateUserActivated(@PathVariable String email, @Valid @RequestBody String state) {
+        Optional<User> updatedUser;
+        log.debug("REST request to update User : {}", state);
+        // Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(email);
+
+        // if(existingUser.get().getId() != null){
+        //     userService.updateUser(existingUser);
+        // }
+
+        if (state.equals("Activo")) {
+            userRepository.updateUserActivated(email, true);
+            return HttpStatus.OK;
+        } else if (state.equals("Inactivo")) {
+            userRepository.updateUserActivated(email, false);
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.BAD_REQUEST;
+        // return ResponseUtil.wrapOrNotFound(updatedUser);
+    }
 }

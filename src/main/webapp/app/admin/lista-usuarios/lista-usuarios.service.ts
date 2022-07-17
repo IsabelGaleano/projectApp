@@ -27,7 +27,9 @@ export class AppService {
   }
 
   getUsersById(id: string): Observable<any> {
-    const ruta = '/api/usuarios/' + id;
+    let ruta = '/api/usuarios/';
+    ruta = ruta.concat(id);
+
     return this.http.get(ruta);
   }
 
@@ -37,17 +39,26 @@ export class AppService {
   }
 
   updateUser(user: any, id: string): any {
-    const ruta = '/api/usuarios/' + id;
+    let ruta = '/api/usuarios/';
+    ruta = ruta.concat(id);
     return this.http.put(ruta, user);
   }
 
   getUsuariosByCorreo(correoElectronico: string): Observable<any> {
-    const ruta = '/api/usuariosByCorreo/' + correoElectronico;
+    let ruta = '/api/usuariosByCorreo/';
+    ruta = ruta.concat(correoElectronico);
     return this.http.get(ruta);
   }
 
   getUsersByEmail(correoElectronico: string): Observable<any> {
-    const ruta = '/api/admin/usersEmail/' + correoElectronico;
+    let ruta = '/api/admin/usersEmail/';
+    ruta = ruta.concat(correoElectronico);
     return this.http.get(ruta);
+  }
+
+  updateUserActivatedJHI(correo: string, activated: string): any {
+    let ruta = '/api/admin/userActivated/';
+    ruta = ruta.concat(correo);
+    return this.http.put(ruta, activated);
   }
 }

@@ -8,6 +8,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -52,6 +53,7 @@ import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualiz
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
+    DatePipe,
   ],
   declarations: [
     MainComponent,

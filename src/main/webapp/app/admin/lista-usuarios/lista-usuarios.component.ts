@@ -22,6 +22,7 @@ export class ListaUsuariosComponent implements OnInit {
           roles.forEach((rol: any) => {
             // console.warn(ro)
             if (rol.name === 'ROLE_USER' && roles.length === 1) {
+              // if (rol.name === 'ROLE_USER') {
               this.usuarios.push(usuario);
             }
           });
@@ -39,7 +40,10 @@ export class ListaUsuariosComponent implements OnInit {
       this.appService.getUsersById(idXestado[0]).subscribe((data: any) => {
         data.estado = 'Activo';
 
-        this.appService.updateUser(data, idXestado[0]).subscribe().then(window.location.reload());
+        this.appService
+          .updateUser(data, idXestado[0])
+          .subscribe(this.appService.updateUserActivatedJHI(data.correoElectronico, data.estado).subscribe())
+          .then(window.location.reload());
       });
     }
   }
@@ -53,7 +57,11 @@ export class ListaUsuariosComponent implements OnInit {
       this.appService.getUsersById(idXestado[0]).subscribe((data: any) => {
         data.estado = 'Inactivo';
 
-        this.appService.updateUser(data, idXestado[0]).subscribe().then(window.location.reload());
+        // this.appService.updateUser(data, idXestado[0]).subscribe().then(window.location.reload());
+        this.appService
+          .updateUser(data, idXestado[0])
+          .subscribe(this.appService.updateUserActivatedJHI(data.correoElectronico, data.estado).subscribe())
+          .then(window.location.reload());
       });
     }
   }
@@ -71,6 +79,8 @@ export class ListaUsuariosComponent implements OnInit {
         if (element.name === 'ROLE_ADMIN') {
           // this.router.navigate(['/admin/perfil-visualizable-usuario-final']);
         } else if (element.name === 'ROLE_USER') {
+          localStorage.removeItem('correoSession');
+          localStorage.setItem('correoSession', correo);
           this.router.navigate(['/admin/perfil-visualizable-usuario-final']);
         }
       });
