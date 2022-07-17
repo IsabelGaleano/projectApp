@@ -3,20 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { Registration } from './register.model';
-import { Registro } from './registro-usuario-final.model';
-
-const baseUrl = 'http://localhost:8080/api/usuarios';
+import { Registration } from './register-startup.model';
 
 @Injectable({ providedIn: 'root' })
-export class RegisterService {
+export class RegisterStartupService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   save(registration: Registration): Observable<{}> {
-    return this.http.post(this.applicationConfigService.getEndpointFor('api/register'), registration);
-  }
-
-  saveFinalUser(registro: Registro): Observable<{}> {
-    return this.http.post(baseUrl, registro);
+    return this.http.post(this.applicationConfigService.getEndpointFor('api/registerStartup'), registration);
   }
 }
