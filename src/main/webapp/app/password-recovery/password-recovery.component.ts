@@ -8,7 +8,7 @@ import { CodigosService } from '../entities/codigos/service/codigos.service';
 })
 export class PasswordRecoveryComponent  { //implements OnInit {
 
-  email : string;
+  email : string = '';
 
   constructor(private codeService:CodigosService) { 
 
