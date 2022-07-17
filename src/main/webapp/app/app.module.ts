@@ -36,6 +36,8 @@ import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.co
 import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
 import { ListaAdministradoresComponent } from './admin/lista-administradores/lista-administradores.component';
 import { PerfilVisualizableAdminComponent } from './admin/perfil-visualizable-admin/perfil-visualizable-admin.component';
+import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
+import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
 
 @NgModule({
   imports: [
@@ -72,6 +74,8 @@ import { PerfilVisualizableAdminComponent } from './admin/perfil-visualizable-ad
     RegistroUsuarioFinalComponent,
     ListaUsuariosComponent,
     PerfilVisualizableUsuarioFinalComponent,
+    PlanInscripcionStartupComponent,
+    PagoInscripcionStartupComponent,
     ListaAdministradoresComponent,
     PerfilVisualizableAdminComponent,
   ],

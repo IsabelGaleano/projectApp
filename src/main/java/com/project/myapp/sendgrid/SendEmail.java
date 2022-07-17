@@ -19,7 +19,7 @@ public class SendEmail {
     public void correoVerificacionUsuario(int codigo, String correo) {
         String templateId = "d-708a8389bb764fc8b2566d28ba78a19e";
         Mail mail = new Mail();
-        mail.setFrom(new Email("dcoto37@gmail.com", "Tripnary"));
+        mail.setFrom(new Email("dcoto37@gmail.com", "StartupSafe"));
         mail.setTemplateId(templateId);
         Personalization personalization = new Personalization();
         personalization.addDynamicTemplateData("header", String.valueOf(codigo));

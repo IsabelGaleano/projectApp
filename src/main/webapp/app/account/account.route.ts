@@ -8,6 +8,7 @@ import { registerRoute } from './register/register.route';
 import { settingsRoute } from './settings/settings.route';
 import { VerificacionCodigoUsuarioFinalRoute } from './verificacion-codigo-usuario-final/verificacion-codigo-usuario-final.route';
 import { registerStartupRoute } from './register-startup/register-startup.route';
+import { VerificacionStartupRoute } from './verificacion-startup/verificacion-startup.route';
 
 const ACCOUNT_ROUTES = [
   activateRoute,
@@ -18,6 +19,7 @@ const ACCOUNT_ROUTES = [
   settingsRoute,
   VerificacionCodigoUsuarioFinalRoute,
   registerStartupRoute,
+  VerificacionStartupRoute,
 ];
 
 export const accountState: Routes = [
