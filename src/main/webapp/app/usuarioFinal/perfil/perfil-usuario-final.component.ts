@@ -73,12 +73,21 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           loader.load().then(() => {
             const latitudValue: number = +dataUsuario.latitudDireccion;
             const longitudValue: number = +dataUsuario.longitudDireccion;
-
-            const location = {
-              lat: latitudValue,
-              lng: longitudValue,
+            let location = {
+              lat: 0,
+              lng: 0,
             };
-
+            if (latitudValue !== 0 && longitudValue !== 0) {
+              location = {
+                lat: latitudValue,
+                lng: longitudValue,
+              };
+            } else {
+              location = {
+                lat: 9.93333,
+                lng: -84.08333,
+              };
+            }
             this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
               center: location,
               zoom: 15,
@@ -136,7 +145,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
       this.account = account;
     });
   }
-  test(): void {
+  actualizarUsuario(): void {
     this.perfilUsuarioFinalService.getUsersByMail(this.usuarioFinal).subscribe((dataUsuario: any) => {
       const fechaNacimientoForm = <HTMLInputElement>document.getElementById('fechaNacimientoForm');
       dataUsuario.fechaNacimiento = fechaNacimientoForm.value.concat('T19:55:15.', '714688-06:00');
@@ -167,6 +176,19 @@ export class PerfilUsuarioFinalComponent implements OnInit {
       });
     });
   }
+
+  actualizarPassword(): void {
+    const contrasenniaNuevaForm = <HTMLInputElement>document.getElementById('contrasenniaNuevaForm');
+
+    const confirmarContrasenniaNuevaForm = <HTMLInputElement>document.getElementById('confirmarContrasenniaNuevaForm');
+
+    const contrasenniaAntiguaForm = <HTMLInputElement>document.getElementById('contrasenniaAntiguaForm');
+
+    this.perfilUsuarioFinalService.save(contrasenniaAntiguaForm.value, contrasenniaNuevaForm.value).subscribe(() => {
+      window.location.reload();
+    });
+  }
+
   desencriptar(s: string): string {
     const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
     let strDescodificado = '';
