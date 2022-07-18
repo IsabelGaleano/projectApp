@@ -16,7 +16,6 @@ import com.project.myapp.service.dto.PasswordChangeDTO;
 import com.project.myapp.web.rest.errors.*;
 import com.project.myapp.web.rest.vm.KeyAndPasswordVM;
 import com.project.myapp.web.rest.vm.ManagedUserVM;
-import java.text.DecimalFormat;
 import java.time.ZonedDateTime;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
@@ -101,12 +100,12 @@ public class AccountResource {
             " ",
             " ",
             "UsuarioFinal",
-            managedUserVM.getPassword(),
+            " ",
             "Pendiente",
             monederoCreado,
             new RolesUsuarios(3L)
         );
-        String codigo = generateOTP();
+        String codigo = String.valueOf(generateOTP());
         Codigos codigoDTO = new Codigos(codigo, "Activo", usuario);
         sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), usuario.getCorreoElectronico());
         usuariosRepository.save(usuario);
@@ -116,7 +115,7 @@ public class AccountResource {
     @GetMapping("/reenviarCodigo/{usuario}")
     public void reenviarCodigo(@PathVariable Usuarios usuario) {
         SendEmail sendEmail = new SendEmail();
-        String codigo = generateOTP();
+        String codigo = String.valueOf(generateOTP());
         Codigos codigoDTO = new Codigos(codigo, "Activo", usuario);
         sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), usuario.getCorreoElectronico());
         codigosRepository.save(codigoDTO);
@@ -149,7 +148,7 @@ public class AccountResource {
             startupsSave.estado("Pendiente");
             startupsSave.setIdMonedero(monederoCreado);
             //OTP
-            String codigo = generateOTP();
+            String codigo = String.valueOf(generateOTP());
             Codigos codigoDTO = new Codigos(codigo, "Activo", startupsSave);
             sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), startupsSave.getCorreoElectronico());
 
@@ -162,7 +161,7 @@ public class AccountResource {
     @GetMapping("/startups/reenviarCodigo/{correo}")
     public void reenviarCodigoStartups(@PathVariable String correo) {
         SendEmail sendEmail = new SendEmail();
-        String codigoGenerado = generateOTP();
+        String codigoGenerado = String.valueOf(generateOTP());
         Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
         List<Codigos> codigos = codigosRepository.findCodigosByIdStartup(startups.get());
         //Pasar todos los codigos actuales a inactivos
@@ -303,7 +302,14 @@ public class AccountResource {
         );
     }
 
-    public String generateOTP() {
-        return new DecimalFormat("000000").format(new Random().nextInt(999999));
+    public char[] generateOTP() {
+        String numbers = "1234567890";
+        Random random = new Random();
+        char[] otp = new char[6];
+
+        for (int i = 0; i < 6; i++) {
+            otp[i] = numbers.charAt(random.nextInt(numbers.length()));
+        }
+        return otp;
     }
 }
