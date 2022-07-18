@@ -67,6 +67,10 @@ export class VerificacionStartupComponent implements AfterViewInit {
     this.verificacionService.reenviarCodigo(sessionStorage.getItem('startupPendiente')).subscribe((result: any) => {
       console.warn(result);
       this.codigoReenviado = true;
+      this.success = true;
+      window.setTimeout(function () {
+        location.reload();
+      }, 3000);
     });
   }
 
