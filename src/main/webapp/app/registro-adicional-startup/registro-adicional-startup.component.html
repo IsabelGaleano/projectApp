@@ -1,195 +1,77 @@
 <!-- Page -->
-<div class="page">
-  <div>
-    <!-- main-header -->
-    <div class="main-header side-header sticky nav nav-item">
-      <div class="container-fluid main-container ">
-      </div>
-    </div>
-    <!-- /main-header -->
+<div class="main-content app-content mt-2">
+  <div class="main-container container-fluid px-0 mt-5">
+    <div class="page">
+      <div>
+        <!-- container -->
+        <div class="main-container container-fluid">
 
-    <!-- main-sidebar -->
-    <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
-    <div>
-      <aside>
-        <div class="main-sidebar-header active">
-          <a class="desktop-logo logo-light active" href="index.html"><img
-            src="../assets/img/brand/logo.png" class="main-logo" alt="logo"></a>
-          <a class="desktop-logo logo-dark active" href="index.html"><img
-            src="../assets/img/brand/logo-white.png" class="main-logo" alt="logo"></a>
-          <a class="logo-icon mobile-logo icon-light active" href="index.html"><img
-            src="../assets/img/brand/favicon.png" alt="logo"></a>
-          <a class="logo-icon mobile-logo icon-dark active" href="index.html"><img
-            src="../assets/img/brand/favicon-white.png" alt="logo"></a>
-        </div>
-      </aside>
-    </div>
-    <!-- main-sidebar -->
-  </div>
-  <!-- main-content -->
-  <div>
-    <!-- container -->
-    <div class="main-container container-fluid">
-
-      <!-- breadcrumb -->
-      <div class="breadcrumb-header">
-        <div class="col-lg-12 col-md-12">
-          <div class="card">
-            <div class="card-body">
-              <h1 class="mg-b-5 text-center">
-                Registro de sesión
-              </h1>
-              <p class="mg-b-20 text-center">Digite la información requerida para crear la sesión</p>
-              <div>
-                <hr class="mg-y-30">
-                <h3 class="text-center">Información adicional de la startup</h3>
-                <section>
-                  <div class="control-group form-group">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Panorama del mercado:</label>
-                          <input type="text" class="form-control required"
-                                 placeholder="Panorama del mercado">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="control-group form-group">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Riesgos:</label>
-                          <input type="text" class="form-control required"
-                                 placeholder="Riesgos">
-                        </div>
-                      </div>
-                      <div class="col-sm-6 ">
-                        <div class="form-group mb-0">
-                          <label class="form-label">Beneficios:</label>
-                          <input type="text" class="form-control required"
-                                 placeholder="Beneficios">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="control-group form-group">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Fecha de creación</label>
-                          <input type="date" class="form-control required">
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Categoría</label>
-                          <select name="country" class="form-control form-select"
-                                  data-bs-placeholder="Select Country">
-                            <option value="br">Tecnología</option>
-                            <option value="cz">Czech Republic</option>
-                            <option value="de">Germany</option>
-                            <option value="pl" selected>Poland</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="control-group form-group">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Contraseña</label>
-                          <input type="text" class="form-control required"
-                                 placeholder="Contraseña">
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group mb-0">
-                          <label class="form-label">Confirmar contraseña</label>
-                          <input type="text" class="form-control required"
-                                 placeholder="Confirmar contraseña">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="control-group form-group">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Descripción</label>
-                          <textarea class="form-control" placeholder="Descripción"
-                                    rows="10"></textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                <hr class="mg-y-30">
-                <h3 class="text-center">Información de ubicación</h3>
-                <section>
-                  <div class="control-group form-group">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Ubicación</label>
-                          <img alt="Responsive image" class="img img-fluid"
-                               src="../assets/img/photos/19.jpg">
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-
-                      </div>
-                      <div class="col-md-6 ">
-                        <div class="form-group mb-sm-0">
-                          <label class="form-label">Latitud</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control required">
+          <!-- breadcrumb -->
+          <div class="breadcrumb-header">
+            <div class="col-lg-12 col-md-12">
+              <div class="card">
+                <form #updateAditionalInfoform="ngForm" novalidate class="card-body w-100">
+                  <div>
+                    <hr class="mg-y-30">
+                    <h3 class="text-center">Información adicional de la startup</h3>
+                    <section>
+                      <div class="control-group form-group">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group mb-sm-0">
+                              <label class="form-label">Riesgos:</label>
+                              <textarea required [(ngModel)]="startup.riesgos" #updateRiesgos="ngModel" name="updateRiesgos" placeholder="Riesgos" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 ">
+                            <div class="form-group mb-0">
+                              <label class="form-label">Beneficios:</label>
+                              <textarea required [(ngModel)]="startup.beneficios" #updateBeneficios="ngModel" name="updateBeneficios" placeholder="Beneficios" class="form-control" rows="3"></textarea>
+                            </div>
                           </div>
                         </div>
-                        <div class="form-group mb-0">
-                          <label class="form-label">Longitud</label>
-                          <input type="text" class="form-control required">
+                      </div>
+                      <div class="control-group form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group mb-sm-0">
+                              <label class="form-label">Panorama del mercado:</label>
+                              <textarea required [(ngModel)]="startup.panoramaMercado" #updatePanorama="ngModel" name="updatePanorama" placeholder="Panorama del mercado" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="control-group form-group">
-                    <div class="row">
-                      <div class="col-md-6">
-
+                      <div class="col-12 px-0">
+                        <button [disabled]="updateAditionalInfoform.invalid" type="button" (click)="updateAditionalInfo()"
+                                class="btn btn-primary waves-effect waves-light">
+                          <p *ngIf="!loading" class="mb-0">Registrar</p>
+                          <div *ngIf="loading" class="spinner-btn spinner-border text-light" role="status"></div>
+                        </button>
+                        <p *ngIf="error" class="text-danger pt-3 text-center">{{errorMessage}}</p>
+                        <p *ngIf="info" class="text-success pt-3 text-center">{{infoMessage}}</p>
                       </div>
-                      <div class="col-md-6">
-                        <div class=" form-group mb-0">
-                          <button type="submit"
-                                  class="btn btn-primary waves-effect waves-light">Actualizar
-                            Perfil</button>
-                        </div>
-                      </div>
-
-
-                    </div>
+                    </section>
                   </div>
-                </section>
+                </form>
               </div>
             </div>
           </div>
+          <!-- breadcrumb -->
         </div>
+        <!-- Container closed -->
       </div>
-      <!-- breadcrumb -->
-    </div>
-    <!-- Container closed -->
-  </div>
-  <!-- main-content closed -->
+      <!-- main-content closed -->
 
-  <!-- Footer opened -->
-  <div class="main-footer ht-45">
-    <div class="container-fluid pd-t-0 ht-100p">
+      <!-- Footer opened -->
+      <div class="main-footer ht-45">
+        <div class="container-fluid pd-t-0 ht-100p">
                 <span> Moonsoft © 2022 <a href="javascript:void(0);" class="text-primary">StartupSafe</a>. Diseñado por
                     <a href="javascript:void(0);"> Moonsoft </a> Todos los derechos reservados.</span>
+        </div>
+      </div>
+      <!-- Footer closed -->
+
     </div>
   </div>
-  <!-- Footer closed -->
-
 </div>
 <!-- End Page -->

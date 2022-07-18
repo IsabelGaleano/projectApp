@@ -6,6 +6,7 @@ import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.AuthoritiesConstants;
 import com.project.myapp.sendgrid.SendEmail;
+import com.project.myapp.service.UserService;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -48,11 +49,13 @@ public class UsuariosResource {
 
     private UserRepository userRepository;
 
+    private UserService userService;
 
-    public UsuariosResource(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UsuariosResource(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder, UserRepository userRepository, UserService userService) {
         this.usuariosRepository = usuariosRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     /**
@@ -248,6 +251,7 @@ public class UsuariosResource {
             finalUpdatedUser = userRepository.findOneByEmail(userToUpdate.getCorreoElectronico());
             finalUpdatedUser.setPassword(encryptedPassword);
             userRepository.save(finalUpdatedUser);
+            userService.clearUserCaches(finalUpdatedUser);
             return finalUpdatedUser;
         }
         else {

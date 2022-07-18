@@ -30,14 +30,14 @@
                                             <form #codeform="ngForm" action="#">
                                                 <div class="form-group">
                                                   <label>Código</label>
-                                                  <input [(ngModel)]="code" #validateOTP="ngModel" name="validateOTP"  class="form-control" placeholder="Ingrese el código" type="text">
+                                                  <input required [(ngModel)]="code" #validateOTP="ngModel" name="validateOTP"  class="form-control" placeholder="Ingrese el código" type="text">
                                                 </div>
-                                                <button (click)="validate()" class="btn btn-main-primary btn-block">
+                                                <button [disabled]="codeform.invalid" (click)="validate()" class="btn btn-main-primary btn-block">
                                                   <p *ngIf="!loading" class="mb-0">Comprobar</p>
                                                   <div *ngIf="loading" class="spinner-btn spinner-border text-light" role="status">
                                                   </div>
                                                 </button>
-                                                <button (click)="reSendCode()" class="btn btn-main-secundary btn-block">Reenviar Código</button>
+                                                <button  (click)="reSendCode()" class="btn btn-main-secundary btn-block">Reenviar Código</button>
                                                 <p *ngIf="error" class="text-danger pt-3 text-center">{{errorMessage}}</p>
                                                 <p *ngIf="info" class="text-success pt-3 text-center">{{infoMessage}}</p>
                                             </form>

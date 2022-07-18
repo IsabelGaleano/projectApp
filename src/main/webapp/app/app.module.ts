@@ -35,20 +35,22 @@ import { PasswordRecoveryComponent } from './password-recovery/password-recovery
 import { ValidateotpComponent } from './validateotp/validateotp.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import {AccountModule} from "./account/account.module";
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    SharedModule,
-    HomeModule,
-    AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-    HttpClientModule,
-    FontAwesomeModule,
+    imports: [
+        BrowserModule,
+        SharedModule,
+        HomeModule,
+        AppRoutingModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: false}),
+        HttpClientModule,
+        FontAwesomeModule,
 
-    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
-    TranslationModule,
-  ],
+        NgxWebstorageModule.forRoot({prefix: 'jhi', separator: '-', caseSensitive: true}),
+        TranslationModule,
+        AccountModule,
+    ],
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'es' },

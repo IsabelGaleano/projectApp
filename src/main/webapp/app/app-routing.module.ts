@@ -65,14 +65,6 @@ import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/re
         { path: 'passwordRecovery', component: PasswordRecoveryComponent },
         { path: 'resetPassword', component: ResetPasswordComponent },
         { path: 'validateotp', component: ValidateotpComponent },
-        // ruta de prueba para registrar usuarios
-        { path: 'temporalUserRegistry', component: UsuariosComponent },
-        // ruta de prueba para registrar monederos
-        { path: 'temporalMoneyRegistry', component: MonederosComponent },
-        // ruta de prueba para registrar monederos
-        { path: 'temporalRolRegistry', component: RolesUsuariosComponent  },
-        // ruta de prueba para registrar startups
-        { path: 'categoria', component: CategoriasComponent  },
         { path: 'registroAdicionalStartup', component: RegistroAdicionalStartupComponent  },
         navbarRoute,
         ...errorRoute,
