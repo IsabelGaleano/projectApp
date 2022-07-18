@@ -55,24 +55,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.accountService.getAuthenticationState().subscribe(account => {
               if (account) {
                 // eslint-disable-next-line no-console
-                console.warn(account);
-
+                console.log(account);
                 if (account.authorities[1]) {
                   this.router.navigate(['admin/profile-admin']);
                 } else if (account.authorities[0]) {
                   if (account.authorities[0] === 'ROLE_USER') {
                     this.router.navigate(['usuario-final/perfil-usuario-final']);
                   } else if (account.authorities[0] === 'ROLE_STARTUP') {
-                    this.loginService.getStartupByCorreo(account.email).subscribe((startup: any) => {
-                      console.warn(startup);
-                      if (startup.estado === 'PendienteInscripcion') {
-                        this.router.navigate(['startup/plan-inscripcion-startup']);
-                      } else {
-                        this.router.navigate(['startup/perfil-startup']);
-                      }
-
-                      sessionStorage.setItem('startupLogin', startup.correoElectronico);
-                    });
+                    this.router.navigate(['startup/perfil-startup']);
                   }
                 }
               }

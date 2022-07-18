@@ -10,7 +10,6 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
-import { MenuAdminService } from './menu-admin.service';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -24,11 +23,10 @@ export class MenuAdminComponent implements OnInit {
   languages = LANGUAGES;
   openAPIEnabled?: boolean;
   version = '';
-  account!: Account;
+  account: Account | null = null;
   entitiesNavbarItems: any[] = [];
   user = false;
   accountInfo = { email: '' };
-  usuario: any;
 
   constructor(
     private loginService: LoginService,
@@ -36,8 +34,7 @@ export class MenuAdminComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router,
-    private menuAdminService: MenuAdminService
+    private router: Router
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -58,17 +55,7 @@ export class MenuAdminComponent implements OnInit {
         this.user = true;
         this.accountInfo = account;
       }
-      // this.account = account;
-
-      if (account != null) {
-        this.account = account;
-
-        this.menuAdminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
-          this.usuario = data;
-
-          console.warn(this.usuario);
-        });
-      }
+      this.account = account;
     });
   }
 
