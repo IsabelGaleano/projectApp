@@ -1,0 +1,136 @@
+<div class="main-container container-fluid">
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <div class="alert alert-success" *ngIf="success">Su cuenta ha sido verificada, ya puede iniciar sesión.</div>
+
+      <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+        <strong>Registro no existoso!</strong> Inténtelo otra vez.
+      </div>
+    </div>
+  </div>
+  <!-- Page -->
+  <div class="page">
+    <div class="main-container container-fluid">
+      <div class="row no-gutter">
+        <!-- The image half -->
+        <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
+          <div class="row wd-100p mx-auto text-center">
+            <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
+              <img
+                src="../../../content/images/undraw_work_chat_re_qes4.svg"
+                class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto"
+                alt="logo"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- The content half -->
+        <div class="col-md-6 col-lg-6 col-xl-5 bg-white py-4">
+          <div class="login d-flex align-items-center py-2">
+            <!-- Demo content-->
+            <div class="container p-0">
+              <div class="row">
+                <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
+                  <div class="card-sigin">
+                    <div class="mb-4 d-flex">
+                      <a href="index.html"
+                        ><img src="../../../content/images/StatupSafe-horizontal-azul.png" class="sign-favicon-a ht-50" alt="logo" />
+                        <img src="../assets/img/brand/favicon-white.png" class="sign-favicon-b ht-40" alt="logo" />
+                      </a>
+                    </div>
+                    <div class="main-signup-header">
+                      <h2 class="text-primary">Verifique su cuenta!</h2>
+                      <h5 class="fw-normal mb-4">Digite el código enviado a su correo.</h5>
+                      <div>
+                        <div>
+                          <div class="col-md-8">
+                            <div class="alert alert-success" *ngIf="success">
+                              <strong>Registro finalizado!</strong> Será redirigido a iniciar sesión. Gracias por escoger StartupSafe.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+                              <strong>Registration failed!</strong> Please try again later.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
+                              <strong>Login name already registered!</strong> Please choose another one.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+                              <strong>Email is already in use!</strong> Please choose another one.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+                              The password and its confirmation do not match!
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <form name="form" role="form" (ngSubmit)="registrarPlanInversion()" [formGroup]="registerForm" *ngIf="!success">
+                            <div class="form-group">
+                              <label class="form-label" for="codigo">Código</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="login"
+                                name="login"
+                                placeholder="Código"
+                                formControlName="login"
+                                data-cy="username"
+                                #login
+                              />
+                              <div
+                                *ngIf="
+                                  registerForm.get('login')!.invalid &&
+                                  (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)
+                                "
+                              >
+                                <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required">
+                                  Código requerido.
+                                </small>
+
+                                <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.minlength">
+                                  Tamaño del código debe ser mayor a 1 dígito.
+                                </small>
+
+                                <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.maxlength">
+                                  Tamaño del código debe ser igual a 6 dígitos.
+                                </small>
+
+                                <small
+                                  class="form-text text-danger"
+                                  *ngIf="registerForm.get('login')?.errors?.pattern"
+                                  jhiTranslate="register.messages.validate.login.pattern"
+                                >
+                                  Your username can only contain letters and digits.
+                                </small>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <button
+                                type="submit"
+                                [disabled]="registerForm.invalid"
+                                class="btn btn-main-primary btn-block"
+                                jhiTranslate="register.form.button"
+                                data-cy="submit"
+                              >
+                                Register
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End -->
+          </div>
+        </div>
+        <!-- End -->
+      </div>
+    </div>
+  </div>
+</div>

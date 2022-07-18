@@ -1,7 +1,9 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.PlanesInversion;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.repository.PlanesInversionRepository;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,8 +38,11 @@ public class PlanesInversionResource {
 
     private final PlanesInversionRepository planesInversionRepository;
 
-    public PlanesInversionResource(PlanesInversionRepository planesInversionRepository) {
+    private final StartupsRepository startupsRepository;
+
+    public PlanesInversionResource(PlanesInversionRepository planesInversionRepository, StartupsRepository startupsRepository) {
         this.planesInversionRepository = planesInversionRepository;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -178,6 +183,12 @@ public class PlanesInversionResource {
         log.debug("REST request to get PlanesInversion : {}", id);
         Optional<PlanesInversion> planesInversion = planesInversionRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(planesInversion);
+    }
+
+    @GetMapping("/planes-inversionsByCorreo/{correo}")
+    public List<PlanesInversion> getPlanesInversionByIdStartup(@PathVariable String correo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        return planesInversionRepository.findPlanesInversionByIdStartup(startup);
     }
 
     /**
