@@ -232,7 +232,7 @@
                             </div>
                           </form>
                           <p></p>
-                          <button (click)="test()" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
+                          <button (click)="actualizarUsuario()" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
                         </div>
                         <div class="tab-pane" id="tab2">
                           <form class="form-horizontal">
@@ -243,7 +243,12 @@
                                   <label class="form-label">Contraseña antigua</label>
                                 </div>
                                 <div class="col-md-9">
-                                  <input type="text" class="form-control" placeholder="Contraseña antigua" />
+                                  <input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Contraseña antigua"
+                                    id="contrasenniaAntiguaForm"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -254,7 +259,7 @@
                                   <label class="form-label">Nueva contraseña</label>
                                 </div>
                                 <div class="col-md-9">
-                                  <input type="text" class="form-control" placeholder="Nueva contraseña" />
+                                  <input type="password" class="form-control" placeholder="Nueva contraseña" id="contrasenniaNuevaForm" />
                                 </div>
                               </div>
                             </div>
@@ -265,12 +270,19 @@
                                   <label class="form-label">Confirmar nueva contraseña</label>
                                 </div>
                                 <div class="col-md-9">
-                                  <input type="text" class="form-control" placeholder="Confirmar contraseña" />
+                                  <input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Confirmar contraseña"
+                                    id="confirmarContrasenniaNuevaForm"
+                                  />
                                 </div>
                               </div>
                             </div>
                           </form>
-                          <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar</button>
+                          <button type="submit" class="btn btn-primary waves-effect waves-light" (click)="actualizarPassword()">
+                            Actualizar
+                          </button>
                         </div>
                       </div>
                     </div>
