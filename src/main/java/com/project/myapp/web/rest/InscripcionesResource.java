@@ -1,13 +1,10 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Inscripciones;
-import com.project.myapp.domain.Startups;
 import com.project.myapp.repository.InscripcionesRepository;
-import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,11 +35,9 @@ public class InscripcionesResource {
     private String applicationName;
 
     private final InscripcionesRepository inscripcionesRepository;
-    private final StartupsRepository startupsRepository;
 
-    public InscripcionesResource(InscripcionesRepository inscripcionesRepository, StartupsRepository startupsRepository) {
+    public InscripcionesResource(InscripcionesRepository inscripcionesRepository) {
         this.inscripcionesRepository = inscripcionesRepository;
-        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -61,42 +56,6 @@ public class InscripcionesResource {
         Inscripciones result = inscripcionesRepository.save(inscripciones);
         return ResponseEntity
             .created(new URI("/api/inscripciones/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
-    @GetMapping("/inscripciones/registrarInscripcion/{correo}/{tipo}")
-    public ResponseEntity<Inscripciones> reenviarCodigoStartups(@PathVariable String correo, @PathVariable String tipo)
-        throws URISyntaxException {
-        log.debug("REST request to save Inscripciones : {}", correo);
-        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
-        Inscripciones inscripciones = new Inscripciones();
-        inscripciones.setNombre("Inscripción de startup");
-        inscripciones.setDescripcion("Solo para startups");
-        ZonedDateTime today = ZonedDateTime.now();
-        inscripciones.setFechaInicial(today);
-        inscripciones.setBeneficios(
-            "Potenciar su empresa-Más acercamiento a la experiencia de clientes-Accesibilidad a clientes" +
-            "-Interacción con posibles clientes-Acceso a inversionistas-Interacción con posibles inversionistas a través de reuniones-" +
-            "-Posibilidad de conseguir donaciones de forma rápida"
-        );
-
-        inscripciones.setEstado("Activo");
-        inscripciones.numInscripcion(1);
-        inscripciones.setIdStartup(startups.get());
-        if (tipo.equals("Mensual")) {
-            inscripciones.tipo("Mensual");
-            inscripciones.monto(8.00);
-        }
-        if (tipo.equals("Anual")) {
-            inscripciones.tipo("Anual");
-            inscripciones.monto(65.00);
-        }
-        startups.get().setEstado("Activo");
-        startupsRepository.save(startups.get());
-        Inscripciones result = inscripcionesRepository.save(inscripciones);
-        return ResponseEntity
-            .created(new URI("/api/registrarInscripcion/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
