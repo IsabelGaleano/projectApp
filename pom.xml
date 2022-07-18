@@ -322,6 +322,7 @@
             <artifactId>sendgrid-java</artifactId>
             <version>4.4.1</version>
         </dependency>
+        <!-- https://mavenlibs.com/maven/dependency/com.github.holgerbrandl/jsonbuilder -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

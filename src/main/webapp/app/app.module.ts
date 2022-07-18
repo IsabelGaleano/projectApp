@@ -33,6 +33,11 @@ import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import {AccountModule} from "./account/account.module";
 import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.component';
 import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
 import { ListaAdministradoresComponent } from './admin/lista-administradores/lista-administradores.component';
@@ -42,15 +47,19 @@ import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-star
 import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    SharedModule,
-    HomeModule,
-    AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-    HttpClientModule,
-    FontAwesomeModule,
+    imports: [
+        BrowserModule,
+        SharedModule,
+        HomeModule,
+        AppRoutingModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: false}),
+        HttpClientModule,
+        FontAwesomeModule,
 
+        NgxWebstorageModule.forRoot({prefix: 'jhi', separator: '-', caseSensitive: true}),
+        TranslationModule,
+        AccountModule,
+    ],
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     TranslationModule,
     FormsModule,
@@ -76,6 +85,10 @@ import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    PasswordRecoveryComponent,
+    ValidateotpComponent,
+    ResetPasswordComponent,
+    RegistroAdicionalStartupComponent,
     ListaUsuariosComponent,
     PerfilVisualizableUsuarioFinalComponent,
     PlanInscripcionStartupComponent,

@@ -16,18 +16,21 @@ import { VerificacionStartupComponent } from './verificacion-startup/verificacio
 import { VerificacionStartupRoute } from './verificacion-startup/verificacion-startup.route';
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(accountState)],
-  declarations: [
-    ActivateComponent,
-    RegisterComponent,
-    PasswordComponent,
-    PasswordStrengthBarComponent,
-    PasswordResetInitComponent,
-    PasswordResetFinishComponent,
-    SettingsComponent,
-    VerificacionCodigoUsuarioFinalComponent,
-    RegisterStartupComponent,
-    VerificacionStartupComponent,
-  ],
+    imports: [SharedModule, RouterModule.forChild(accountState)],
+    declarations: [
+        ActivateComponent,
+        RegisterComponent,
+        PasswordComponent,
+        PasswordStrengthBarComponent,
+        PasswordResetInitComponent,
+        PasswordResetFinishComponent,
+        SettingsComponent,
+        VerificacionCodigoUsuarioFinalComponent,
+        RegisterStartupComponent,
+        VerificacionStartupComponent,
+    ],
+    exports: [
+        PasswordStrengthBarComponent
+    ]
 })
 export class AccountModule {}

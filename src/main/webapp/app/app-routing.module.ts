@@ -8,6 +8,18 @@ import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-final/registro-usuario-final.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import {UsuariosUpdateComponent} from "./entities/usuarios/update/usuarios-update.component";
+import {MonederosUpdateComponent} from "./entities/monederos/update/monederos-update.component";
+import {RolesUsuariosUpdateComponent} from "./entities/roles-usuarios/update/roles-usuarios-update.component";
+import {MonederosComponent} from "./entities/monederos/list/monederos.component";
+import {RolesUsuariosComponent} from "./entities/roles-usuarios/list/roles-usuarios.component";
+import {StartupsComponent} from "./entities/startups/list/startups.component";
+import { CategoriasComponent } from './entities/categorias/list/categorias.component';
+import {UsuariosComponent} from "./entities/usuarios/list/usuarios.component";
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/registro-adicional-startup.component";
 
 @NgModule({
   imports: [
@@ -50,6 +62,10 @@ import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-fin
           path: '',
           loadChildren: () => import(`./entities/entity-routing.module`).then(m => m.EntityRoutingModule),
         },
+        { path: 'passwordRecovery', component: PasswordRecoveryComponent },
+        { path: 'resetPassword', component: ResetPasswordComponent },
+        { path: 'validateotp', component: ValidateotpComponent },
+        { path: 'registroAdicionalStartup', component: RegistroAdicionalStartupComponent  },
         navbarRoute,
         ...errorRoute,
       ],

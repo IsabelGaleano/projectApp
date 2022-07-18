@@ -1,5 +1,6 @@
 package com.project.myapp.repository;
 
+import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -28,4 +29,6 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
 
     //     @Query("update User u set u.firstname = ?1 where u.lastname = ?2")
     // int setFixedFirstnameFor(String firstname, String lastname);
+
+    Usuarios findOneBycorreoElectronicoIgnoreCase(String correoElectronico);
 }

@@ -8,6 +8,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IUsuarios, getUsuariosIdentifier } from '../usuarios.model';
+import {getCodigosIdentifier, ICodigos} from "../../codigos/codigos.model";
 
 export type EntityResponseType = HttpResponse<IUsuarios>;
 export type EntityArrayResponseType = HttpResponse<IUsuarios[]>;
