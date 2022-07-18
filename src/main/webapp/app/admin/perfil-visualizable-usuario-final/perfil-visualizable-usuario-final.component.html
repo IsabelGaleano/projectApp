@@ -16,12 +16,12 @@
             <div class="ps-0">
               <div class="main-profile-overview">
                 <div class="main-img-user profile-user">
-                  <img alt="" src="{{ usuario.imagenURL }}" /><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                  <img alt="" src="{{ usuarioFinal.imagenURL }}" /><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
                 </div>
                 <div class="d-flex justify-content-between mg-b-20">
                   <div>
-                    <h5 class="main-profile-name">{{ usuario.nombre }}</h5>
-                    <p class="main-profile-name-text">{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</p>
+                    <h5 class="main-profile-name">{{ usuarioFinal.nombre }}</h5>
+                    <p class="main-profile-name-text">{{ usuarioFinal.primerApellido }} {{ usuarioFinal.segundoApellido }}</p>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
@@ -32,7 +32,7 @@
                       <i class="icon ion-md-link"></i>
                     </div>
                     <div class="media-body">
-                      <span>Correo</span> <a href="">{{ usuario.correoElectronico }}</a>
+                      <span>Correo</span> <a href="">{{ usuarioFinal.correoElectronico }}</a>
                     </div>
                   </div>
                   <div class="media">
@@ -40,7 +40,7 @@
                       <i class="icon ion-md-phone-portrait"></i>
                     </div>
                     <div class="media-body">
-                      <span>Teléfono</span> <a href="">{{ usuario.telefono }}</a>
+                      <span>Teléfono</span> <a href="">{{ usuarioFinal.telefono }}</a>
                     </div>
                   </div>
                   <div class="media">
@@ -48,7 +48,7 @@
                       <i class="icon ion-md-locate"></i>
                     </div>
                     <div class="media-body">
-                      <span>Cédula</span> <a href="">{{ usuario.cedula }}</a>
+                      <span>Cédula</span> <a href="">{{ usuarioFinal.cedula }}</a>
                     </div>
                   </div>
                   <div class="media">
@@ -56,7 +56,7 @@
                       <i class="icon ion-md-contacts"></i>
                     </div>
                     <div class="media-body">
-                      <span>Tipo de usuario</span> <a href="">{{ usuario.tipoUsuarioFinal }}</a>
+                      <span>Tipo de usuario</span> <a href="">{{ usuarioFinal.tipoUsuarioFinal }}</a>
                     </div>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="media-body">
                   <span>Estado de cuenta</span>
-                  <div>{{ usuario.estado }}</div>
+                  <div>{{ usuarioFinal.estado }}</div>
                 </div>
               </div>
               <div class="media">
@@ -85,7 +85,7 @@
                 </div>
                 <div class="media-body">
                   <span>Monedero</span>
-                  <div>{{ usuario.idMonedero.estado }}</div>
+                  <div>{{ usuarioFinal.idMonedero.estado }}</div>
                 </div>
               </div>
               <div class="media">
@@ -94,7 +94,7 @@
                 </div>
                 <div class="media-body">
                   <span>Ubicación actual</span>
-                  <div>{{ usuario.latitudDireccion }} {{ usuario.longitudDireccion }}</div>
+                  <div>{{ usuarioFinal.latitudDireccion }} {{ usuarioFinal.longitudDireccion }}</div>
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@
                                   [readonly]="true"
                                   class="form-control"
                                   placeholder="User Name"
-                                  value="{{ usuario.nombre }}"
+                                  value="{{ usuarioFinal.nombre }}"
                                 />
                               </div>
                             </div>
@@ -156,7 +156,7 @@
                                   [readonly]="true"
                                   class="form-control"
                                   placeholder="First Name"
-                                  value="{{ usuario.primerApellido }}"
+                                  value="{{ usuarioFinal.primerApellido }}"
                                 />
                               </div>
                             </div>
@@ -173,7 +173,7 @@
                                   [readonly]="true"
                                   class="form-control"
                                   placeholder="Last Name"
-                                  value="{{ usuario.segundoApellido }}"
+                                  value="{{ usuarioFinal.segundoApellido }}"
                                 />
                               </div>
                             </div>
@@ -191,7 +191,7 @@
                                   [readonly]="true"
                                   class="form-control"
                                   placeholder="User Name"
-                                  value="{{ usuario.cedula }}"
+                                  value="{{ usuarioFinal.cedula }}"
                                 />
                               </div>
                             </div>
@@ -208,7 +208,7 @@
                                   [readonly]="true"
                                   class="form-control"
                                   placeholder="Email"
-                                  value="{{ usuario.correoElectronico }}"
+                                  value="{{ usuarioFinal.correoElectronico }}"
                                 />
                               </div>
                             </div>
@@ -225,7 +225,7 @@
                                   [readonly]="true"
                                   class="form-control"
                                   placeholder="phone number"
-                                  value="{{ usuario.telefono }}"
+                                  value="{{ usuarioFinal.telefono }}"
                                 />
                               </div>
                             </div>
@@ -253,7 +253,7 @@
                                   [readonly]="true"
                                   name="example-textarea-input"
                                   rows="2"
-                                  placeholder="{{ usuario.latitudDireccion }}"
+                                  placeholder="{{ usuarioFinal.latitudDireccion }}"
                                 />
                               </div>
                             </div>
@@ -270,7 +270,7 @@
                                   [readonly]="true"
                                   name="example-textarea-input"
                                   rows="2"
-                                  placeholder="{{ usuario.longitudDireccion }}"
+                                  placeholder="{{ usuarioFinal.longitudDireccion }}"
                                 />
                               </div>
                             </div>
@@ -286,7 +286,7 @@
                                 ></label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" [readonly]="true" class="form-control" value="{{ usuario.fechaNacimiento }}" />
+                                <input type="text" [readonly]="true" class="form-control" value="{{ usuarioFinal.fechaNacimiento }}" />
                               </div>
                             </div>
                           </div>
