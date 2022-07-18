@@ -22,6 +22,7 @@ export class PlanInscripcionStartupComponent {
     const producto = {
       descripcion: 'Pago de la inscripción mensual',
       precio: '8.00',
+      tipo: 'Mensual',
     };
 
     sessionStorage.setItem('productInscripcion', JSON.stringify(producto));
@@ -37,6 +38,7 @@ export class PlanInscripcionStartupComponent {
     const producto = {
       descripcion: 'Pago de la inscripción anual',
       precio: '65.00',
+      tipo: 'Anual',
     };
 
     sessionStorage.setItem('productInscripcion', JSON.stringify(producto));

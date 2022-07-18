@@ -1,10 +1,17 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.Codigos;
 import com.project.myapp.domain.Monederos;
+import com.project.myapp.domain.Movimientos;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.repository.MonederosRepository;
+import com.project.myapp.repository.MovimientosRepository;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
+import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,9 +42,17 @@ public class MonederosResource {
     private String applicationName;
 
     private final MonederosRepository monederosRepository;
+    private final StartupsRepository startupsRepository;
+    private final MovimientosRepository movimientosRepository;
 
-    public MonederosResource(MonederosRepository monederosRepository) {
+    public MonederosResource(
+        MonederosRepository monederosRepository,
+        StartupsRepository startupsRepository,
+        MovimientosRepository movimientosRepository
+    ) {
         this.monederosRepository = monederosRepository;
+        this.startupsRepository = startupsRepository;
+        this.movimientosRepository = movimientosRepository;
     }
 
     /**
@@ -183,5 +198,37 @@ public class MonederosResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/monederos/agregarInscripcion/{tipo}")
+    public void registrarMontoInscripcion(@PathVariable String tipo) {
+        log.debug("REST request to get Monederos : {}", tipo);
+        List<Monederos> monederosAdmin = monederosRepository.findAllByTipo("ADMIN");
+        ZonedDateTime today = ZonedDateTime.now();
+        double montoMensual = 8.00;
+        double montoAnual = 65.00;
+        for (Monederos monedero : monederosAdmin) {
+            if (tipo.equals("Mensual")) {
+                monedero.setSaldo(monedero.getSaldo() + montoMensual);
+            }
+            if (tipo.equals("Anual")) {
+                monedero.setSaldo(monedero.getSaldo() + montoAnual);
+            }
+            monederosRepository.save(monedero);
+            Movimientos movimientos = new Movimientos();
+            movimientos.setFecha(today);
+            movimientos.setMonto(monedero.getSaldo());
+            movimientos.setTipo("ADMIN");
+
+            if (tipo.equals("Mensual")) {
+                movimientos.descripcion("Se agregó el pago de una inscripción " + tipo + " con un monto de: " + montoMensual);
+            }
+            if (tipo.equals("Anual")) {
+                movimientos.descripcion("Se agregó el pago de una inscripción " + tipo + " con un monto de: " + montoAnual);
+            }
+            movimientos.estado("Activo");
+            movimientos.setIdMonedero(monedero);
+            movimientosRepository.save(movimientos);
+        }
     }
 }
