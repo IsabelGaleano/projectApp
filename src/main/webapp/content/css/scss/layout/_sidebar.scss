@@ -139,6 +139,8 @@
 }
 
 .main-sidebar-header {
+  display: flex;
+  justify-content: center;
   height: 64px;
   padding: 15px 20px;
   width: 240px;
@@ -153,7 +155,10 @@
   transition: left 0.3s ease, width 0.3s ease;
 }
 .main-sidemenu {
-  margin-top: 64px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  //margin-top: 64px;
 }
 .main-sidebar-loggedin {
   padding: 20px 20px;
