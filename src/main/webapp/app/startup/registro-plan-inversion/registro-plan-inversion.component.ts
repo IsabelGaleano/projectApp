@@ -25,10 +25,10 @@ export class RegistroPlanInversionComponent implements OnInit {
 
   registerForm = this.fb.group({
     nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-    monto: ['', [Validators.required, Validators.minLength(4)]],
+    monto: ['', [Validators.required]],
     descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(300)]],
     beneficios: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(300)]],
-    porcentajeEmpresarial: ['', [Validators.required, Validators.maxLength(3)]],
+    porcentajeEmpresarial: ['', [Validators.required, Validators.pattern('^[0-9]{1,2}$')]],
   });
 
   constructor(
@@ -71,9 +71,9 @@ export class RegistroPlanInversionComponent implements OnInit {
       nombreForm.value,
       montoForm.value as unknown as number,
       descripcionForm.value,
-      porcentajeEmpresarialForm.value as unknown as number
+      beneficiosForm.value
     );
-    this.registroPlanInversionService.savePlanInversion(this.emailUsuario, plan).subscribe(data => {
+    this.registroPlanInversionService.savePlanInversion(this.emailUsuario, porcentajeEmpresarialForm.value, plan).subscribe(data => {
       this.success = true;
       window.setTimeout(function () {
         router.navigate(['startup/lista-planes-inversion']);

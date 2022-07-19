@@ -66,13 +66,15 @@ public class PlanesInversionResource {
             .body(result);
     }
 
-    @PostMapping("/planes-inversions-registro/{correo}")
+    @PostMapping("/planes-inversions-registro/{correo}/{porcentajeEmpresarial}")
     public ResponseEntity<PlanesInversion> registrarPlanesInversion(
         @PathVariable String correo,
+        @PathVariable double porcentajeEmpresarial,
         @RequestBody PlanesInversion planesInversion
     ) throws URISyntaxException {
         Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
         if (startup.isPresent()) {
+            planesInversion.setPorcentajeEmpresarial(porcentajeEmpresarial);
             planesInversion.setIdStartup(startup.get());
             planesInversion.setEstado("Activo");
             log.debug("REST request to save PlanesInversion : {}", planesInversion);

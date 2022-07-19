@@ -99,7 +99,7 @@ public class AccountResource {
             ZonedDateTime.now(),
             " ",
             " ",
-            " ",
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
             "UsuarioFinal",
             " ",
             "Pendiente",
@@ -304,7 +304,7 @@ public class AccountResource {
     }
 
     public char[] generateOTP() {
-        String numbers = "1234567890";
+        String numbers = "123456789";
         Random random = new Random();
         char[] otp = new char[6];
 

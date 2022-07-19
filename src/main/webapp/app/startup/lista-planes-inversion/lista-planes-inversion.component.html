@@ -14,6 +14,20 @@
             <div class="d-flex justify-content-between">
               <h4 class="card-title mg-b-0">Lista de Planes</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
+              <div class="d-flex justify-content-between">
+                <i class="mdi mdi-dots-horizontal text-gray"></i>
+                <a href="/startup/registro-plan-inversion">
+                  <button
+                    id="agregar-admins-button"
+                    style="margin: 0 0 0 0 !important"
+                    type="button"
+                    class="btn btn-outline-primary mx-2 button-icon mb-1"
+                  >
+                    <i class="fa fa-plus me-2"></i>
+                    Registrar planes de inversión
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
           <div class="card-body">
@@ -43,9 +57,6 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <div class="col-md-8">
-              <button class="btn btn-success" (click)="registrarPlanInversion()">Registrar</button>
             </div>
           </div>
         </div>

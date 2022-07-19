@@ -162,7 +162,7 @@
                               </div>
                             </div>
                             <div class="form-group">
-                              <label class="form-label" for="codigo">Porcentaje empresarial</label>
+                              <label class="form-label" for="porcentajeEmpresarial">Porcentaje empresarial</label>
                               <input
                                 type="number"
                                 class="form-control"
@@ -181,7 +181,7 @@
                                 <small class="form-text text-danger" *ngIf="registerForm.get('porcentajeEmpresarial')?.errors?.required">
                                   Porcentaje empresarial requerido.
                                 </small>
-                                <small class="form-text text-danger" *ngIf="registerForm.get('porcentajeEmpresarial')?.errors?.maxlength">
+                                <small class="form-text text-danger" *ngIf="registerForm.get('porcentajeEmpresarial')?.errors?.pattern">
                                   Tamaño del porcentaje empresarial debe ser menor a 3 dígitos.
                                 </small>
                               </div>

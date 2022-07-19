@@ -71,6 +71,12 @@ export class PerfilUsuarioFinalComponent implements OnInit {
             apiKey: key,
           });
           loader.load().then(() => {
+            const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
+            latitudDireccionForm.value = dataUsuario.latitudDireccion;
+
+            const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitudDireccionForm');
+            longitudDireccionForm.value = dataUsuario.longitudDireccion;
+
             const latitudValue: number = +dataUsuario.latitudDireccion;
             const longitudValue: number = +dataUsuario.longitudDireccion;
             let location = {
@@ -98,13 +104,17 @@ export class PerfilUsuarioFinalComponent implements OnInit {
               map: this.map,
               draggable: true,
             });
-            google.maps.event.addListener(marker, 'dragend', function (evt) {
-              const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
-              latitudDireccionForm.value = evt.latLng.lat().toString();
+            google.maps.event.addListener(
+              marker,
+              'dragend',
+              function (evt: {
+                latLng: { lat: () => { (): any; new (): any; toString: { (): string; new (): any } }; lng: () => string };
+              }) {
+                latitudDireccionForm.value = evt.latLng.lat().toString();
 
-              const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitudDireccionForm');
-              longitudDireccionForm.value = evt.latLng.lng();
-            });
+                longitudDireccionForm.value = evt.latLng.lng();
+              }
+            );
           });
 
           this.usuarioFinal = dataUsuario.correoElectronico;

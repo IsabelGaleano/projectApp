@@ -15,7 +15,7 @@ export class RegistroPlanInversionService {
     return this.http.get(this.rootURL.concat('/startups/findbyCorreo/', correo.toString()));
   }
 
-  savePlanInversion(correo: string, plan_inversion: PlanesInversion): Observable<any> {
-    return this.http.post(this.rootURL.concat('/planes-inversions-registro/', correo), plan_inversion);
+  savePlanInversion(correo: string, porcentajeEmpresarial: string, plan_inversion: PlanesInversion): Observable<any> {
+    return this.http.post(this.rootURL.concat('/planes-inversions-registro/', correo.concat('/', porcentajeEmpresarial)), plan_inversion);
   }
 }
