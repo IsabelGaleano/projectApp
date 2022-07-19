@@ -95,7 +95,7 @@ export class ListaAdministradoresComponent implements OnInit {
     });
   }
 
-  redireccionarRegistroAdmin(): void {
-    this.router.navigate(['admin/registro-admin']);
-  }
+  // redireccionarRegistroAdmin(): void {
+  //   this.router.navigate(['admin/registro-admin']);
+  // }
 }
