@@ -83,7 +83,7 @@
   -webkit-transition: margin-left 0.3s ease;
   -o-transition: margin-left 0.3s ease;
   transition: margin-left 0.3s ease;
-  margin-top: 10rem;
+  margin-top: 11rem;
 
   .side-app {
     padding: 0px 30px 0 30px;
@@ -437,7 +437,7 @@
   left: 0;
   color: $default-color;
   width: 100%;
-  max-height: 9rem;
+  max-height: 5.5rem;
   background: $white;
   -webkit-box-shadow: 0px 8px 14.72px 1.28px rgba(229, 228, 230, 0.5);
   box-shadow: 0px 8px 14.72px 1.28px rgba(229, 228, 230, 0.5);
@@ -489,7 +489,7 @@
   align-items: center;
   color: #a8a8a8;
   width: 12%;
-  display: inline-block;
+  //display: inline-block;
 }
 
 .app-sidebar__user-avatar {
@@ -542,7 +542,7 @@
   list-style: none;
 
   .slide .side-menu__item {
-    padding: 10px 20px 10px 22px;
+    padding: 1rem;
     margin: 15% 0;
     border-radius: 0;
   }
