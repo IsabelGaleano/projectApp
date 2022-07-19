@@ -22,12 +22,17 @@ import com.project.myapp.web.rest.errors.UserNotFoundedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
+import tech.jhipster.web.util.ResponseUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -276,7 +281,45 @@ public class UsuariosResource {
         }  else {
             throw new UserNotFoundedError();
         }
+        if (!Objects.equals(correoElectrónico, usuarios.getCorreoElectronico())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!usuariosRepository.existsById(usuarios.getId())) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        //No contraseña en usuarios
+        usuarios.setContrasennia(" ");
+
+        usuarios.getFechaNacimiento().plusMinutes(5);
+
+        Usuarios result = usuariosRepository.save(usuarios);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, usuarios.getId().toString()))
+            .body(result);
     }
 
 
+        usuariosRepository.updateContrasenniaUsuarios(contrasennia, correoElectronico);
+
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert(applicationName, "", ENTITY_NAME)).body(200);
+    }
+
+    @PutMapping("/usuariosEstado/{email}")
+    public HttpStatus updateEstadoUsuarios(
+        @PathVariable(value = "email", required = false) final String email,
+        @Valid @RequestBody String estado
+    ) throws URISyntaxException {
+        if (estado.equals("Activo")) {
+            usuariosRepository.updateUserActivated(email, "Activo");
+            return HttpStatus.OK;
+        } else if (estado.equals("Inactivo")) {
+            usuariosRepository.updateUserActivated(email, "Inactivo");
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.BAD_REQUEST;
+    }
 }

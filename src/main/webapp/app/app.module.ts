@@ -31,6 +31,14 @@ import { MenuAdminComponent } from './layouts/menu/admin/menu-admin.component';
 import { LoggedFooterComponent } from './layouts/footer/logged-footer/logged-footer.component';
 import { MenuStartupComponent } from './layouts/menu/startup/menu-startup.component';
 import { RegistroUsuarioFinalComponent } from './registro/registro-usuario-final/registro-usuario-final.component';
+import { ListaUsuariosComponent } from './admin/lista-usuarios/lista-usuarios.component';
+import { PerfilVisualizableUsuarioFinalComponent } from './admin/perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
+import { ListaAdministradoresComponent } from './admin/lista-administradores/lista-administradores.component';
+import { PerfilVisualizableAdminComponent } from './admin/perfil-visualizable-admin/perfil-visualizable-admin.component';
+import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
+import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
+import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
+import { RegistroAdminComponent } from './admin/registro-admin/registro-admin.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { ValidateotpComponent } from './validateotp/validateotp.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -70,6 +78,14 @@ import {AccountModule} from "./account/account.module";
     FooterComponent,
     LoggedFooterComponent,
     RegistroUsuarioFinalComponent,
+    ListaUsuariosComponent,
+    PerfilVisualizableUsuarioFinalComponent,
+    PlanInscripcionStartupComponent,
+    PagoInscripcionStartupComponent,
+    ListaAdministradoresComponent,
+    PerfilVisualizableAdminComponent,
+    PerfilAdminComponent,
+    RegistroAdminComponent,
     PasswordRecoveryComponent,
     ValidateotpComponent,
     ResetPasswordComponent,

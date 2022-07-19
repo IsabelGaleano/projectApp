@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
@@ -26,6 +27,12 @@ export class PerfilAdminComponent implements OnInit {
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
   user = false;
+  usuario: any;
+  error = false;
+  errorInvalida = false;
+  errorVacia = false;
+  errorNuevasVacias = false;
+  fechaFormateada: string | null | undefined;
 
   constructor(
     private loginService: LoginService,
@@ -33,7 +40,10 @@ export class PerfilAdminComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private adminService: PerfilAdminService,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -53,7 +63,30 @@ export class PerfilAdminComponent implements OnInit {
         console.log(account);
         this.user = true;
       }
-      this.account = account;
+      // this.account = account;
+      if (account != null) {
+        this.account = account;
+
+        this.adminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
+          this.usuario = data;
+
+          console.warn(this.usuario);
+
+          this.formInfoBasica.controls['nombre'].setValue(this.usuario.nombre);
+          this.formInfoBasica.controls['primerApellido'].setValue(this.usuario.primerApellido);
+          this.formInfoBasica.controls['segundoApellido'].setValue(this.usuario.segundoApellido);
+          // this.formInfoBasica.controls['cedula'].setValue(this.usuario.cedula);
+          // this.formInfoBasica.controls['correoElectronico'].setValue(this.usuario.correoElectronico);
+          this.formInfoBasica.controls['telefono'].setValue(this.usuario.telefono);
+          this.formInfoBasica.controls['fechaNacimiento'].setValue(this.usuario.fechaNacimiento);
+
+          this.fechaFormateada = this.datePipe.transform(this.usuario.fechaNacimiento, 'yyyy-MM-dd');
+
+          // this.formContrasennia.controls['contrasenniaActual'].setValue(this.usuario.contrasennia);
+          // this.formContrasennia.controls['nuevaContrasennia'].setValue("");
+          // this.formContrasennia.controls['confirmacionNuevaContrasennia'].setValue("");
+        });
+      }
     });
   }
 }
