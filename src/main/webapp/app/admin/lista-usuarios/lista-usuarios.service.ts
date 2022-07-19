@@ -61,4 +61,10 @@ export class AppService {
     ruta = ruta.concat(correo);
     return this.http.put(ruta, activated);
   }
+
+  updateUsuariosEstado(email: string, estado: string): any {
+    let ruta = '/api/usuariosEstado/';
+    ruta = ruta.concat(email);
+    return this.http.put(ruta, estado);
+  }
 }

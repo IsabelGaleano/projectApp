@@ -1,0 +1,335 @@
+<!-- main-content -->
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <!-- breadcrumb -->
+    <div class="row row-sm">
+      <!-- <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
+        <strong>Registro salvado!</strong> Por favor revise su correo para confirmación.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+        <strong>Registro no existoso!</strong> Inténtelo otra vez.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
+        <strong>La cédula ya está registrada!</strong>
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+        <strong>Email is already in use!</strong> Please choose another one.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+        The password and its confirmation do not match!
+      </div> -->
+
+      <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+        <div class="card box-shadow-0">
+          <div class="card-header">
+            <h4 class="card-title mb-1">Formulario para el registro de administrador</h4>
+            <p class="mb-2">Ingrese los datos del administrador que desea registrar.</p>
+          </div>
+          <div class="card-body pt-0">
+            <div class="alert alert-success" *ngIf="success">
+              <strong>Administrador creado con éxito!</strong> Puede ingresar a la pestaña de administradores para visualizar el nuevo
+              administrador
+            </div>
+
+            <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+              <strong>Registration failed!</strong> Please try again later.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="errorUserExists">
+              <strong>La cédula ya se encuentra registrada!</strong>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+              <strong>Email is already in use!</strong> Please choose another one.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+              The password and its confirmation do not match!
+            </div>
+
+            <form (ngSubmit)="registrarAdmin()" [formGroup]="formInfoAdmin" *ngIf="!success">
+              <!-- <div class=""> -->
+              <div class="row row-sm">
+                <!-- Izquierda -->
+                <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input formControlName="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" />
+
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('nombre')!.invalid && (formInfoAdmin.get('nombre')!.dirty || formInfoAdmin.get('nombre')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('nombre')?.errors?.required">
+                        El nombre es requerido.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('nombre')?.errors?.minlength">
+                        El nombre debe ser mayor a 1 dígito.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('nombre')?.errors?.maxlength">
+                        El nombre no puede ser mas largo de 50 caracteres.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="primerApellido">Primer Apellido</label>
+                    <input
+                      formControlName="primerApellido"
+                      type="text"
+                      class="form-control"
+                      id="primerApellido"
+                      placeholder="Primer Apellido"
+                    />
+
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('primerApellido')!.invalid &&
+                        (formInfoAdmin.get('primerApellido')!.dirty || formInfoAdmin.get('primerApellido')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('primerApellido')?.errors?.required">
+                        El primer apellido es requerido.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('primerApellido')?.errors?.minlength">
+                        El primer apellido debe ser mayor a 1 dígito.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('primerApellido')?.errors?.maxlength">
+                        El primer apellido no puede ser mas largo de 50 caracteres.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="segundoApellido">Segundo Apellido</label>
+                    <input
+                      formControlName="segundoApellido"
+                      type="text"
+                      class="form-control"
+                      id="segundoApellido"
+                      placeholder="Segundo Apellido"
+                    />
+
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('segundoApellido')!.invalid &&
+                        (formInfoAdmin.get('segundoApellido')!.dirty || formInfoAdmin.get('segundoApellido')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('segundoApellido')?.errors?.required">
+                        El segundo apellido es requerido.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('segundoApellido')?.errors?.minlength">
+                        El segundo apellido debe ser mayor a 1 dígito.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('segundoApellido')?.errors?.maxlength">
+                        El segundo apellido no puede ser mas largo de 50 caracteres.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cedula">Cédula</label>
+                    <input formControlName="cedula" type="text" class="form-control" id="cedula" placeholder="Cédula" />
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('cedula')!.invalid && (formInfoAdmin.get('cedula')!.dirty || formInfoAdmin.get('cedula')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('cedula')?.errors?.required">
+                        La cédula es requerida.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('cedula')?.errors?.minlength">
+                        Cédula debe ser mayor a 1 dígito.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('cedula')?.errors?.maxlength">
+                        La cédula no puede ser mayor a 50 caracteres.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('cedula')?.errors?.pattern">
+                        Your username can only contain letters and digits.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+                    <input formControlName="fechaNacimiento" id="fechaNacimiento" type="date" class="form-control" placeholder="" />
+
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('fechaNacimiento')!.invalid &&
+                        (formInfoAdmin.get('fechaNacimiento')!.dirty || formInfoAdmin.get('fechaNacimiento')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('fechaNacimiento')?.errors?.required">
+                        La fecha es requerida.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Derecha -->
+                <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+                  <!-- <div class="form-group">
+                      <label for="genero">Género</label>
+                      <input formControlName="genero" type="text" class="form-control" id="genero" placeholder="Género">
+
+                      
+
+                    </div> -->
+
+                  <div class="form-group">
+                    <label class="form-label">Género</label>
+                    <select formControlName="genero" id="genero" class="form-control form-select" data-bs-placeholder="Género">
+                      <option value="F">Femenino</option>
+                      <option value="M">Masculino</option>
+                      <option value="O">Otro</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('genero')!.invalid && (formInfoAdmin.get('genero')!.dirty || formInfoAdmin.get('genero')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('genero')?.errors?.required">
+                        El género es requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="correoElectronico">Correo Electrónico</label>
+                    <input
+                      formControlName="correoElectronico"
+                      type="email"
+                      class="form-control"
+                      id="correoElectronico"
+                      placeholder="Correo Electrónico"
+                    />
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('correoElectronico')!.invalid &&
+                        (formInfoAdmin.get('correoElectronico')!.dirty || formInfoAdmin.get('correoElectronico')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('correoElectronico')?.errors?.required">
+                        El correo electrónico es requerido.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('correoElectronico')?.errors?.invalid">
+                        El correo es inválido
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('correoElectronico')?.errors?.minlength">
+                        El correo electrónico debe de ser mayor a 5 caracteres.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('correoElectronico')?.errors?.maxlength">
+                        El correo electrónico debe de ser menor a 191 caracteres.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input formControlName="telefono" type="text" class="form-control" id="telefono" placeholder="Teléfono" />
+
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('telefono')!.invalid &&
+                        (formInfoAdmin.get('telefono')!.dirty || formInfoAdmin.get('telefono')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('telefono')?.errors?.required">
+                        El teléfono es requerido.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('telefono')?.errors?.minlength">
+                        El teléfono debe ser mayor a 1 dígito.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('telefono')?.errors?.maxlength">
+                        El teléfono no puede ser mas largo de 50 caracteres.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Contrasennia">Contraseña</label>
+                    <input formControlName="contrasennia" type="password" class="form-control" id="Contrasennia" placeholder="Contraseña" />
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('contrasennia')!.invalid &&
+                        (formInfoAdmin.get('contrasennia')!.dirty || formInfoAdmin.get('contrasennia')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('contrasennia')?.errors?.required">
+                        La contraseña es requerida
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('contrasennia')?.errors?.minlength">
+                        La contraseña debe de ser mayor a 4 caracteres.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('contrasennia')?.errors?.maxlength">
+                        La contraseña debe de ser menor a 50 caracteres.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmacion">Confirmación de Contraseña</label>
+                    <input
+                      formControlName="confirmacionContrasennia"
+                      type="password"
+                      class="form-control"
+                      id="confirmacion"
+                      placeholder="Confirmación de Contraseña"
+                    />
+
+                    <div
+                      *ngIf="
+                        formInfoAdmin.get('confirmacionContrasennia')!.invalid &&
+                        (formInfoAdmin.get('confirmacionContrasennia')!.dirty || formInfoAdmin.get('confirmacionContrasennia')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('confirmacionContrasennia')?.errors?.required">
+                        La confirmación de contraseña es requerida.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('confirmacionContrasennia')?.errors?.minlength">
+                        La confirmación de contraseña requiere al menos 4 caracteres.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="formInfoAdmin.get('confirmacionContrasennia')?.errors?.maxlength">
+                        La confirmación de contraseña no puede ser mayor que 50 caracteres.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- </div> -->
+              <button [disabled]="formInfoAdmin.invalid" type="submit" class="btn btn-primary mt-3 mb-0">Registrar Administrador</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- breadcrumb -->
+
+    <!-- row -->
+    <div class="row"></div>
+    <!-- row closed -->
+  </div>
+  <!-- Container closed -->
+</div>
+<!-- main-content closed -->
