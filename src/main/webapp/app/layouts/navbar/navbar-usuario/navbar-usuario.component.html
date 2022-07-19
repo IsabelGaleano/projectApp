@@ -1,11 +1,16 @@
+<style>
+  #cerrarSesion {
+    cursor: pointer;
+  }
+</style>
+
 <div class="main-header side-header sticky nav nav-item">
   <div class="container-fluid main-container">
     <div class="main-header-left">
-      <div class="responsive-logo">
-        <a href="index.html" class="header-logo">
-          <img src="../../../content/images/StatupSafe-horizontal-azul.png" class="logo-1" alt="logo" />
-          <img src="../../../content/images/StatupSafe-horizontal-azul.png" class="dark-logo-1" alt="logo" />
-        </a>
+      <div class="main-sidebar-header active">
+        <a class="nav-logo desktop-logo logo-light active" href="index.html"
+          ><img src="../../../../content/images/StatupSafe-horizontal-azul.png" class="main-logo" alt="logo"
+        /></a>
       </div>
       <div class="app-sidebar__toggle" data-bs-toggle="sidebar">
         <a class="open-toggle" href="javascript:void(0);"><i class="header-icon fe fe-align-left"></i></a>
@@ -28,9 +33,14 @@
       >
         <span class="navbar-toggler-icon fe fe-more-vertical"></span>
       </button>
-      <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent-4" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
-          <ul class="nav nav-item navbar-nav-right ms-auto">
+      <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0 main-header-right__cnt">
+        <div
+          class="collapse navbar-collapse main-header-right__sub-cnt"
+          id="navbarSupportedContent-4"
+          [ngbCollapse]="isNavbarCollapsed"
+          [ngSwitch]="account !== null"
+        >
+          <ul class="nav nav-item navbar-nav-right ms-auto main-header-right__ul">
             <li class="nav-link search-icon d-lg-none d-block">
               <form class="navbar-form" role="search">
                 <div class="input-group">
@@ -59,13 +69,13 @@
               </form>
             </li>
             <li
-              class="dropdown nav-item main-header-message"
               *ngSwitchCase="true"
               ngbDropdown
               class="nav-item dropdown pointer"
               display="dynamic"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
+              class="dropdown nav-item main-header-message main-header-right__li"
             >
               <a class="new nav-link email-nav-btn" ngbDropdownToggle href="javascript:void(0);" id="email-nav-btn"
                 ><svg
@@ -159,13 +169,13 @@
               </div>
             </li>
             <li
-              class="dropdown nav-item main-header-notification"
               *ngSwitchCase="true"
               ngbDropdown
               class="nav-item dropdown pointer"
               display="dynamic"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
+              class="dropdown nav-item main-header-notification main-header-right__li"
             >
               <a class="new nav-link" href="javascript:void(0);" ngbDropdownToggle>
                 <svg
@@ -271,15 +281,17 @@
               </div>
             </li>
             <li
-              class="dropdown main-profile-menu nav nav-item nav-link"
               *ngSwitchCase="true"
               ngbDropdown
               class="nav-item dropdown pointer"
               display="dynamic"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
+              class="dropdown nav-item main-profile-menu nav-link main-header-right__li"
             >
-              <a class="profile-user d-flex" ngbDropdownToggle href="javascript:void(0);"><fa-icon [icon]="faUser"></fa-icon></a>
+              <a class="profile-user d-flex nav nav-link" ngbDropdownToggle href="javascript:void(0);"
+                ><fa-icon [icon]="faUser"></fa-icon
+              ></a>
               <div class="dropdown-menu" ngbDropdownMenu>
                 <div class="main-header-profile bg-primary p-3">
                   <div class="d-flex wd-100p">
@@ -290,10 +302,18 @@
                     </div>
                   </div>
                 </div>
-                <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>Perfil</a>
-                <a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>Notificaciones</a>
-                <a class="dropdown-item" href=""><i class="bx bx-envelope"></i>Mensajes</a>
-                <a class="dropdown-item" (click)="logout()"><i class="bx bx-log-out"></i> Cerrar sesión</a>
+                <a class="dropdown-item" href=""
+                  ><i class="bx bx-user-circle"><fa-icon [icon]="faUserCircle"></fa-icon></i>Perfil</a
+                >
+                <a class="dropdown-item" href=""
+                  ><i class="bx bxs-inbox"><fa-icon [icon]="faBell"></fa-icon></i>Notificaciones</a
+                >
+                <a class="dropdown-item" href=""
+                  ><i class="bx bx-envelope"><fa-icon [icon]="faMessage"></fa-icon></i>Mensajes</a
+                >
+                <a class="dropdown-item" id="cerrarSesion" (click)="logout()"
+                  ><i class="bx bx-log-out"><fa-icon [icon]="faUser"></fa-icon></i> Cerrar sesión</a
+                >
               </div>
             </li>
           </ul>

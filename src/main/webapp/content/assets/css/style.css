@@ -41711,7 +41711,7 @@ body.dark-theme {
 }
 
 .dark-theme .sa-icon.sa-custom {
-  background-image: url('../../assets/img/brand/logo-white.png') !important;
+  /*background-image: url('../../assets/img/brand/logo-white.png') !important;*/
 }
 
 .dark-theme .dropdown-menu-left {

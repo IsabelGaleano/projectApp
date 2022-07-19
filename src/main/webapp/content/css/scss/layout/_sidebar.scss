@@ -139,6 +139,8 @@
 }
 
 .main-sidebar-header {
+  display: flex;
+  justify-content: center;
   height: 64px;
   padding: 15px 20px;
   width: 240px;
@@ -153,7 +155,10 @@
   transition: left 0.3s ease, width 0.3s ease;
 }
 .main-sidemenu {
-  margin-top: 64px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  //margin-top: 64px;
 }
 .main-sidebar-loggedin {
   padding: 20px 20px;
@@ -855,7 +860,9 @@
 
 .app-sidebar__user {
   .user-pro-body {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 15px 0;
 
     img {
@@ -877,8 +884,9 @@
   }
 
   .user-info {
-    margin: 0 auto;
+    //margin: 0 auto;
     text-align: center;
+    margin-left: 7.5%;
 
     h4 {
       color: $default-color;

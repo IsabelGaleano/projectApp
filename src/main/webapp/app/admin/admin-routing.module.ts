@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ListaAdministradoresComponent } from './lista-administradores/lista-administradores.component';
+import { ListaUsuariosComponent } from './lista-usuarios/lista-usuarios.component';
+import { PerfilVisualizableAdminComponent } from './perfil-visualizable-admin/perfil-visualizable-admin.component';
+import { PerfilVisualizableUsuarioFinalComponent } from './perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
 import { PerfilAdminComponent } from './perfil/perfil-admin.component';
+import { RegistroAdminComponent } from './registro-admin/registro-admin.component';
 
 @NgModule({
   imports: [
@@ -10,6 +15,41 @@ import { PerfilAdminComponent } from './perfil/perfil-admin.component';
         component: PerfilAdminComponent,
         data: {
           pageTitle: 'profile-admin.home.title',
+        },
+      },
+      {
+        path: 'lista-usuarios',
+        component: ListaUsuariosComponent,
+        data: {
+          pageTitle: 'lista-usuarios.home.title',
+        },
+      },
+      {
+        path: 'perfil-visualizable-usuario-final',
+        component: PerfilVisualizableUsuarioFinalComponent,
+        data: {
+          pageTitle: 'perfil-visualizable-usuario-final.home.title',
+        },
+      },
+      {
+        path: 'lista-administradores',
+        component: ListaAdministradoresComponent,
+        data: {
+          pageTitle: 'lista-administradores.home.title',
+        },
+      },
+      {
+        path: 'perfil-visualizable-admin',
+        component: PerfilVisualizableAdminComponent,
+        data: {
+          pageTitle: 'perfil-visualizable-admin.home.title',
+        },
+      },
+      {
+        path: 'registro-admin',
+        component: RegistroAdminComponent,
+        data: {
+          pageTitle: 'registro-admin.home.title',
         },
       },
       {
