@@ -21,6 +21,7 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
     @Modifying
     @Query("UPDATE Usuarios C SET C.contrasennia=?1 WHERE C.correoElectronico LIKE ?2")
     void updateContrasenniaUsuarios(String nuevaContrasennia, String correoElectronico);
+
     // @Transactional
     // @Modifying(flushAutomatically = true)
     // @Query("UPDATE User a SET a.activeStatus=?1 WHERE a.username=?2")
@@ -28,4 +29,9 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
 
     //     @Query("update User u set u.firstname = ?1 where u.lastname = ?2")
     // int setFixedFirstnameFor(String firstname, String lastname);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Usuarios C SET C.estado = ?2 WHERE C.correoElectronico LIKE ?1")
+    void updateUserActivated(String email, String activated);
 }
