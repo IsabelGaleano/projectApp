@@ -23,6 +23,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   //styleUrls: ['./navbar.component.scss'],
 })
 export class PerfilAdminComponent implements OnInit {
+  movimientos: any[] = [];
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
@@ -87,12 +88,13 @@ export class PerfilAdminComponent implements OnInit {
       // this.account = account;
       if (account != null) {
         this.account = account;
-
         this.adminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
           this.usuario = data;
-
-          console.warn(this.usuario);
-
+          this.adminService.getMovimientosByIdMonedero(data.idMonedero.id).subscribe((dataMovimientos: any) => {
+            dataMovimientos.forEach((movimiento: any) => {
+              this.movimientos.push(movimiento);
+            });
+          });
           this.formInfoBasica.controls['nombre'].setValue(this.usuario.nombre);
           this.formInfoBasica.controls['primerApellido'].setValue(this.usuario.primerApellido);
           this.formInfoBasica.controls['segundoApellido'].setValue(this.usuario.segundoApellido);

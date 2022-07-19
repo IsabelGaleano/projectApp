@@ -1,5 +1,6 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.Monederos;
 import com.project.myapp.domain.Movimientos;
 import com.project.myapp.repository.MovimientosRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
@@ -173,6 +174,12 @@ public class MovimientosResource {
         log.debug("REST request to get Movimientos : {}", id);
         Optional<Movimientos> movimientos = movimientosRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(movimientos);
+    }
+
+    @GetMapping("/movimientosByIdUsuario/{id}")
+    public List<Movimientos> getMovimientosByIdUsuario(@PathVariable Monederos id) {
+        log.debug("REST request to get Movimientos : {}", id);
+        return movimientosRepository.findMovimientosByIdMonedero(id);
     }
 
     /**

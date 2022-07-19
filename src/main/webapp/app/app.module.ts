@@ -41,6 +41,8 @@ import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-star
 import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
 import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
 import { RegistroAdminComponent } from './admin/registro-admin/registro-admin.component';
+import { RegistroPlanInversionComponent } from './startup/registro-plan-inversion/registro-plan-inversion.component';
+import { ListaPlanesInversionComponent } from './startup/lista-planes-inversion/lista-planes-inversion.component';
 import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startup/listar-paquetes-startup.component';
 
 @NgModule({
@@ -86,6 +88,8 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
     PerfilVisualizableAdminComponent,
     PerfilAdminComponent,
     RegistroAdminComponent,
+    RegistroPlanInversionComponent,
+    ListaPlanesInversionComponent,
     ListarPaquetesStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],

@@ -1,0 +1,66 @@
+<style>
+  .table-header-centered {
+    text-align: center;
+  }
+</style>
+
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <div class="row row-sm">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="d-flex justify-content-between">
+              <h4 class="card-title mg-b-0">Lista de Planes</h4>
+              <i class="mdi mdi-dots-horizontal text-gray"></i>
+              <div class="d-flex justify-content-between">
+                <i class="mdi mdi-dots-horizontal text-gray"></i>
+                <a href="/startup/registro-plan-inversion">
+                  <button
+                    id="agregar-admins-button"
+                    style="margin: 0 0 0 0 !important"
+                    type="button"
+                    class="btn btn-outline-primary mx-2 button-icon mb-1"
+                  >
+                    <i class="fa fa-plus me-2"></i>
+                    Registrar planes de inversión
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- <th class="table-header-centered">Activar</th>
+                        <th class="table-header-centered">Desactivar</th>
+                        <th class="table-header-centered">Perfil</th> -->
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 text-md-nowrap">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Monto</th>
+                    <th>Descripción</th>
+                    <th>Beneficios</th>
+                    <th>Porcentaje Empresarial</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let plan of planes; index as i">
+                  <tr>
+                    <td>{{ plan.nombre }}</td>
+                    <td>{{ plan.monto }}</td>
+                    <td>{{ plan.descripcion }}</td>
+                    <td>{{ plan.beneficios }}</td>
+                    <td>{{ plan.porcentajeEmpresarial }}</td>
+                    <td>{{ plan.estado }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
