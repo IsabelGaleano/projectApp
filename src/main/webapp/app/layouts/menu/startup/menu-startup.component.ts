@@ -10,6 +10,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
+import { MenuStartupService } from './menu-startup.service';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -29,6 +30,7 @@ export class MenuStartupComponent implements OnInit {
   emailCollapsed = true;
   notificationsCollapsed = true;
   faUser = faUser;
+  startup: any;
 
   constructor(
     private loginService: LoginService,
@@ -36,6 +38,7 @@ export class MenuStartupComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
+    private menuStartupService: MenuStartupService,
     private router: Router
   ) {
     if (VERSION) {
@@ -57,6 +60,16 @@ export class MenuStartupComponent implements OnInit {
         this.user = true;
       }
       this.account = account;
+
+      if (account != null) {
+        this.account = account;
+
+        this.menuStartupService.getStartupLogin(account.email).subscribe((data: any) => {
+          this.startup = data;
+
+          console.warn(this.startup);
+        });
+      }
     });
   }
 
