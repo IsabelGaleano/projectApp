@@ -70,6 +70,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           const loader = new Loader({
             apiKey: key,
           });
+
           loader.load().then(() => {
             const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
             latitudDireccionForm.value = dataUsuario.latitudDireccion;
