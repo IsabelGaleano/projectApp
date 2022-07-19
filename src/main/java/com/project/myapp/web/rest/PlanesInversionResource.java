@@ -66,6 +66,27 @@ public class PlanesInversionResource {
             .body(result);
     }
 
+    @PostMapping("/planes-inversions-registro/{correo}")
+    public ResponseEntity<PlanesInversion> registrarPlanesInversion(
+        @PathVariable String correo,
+        @RequestBody PlanesInversion planesInversion
+    ) throws URISyntaxException {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        if (startup.isPresent()) {
+            planesInversion.setIdStartup(startup.get());
+            planesInversion.setEstado("Activo");
+            log.debug("REST request to save PlanesInversion : {}", planesInversion);
+            if (planesInversion.getId() != null) {
+                throw new BadRequestAlertException("A new planesInversion cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }
+        PlanesInversion result = planesInversionRepository.save(planesInversion);
+        return ResponseEntity
+            .created(new URI("/api/planes-inversions/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
     /**
      * {@code PUT  /planes-inversions/:id} : Updates an existing planesInversion.
      *

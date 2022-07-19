@@ -40,27 +40,11 @@
                     <td>{{ plan.beneficios }}</td>
                     <td>{{ plan.porcentajeEmpresarial }}</td>
                     <td>{{ plan.estado }}</td>
-
-                    <!-- <td>
-                                            <button class="btn btn-success btn-block" (click)="activarUsuario($event)"
-                                                value="{{ usuario.id }},{{ usuario.estado }}">
-                                                Activar
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger btn-block" (click)="desactivarUsuario($event)"
-                                                value="{{ usuario.id }},{{ usuario.estado }}">
-                                                Desactivar
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary btn-block"
-                                                (click)="verPerfil(usuario.correoElectronico)">Ver Perfil</button>
-                                        </td> -->
                   </tr>
                 </tbody>
               </table>
             </div>
+            <button class="btn btn-success btn-block" (click)="registrarPlanInversion()">Registrar</button>
           </div>
         </div>
       </div>

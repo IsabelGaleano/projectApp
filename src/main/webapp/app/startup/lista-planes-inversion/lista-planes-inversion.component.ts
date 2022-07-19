@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListaPlanesInversionService } from './lista-planes-inversion.service';
+import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 
@@ -10,7 +11,11 @@ import { Account } from 'app/core/auth/account.model';
 export class ListaPlanesInversionComponent implements OnInit {
   account: Account | null = null;
   planes: any[] = [];
-  constructor(private listaPlanesInversionService: ListaPlanesInversionService, private accountService: AccountService) {}
+  constructor(
+    private listaPlanesInversionService: ListaPlanesInversionService,
+    private accountService: AccountService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.accountService.getAuthenticationState().subscribe(account => {
@@ -23,5 +28,9 @@ export class ListaPlanesInversionComponent implements OnInit {
         });
       }
     });
+  }
+
+  registrarPlanInversion(): void {
+    this.router.navigate(['/startup/registro-plan-inversion']);
   }
 }
