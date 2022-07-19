@@ -1,8 +1,10 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Inscripciones;
+import com.project.myapp.domain.Monederos;
 import com.project.myapp.domain.Startups;
 import com.project.myapp.repository.InscripcionesRepository;
+import com.project.myapp.repository.MonederosRepository;
 import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -39,10 +41,16 @@ public class InscripcionesResource {
 
     private final InscripcionesRepository inscripcionesRepository;
     private final StartupsRepository startupsRepository;
+    private final MonederosRepository monederosRepository;
 
-    public InscripcionesResource(InscripcionesRepository inscripcionesRepository, StartupsRepository startupsRepository) {
+    public InscripcionesResource(
+        InscripcionesRepository inscripcionesRepository,
+        StartupsRepository startupsRepository,
+        MonederosRepository monederosRepository
+    ) {
         this.inscripcionesRepository = inscripcionesRepository;
         this.startupsRepository = startupsRepository;
+        this.monederosRepository = monederosRepository;
     }
 
     /**
@@ -70,6 +78,7 @@ public class InscripcionesResource {
         throws URISyntaxException {
         log.debug("REST request to save Inscripciones : {}", correo);
         Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
+        Optional<Monederos> monederos = monederosRepository.findById(startups.get().getIdMonedero().getId());
         Inscripciones inscripciones = new Inscripciones();
         inscripciones.setNombre("Inscripción de startup");
         inscripciones.setDescripcion("Solo para startups");
@@ -93,6 +102,8 @@ public class InscripcionesResource {
             inscripciones.monto(65.00);
         }
         startups.get().setEstado("Activo");
+        monederos.get().setEstado("Activo");
+        monederosRepository.save(monederos.get());
         startupsRepository.save(startups.get());
         Inscripciones result = inscripcionesRepository.save(inscripciones);
         return ResponseEntity
