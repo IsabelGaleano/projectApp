@@ -12,6 +12,12 @@ export class PerfilAdminService {
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
+  getMovimientosByIdMonedero(id: string): Observable<any> {
+    let ruta = '/api/movimientosByIdUsuario/';
+    ruta = ruta.concat(id);
+    return this.http.get(ruta);
+  }
+
   getUsuariosByCorreoElectronico(correoElectronico: string): Observable<any> {
     let ruta = '/api/usuariosCorreoElectronico/';
     ruta = ruta.concat(correoElectronico);
