@@ -1,6 +1,9 @@
-<br />
-<br />
-<br />
+<style>
+  #info-fecha:hover {
+    cursor: pointer;
+  }
+</style>
+
 <!-- main-content -->
 <div class="main-content app-content">
   <!-- container -->
@@ -224,7 +227,14 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-3">
-                                <label class="form-label">Fecha de nacimiento</label>
+                                <label class="form-label">
+                                  Fecha de nacimiento
+                                  <i
+                                    id="info-fecha"
+                                    title="Fecha de nacimiento actual: {{ fechaFormateada }} (AAAA-MM-DD)"
+                                    class="fa fa-info-circle"
+                                  ></i>
+                                </label>
                               </div>
                               <div class="col-md-9">
                                 <input
@@ -233,6 +243,12 @@
                                   formControlName="fechaNacimiento"
                                   placeholder="{{ usuario.fechaNacimiento }}"
                                 />
+                                <!-- <div class="input-group">
+                                  <div class="input-group-text">
+                                    Date:
+                                  </div> -->
+                                <!-- <input class="form-control" id="dateMask" formControlName="fechaNacimiento" placeholder="{{ usuario.fechaNacimiento }}" type="text"> -->
+                                <!-- </div> -->
                               </div>
                             </div>
                           </div>

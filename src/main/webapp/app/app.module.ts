@@ -40,6 +40,7 @@ import { PerfilVisualizableAdminComponent } from './admin/perfil-visualizable-ad
 import { PlanInscripcionStartupComponent } from './startup/plan-inscripcion-startup/plan-inscripcion-startup.component';
 import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-startup/pago-inscripcion-startup.component';
 import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
+import { RegistroAdminComponent } from './admin/registro-admin/registro-admin.component';
 import { RegistroPlanInversionComponent } from './startup/registro-plan-inversion/registro-plan-inversion.component';
 import { ListaPlanesInversionComponent } from './startup/lista-planes-inversion/lista-planes-inversion.component';
 
@@ -85,6 +86,7 @@ import { ListaPlanesInversionComponent } from './startup/lista-planes-inversion/
     ListaAdministradoresComponent,
     PerfilVisualizableAdminComponent,
     PerfilAdminComponent,
+    RegistroAdminComponent,
     RegistroPlanInversionComponent,
     ListaPlanesInversionComponent,
   ],

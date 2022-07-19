@@ -3,9 +3,7 @@
     cursor: pointer;
   }
 </style>
-<br />
-<br />
-<br />
+
 <div class="main-content app-content">
   <!-- <h1>Perfil de Usuario</h1> -->
   <div class="main-container container-fluid">
@@ -94,7 +92,11 @@
                 </div>
                 <div class="media-body">
                   <span>Ubicación actual</span>
-                  <div>{{ usuarioFinal.latitudDireccion }} {{ usuarioFinal.longitudDireccion }}</div>
+                  <br />
+                  <!-- <div>{{ usuario.latitudDireccion }} {{ usuario.longitudDireccion }}</div> -->
+                  <div>
+                    <div id="map" style="width: 15vw; height: 15vh"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -237,7 +239,10 @@
                                 <label class="form-label">Ubicación</label>
                               </div>
                               <div class="col-md-9">
-                                <div><img alt="Responsive image" class="img-fluid" src="" /></div>
+                                <!-- <div><img alt="Responsive image" class="img-fluid" src="" /></div> -->
+                                <div>
+                                  <div id="mapDos" style="width: 30vw; height: 30vh"></div>
+                                </div>
                               </div>
                             </div>
                           </div>
