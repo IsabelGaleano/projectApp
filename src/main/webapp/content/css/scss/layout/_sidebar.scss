@@ -860,7 +860,9 @@
 
 .app-sidebar__user {
   .user-pro-body {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 15px 0;
 
     img {
@@ -882,8 +884,9 @@
   }
 
   .user-info {
-    margin: 0 auto;
+    //margin: 0 auto;
     text-align: center;
+    margin-left: 7.5%;
 
     h4 {
       color: $default-color;
