@@ -45,15 +45,15 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
       if (user !== undefined) {
         this.usuarioFinal = user;
 
-        this.usuario.fechaNacimiento = this.datePipe.transform(this.usuario.fechaNacimiento, 'yyyy-MM-dd');
+        this.usuarioFinal.fechaNacimiento = this.datePipe.transform(this.usuarioFinal.fechaNacimiento, 'yyyy-MM-dd');
 
         const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
         const loader = new Loader({
           apiKey: key,
         });
         loader.load().then(() => {
-          const latitudValue: number = +parseFloat(this.usuario.latitudDireccion);
-          const longitudValue: number = +parseFloat(this.usuario.longitudDireccion);
+          const latitudValue: number = +parseFloat(this.usuarioFinal.latitudDireccion);
+          const longitudValue: number = +parseFloat(this.usuarioFinal.longitudDireccion);
 
           const location = {
             lat: latitudValue,
