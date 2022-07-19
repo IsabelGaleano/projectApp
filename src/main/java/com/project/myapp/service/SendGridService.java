@@ -1,6 +1,7 @@
 package com.project.myapp.service;
 
 import com.project.myapp.domain.Codigos;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.encriptar.Encriptar;
@@ -32,26 +33,49 @@ public class SendGridService {
     public SendGridService() {
     }
 
-    public String sendOTP(String correo, Usuarios usuarios) {
+    public void sendOTP(String correo, Usuarios usuarios) {
         try{
             if (!Objects.isNull(usuarios)) {
-                int OTPCode = Integer.parseInt(generateOTP());
-                String templateId = "d-708a8389bb764fc8b2566d28ba78a19e";
-                Mail mail = new Mail();
-                mail.setFrom(new Email("dcoto37@gmail.com", "Tripnary"));
-                mail.setTemplateId(templateId);
-                Personalization personalization = new Personalization();
-                personalization.addDynamicTemplateData("header", OTPCode);
-                personalization.addTo(new Email(correo));
-                mail.addPersonalization(personalization);
-                sendInternal(mail);
+                int OTPCode = this.sendFinalMail(correo);
                 Codigos codigos = new Codigos();
                 codigos.setIdUsuario(usuarios);
                 codigos.setEstado("Activo");
                 codigos.setCodigo(String.valueOf(OTPCode));
                 this.codigosRepository.save(codigos);
             }
-            return ("ok");
+        }catch (Exception e){
+            throw new MailServiceException();
+        }
+    }
+
+    public void sendOTP(String correo, Startups startups) {
+        try{
+            if (!Objects.isNull(startups)) {
+                int OTPCode = this.sendFinalMail(correo);
+                Codigos codigos = new Codigos();
+                codigos.setIdStartup(startups);
+                codigos.setEstado("Activo");
+                codigos.setCodigo(String.valueOf(OTPCode));
+                this.codigosRepository.save(codigos);
+            }
+        }catch (Exception e){
+            throw new MailServiceException();
+        }
+    }
+
+    private Integer sendFinalMail(String correo) {
+        try{
+            int OTPCode = Integer.parseInt(generateOTP());
+            String templateId = "d-708a8389bb764fc8b2566d28ba78a19e";
+            Mail mail = new Mail();
+            mail.setFrom(new Email("dcoto37@gmail.com", "Tripnary"));
+            mail.setTemplateId(templateId);
+            Personalization personalization = new Personalization();
+            personalization.addDynamicTemplateData("header", OTPCode);
+            personalization.addTo(new Email(correo));
+            mail.addPersonalization(personalization);
+            sendInternal(mail);
+            return OTPCode;
         }catch (Exception e){
             throw new MailServiceException();
         }

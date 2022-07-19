@@ -32,7 +32,11 @@ export class ValidateotpComponent {//implements OnInit {
       this.codeService.validate(this.code).subscribe(
         (response: any) => {
           if (response.status) {
-            localStorage.setItem('UserUpdatePassword', JSON.stringify(response.body.idUsuario));
+            if (response.body.idUsuario) {
+              localStorage.setItem('UserUpdatePassword', JSON.stringify(response.body.idUsuario));
+            } else if (response.body.idStartup) {
+              localStorage.setItem('StartupUpdatePassword', JSON.stringify(response.body.idStartup));
+            }
             this.router.navigate(['/resetPassword']);
           }
           this.loading = false;

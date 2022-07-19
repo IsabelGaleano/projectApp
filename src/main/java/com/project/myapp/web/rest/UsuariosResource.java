@@ -1,7 +1,9 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.security.AuthoritiesConstants;
@@ -51,11 +53,14 @@ public class UsuariosResource {
 
     private UserService userService;
 
-    public UsuariosResource(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder, UserRepository userRepository, UserService userService) {
+    private StartupsRepository startupsRepository;
+
+    public UsuariosResource(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder, UserRepository userRepository, UserService userService, StartupsRepository startupsRepository) {
         this.usuariosRepository = usuariosRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -253,8 +258,22 @@ public class UsuariosResource {
             userRepository.save(finalUpdatedUser);
             userService.clearUserCaches(finalUpdatedUser);
             return finalUpdatedUser;
+        }  else {
+            throw new UserNotFoundedError();
         }
-        else {
+    }
+
+    @PostMapping("/usuarios/resetPasswordStartups")
+    public User resetPasswordStartups(@Valid @RequestBody Startups userToUpdate) {
+        User finalUpdatedUser = new User();
+        String encryptedPassword = passwordEncoder.encode(userToUpdate.getContrasennia());
+        if (userRepository.findOneByEmailIgnoreCase(userToUpdate.getCorreoElectronico()).isPresent()) {
+            finalUpdatedUser = userRepository.findOneByEmail(userToUpdate.getCorreoElectronico());
+            finalUpdatedUser.setPassword(encryptedPassword);
+            userRepository.save(finalUpdatedUser);
+            userService.clearUserCaches(finalUpdatedUser);
+            return finalUpdatedUser;
+        }  else {
             throw new UserNotFoundedError();
         }
     }

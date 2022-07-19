@@ -5,6 +5,7 @@ import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.CodigosRepository;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.service.SendGridService;
@@ -52,10 +53,15 @@ public class CodigosResource {
 
     private Usuarios foundedCodeUsuario;
 
-    public CodigosResource(CodigosRepository codigosRepository, UserRepository userRepository, UsuariosRepository usuariosRepository) {
+    private Startups foundedCodeStartup;
+
+    private final StartupsRepository startupsRepository;
+
+    public CodigosResource(CodigosRepository codigosRepository, UserRepository userRepository, UsuariosRepository usuariosRepository, StartupsRepository startupsRepository) {
         this.codigosRepository = codigosRepository;
         this.userRepository = userRepository;
         this.usuariosRepository = usuariosRepository;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -215,13 +221,19 @@ public class CodigosResource {
     @PostMapping("/codigos/send")
     public Codigos sendWithTemplate(@RequestBody String correoElectronico)  {
         this.foundedCodeUsuario = usuariosRepository.findOneBycorreoElectronicoIgnoreCase(correoElectronico);
+        Codigos codigo = new Codigos();
+        SendGridService sendGridService = new SendGridService(codigosRepository);
         if (!Objects.isNull(this.foundedCodeUsuario)) {
-            SendGridService sendGridService = new SendGridService(codigosRepository);
-            String result = sendGridService.sendOTP(correoElectronico, this.foundedCodeUsuario);
-            Codigos codigo = new Codigos();
+            sendGridService.sendOTP(correoElectronico, this.foundedCodeUsuario);
             return codigo;
         } else {
-            throw new UserNotFoundedError();
+            this.foundedCodeStartup = startupsRepository.findStartupsByCorreoElectronico(correoElectronico);
+            if (!Objects.isNull(this.foundedCodeStartup)) {
+                sendGridService.sendOTP(correoElectronico, this.foundedCodeStartup);
+                return codigo;
+            } else {
+                throw new UserNotFoundedError();
+            }
         }
     }
 
@@ -231,20 +243,29 @@ public class CodigosResource {
         if (foundedCodigo.isPresent()) {
             return foundedCodigo;
         } else {
-            throw new CodigoNotFoundedException();
+            Optional<Codigos> foundedCodigoStartup = codigosRepository.findCodigosByCodigoAndIdStartup(codigo, this.foundedCodeStartup);
+            if (foundedCodigoStartup.isPresent()) {
+                return foundedCodigoStartup;
+            } else {
+                throw new CodigoNotFoundedException();
+            }
         }
     }
 
     @PostMapping("/codigos/reSendCode")
     public Codigos reSendCode(@RequestBody String body)  {
+        Codigos codigo = new Codigos();
+        SendGridService sendGridService = new SendGridService(codigosRepository);
         if (!Objects.isNull(this.foundedCodeUsuario)) {
-            SendGridService sendGridService = new SendGridService(codigosRepository);
-            String result = sendGridService.sendOTP(this.foundedCodeUsuario.getCorreoElectronico(), this.foundedCodeUsuario);
-            Codigos codigo = new Codigos();
-            return codigo;
+            sendGridService.sendOTP(this.foundedCodeUsuario.getCorreoElectronico(), this.foundedCodeUsuario);
         } else {
-            throw new UserNotFoundedError();
+            if (!Objects.isNull(this.foundedCodeStartup)) {
+                sendGridService.sendOTP(this.foundedCodeStartup.getCorreoElectronico(), this.foundedCodeStartup);
+            } else {
+                throw new UserNotFoundedError();
+            }
         }
+        return codigo;
     }
 
 }

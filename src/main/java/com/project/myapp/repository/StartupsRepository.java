@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StartupsRepository extends JpaRepository<Startups, Long> {
     Optional<Startups> findByCorreoElectronico(String correoElectronico);
+    Startups findStartupsByCorreoElectronico(String correoElectronico);
 }
