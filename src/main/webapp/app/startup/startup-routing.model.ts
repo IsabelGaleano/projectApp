@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ListarPaquetesStartupComponent } from './listar-paquetes-startup/listar-paquetes-startup.component';
 import { PagoInscripcionStartupComponent } from './pago-inscripcion-startup/pago-inscripcion-startup.component';
 import { PerfilStartupComponent } from './perfil-startup/perfil-startup.component';
 import { PlanInscripcionStartupComponent } from './plan-inscripcion-startup/plan-inscripcion-startup.component';
@@ -41,6 +42,13 @@ import { ListaPlanesInversionComponent } from './lista-planes-inversion/lista-pl
         component: ListaPlanesInversionComponent,
         data: {
           pageTitle: 'lista.plan.inversion.title',
+        },
+      },
+      {
+        path: 'listar-paquetes-startup',
+        component: ListarPaquetesStartupComponent,
+        data: {
+          pageTitle: 'listar.paquetes.startup.title',
         },
       },
     ]),
