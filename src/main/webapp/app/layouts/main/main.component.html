@@ -6,8 +6,10 @@
   <jhi-navbar-usuario *jhiHasAnyAuthority="'ROLE_USER' || 'ROLE_STARTUP'"></jhi-navbar-usuario>
 <jhi-navbar-usuario *jhiHasAnyAuthority="'ROLE_ADMIN'"></jhi-navbar-usuario>
  -->
-<jhi-menu-admin *jhiHasAnyAuthority="'ROLE_ADMIN'"></jhi-menu-admin>
+
 <div>
+  <jhi-menu-admin *jhiHasAnyAuthority="'ROLE_ADMIN'"></jhi-menu-admin>
+
   <div>
     <router-outlet class="main-content app-content"></router-outlet>
   </div>
