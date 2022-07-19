@@ -101,7 +101,7 @@ public class AccountResource {
             " ",
             " ",
             "UsuarioFinal",
-            managedUserVM.getPassword(),
+            " ",
             "Pendiente",
             monederoCreado,
             new RolesUsuarios(3L)

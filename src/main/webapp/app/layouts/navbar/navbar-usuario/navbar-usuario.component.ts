@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faUserCircle, faBell, faMessage } from '@fortawesome/free-solid-svg-icons';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -29,6 +29,9 @@ export class NavbarUsuarioComponent implements OnInit {
   emailCollapsed = true;
   notificationsCollapsed = true;
   faUser = faUser;
+  faUserCircle = faUserCircle;
+  faBell = faBell;
+  faMessage = faMessage;
 
   constructor(
     private loginService: LoginService,

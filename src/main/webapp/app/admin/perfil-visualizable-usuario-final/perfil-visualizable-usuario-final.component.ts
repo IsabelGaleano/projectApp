@@ -11,7 +11,7 @@ import { AppService } from '../lista-usuarios/lista-usuarios.service';
   styleUrls: ['./perfil-visualizable-usuario-final.component.scss'],
 })
 export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
-  usuario: any;
+  usuarioFinal: any;
   correoSession?: string;
   map: google.maps.Map | undefined;
   mapDos: google.maps.Map | undefined;
@@ -43,7 +43,7 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
 
     this.appService.getUsuariosByCorreo(this.correoSession).subscribe((user: any) => {
       if (user !== undefined) {
-        this.usuario = user;
+        this.usuarioFinal = user;
 
         this.usuario.fechaNacimiento = this.datePipe.transform(this.usuario.fechaNacimiento, 'yyyy-MM-dd');
 
@@ -90,7 +90,7 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
         });
       }
 
-      console.warn(this.usuario);
+      console.warn(this.usuarioFinal);
     });
   }
 

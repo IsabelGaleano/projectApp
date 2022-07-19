@@ -45,7 +45,7 @@ export class PagoInscripcionStartupComponent implements OnInit {
             this.success = true;
             window.setTimeout(function () {
               router.navigate(['startup/perfil-startup']);
-            }, 5000);
+            }, 4000);
           });
         },
         onError: (err: any) => {

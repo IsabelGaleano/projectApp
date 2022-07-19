@@ -83,6 +83,7 @@
   -webkit-transition: margin-left 0.3s ease;
   -o-transition: margin-left 0.3s ease;
   transition: margin-left 0.3s ease;
+  margin-top: 11rem;
 
   .side-app {
     padding: 0px 30px 0 30px;
@@ -427,14 +428,16 @@
 }
 
 .app-sidebar {
+  display: flex;
   position: fixed;
+  margin-top: 4rem;
+  z-index: 1;
   top: 0;
   bottom: 0;
   left: 0;
   color: $default-color;
-  width: 240px;
-  max-height: 100%;
-  z-index: 1024;
+  width: 100%;
+  max-height: 5.5rem;
   background: $white;
   -webkit-box-shadow: 0px 8px 14.72px 1.28px rgba(229, 228, 230, 0.5);
   box-shadow: 0px 8px 14.72px 1.28px rgba(229, 228, 230, 0.5);
@@ -485,8 +488,8 @@
   -ms-flex-align: center;
   align-items: center;
   color: #a8a8a8;
-  width: 100%;
-  display: inline-block;
+  width: 12%;
+  //display: inline-block;
 }
 
 .app-sidebar__user-avatar {
@@ -530,13 +533,17 @@
 }
 
 .side-menu {
+  display: flex;
+  //width: 70%;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 0;
   padding: 0;
   list-style: none;
 
   .slide .side-menu__item {
-    padding: 10px 20px 10px 22px;
-    margin: 0;
+    padding: 1rem;
+    margin: 15% 0;
     border-radius: 0;
   }
 }
@@ -733,8 +740,9 @@ slide is-expanded side-menu__item {
   -webkit-align-items: center;
   align-items: center;
   color: #5b6e88;
+  //margin-left: 5%;
   position: relative;
-  font-size: 13.5px;
+  font-size: 1rem;
   line-height: 1;
   vertical-align: middle;
   font-weight: 400;
