@@ -12,6 +12,12 @@ export class PerfilUsuarioFinalService {
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
+  getMovimientosByIdMonedero(id: string): Observable<any> {
+    let ruta = '/api/movimientosByIdUsuario/';
+    ruta = ruta.concat(id);
+    return this.http.get(ruta);
+  }
+
   getUsersByMail(correo: string | null): Observable<any> {
     if (correo != null) {
       return this.http.get(this.rootURL.concat('/usuariosByCorreo/', correo.toString()));

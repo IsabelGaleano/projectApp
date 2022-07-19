@@ -20,6 +20,8 @@ import { Loader } from '@googlemaps/js-api-loader';
   //styleUrls: ['./navbar.component.scss'],
 })
 export class PerfilUsuarioFinalComponent implements OnInit {
+  movimientos: any[] = [];
+  usuario: any;
   usuarioFinal = null;
   inProduction?: boolean;
   isNavbarCollapsed = true;
@@ -65,12 +67,18 @@ export class PerfilUsuarioFinalComponent implements OnInit {
       if (account) {
         console.warn(account);
         this.user = true;
+
         this.perfilUsuarioFinalService.getUsersByMail(account.email).subscribe((dataUsuario: any) => {
+          this.usuario = dataUsuario;
           const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
           const loader = new Loader({
             apiKey: key,
           });
-
+          this.perfilUsuarioFinalService.getMovimientosByIdMonedero(dataUsuario.idMonedero.id).subscribe((dataMovimientos: any) => {
+            dataMovimientos.forEach((movimiento: any) => {
+              this.movimientos.push(movimiento);
+            });
+          });
           loader.load().then(() => {
             const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
             latitudDireccionForm.value = dataUsuario.latitudDireccion;
