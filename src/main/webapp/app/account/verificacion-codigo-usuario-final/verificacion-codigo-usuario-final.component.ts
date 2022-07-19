@@ -78,8 +78,8 @@ export class VerificacionCodigoUsuarioFinalComponent implements OnInit {
       this.verificacionCodigoUsuarioService.reenviarCodes(dataUsuario.id).subscribe((dataCodigoReenvidado: any) => {
         console.warn(dataCodigoReenvidado);
         this.codigoReenviado = true;
-        window.setTimeout(function () {
-          location.reload();
+        setTimeout(() => {
+          this.codigoReenviado = false;
         }, 3000);
       });
     });

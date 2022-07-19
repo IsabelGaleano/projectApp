@@ -1,6 +1,8 @@
 package com.project.myapp.repository;
 
+import com.project.myapp.domain.Monederos;
 import com.project.myapp.domain.Movimientos;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface MovimientosRepository extends JpaRepository<Movimientos, Long> {}
+public interface MovimientosRepository extends JpaRepository<Movimientos, Long> {
+    public List<Movimientos> findMovimientosByIdMonedero(Monederos monederos);
+}
