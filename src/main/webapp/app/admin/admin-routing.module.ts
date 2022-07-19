@@ -5,6 +5,7 @@ import { ListaUsuariosComponent } from './lista-usuarios/lista-usuarios.componen
 import { PerfilVisualizableAdminComponent } from './perfil-visualizable-admin/perfil-visualizable-admin.component';
 import { PerfilVisualizableUsuarioFinalComponent } from './perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
 import { PerfilAdminComponent } from './perfil/perfil-admin.component';
+import { RegistroAdminComponent } from './registro-admin/registro-admin.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,13 @@ import { PerfilAdminComponent } from './perfil/perfil-admin.component';
         component: PerfilVisualizableAdminComponent,
         data: {
           pageTitle: 'perfil-visualizable-admin.home.title',
+        },
+      },
+      {
+        path: 'registro-admin',
+        component: RegistroAdminComponent,
+        data: {
+          pageTitle: 'registro-admin.home.title',
         },
       },
       {

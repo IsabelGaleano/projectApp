@@ -1,7 +1,9 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Paquetes;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.repository.PaquetesRepository;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,9 +37,11 @@ public class PaquetesResource {
     private String applicationName;
 
     private final PaquetesRepository paquetesRepository;
+    private final StartupsRepository startupsRepository;
 
-    public PaquetesResource(PaquetesRepository paquetesRepository) {
+    public PaquetesResource(PaquetesRepository paquetesRepository, StartupsRepository startupsRepository) {
         this.paquetesRepository = paquetesRepository;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -174,6 +178,14 @@ public class PaquetesResource {
         log.debug("REST request to get Paquetes : {}", id);
         Optional<Paquetes> paquetes = paquetesRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(paquetes);
+    }
+
+    @GetMapping("/paquetes/paquetesStartups/{correo}")
+    public List<Paquetes> getPaquetesByStartup(@PathVariable String correo) {
+        log.debug("REST request to get Paquetes : {}", correo);
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
+        List<Paquetes> paquetes = paquetesRepository.findAllByIdStartup(startups.get());
+        return paquetes;
     }
 
     /**

@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PagoInscripcionStartupService } from './pago-inscripcion-startup.service';
+
 declare const paypal: any;
 
 @Component({
@@ -45,7 +46,7 @@ export class PagoInscripcionStartupComponent implements OnInit {
             this.success = true;
             window.setTimeout(function () {
               router.navigate(['startup/perfil-startup']);
-            }, 5000);
+            }, 4000);
           });
         },
         onError: (err: any) => {

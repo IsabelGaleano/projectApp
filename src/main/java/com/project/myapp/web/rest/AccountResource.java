@@ -16,6 +16,7 @@ import com.project.myapp.service.dto.PasswordChangeDTO;
 import com.project.myapp.web.rest.errors.*;
 import com.project.myapp.web.rest.vm.KeyAndPasswordVM;
 import com.project.myapp.web.rest.vm.ManagedUserVM;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
@@ -147,6 +148,7 @@ public class AccountResource {
             startupsSave.setNombreCorto(managedUserVM.getLogin());
             startupsSave.estado("Pendiente");
             startupsSave.setIdMonedero(monederoCreado);
+            startupsSave.setImagenURL("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
             //OTP
             String codigo = String.valueOf(generateOTP());
             Codigos codigoDTO = new Codigos(codigo, "Activo", startupsSave);
@@ -311,5 +313,55 @@ public class AccountResource {
             otp[i] = numbers.charAt(random.nextInt(numbers.length()));
         }
         return otp;
+    }
+
+    @PostMapping("/registerUserAdmin")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerUserAdmin(@Valid @RequestBody Usuarios usuario) {
+        // SendEmail sendEmail = new SendEmail();
+        // if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
+        //     throw new InvalidPasswordException();
+        // }
+        // User user = userService.registerUserAdmin(managedUserVM, managedUserVM.getPassword());
+
+        if (isPasswordLengthInvalid(usuario.getContrasennia())) {
+            throw new InvalidPasswordException();
+        }
+
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+
+        managedUserVM.setLogin(usuario.getCedula());
+        managedUserVM.setEmail(usuario.getCorreoElectronico());
+        managedUserVM.setPassword(usuario.getContrasennia());
+        managedUserVM.setLangKey("es");
+
+        User user = userService.registerUserAdmin(managedUserVM, managedUserVM.getPassword());
+
+        Monederos monedero = new Monederos("ADMIN", 0.0, "Activo");
+        Monederos monederoCreado = monederosRepository.save(monedero);
+
+        // ZonedDateTime fechaNacimiento = usuario.getFechaNacimiento();
+        // fechaNacimiento.plusHours(5);
+
+        Usuarios usuarioCreado = new Usuarios(
+            usuario.getNombre(),
+            user.getLogin(),
+            usuario.getPrimerApellido(),
+            usuario.getSegundoApellido(),
+            user.getEmail(),
+            usuario.getGenero(),
+            usuario.getTelefono(),
+            usuario.getFechaNacimiento().plusMinutes(5),
+            " ",
+            " ",
+            usuario.getImagenURL(),
+            " ",
+            " ",
+            "Activo",
+            monederoCreado,
+            new RolesUsuarios(2L)
+        );
+
+        usuariosRepository.save(usuarioCreado);
     }
 }

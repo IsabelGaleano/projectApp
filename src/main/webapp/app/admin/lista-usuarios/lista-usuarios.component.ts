@@ -40,10 +40,12 @@ export class ListaUsuariosComponent implements OnInit {
       this.appService.getUsersById(idXestado[0]).subscribe((data: any) => {
         data.estado = 'Activo';
 
-        this.appService
-          .updateUser(data, idXestado[0])
-          .subscribe(this.appService.updateUserActivatedJHI(data.correoElectronico, data.estado).subscribe())
-          .then(window.location.reload());
+        this.appService.updateUsuariosEstado(data.correoElectronico, data.estado).subscribe(() => {
+          this.appService.updateUserActivatedJHI(data.correoElectronico, data.estado).subscribe(() => {
+            window.location.reload();
+          });
+        });
+        // .then();
       });
     }
   }
@@ -58,10 +60,12 @@ export class ListaUsuariosComponent implements OnInit {
         data.estado = 'Inactivo';
 
         // this.appService.updateUser(data, idXestado[0]).subscribe().then(window.location.reload());
-        this.appService
-          .updateUser(data, idXestado[0])
-          .subscribe(this.appService.updateUserActivatedJHI(data.correoElectronico, data.estado).subscribe())
-          .then(window.location.reload());
+        this.appService.updateUsuariosEstado(data.correoElectronico, data.estado).subscribe(() => {
+          this.appService.updateUserActivatedJHI(data.correoElectronico, data.estado).subscribe(() => {
+            window.location.reload();
+          });
+        });
+        // .then(window.location.reload());
       });
     }
   }

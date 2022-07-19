@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
@@ -36,6 +37,7 @@ export class PerfilAdminComponent implements OnInit {
   errorInvalida = false;
   errorVacia = false;
   errorNuevasVacias = false;
+  fechaFormateada: string | null | undefined;
 
   formInfoBasica = new FormGroup({
     nombre: new FormControl(),
@@ -61,7 +63,8 @@ export class PerfilAdminComponent implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private adminService: PerfilAdminService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -97,6 +100,8 @@ export class PerfilAdminComponent implements OnInit {
           // this.formInfoBasica.controls['correoElectronico'].setValue(this.usuario.correoElectronico);
           this.formInfoBasica.controls['telefono'].setValue(this.usuario.telefono);
           this.formInfoBasica.controls['fechaNacimiento'].setValue(this.usuario.fechaNacimiento);
+
+          this.fechaFormateada = this.datePipe.transform(this.usuario.fechaNacimiento, 'yyyy-MM-dd');
 
           // this.formContrasennia.controls['contrasenniaActual'].setValue(this.usuario.contrasennia);
           // this.formContrasennia.controls['nuevaContrasennia'].setValue("");
