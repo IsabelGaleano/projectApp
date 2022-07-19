@@ -67,6 +67,26 @@ public class PlanesInversion implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public PlanesInversion() {}
+
+    public PlanesInversion(
+        String nombre,
+        Double monto,
+        String descripcion,
+        String beneficios,
+        Double porcentajeEmpresarial,
+        String estado,
+        Startups idStartup
+    ) {
+        this.nombre = nombre;
+        this.monto = monto;
+        this.descripcion = descripcion;
+        this.beneficios = beneficios;
+        this.porcentajeEmpresarial = porcentajeEmpresarial;
+        this.estado = estado;
+        this.idStartup = idStartup;
+    }
+
     public Long getId() {
         return this.id;
     }
