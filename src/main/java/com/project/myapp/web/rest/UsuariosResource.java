@@ -15,11 +15,16 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
+import tech.jhipster.web.util.ResponseUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -226,5 +231,78 @@ public class UsuariosResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code GET  /usuarios/:correoElectronico} : get the "correoElectronico" usuarios.
+     *
+     * @param correoElectronico the correoElectronico of the usuarios to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the usuarios, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/usuariosCorreoElectronico/{correoElectronico}")
+    public ResponseEntity<Usuarios> getUsuariosByCorreoElectronico(@PathVariable String correoElectronico) {
+        log.debug("REST request to get Usuarios : {}", correoElectronico);
+        Optional<Usuarios> usuarios = usuariosRepository.findByCorreoElectronico(correoElectronico);
+        return ResponseUtil.wrapOrNotFound(usuarios);
+    }
+
+    @PutMapping("/usuariosCorreo/{correoElectrónico}")
+    public ResponseEntity<Usuarios> updateUsuarios(
+        @PathVariable(value = "correoElectrónico", required = false) final String correoElectrónico,
+        @Valid @RequestBody Usuarios usuarios
+    ) throws URISyntaxException {
+        log.debug("REST request to update Usuarios : {}, {}", correoElectrónico, usuarios);
+        if (usuarios.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(correoElectrónico, usuarios.getCorreoElectronico())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!usuariosRepository.existsById(usuarios.getId())) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        //No contraseña en usuarios
+        usuarios.setContrasennia(" ");
+
+        usuarios.getFechaNacimiento().plusMinutes(5);
+
+        Usuarios result = usuariosRepository.save(usuarios);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, usuarios.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/usuariosContrasennia/{correoElectronico}")
+    public ResponseEntity<Integer> updateContrasenniaUsuarios(
+        @PathVariable(value = "correoElectronico", required = false) final String correoElectronico,
+        @Valid @RequestBody String contrasennia
+    ) throws URISyntaxException {
+        log.debug("REST request to update Usuarios : {}, {}", correoElectronico, contrasennia);
+        if (usuariosRepository.findByCorreoElectronico(correoElectronico) == null) {
+            throw new BadRequestAlertException("Invalid correo", ENTITY_NAME, "correonull");
+        }
+
+        usuariosRepository.updateContrasenniaUsuarios(contrasennia, correoElectronico);
+
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert(applicationName, "", ENTITY_NAME)).body(200);
+    }
+
+    @PutMapping("/usuariosEstado/{email}")
+    public HttpStatus updateEstadoUsuarios(
+        @PathVariable(value = "email", required = false) final String email,
+        @Valid @RequestBody String estado
+    ) throws URISyntaxException {
+        if (estado.equals("Activo")) {
+            usuariosRepository.updateUserActivated(email, "Activo");
+            return HttpStatus.OK;
+        } else if (estado.equals("Inactivo")) {
+            usuariosRepository.updateUserActivated(email, "Inactivo");
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.BAD_REQUEST;
     }
 }

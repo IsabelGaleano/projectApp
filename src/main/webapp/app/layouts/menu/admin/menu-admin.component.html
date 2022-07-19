@@ -9,9 +9,10 @@
       <div class="app-sidebar__user clearfix">
         <div class="dropdown user-pro-body">
           <div class="">
-            <img class="avatar avatar-xl brround" src="../assets/img/faces/6.jpg" /><span
+            <!-- <img class="avatar avatar-xl brround" src="../assets/img/faces/6.jpg" /><span -->
+            <!-- <img class="avatar avatar-xl brround" src="{{ usuario.imagenURL }}" /><span
               class="avatar-status profile-status bg-green"
-            ></span>
+            ></span> -->
           </div>
           <div class="user-info">
             <h4 class="fw-semibold mt-3 mb-0">{{ accountInfo.email }}</h4>
@@ -19,21 +20,16 @@
           </div>
         </div>
       </div>
-      <div class="slide-left disabled" id="slide-left">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
-          <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" />
-        </svg>
-      </div>
+
       <ul class="side-menu">
         <li class="slide">
           <a class="side-menu__item" href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="side-menu__icon"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-grid-1x2-fill"
+              class="bi bi-grid-1x2-fill side-menu__icon"
               viewBox="0 0 16 16"
             >
               <path
@@ -44,14 +40,13 @@
           >
         </li>
         <li class="slide">
-          <a class="side-menu__item" href="#">
+          <a class="side-menu__item" href="admin/profile-admin">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="side-menu__icon"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-person-circle"
+              class="bi bi-person-circle side-menu__icon"
               viewBox="0 0 16 16"
             >
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -67,11 +62,10 @@
           <a class="side-menu__item" href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="side-menu__icon"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-bell-fill"
+              class="bi bi-bell-fill side-menu__icon"
               viewBox="0 0 16 16"
             >
               <path
@@ -82,14 +76,13 @@
           >
         </li>
         <li class="slide">
-          <a class="side-menu__item" href="#">
+          <a class="side-menu__item" href="admin/lista-usuarios">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="side-menu__icon"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-people-fill"
+              class="bi bi-people-fill side-menu__icon"
               viewBox="0 0 16 16"
             >
               <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -104,14 +97,13 @@
           >
         </li>
         <li class="slide">
-          <a class="side-menu__item" href="#">
+          <a class="side-menu__item" href="/admin/lista-administradores">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="side-menu__icon"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-person-lines-fill"
+              class="bi bi-person-lines-fill side-menu__icon"
               viewBox="0 0 16 16"
             >
               <path
@@ -125,11 +117,10 @@
           <a class="side-menu__item" href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="side-menu__icon"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-clipboard2-check-fill"
+              class="bi bi-clipboard2-check-fill side-menu__icon"
               viewBox="0 0 16 16"
             >
               <path
@@ -146,11 +137,10 @@
           <a class="side-menu__item" href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="side-menu__icon"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-graph-up-arrow"
+              class="bi bi-graph-up-arrow side-menu__icon"
               viewBox="0 0 16 16"
             >
               <path
@@ -162,11 +152,6 @@
           >
         </li>
       </ul>
-      <div class="slide-right" id="slide-right">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z" />
-        </svg>
-      </div>
     </div>
   </aside>
 </div>

@@ -14,12 +14,10 @@ import java.util.Random;
 
 public class SendEmail {
 
-    private Encriptar encriptar;
-
     public void correoVerificacionUsuario(int codigo, String correo) {
         String templateId = "d-708a8389bb764fc8b2566d28ba78a19e";
         Mail mail = new Mail();
-        mail.setFrom(new Email("dcoto37@gmail.com", "Tripnary"));
+        mail.setFrom(new Email("dcoto37@gmail.com", "StartupSafe"));
         mail.setTemplateId(templateId);
         Personalization personalization = new Personalization();
         personalization.addDynamicTemplateData("header", String.valueOf(codigo));
@@ -29,7 +27,7 @@ public class SendEmail {
     }
 
     private void sendInternal(Mail mail) {
-        encriptar = new Encriptar();
+        Encriptar encriptar = new Encriptar();
         SendGrid sg = new SendGrid(encriptar.desencripta("VJ.Ñ86z0oVUTmiKe5kbF5Y53g.ikV2SWm989rIK7ZDVyssxKj3YXwzAFZ7O3hj_eX8-SH"));
         Request request = new Request();
         try {
