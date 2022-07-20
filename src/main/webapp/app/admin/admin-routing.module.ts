@@ -6,6 +6,8 @@ import { PerfilVisualizableAdminComponent } from './perfil-visualizable-admin/pe
 import { PerfilVisualizableUsuarioFinalComponent } from './perfil-visualizable-usuario-final/perfil-visualizable-usuario-final.component';
 import { PerfilAdminComponent } from './perfil/perfil-admin.component';
 import { RegistroAdminComponent } from './registro-admin/registro-admin.component';
+import { ListarStartupsAdminComponent } from './listar-startups-admin/listar-startups-admin.component';
+import { ListarInscripcionesAdminComponent } from './listar-inscripciones-admin/listar-inscripciones-admin.component';
 
 @NgModule({
   imports: [
@@ -22,6 +24,20 @@ import { RegistroAdminComponent } from './registro-admin/registro-admin.componen
         component: ListaUsuariosComponent,
         data: {
           pageTitle: 'lista-usuarios.home.title',
+        },
+      },
+      {
+        path: 'lista-startups',
+        component: ListarStartupsAdminComponent,
+        data: {
+          pageTitle: 'lista-startups-admin.home.title',
+        },
+      },
+      {
+        path: 'lista-inscripciones',
+        component: ListarInscripcionesAdminComponent,
+        data: {
+          pageTitle: 'lista-inscripciones-admin.home.title',
         },
       },
       {

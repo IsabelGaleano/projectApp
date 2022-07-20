@@ -18,6 +18,7 @@ import javax.validation.constraints.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -195,6 +196,20 @@ public class StartupsResource {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, startups.getId().toString())
         );
+    }
+
+    @PutMapping("/startups/estado/{id}")
+    public HttpStatus updateEstadoStartups(@PathVariable(value = "id", required = true) final String id, @Valid @RequestBody String estado)
+        throws URISyntaxException {
+        if (estado.equals("Activo")) {
+            startupsRepository.updateStartupsEstado(Long.valueOf(id), "Activo");
+            return HttpStatus.OK;
+        } else if (estado.equals("Inactivo")) {
+            startupsRepository.updateStartupsEstado(Long.valueOf(id), "Inactivo");
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.BAD_REQUEST;
     }
 
     /**
