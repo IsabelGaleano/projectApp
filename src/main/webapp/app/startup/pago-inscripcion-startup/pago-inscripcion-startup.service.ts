@@ -17,4 +17,8 @@ export class PagoInscripcionStartupService {
       return this.http.get(this.rootURL.concat('/monederos/'));
     }
   }
+
+  getKeyPaypal(): Observable<any> {
+    return this.http.get(this.rootURL.concat('/startups/keyPaypal'));
+  }
 }
