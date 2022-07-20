@@ -4,7 +4,8 @@ import { ListarPaquetesStartupComponent } from './listar-paquetes-startup/listar
 import { PagoInscripcionStartupComponent } from './pago-inscripcion-startup/pago-inscripcion-startup.component';
 import { PerfilStartupComponent } from './perfil-startup/perfil-startup.component';
 import { PlanInscripcionStartupComponent } from './plan-inscripcion-startup/plan-inscripcion-startup.component';
-
+import { RegistroPlanInversionComponent } from './registro-plan-inversion/registro-plan-inversion.component';
+import { ListaPlanesInversionComponent } from './lista-planes-inversion/lista-planes-inversion.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -27,6 +28,20 @@ import { PlanInscripcionStartupComponent } from './plan-inscripcion-startup/plan
         component: PagoInscripcionStartupComponent,
         data: {
           pageTitle: 'pago.inscripcion.startup.title',
+        },
+      },
+      {
+        path: 'registro-plan-inversion',
+        component: RegistroPlanInversionComponent,
+        data: {
+          pageTitle: 'registro.plan.inversion.title',
+        },
+      },
+      {
+        path: 'lista-planes-inversion',
+        component: ListaPlanesInversionComponent,
+        data: {
+          pageTitle: 'lista.plan.inversion.title',
         },
       },
       {

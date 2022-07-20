@@ -109,7 +109,8 @@
                       <!-- Tabs -->
                       <ul class="nav panel-tabs main-nav-line">
                         <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Perfil</a></li>
-                        <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Contraseña</a></li>
+                        <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Monedero</a></li>
+                        <li class="nav-item"><a href="#tab3" class="nav-link" data-bs-toggle="tab">Contraseña</a></li>
                       </ul>
                     </div>
                   </div>
@@ -254,10 +255,107 @@
                           </div>
                           <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
                         </form>
-
                         <p></p>
                       </div>
                       <div class="tab-pane" id="tab2">
+                        <div class="row">
+                          <div class="col-xl-12 col-md-12">
+                            <div>
+                              <div>
+                                <!-- Shopping Cart-->
+                                <div class="product-details table-responsive text-nowrap">
+                                  <th class="text-start">Monedero</th>
+                                  <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                    <thead>
+                                      <tr>
+                                        <th class="text-start">Información</th>
+                                        <th class="w-150">Tipo</th>
+                                        <th>Saldo</th>
+                                        <th>Estado</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="custom-cls-no-br">
+                                      <tr>
+                                        <td>
+                                          <div class="media">
+                                            <div class="media-body">
+                                              <div class="card-item-desc mt-0">
+                                                <h6 class="text-lg text-medium">
+                                                  {{ usuario.idMonedero.id }}
+                                                </h6>
+                                                <dl class="card-item-desc-1">
+                                                  <dt>Correo:</dt>
+                                                  <dd>{{ usuario.correoElectronico }}</dd>
+                                                </dl>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td class="text-center text-lg text-medium">
+                                          {{ usuario.idMonedero.tipo }}
+                                        </td>
+                                        <td class="text-center text-lg text-medium">
+                                          {{ usuario.idMonedero.saldo }}
+                                        </td>
+                                        <td class="">{{ usuario.idMonedero.estado }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="shopping-cart-footer border-top-0">
+                                  <div class="column text-lg">
+                                    Total: <span class="tx-20 fw-bold ms-2">{{ usuario.idMonedero.saldo }}</span>
+                                  </div>
+                                </div>
+                                <div class="product-details table-responsive text-nowrap">
+                                  <th class="text-start">Movimientos</th>
+                                  <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                    <thead>
+                                      <tr>
+                                        <th class="text-start">Información</th>
+                                        <th class="w-150">Tipo</th>
+                                        <th>Monto</th>
+                                        <th>Descripción</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="custom-cls-no-br" *ngFor="let movimiento of movimientos; index as i">
+                                      <tr>
+                                        <td>
+                                          <div class="media">
+                                            <div class="media-body">
+                                              <div class="card-item-desc mt-0">
+                                                <h6 class="text-lg text-medium">
+                                                  {{ movimiento.id }}
+                                                </h6>
+                                                <dl class="card-item-desc-1">
+                                                  <dt>Fecha:</dt>
+                                                  <dd>{{ movimiento.fecha }}</dd>
+                                                </dl>
+                                                <dl class="card-item-desc-1">
+                                                  <dt>Correo:</dt>
+                                                  <dd>{{ usuario.correoElectronico }}</dd>
+                                                </dl>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td class="text-center text-lg text-medium">
+                                          {{ movimiento.tipo }}
+                                        </td>
+                                        <td class="text-center text-lg text-medium">
+                                          {{ movimiento.monto }}
+                                        </td>
+                                        <td class="">{{ movimiento.descripcion }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="tab3">
                         <form class="form-horizontal" (ngSubmit)="actualizarContrasennia()" [formGroup]="formContrasennia">
                           <h4 class="tx-18 mb-3">Actualizar contraseña</h4>
                           <div class="form-group">

@@ -289,9 +289,9 @@
               [routerLinkActiveOptions]="{ exact: true }"
               class="dropdown nav-item main-profile-menu nav-link main-header-right__li"
             >
-              <a class="profile-user d-flex nav nav-link" ngbDropdownToggle href="javascript:void(0);"
-                ><fa-icon [icon]="faUser"></fa-icon
-              ></a>
+              <a class="profile-user d-flex nav nav-link" ngbDropdownToggle href="javascript:void(0);">
+                <fa-icon [icon]="faUser"></fa-icon>
+              </a>
               <div class="dropdown-menu" ngbDropdownMenu>
                 <div class="main-header-profile bg-primary p-3">
                   <div class="d-flex wd-100p">
@@ -303,16 +303,19 @@
                   </div>
                 </div>
                 <a class="dropdown-item" href=""
-                  ><i class="bx bx-user-circle"><fa-icon [icon]="faUserCircle"></fa-icon></i>Perfil</a
+                  ><i class="bx bx-user-circle"> <fa-icon [icon]="faUserCircle"></fa-icon> </i>Perfil</a
                 >
                 <a class="dropdown-item" href=""
-                  ><i class="bx bxs-inbox"><fa-icon [icon]="faBell"></fa-icon></i>Notificaciones</a
+                  ><i class="bx bxs-inbox"> <fa-icon [icon]="faBell"></fa-icon> </i>Notificaciones</a
                 >
                 <a class="dropdown-item" href=""
-                  ><i class="bx bx-envelope"><fa-icon [icon]="faMessage"></fa-icon></i>Mensajes</a
+                  ><i class="bx bx-envelope"> <fa-icon [icon]="faMessage"></fa-icon> </i>Mensajes</a
                 >
                 <a class="dropdown-item" id="cerrarSesion" (click)="logout()"
-                  ><i class="bx bx-log-out"><fa-icon [icon]="faUser"></fa-icon></i> Cerrar sesión</a
+                  ><i class="bx bx-log-out">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                  </i>
+                  Cerrar sesión</a
                 >
               </div>
             </li>

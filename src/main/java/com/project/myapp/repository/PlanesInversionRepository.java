@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.PlanesInversion;
+import com.project.myapp.domain.Startups;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PlanesInversionRepository extends JpaRepository<PlanesInversion, Long> {
+    List<PlanesInversion> findPlanesInversionByIdStartup(Optional<Startups> idStartup);
+
     default Optional<PlanesInversion> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }
