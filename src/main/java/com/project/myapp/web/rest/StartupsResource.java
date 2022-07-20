@@ -3,12 +3,14 @@ package com.project.myapp.web.rest;
 import com.project.myapp.domain.Codigos;
 import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Usuarios;
+import com.project.myapp.encriptar.Encriptar;
 import com.project.myapp.repository.CodigosRepository;
 import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import javax.validation.constraints.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -197,6 +200,20 @@ public class StartupsResource {
         );
     }
 
+    @PutMapping("/startups/estado/{id}")
+    public HttpStatus updateEstadoStartups(@PathVariable(value = "id", required = true) final String id, @Valid @RequestBody String estado)
+        throws URISyntaxException {
+        if (estado.equals("Activo")) {
+            startupsRepository.updateStartupsEstado(Long.valueOf(id), "Activo");
+            return HttpStatus.OK;
+        } else if (estado.equals("Inactivo")) {
+            startupsRepository.updateStartupsEstado(Long.valueOf(id), "Inactivo");
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.BAD_REQUEST;
+    }
+
     /**
      * {@code GET  /startups} : get all the startups.
      *
@@ -250,6 +267,16 @@ public class StartupsResource {
                 }
             }
         }
+        return result;
+    }
+
+    @GetMapping("/startups/keyPaypal")
+    public List<String> getKeyPaypal() {
+        Encriptar encriptar = new Encriptar();
+        String keyEncriptadaTemp = "DemzsWfj5LTmrVDNdpPI82-0-Ñ7Oz_cYeLY7XZ9loPFo7mMg0mmjInB8sUMxygFFF62fKnEzfrUO5ik6";
+        String keyDesincriptada = encriptar.desencripta(keyEncriptadaTemp);
+        List<String> result = new ArrayList<>();
+        result.add(keyDesincriptada);
         return result;
     }
 

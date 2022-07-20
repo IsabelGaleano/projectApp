@@ -44,6 +44,9 @@ import { RegistroAdminComponent } from './admin/registro-admin/registro-admin.co
 import { RegistroPlanInversionComponent } from './startup/registro-plan-inversion/registro-plan-inversion.component';
 import { ListaPlanesInversionComponent } from './startup/lista-planes-inversion/lista-planes-inversion.component';
 import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startup/listar-paquetes-startup.component';
+import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/listar-startups-admin.component';
+import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   imports: [
@@ -54,7 +57,7 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
     FontAwesomeModule,
-
+    NgxPayPalModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     TranslationModule,
     FormsModule,
@@ -91,6 +94,8 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
     RegistroPlanInversionComponent,
     ListaPlanesInversionComponent,
     ListarPaquetesStartupComponent,
+    ListarStartupsAdminComponent,
+    ListarInscripcionesAdminComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

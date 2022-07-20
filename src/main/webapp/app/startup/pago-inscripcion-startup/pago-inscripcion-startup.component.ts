@@ -2,9 +2,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { PagoInscripcionStartupService } from './pago-inscripcion-startup.service';
-
-declare const paypal: any;
 
 @Component({
   selector: 'jhi-pago-inscripcion-startup',
@@ -14,32 +13,62 @@ export class PagoInscripcionStartupComponent implements OnInit {
   @ViewChild('paypal', { static: true })
   paypalElement!: ElementRef;
   success = false;
+  public payPalConfig?: IPayPalConfig;
+  clienteID: String | any;
+
 
   constructor(
     private translateService: TranslateService,
     private pagoInscripcionService: PagoInscripcionStartupService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {
+  
+   ngOnInit(): void {
     var producto = JSON.parse(sessionStorage.productInscripcion);
     const router = this.router;
-    paypal
-      .Buttons({
-        createOrder: (data: any, actions: any) => {
-          return actions.order.create({
+
+    this.pagoInscripcionService.getKeyPaypal().subscribe((result: any) => {
+      this.clienteID = result[0];
+
+      this.payPalConfig = {
+        currency: 'USD',
+        clientId: this.clienteID,
+        createOrderOnClient: data =>
+          <ICreateOrderRequest>{
+            intent: 'CAPTURE',
             purchase_units: [
               {
-                description: producto.descripcion,
                 amount: {
                   currency_code: 'USD',
-                  value: producto.precio,
+                  value: String(producto.precio),
+                  breakdown: {
+                    item_total: {
+                      currency_code: 'USD',
+                      value: String(producto.precio),
+                    },
+                  },
                 },
+                items: [
+                  {
+                    name: producto.descripcion,
+                    quantity: '1',
+                    unit_amount: {
+                      currency_code: 'USD',
+                      value: String(producto.precio),
+                    },
+                  },
+                ],
               },
             ],
-          });
+          },
+        advanced: {
+          commit: 'true',
         },
-        onApprove: async (data: any, actions: any) => {
+        style: {
+          label: 'paypal',
+          layout: 'vertical',
+        },
+        onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           console.warn(order);
           this.pagoInscripcionService.registrarInscripcionMonedero(producto.tipo).subscribe((result: any) => {
@@ -49,10 +78,11 @@ export class PagoInscripcionStartupComponent implements OnInit {
             }, 3000);
           });
         },
-        onError: (err: any) => {
-          console.warn(err);
+        onClientAuthorization: data => {
+          console.warn('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         },
-      })
-      .render(this.paypalElement.nativeElement);
+      };
+    });
   }
+  
 }
