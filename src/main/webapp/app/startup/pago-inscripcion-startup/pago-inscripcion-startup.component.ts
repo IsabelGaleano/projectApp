@@ -14,6 +14,7 @@ export class PagoInscripcionStartupComponent implements OnInit {
   paypalElement!: ElementRef;
   success = false;
   public payPalConfig?: IPayPalConfig;
+  clienteID: String | any = process.env.KEY_PAYPAL;
 
   constructor(
     private translateService: TranslateService,
@@ -27,7 +28,7 @@ export class PagoInscripcionStartupComponent implements OnInit {
 
     this.payPalConfig = {
       currency: 'USD',
-      clientId: 'AemzsTfj5IQmrSAKdpNF82-0-L7Mz_cVeIV7UW9loNCo7mJg0mmjFnY8sRJxygCCC62fHnBzfrRM5ik6',
+      clientId: this.clienteID,
       createOrderOnClient: data =>
         <ICreateOrderRequest>{
           intent: 'CAPTURE',
