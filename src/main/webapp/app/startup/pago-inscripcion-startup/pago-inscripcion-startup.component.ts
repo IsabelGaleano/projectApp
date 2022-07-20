@@ -16,13 +16,14 @@ export class PagoInscripcionStartupComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
   clienteID: String | any;
 
+
   constructor(
     private translateService: TranslateService,
     private pagoInscripcionService: PagoInscripcionStartupService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {
+  
+   ngOnInit(): void {
     var producto = JSON.parse(sessionStorage.productInscripcion);
     const router = this.router;
 
@@ -83,4 +84,5 @@ export class PagoInscripcionStartupComponent implements OnInit {
       };
     });
   }
+  
 }
