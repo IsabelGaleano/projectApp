@@ -42,6 +42,8 @@ import { PagoInscripcionStartupComponent } from './startup/pago-inscripcion-star
 import { PerfilAdminComponent } from './admin/perfil/perfil-admin.component';
 import { RegistroAdminComponent } from './admin/registro-admin/registro-admin.component';
 import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startup/listar-paquetes-startup.component';
+import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/listar-startups-admin.component';
+import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
 
 @NgModule({
   imports: [
@@ -87,6 +89,8 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
     PerfilAdminComponent,
     RegistroAdminComponent,
     ListarPaquetesStartupComponent,
+    ListarStartupsAdminComponent,
+    ListarInscripcionesAdminComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
