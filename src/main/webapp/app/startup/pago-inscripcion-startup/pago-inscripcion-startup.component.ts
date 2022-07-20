@@ -14,69 +14,75 @@ export class PagoInscripcionStartupComponent implements OnInit {
   paypalElement!: ElementRef;
   success = false;
   public payPalConfig?: IPayPalConfig;
-  clienteID: String | any = process.env.KEY_PAYPAL;
+  clienteID: String | any;
+
 
   constructor(
     private translateService: TranslateService,
     private pagoInscripcionService: PagoInscripcionStartupService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {
+  
+   ngOnInit(): void {
     var producto = JSON.parse(sessionStorage.productInscripcion);
     const router = this.router;
 
-    this.payPalConfig = {
-      currency: 'USD',
-      clientId: this.clienteID,
-      createOrderOnClient: data =>
-        <ICreateOrderRequest>{
-          intent: 'CAPTURE',
-          purchase_units: [
-            {
-              amount: {
-                currency_code: 'USD',
-                value: String(producto.precio),
-                breakdown: {
-                  item_total: {
-                    currency_code: 'USD',
-                    value: String(producto.precio),
+    this.pagoInscripcionService.getKeyPaypal().subscribe((result: any) => {
+      this.clienteID = result[0];
+
+      this.payPalConfig = {
+        currency: 'USD',
+        clientId: this.clienteID,
+        createOrderOnClient: data =>
+          <ICreateOrderRequest>{
+            intent: 'CAPTURE',
+            purchase_units: [
+              {
+                amount: {
+                  currency_code: 'USD',
+                  value: String(producto.precio),
+                  breakdown: {
+                    item_total: {
+                      currency_code: 'USD',
+                      value: String(producto.precio),
+                    },
                   },
                 },
+                items: [
+                  {
+                    name: producto.descripcion,
+                    quantity: '1',
+                    unit_amount: {
+                      currency_code: 'USD',
+                      value: String(producto.precio),
+                    },
+                  },
+                ],
               },
-              items: [
-                {
-                  name: producto.descripcion,
-                  quantity: '1',
-                  unit_amount: {
-                    currency_code: 'USD',
-                    value: String(producto.precio),
-                  },
-                },
-              ],
-            },
-          ],
+            ],
+          },
+        advanced: {
+          commit: 'true',
         },
-      advanced: {
-        commit: 'true',
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical',
-      },
-      onApprove: async (data, actions) => {
-        const order = await actions.order.capture();
-        console.warn(order);
-        this.pagoInscripcionService.registrarInscripcionMonedero(producto.tipo).subscribe((result: any) => {
-          this.success = true;
-          window.setTimeout(function () {
-            router.navigate(['startup/perfil-startup']);
-          }, 3000);
-        });
-      },
-      onClientAuthorization: data => {
-        console.warn('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      },
-    };
+        style: {
+          label: 'paypal',
+          layout: 'vertical',
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          console.warn(order);
+          this.pagoInscripcionService.registrarInscripcionMonedero(producto.tipo).subscribe((result: any) => {
+            this.success = true;
+            window.setTimeout(function () {
+              router.navigate(['startup/perfil-startup']);
+            }, 3000);
+          });
+        },
+        onClientAuthorization: data => {
+          console.warn('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        },
+      };
+    });
   }
+  
 }
