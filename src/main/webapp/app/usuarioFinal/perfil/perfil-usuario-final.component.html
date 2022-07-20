@@ -226,11 +226,31 @@
                                 <div class="col-md-3">
                                   <label class="form-label">Género</label>
                                 </div>
+                                <div class="col-md-3">
+                                  <select
+                                    formControlName="genero"
+                                    class="form-control"
+                                    id="generoForm"
+                                    class="form-control form-select"
+                                    data-bs-placeholder="Género"
+                                  >
+                                    <option value="F">Femenino</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="O">Otro</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <label class="form-label">Género</label>
+                                </div>
                                 <div class="col-md-9">
                                   <input type="text" class="form-control" id="generoForm" />
                                 </div>
                               </div>
-                            </div>
+                            </div> -->
                           </form>
                           <p></p>
                           <button (click)="actualizarUsuario()" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
