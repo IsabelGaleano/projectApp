@@ -13,5 +13,10 @@ public final class ErrorConstants {
     public static final URI EMAIL_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/email-already-used");
     public static final URI LOGIN_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/login-already-used");
 
+    public static final URI ERR_SENDING_EMAIL = URI.create(PROBLEM_BASE_URL + "/send");
+    public static final URI ERR_FINDING_USER = URI.create(PROBLEM_BASE_URL + "/send");
+
+    public static final URI ERR_FINDING_CODIGO = URI.create(PROBLEM_BASE_URL + "/validate");
+
     private ErrorConstants() {}
 }
