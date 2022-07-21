@@ -1,5 +1,5 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/es';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -63,6 +63,7 @@ import { RegistrarPaquetesStartupComponent } from './startup/registrar-paquetes-
     TranslationModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   providers: [
     Title,

@@ -120,7 +120,7 @@
                                 <label class="form-label">Nombre corto</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="David" />
+                                <input type="text" class="form-control" id="nombreCorto" />
                               </div>
                             </div>
                           </div>
@@ -131,22 +131,12 @@
                                 <label class="form-label">Nombre completo</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="First Name" value="David R C" />
+                                <input type="text" class="form-control" id="nombreLargo" />
                               </div>
                             </div>
                           </div>
                           <hr class="mg-y-30" />
                           <div class="mb-4 main-content-label">Información de contacto</div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <label class="form-label">Cédula</label>
-                              </div>
-                              <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="118920211" />
-                              </div>
-                            </div>
-                          </div>
                           <p></p>
                           <div class="form-group">
                             <div class="row">
@@ -154,7 +144,7 @@
                                 <label class="form-label">Correo electrónico</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Email" value="drodriguezc1@ucenfotec.ac." />
+                                <input type="text" class="form-control" id="correoElectronico" />
                               </div>
                             </div>
                           </div>
@@ -165,7 +155,7 @@
                                 <label class="form-label">Teléfono</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="phone number" value="+245 354 654" />
+                                <input type="text" class="form-control" id="telefono" />
                               </div>
                             </div>
                           </div>
@@ -176,7 +166,7 @@
                                 <label class="form-label">Ubicación</label>
                               </div>
                               <div class="col-md-9">
-                                <div><img alt="Responsive image" class="img-fluid" src="../assets/img/photos/1.jpg" /></div>
+                                <div id="map" style="width: 50vw; height: 50vh"></div>
                               </div>
                             </div>
                           </div>
@@ -187,7 +177,7 @@
                                 <label class="form-label">Latitud</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" name="example-textarea-input" rows="2" placeholder="12321313" />
+                                <input class="form-control" name="example-textarea-input" rows="2" id="latitud" />
                               </div>
                             </div>
                           </div>
@@ -198,7 +188,7 @@
                                 <label class="form-label">Longitud</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" name="example-textarea-input" rows="2" placeholder="-12321313" />
+                                <input class="form-control" name="example-textarea-input" rows="2" id="longitud" />
                               </div>
                             </div>
                           </div>
@@ -210,7 +200,7 @@
                                 <label class="form-label">Fecha de creación</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" id="dateMask" placeholder="MM/DD/YYYY" type="date" />
+                                <input class="form-control" id="fechaCreacion" placeholder="MM/DD/YYYY" type="date" />
                               </div>
                             </div>
                           </div>
@@ -221,7 +211,17 @@
                                 <label class="form-label">Categoría</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="Tecnología" />
+                                <select
+                                  class="form-control"
+                                  id="categoria"
+                                  data-cy="categoria"
+                                  name="categoria"
+                                  formControlName="categoria"
+                                >
+                                  <option [value]="categoriaOption.id" *ngFor="let categoriaOption of categorias">
+                                    {{ categoriaOption.categoria }}
+                                  </option>
+                                </select>
                               </div>
                             </div>
                           </div>
@@ -229,10 +229,10 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-3">
-                                <label class="form-label">Link al sitio web</label>
+                                <label class="form-label">Enlace al sitio web</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="www." />
+                                <input type="text" class="form-control" id="enlace" />
                               </div>
                             </div>
                           </div>
@@ -243,7 +243,16 @@
                                 <label class="form-label">Descripción</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="Descripción" />
+                                <textarea
+                                  class="form-control"
+                                  id="descripcionCorta"
+                                  name="descripcionCorta"
+                                  formControlName="descripcionCorta"
+                                  data-cy="descripcionCorta"
+                                  rows="4"
+                                  cols="50"
+                                >
+                                </textarea>
                               </div>
                             </div>
                           </div>

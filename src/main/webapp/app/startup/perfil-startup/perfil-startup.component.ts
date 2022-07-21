@@ -1,8 +1,8 @@
+/* eslint-disable */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
-
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -10,6 +10,9 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
+import { PerfilStartupService } from './perfil-startup.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Loader } from '@googlemaps/js-api-loader';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -26,6 +29,12 @@ export class PerfilStartupComponent implements OnInit {
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
   user = false;
+  startup: any;
+  categorias: any[] = [];
+  simpleValue: String = 'value';
+  map: google.maps.Map | undefined;
+  latitudMarker = 0;
+  longitudMarker = 0;
 
   constructor(
     private loginService: LoginService,
@@ -33,6 +42,7 @@ export class PerfilStartupComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
+    private perfilService: PerfilStartupService,
     private router: Router
   ) {
     if (VERSION) {
@@ -55,5 +65,113 @@ export class PerfilStartupComponent implements OnInit {
       }
       this.account = account;
     });
+
+    //Get Categorias
+    this.perfilService.getCategorias().subscribe((data: any) => {
+      if (data != null) {
+        console.warn(data);
+        data.forEach((categoria: any) => {
+          this.categorias.push(categoria);
+        });
+      }
+    });
+
+    this.perfilService.getStartupByCorreo(this.account?.email).subscribe(startup => {
+      if (startup) {
+        this.startup = startup;
+        console.warn(startup);
+        //Set form variables informacion personal
+
+        const nombreCortoF = document.getElementById('nombreCorto') as HTMLInputElement;
+        const nombreCompletoF = document.getElementById('nombreLargo') as HTMLInputElement;
+        const correoElectronicoF = document.getElementById('correoElectronico') as HTMLInputElement;
+        const telefonoF = document.getElementById('telefono') as HTMLInputElement;
+        const fechaCreacionF = document.getElementById('fechaCreacion') as HTMLInputElement;
+        const categoriaF = document.getElementById('categoria') as HTMLInputElement;
+        const enlaceF = document.getElementById('enlace') as HTMLInputElement;
+        const descripcionCortaF = document.getElementById('descripcionCorta') as HTMLInputElement;
+
+        nombreCortoF.value = startup.nombreCorto;
+        nombreCompletoF.value = startup.nombreLargo;
+        correoElectronicoF.value = startup.correoElectronico;
+        telefonoF.value = startup.telefono;
+        fechaCreacionF.value = startup.fechaCreacion;
+        enlaceF.value = startup.linkSitioWeb;
+        descripcionCortaF.value = startup.descripcionCorta;
+
+        //Set mapa
+
+        const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+        const loader = new Loader({
+          apiKey: key,
+        });
+
+        loader.load().then(() => {
+          const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitud');
+          latitudDireccionForm.value = startup.latitudDireccion;
+
+          const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitud');
+          longitudDireccionForm.value = startup.longitudDireccion;
+
+          const latitudValue: number = +startup.latitudDireccion;
+          const longitudValue: number = +startup.longitudDireccion;
+          let location = {
+            lat: 0,
+            lng: 0,
+          };
+          if (latitudValue !== 0 && longitudValue !== 0) {
+            location = {
+              lat: latitudValue,
+              lng: longitudValue,
+            };
+          } else {
+            location = {
+              lat: 9.93333,
+              lng: -84.08333,
+            };
+          }
+          this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
+            center: location,
+            zoom: 15,
+          });
+
+          const marker: google.maps.Marker | undefined = new google.maps.Marker({
+            position: location,
+            map: this.map,
+            draggable: true,
+          });
+          google.maps.event.addListener(
+            marker,
+            'dragend',
+            function (evt: { latLng: { lat: () => { (): any; new (): any; toString: { (): string; new (): any } }; lng: () => string } }) {
+              latitudDireccionForm.value = evt.latLng.lat().toString();
+
+              longitudDireccionForm.value = evt.latLng.lng();
+            }
+          );
+        });
+      }
+    });
+  }
+
+  desencriptar(s: string): string {
+    const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+    let strDescodificado = '';
+    let caracter;
+    for (let i = 0; i < s.length; i++) {
+      caracter = s.charAt(i);
+      const pos = abecedario.indexOf(caracter);
+      if (pos === -1) {
+        strDescodificado += caracter;
+      } else {
+        if (pos - 3 < 0) {
+          strDescodificado += abecedario.charAt(abecedario.length + (pos - 3));
+        } else {
+          strDescodificado += abecedario.charAt((pos - 3) % abecedario.length);
+        }
+      }
+    }
+
+    return strDescodificado;
   }
 }
