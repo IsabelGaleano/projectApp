@@ -38,22 +38,13 @@
           <div class="card-body pt-0">
             <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
               <div class="form-group">
-                <label class="form-label" for="login">Cédula</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="login"
-                  name="login"
-                  placeholder="Cédula"
-                  formControlName="login"
-                  data-cy="username"
-                  #login
-                />
+                <label class="form-label" for="login">Nombre</label>
+                <input type="text" class="form-control" id="login" name="login" formControlName="login" data-cy="username" #login />
                 <div *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)">
-                  <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required"> Cédula requerida. </small>
+                  <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required"> Nombre requerido. </small>
 
                   <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.minlength">
-                    Cédula debe ser mayor a 1 dígito.
+                    El nombre debe tener al menos 1 carácter.
                   </small>
 
                   <small
@@ -61,83 +52,97 @@
                     *ngIf="registerForm.get('login')?.errors?.maxlength"
                     jhiTranslate="register.messages.validate.login.maxlength"
                   >
-                    Your username cannot be longer than 50 characters.
-                  </small>
-
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="registerForm.get('login')?.errors?.pattern"
-                    jhiTranslate="register.messages.validate.login.pattern"
-                  >
-                    Your username can only contain letters and digits.
+                    El nombre no puede tener más de 20 caracteres.
                   </small>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="email" jhiTranslate="global.form.email.label">Correo electrónico</label>
-                <input
-                  type="email"
+                <label class="form-label" for="monto">Monto</label>
+                <input type="number" class="form-control" id="monto" name="monto" formControlName="monto" data-cy="monto" />
+                <div *ngIf="registerForm.get('monto')!.invalid && (registerForm.get('monto')!.dirty || registerForm.get('monto')!.touched)">
+                  <small class="form-text text-danger" *ngIf="registerForm.get('monto')?.errors?.required"> El monto es requerido. </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="descripcion">Descripción</label>
+                <textarea
                   class="form-control"
-                  id="email"
-                  name="email"
-                  placeholder="{{ 'global.form.email.placeholder' | translate }}"
-                  formControlName="email"
-                  data-cy="email"
-                />
-                <div *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)">
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="registerForm.get('email')?.errors?.required"
-                    jhiTranslate="global.messages.validate.email.required"
-                  >
-                    Your email is required.
+                  id="descripcion"
+                  name="descripcion"
+                  formControlName="descripcion"
+                  data-cy="descripcion"
+                  rows="4"
+                  cols="50"
+                >
+                </textarea>
+                <div
+                  *ngIf="
+                    registerForm.get('descripcion')!.invalid &&
+                    (registerForm.get('descripcion')!.dirty || registerForm.get('descripcion')!.touched)
+                  "
+                >
+                  <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.required">
+                    La descripción es requerida.
                   </small>
-
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="registerForm.get('email')?.errors?.invalid"
-                    jhiTranslate="global.messages.validate.email.invalid"
-                  >
-                    Your email is invalid.
+                  <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.minlength">
+                    La descripción debe tener al menos 10 caracteres.
                   </small>
-
                   <small
                     class="form-text text-danger"
-                    *ngIf="registerForm.get('email')?.errors?.minlength"
-                    jhiTranslate="global.messages.validate.email.minlength"
+                    *ngIf="registerForm.get('login')?.errors?.maxlength"
+                    jhiTranslate="register.messages.validate.login.maxlength"
                   >
-                    Your email is required to be at least 5 characters.
-                  </small>
-
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="registerForm.get('email')?.errors?.maxlength"
-                    jhiTranslate="global.messages.validate.email.maxlength"
-                  >
-                    Your email cannot be longer than 100 characters.
+                    La descripción puede tener más de 300 caracteres.
                   </small>
                 </div>
               </div>
-
               <div class="form-group">
-                <button
-                  type="submit"
-                  [disabled]="registerForm.invalid"
-                  class="btn btn-main-primary btn-block"
-                  jhiTranslate="register.form.button"
-                  data-cy="submit"
+                <label class="form-label" for="dimensiones">Dimensiones</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dimensiones"
+                  name="dimensiones"
+                  formControlName="dimensiones"
+                  data-cy="dimensiones"
+                />
+                <div
+                  *ngIf="
+                    registerForm.get('dimensiones')!.invalid &&
+                    (registerForm.get('dimensiones')!.dirty || registerForm.get('dimensiones')!.touched)
+                  "
                 >
-                  Register
-                </button>
+                  <small class="form-text text-danger" *ngIf="registerForm.get('dimensiones')?.errors?.required">
+                    Las dimensiones son requeridas.
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="estado">Estado</label>
+                <select
+                  id="estado"
+                  name="estado"
+                  formControlName="estado"
+                  data-cy="estado"
+                  class="form-control form-select"
+                  data-bs-placeholder="Seleccione el estado"
+                >
+                  <option value="Activo" selected="">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+                <div
+                  *ngIf="registerForm.get('estado')!.invalid && (registerForm.get('estado')!.dirty || registerForm.get('estado')!.touched)"
+                >
+                  <small class="form-text text-danger" *ngIf="registerForm.get('estado')?.errors?.required">
+                    El estado es requerido.
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-main-primary btn-block" data-cy="submit">Registrar paquete</button>
               </div>
             </form>
-            <div class="form-group mb-0 mt-3 justify-content-end">
-              <div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
-                <button type="submit" class="btn btn-secondary ms-4">Cancel</button>
-              </div>
-            </div>
           </div>
         </div>
       </div>

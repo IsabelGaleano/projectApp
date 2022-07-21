@@ -21,16 +21,11 @@ export class RegistrarPaquetesStartupComponent implements AfterViewInit {
   success = false;
 
   registerForm = this.fb.group({
-    login: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    ],
-    email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(191), Validators.email]],
+    login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
+    monto: ['', [Validators.required]],
+    descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(300)]],
+    dimensiones: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(300)]],
+    estado: ['', [Validators.required]],
   });
 
   constructor(
