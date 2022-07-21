@@ -29,4 +29,7 @@ export class ListaPlanesInversionService {
   getStartupsByMail(correo: string): Observable<any> {
     return this.http.get(this.rootURL.concat('/startups/findbyCorreo/', correo.toString()));
   }
+  deletePlan(id: any): Observable<any> {
+    return this.http.delete(this.rootURL.concat('/planes-inversions/', id.toString()));
+  }
 }

@@ -20,6 +20,7 @@ export class ListaPlanesInversionComponent implements OnInit {
   usuario: any;
   emailUsuario = ' ';
   success = false;
+  show = true;
   registerForm = this.fb.group({
     nombre: ['', [Validators.minLength(3), Validators.maxLength(100)]],
     monto: ['', []],
@@ -48,7 +49,12 @@ export class ListaPlanesInversionComponent implements OnInit {
       }
     });
   }
-  llenarFormularios(plan: any): void {
+  obtenerIdPlan(plan: any): void {
+    this.listaPlanesInversionService.getPlanById(plan.id).subscribe(data => {
+      this.id = plan.id;
+    });
+  }
+  llenarFormulario(plan: any): void {
     this.listaPlanesInversionService.getPlanById(plan.id).subscribe(data => {
       this.id = plan.id;
 
@@ -86,6 +92,15 @@ export class ListaPlanesInversionComponent implements OnInit {
 
     this.listaPlanesInversionService.updatePlan(this.emailUsuario, this.id, porcentajeEmpresarialForm.value, plan).subscribe(data => {
       this.success = true;
+      window.setTimeout(function () {
+        location.reload();
+        // router.navigate(['startup/lista-planes-inversion']);
+      }, 3000);
+    });
+  }
+  borrarPlanInversion(): void {
+    this.listaPlanesInversionService.deletePlan(this.id).subscribe(data => {
+      console.warn('Plan borrado');
       window.setTimeout(function () {
         location.reload();
         // router.navigate(['startup/lista-planes-inversion']);

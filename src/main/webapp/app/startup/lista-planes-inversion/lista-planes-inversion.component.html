@@ -58,7 +58,7 @@
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                         <a id="btn_{{ plan.id }}" data-bs-target="#modaldemo1" data-bs-toggle="modal">
                           <button
-                            (click)="llenarFormularios(plan)"
+                            (click)="llenarFormulario(plan)"
                             style="margin: 0 0 0 0 !important"
                             type="button"
                             class="btn btn-outline-success mx-2 button-icon mb-1"
@@ -80,7 +80,12 @@
                           </button>
                         </a> -->
                         <a href="" data-bs-target="#modaldemo2" data-bs-toggle="modal">
-                          <button style="margin: 0 0 0 0 !important" type="button" class="btn btn-outline-danger mx-2 button-icon mb-1">
+                          <button
+                            (click)="obtenerIdPlan(plan)"
+                            style="margin: 0 0 0 0 !important"
+                            type="button"
+                            class="btn btn-outline-danger mx-2 button-icon mb-1"
+                          >
                             <i class="fa fa-pen me-2"></i>
                             Borrar
                           </button>
@@ -221,6 +226,7 @@
           <div class="form-group">
             <button
               type="submit"
+              id="botonActualizar"
               data-bs-dismiss="modal"
               [disabled]="registerForm.invalid"
               class="btn btn-main-primary btn-block"
@@ -248,7 +254,7 @@
         <p>Desea borrar el plan de inversión?</p>
       </div>
       <div class="modal-footer">
-        <button class="btn ripple btn-success" type="button">Sí</button>
+        <button class="btn ripple btn-success" data-bs-dismiss="modal" type="button" (click)="borrarPlanInversion()">Sí</button>
         <button class="btn ripple btn-danger" data-bs-dismiss="modal" type="button">No</button>
       </div>
     </div>
