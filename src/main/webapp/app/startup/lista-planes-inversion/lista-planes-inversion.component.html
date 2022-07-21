@@ -21,7 +21,7 @@
                     id="agregar-admins-button"
                     style="margin: 0 0 0 0 !important"
                     type="button"
-                    class="btn btn-outline-primary mx-2 button-icon mb-1"
+                    class="btn btn-outline-success mx-2 button-icon mb-1"
                   >
                     <i class="fa fa-plus me-2"></i>
                     Registrar planes de inversión
@@ -31,9 +31,6 @@
             </div>
           </div>
           <div class="card-body">
-            <!-- <th class="table-header-centered">Activar</th>
-                        <th class="table-header-centered">Desactivar</th>
-                        <th class="table-header-centered">Perfil</th> -->
             <div class="table-responsive">
               <table class="table table-hover mb-0 text-md-nowrap">
                 <thead>
@@ -44,6 +41,8 @@
                     <th>Beneficios</th>
                     <th>Porcentaje Empresarial</th>
                     <th>Estado</th>
+                    <th>Actualizar</th>
+                    <th>Borrar</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let plan of planes; index as i">
@@ -54,6 +53,17 @@
                     <td>{{ plan.beneficios }}</td>
                     <td>{{ plan.porcentajeEmpresarial }}</td>
                     <td>{{ plan.estado }}</td>
+                    <td>
+                      <div class="d-flex justify-content-between">
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        <a href="/startup/actualizar-plan-inversion/{{ plan.id }}">
+                          <button style="margin: 0 0 0 0 !important" type="button" class="btn btn-outline-primary mx-2 button-icon mb-1">
+                            <i class="fa fa-pen me-2"></i>
+                            Editar
+                          </button>
+                        </a>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
