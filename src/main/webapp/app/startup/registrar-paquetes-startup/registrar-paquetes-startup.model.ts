@@ -1,5 +1,3 @@
-import { IStartups } from 'app/entities/startups/startups.model';
-
 export class Paquetes {
   constructor(
     public id?: number,
@@ -8,6 +6,6 @@ export class Paquetes {
     public descripcion?: string | null,
     public dimensiones?: string | null,
     public estado?: string | null,
-    public idStartup?: IStartups | null
+    public idStartup?: any | null
   ) {}
 }
