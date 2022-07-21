@@ -1,0 +1,68 @@
+<!-- Page -->
+<div class="main-content app-content mt-5">
+  <div class="main-container container-fluid px-0 mt-5">
+    <div class="page">
+      <div>
+        <!-- container -->
+        <div class="main-container container-fluid">
+
+          <!-- breadcrumb -->
+          <div class="breadcrumb-header">
+            <div class="col-lg-12 col-md-12">
+              <div class="card">
+                <form #updateAditionalInfoform="ngForm" novalidate class="card-body w-100">
+                  <div>
+                    <hr class="mg-y-30">
+                    <h3 class="text-center">Información adicional de la startup</h3>
+                    <section>
+                      <div class="control-group form-group">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group mb-sm-0">
+                              <label class="form-label">Riesgos:</label>
+                              <textarea required [(ngModel)]="startup.riesgos" #updateRiesgos="ngModel" name="updateRiesgos" placeholder="Riesgos" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 ">
+                            <div class="form-group mb-0">
+                              <label class="form-label">Beneficios:</label>
+                              <textarea required [(ngModel)]="startup.beneficios" #updateBeneficios="ngModel" name="updateBeneficios" placeholder="Beneficios" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group mb-sm-0">
+                              <label class="form-label">Panorama del mercado:</label>
+                              <textarea required [(ngModel)]="startup.panoramaMercado" #updatePanorama="ngModel" name="updatePanorama" placeholder="Panorama del mercado" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 px-0">
+                        <button [disabled]="updateAditionalInfoform.invalid" type="button" (click)="updateAditionalInfo()"
+                                class="btn btn-primary waves-effect waves-light">
+                          <p *ngIf="!loading" class="mb-0">Registrar</p>
+                          <div *ngIf="loading" class="spinner-btn spinner-border text-light" role="status"></div>
+                        </button>
+                        <p *ngIf="error" class="text-danger pt-3 text-center">{{errorMessage}}</p>
+                        <p *ngIf="info" class="text-success pt-3 text-center">{{infoMessage}}</p>
+                      </div>
+                    </section>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- breadcrumb -->
+        </div>
+        <!-- Container closed -->
+      </div>
+      <!-- main-content closed -->
+
+    </div>
+  </div>
+</div>
+<!-- End Page -->

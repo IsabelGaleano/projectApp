@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
     public Optional<Usuarios> getUsuariosByCorreoElectronico(String correo);
 
+    Usuarios findOneBycorreoElectronicoIgnoreCase(String correoElectronico);
+
     @Query("SELECT C FROM Usuarios C WHERE C.correoElectronico LIKE %?1%")
     Optional<Usuarios> findByCorreoElectronico(String correoElectronico);
 
@@ -34,4 +36,6 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
     @Modifying
     @Query("UPDATE Usuarios C SET C.estado = ?2 WHERE C.correoElectronico LIKE ?1")
     void updateUserActivated(String email, String activated);
+
+
 }
