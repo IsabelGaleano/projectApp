@@ -22,4 +22,12 @@ export class PerfilStartupService {
   getCategorias(): Observable<any> {
     return this.http.get(this.rootURL.concat('/categorias'));
   }
+
+  getInscripcionStartup(correo: string | any): Observable<any> {
+    if (correo != null) {
+      return this.http.get(this.rootURL.concat('/inscripciones/inscripcionByStartup/', correo.toString()));
+    } else {
+      return this.http.get(this.rootURL.concat('/inscripciones'));
+    }
+  }
 }

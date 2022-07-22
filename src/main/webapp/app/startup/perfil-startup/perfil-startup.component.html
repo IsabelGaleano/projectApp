@@ -112,7 +112,7 @@
                   <div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab1">
-                        <form class="form-horizontal">
+                        <form>
                           <div class="mb-4 main-content-label">Nombre</div>
                           <div class="form-group">
                             <div class="row">
@@ -211,16 +211,9 @@
                                 <label class="form-label">Categoría</label>
                               </div>
                               <div class="col-md-9">
-                                <select
-                                  class="form-control"
-                                  id="categoria"
-                                  data-cy="categoria"
-                                  name="categoria"
-                                  formControlName="categoria"
-                                >
-                                  <option [value]="categoriaOption.id" *ngFor="let categoriaOption of categorias">
-                                    {{ categoriaOption.categoria }}
-                                  </option>
+                                <select class="form-control" id="categoriaStartup">
+                                  <option value="default">Seleccione una categoría</option>
+                                  <option *ngFor="let c of categorias" value="{{ c.categoria }}">{{ c.categoria }}</option>
                                 </select>
                               </div>
                             </div>
@@ -258,7 +251,9 @@
                           </div>
                         </form>
                         <p></p>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" (click)="actualizarStartup()">
+                          Actualizar
+                        </button>
                       </div>
                       <div class="tab-pane" id="tab2">
                         <form class="form-horizontal">
@@ -266,7 +261,7 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-9">
-                                <textarea class="form-control" placeholder="Riesgos del startup" rows="10"></textarea>
+                                <textarea class="form-control" rows="10" id="riesgos"></textarea>
                               </div>
                             </div>
                           </div>
@@ -275,7 +270,7 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-9">
-                                <textarea class="form-control" placeholder="Beneficios del startup" rows="10"></textarea>
+                                <textarea class="form-control" id="beneficios" rows="10"></textarea>
                               </div>
                             </div>
                           </div>
@@ -284,7 +279,7 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-9">
-                                <textarea class="form-control" placeholder="Panorama" rows="10"></textarea>
+                                <textarea class="form-control" id="panoramaMercado" rows="10"></textarea>
                               </div>
                             </div>
                           </div>
@@ -298,37 +293,42 @@
                           <div class="m-t-30">
                             <div class="p-t-10">
                               <p><b>Nombre</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="nombreInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Descripción</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="descripcionInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Monto</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="montoInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Tipo</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="tipoInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Fecha inicial</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="fechaInicialInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
-                              <p><b>Fecha final</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p><b>Fecha de vencimiento</b></p>
+                              <p class="text-muted tx-12 m-b-0" id="fechaFinalInscripcion"></p>
+                            </div>
+                            <hr />
+                            <div class="p-t-10">
+                              <p><b>Beneficios</b></p>
+                              <p class="text-muted tx-12 m-b-0" id="beneficiosInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Estado</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="estadoInscripcion"></p>
                             </div>
                           </div>
                         </div>
@@ -337,17 +337,17 @@
                         <h4 class="tx-18 mb-3">Monedero</h4>
                         <div class="p-t-10">
                           <p><b>Saldo actual</b></p>
-                          <p class="text-muted tx-12 m-b-0">Test</p>
+                          <p class="text-muted tx-12 m-b-0" id="saldoMonedero"></p>
                         </div>
                         <hr />
                         <div class="p-t-10">
                           <p><b>Tipo</b></p>
-                          <p class="text-muted tx-12 m-b-0">Test</p>
+                          <p class="text-muted tx-12 m-b-0" id="tipoMonedero"></p>
                         </div>
                         <hr />
                         <div class="p-t-10">
                           <p><b>Estado</b></p>
-                          <p class="text-muted tx-12 m-b-0">Test</p>
+                          <p class="text-muted tx-12 m-b-0" id="estadoMonedero"></p>
                         </div>
                         <hr />
                       </div>

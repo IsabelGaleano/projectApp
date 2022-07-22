@@ -13,6 +13,7 @@ import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { PerfilStartupService } from './perfil-startup.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Loader } from '@googlemaps/js-api-loader';
+import { ICategorias } from 'app/entities/categorias/categorias.model';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -30,11 +31,13 @@ export class PerfilStartupComponent implements OnInit {
   entitiesNavbarItems: any[] = [];
   user = false;
   startup: any;
-  categorias: any[] = [];
+  inscripcion: any;
   simpleValue: String = 'value';
   map: google.maps.Map | undefined;
   latitudMarker = 0;
   longitudMarker = 0;
+  categorias: any = [];
+  categoriaSeleccionada: ICategorias = {};
 
   constructor(
     private loginService: LoginService,
@@ -48,6 +51,12 @@ export class PerfilStartupComponent implements OnInit {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
     }
+    this.categorias = [];
+    this.perfilService.getCategorias().subscribe(data => {
+      this.categorias = data;
+      /* eslint-disable no-console */
+      console.log(data);
+    });
   }
 
   ngOnInit(): void {
@@ -67,12 +76,29 @@ export class PerfilStartupComponent implements OnInit {
     });
 
     //Get Categorias
-    this.perfilService.getCategorias().subscribe((data: any) => {
-      if (data != null) {
-        console.warn(data);
-        data.forEach((categoria: any) => {
-          this.categorias.push(categoria);
-        });
+
+    //Get Inscripcion
+
+    this.perfilService.getInscripcionStartup(this.account?.email).subscribe((result: any) => {
+      if (result != null) {
+        console.warn(result);
+        const nombreInscripcion = document.getElementById('nombreInscripcion') as HTMLInputElement;
+        const descripcionInscripcion = document.getElementById('descripcionInscripcion') as HTMLInputElement;
+        const montoInscripcion = document.getElementById('montoInscripcion') as HTMLInputElement;
+        const tipoInscripcion = document.getElementById('tipoInscripcion') as HTMLInputElement;
+        const fechaInicialInscripcion = document.getElementById('fechaInicialInscripcion') as HTMLInputElement;
+        const fechaFinalInscripcion = document.getElementById('fechaFinalInscripcion') as HTMLInputElement;
+        const beneficiosInscripcion = document.getElementById('beneficiosInscripcion') as HTMLInputElement;
+        const estadoInscripcion = document.getElementById('estadoInscripcion') as HTMLInputElement;
+
+        nombreInscripcion.insertAdjacentText('beforeend', result.nombre);
+        descripcionInscripcion.insertAdjacentText('beforeend', result.descripcion);
+        montoInscripcion.insertAdjacentText('beforeend', result.monto);
+        tipoInscripcion.insertAdjacentText('beforeend', result.tipo);
+        fechaInicialInscripcion.insertAdjacentText('beforeend', result.fechaInicial);
+        fechaFinalInscripcion.insertAdjacentText('beforeend', result.fechaFinal);
+        beneficiosInscripcion.insertAdjacentText('beforeend', result.beneficios);
+        estadoInscripcion.insertAdjacentText('beforeend', result.estado);
       }
     });
 
@@ -87,9 +113,17 @@ export class PerfilStartupComponent implements OnInit {
         const correoElectronicoF = document.getElementById('correoElectronico') as HTMLInputElement;
         const telefonoF = document.getElementById('telefono') as HTMLInputElement;
         const fechaCreacionF = document.getElementById('fechaCreacion') as HTMLInputElement;
-        const categoriaF = document.getElementById('categoria') as HTMLInputElement;
+        const categoriaF = document.getElementById('categoriaStartup') as HTMLInputElement;
         const enlaceF = document.getElementById('enlace') as HTMLInputElement;
         const descripcionCortaF = document.getElementById('descripcionCorta') as HTMLInputElement;
+        const beneficiosF = document.getElementById('beneficios') as HTMLInputElement;
+        const riesgosF = document.getElementById('riesgos') as HTMLInputElement;
+        const panoramaMercadoF = document.getElementById('panoramaMercado') as HTMLInputElement;
+
+        //Monedero
+        const saldoMonederoF = document.getElementById('saldoMonedero') as HTMLInputElement;
+        const tipoMonederoF = document.getElementById('tipoMonedero') as HTMLInputElement;
+        const estadoMonederoF = document.getElementById('estadoMonedero') as HTMLInputElement;
 
         nombreCortoF.value = startup.nombreCorto;
         nombreCompletoF.value = startup.nombreLargo;
@@ -98,6 +132,13 @@ export class PerfilStartupComponent implements OnInit {
         fechaCreacionF.value = startup.fechaCreacion;
         enlaceF.value = startup.linkSitioWeb;
         descripcionCortaF.value = startup.descripcionCorta;
+        beneficiosF.value = startup.beneficios;
+        riesgosF.value = startup.riesgos;
+        panoramaMercadoF.value = startup.panoramaMercado;
+
+        saldoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.saldo);
+        tipoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.tipo);
+        estadoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.estado);
 
         //Set mapa
 
@@ -150,6 +191,35 @@ export class PerfilStartupComponent implements OnInit {
             }
           );
         });
+      }
+    });
+  }
+
+  actualizarStartup(): void {
+    this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe(data => {
+      if (data) {
+        console.warn(data);
+        const nombreCortoU = <HTMLInputElement>document.getElementById('nombreCorto');
+        const nombreLargoU = <HTMLInputElement>document.getElementById('nombreLargo');
+        const correoElectronicoU = <HTMLInputElement>document.getElementById('correoElectronico');
+        const telefonoU = <HTMLInputElement>document.getElementById('telefono');
+        const latitudU = <HTMLInputElement>document.getElementById('latitud');
+        const longitudU = <HTMLInputElement>document.getElementById('longitud');
+        const fechaCreacionU = <HTMLInputElement>document.getElementById('fechaCreacion');
+        const categoriaU = <HTMLInputElement>document.getElementById('categoriaStartup');
+        const enlaceU = <HTMLInputElement>document.getElementById('enlace');
+        const descripcionCortaU = <HTMLInputElement>document.getElementById('descripcionCorta');
+
+        data.nombreCorto = nombreCortoU.value;
+        data.nombreLargo = nombreLargoU.value;
+        data.correoElectronico = correoElectronicoU.value;
+        data.telefono = telefonoU.value;
+        data.latitudDireccion = latitudU.value;
+        data.longitudDireccion = longitudU.value;
+        data.fechaCreacion = fechaCreacionU.value.concat('T19:55:15.', '714688-06:00');
+        data.idCategoria = categoriaU.value;
+        data.enlace = enlaceU.value;
+        data.descripcionCorta = descripcionCortaU.value;
       }
     });
   }

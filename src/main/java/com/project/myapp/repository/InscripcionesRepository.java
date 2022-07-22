@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Inscripciones;
+import com.project.myapp.domain.Startups;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -22,6 +23,8 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
     default List<Inscripciones> findAllWithEagerRelationships() {
         return this.findAllWithToOneRelationships();
     }
+
+    Optional<Inscripciones> findByIdStartup(Startups startups);
 
     default Page<Inscripciones> findAllWithEagerRelationships(Pageable pageable) {
         return this.findAllWithToOneRelationships(pageable);
