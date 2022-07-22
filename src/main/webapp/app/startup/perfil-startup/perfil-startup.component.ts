@@ -50,8 +50,8 @@ export class PerfilStartupComponent implements OnInit {
     private categoriasService: CategoriasService
   ) {
     this.categorias = [];
-    this.perfilService.getCategorias().subscribe(data => {
-      this.categorias = data;
+    this.categoriasService.get().subscribe(data => {
+      this.categorias = data.body;
       /* eslint-disable no-console */
       console.log(data);
     });
