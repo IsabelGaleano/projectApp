@@ -11,9 +11,9 @@ import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { PerfilStartupService } from './perfil-startup.service';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Loader } from '@googlemaps/js-api-loader';
 import { ICategorias } from 'app/entities/categorias/categorias.model';
+import { CategoriasService } from 'app/entities/categorias/service/categorias.service';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -46,17 +46,19 @@ export class PerfilStartupComponent implements OnInit {
     private accountService: AccountService,
     private profileService: ProfileService,
     private perfilService: PerfilStartupService,
-    private router: Router
+    private router: Router,
+    private categoriasService: CategoriasService
   ) {
-    if (VERSION) {
-      this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
-    }
     this.categorias = [];
     this.perfilService.getCategorias().subscribe(data => {
       this.categorias = data;
       /* eslint-disable no-console */
       console.log(data);
     });
+
+    if (VERSION) {
+      this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
+    }
   }
 
   ngOnInit(): void {
