@@ -222,6 +222,11 @@ export class PerfilStartupComponent implements OnInit {
         data.idCategoria = categoriaU.value;
         data.enlace = enlaceU.value;
         data.descripcionCorta = descripcionCortaU.value;
+        console.warn(data);
+        this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
+          console.warn(dataActualizada);
+          location.reload();
+        });
       }
     });
   }

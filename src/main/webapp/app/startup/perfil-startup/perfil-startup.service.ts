@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { Startups } from 'app/entities/startups/startups.model';
 
 @Injectable({ providedIn: 'root' })
 export class PerfilStartupService {
@@ -29,5 +30,9 @@ export class PerfilStartupService {
     } else {
       return this.http.get(this.rootURL.concat('/inscripciones'));
     }
+  }
+
+  actualizarStartup(id: number, startup: Record<string, unknown>): Observable<any> {
+    return this.http.put(this.rootURL.concat('/startups/', id.toString()), startup);
   }
 }

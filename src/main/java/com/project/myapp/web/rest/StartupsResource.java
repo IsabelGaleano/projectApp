@@ -83,7 +83,7 @@ public class StartupsResource {
     @PutMapping("/startups/{id}")
     public ResponseEntity<Startups> updateStartups(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody Startups startups
+        @RequestBody Startups startups
     ) throws URISyntaxException {
         log.debug("REST request to update Startups : {}, {}", id, startups);
         if (startups.getId() == null) {
@@ -236,6 +236,13 @@ public class StartupsResource {
         log.debug("REST request to get Startups : {}", id);
         Optional<Startups> startups = startupsRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(startups);
+    }
+
+    @PostMapping("/startups/update/{id}")
+    public Startups startupActualizar(@PathVariable Long id, @RequestBody Startups startups) {
+        log.debug("REST request to get Startups : {}", id);
+        Startups startupsUpdate = startupsRepository.save(startups);
+        return startupsUpdate;
     }
 
     @GetMapping("/startups/findbyCorreo/{correo}")
