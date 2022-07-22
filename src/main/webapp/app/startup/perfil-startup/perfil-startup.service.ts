@@ -33,6 +33,6 @@ export class PerfilStartupService {
   }
 
   actualizarStartup(id: number, startup: Record<string, unknown>): Observable<any> {
-    return this.http.put(this.rootURL.concat('/startups/', id.toString()), startup);
+    return this.http.put(this.rootURL.concat('/startupsUpdate/', id.toString()), startup);
   }
 }

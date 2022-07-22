@@ -80,7 +80,7 @@ public class StartupsResource {
      * or with status {@code 500 (Internal Server Error)} if the startups couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/startups/{id}")
+    @PutMapping("/startupsUpdate/{id}")
     public ResponseEntity<Startups> updateStartups(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Startups startups
@@ -236,13 +236,6 @@ public class StartupsResource {
         log.debug("REST request to get Startups : {}", id);
         Optional<Startups> startups = startupsRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(startups);
-    }
-
-    @PostMapping("/startups/update/{id}")
-    public Startups startupActualizar(@PathVariable Long id, @RequestBody Startups startups) {
-        log.debug("REST request to get Startups : {}", id);
-        Startups startupsUpdate = startupsRepository.save(startups);
-        return startupsUpdate;
     }
 
     @GetMapping("/startups/findbyCorreo/{correo}")
