@@ -47,6 +47,11 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
 import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/listar-startups-admin.component';
 import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import { AccountModule } from './account/account.module';
 import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad-startup.component';
 import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
 
@@ -64,6 +69,7 @@ import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/
     TranslationModule,
     FormsModule,
     ReactiveFormsModule,
+    AccountModule,
   ],
   providers: [
     Title,
@@ -98,6 +104,10 @@ import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/
     ListarPaquetesStartupComponent,
     ListarStartupsAdminComponent,
     ListarInscripcionesAdminComponent,
+    PasswordRecoveryComponent,
+    ValidateotpComponent,
+    ResetPasswordComponent,
+    RegistroAdicionalStartupComponent,
     ComunidadStartupComponent,
     StartupsPorCategoriaComponent,
   ],

@@ -10,6 +10,10 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
 import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-final/registro-usuario-final.component';
 import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad-startup.component';
 import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
 
 @NgModule({
   imports: [
@@ -52,6 +56,10 @@ import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/
           path: '',
           loadChildren: () => import(`./entities/entity-routing.module`).then(m => m.EntityRoutingModule),
         },
+        { path: 'passwordRecovery', component: PasswordRecoveryComponent },
+        { path: 'resetPassword', component: ResetPasswordComponent },
+        { path: 'validateotp', component: ValidateotpComponent },
+        { path: 'registroAdicionalStartup', component: RegistroAdicionalStartupComponent },
         {
           path: 'comunidad-startup',
           data: {
