@@ -1,0 +1,23 @@
+.logo_svg {
+  height: 30rem;
+  width: 30rem;
+}
+
+#lock-opening {
+  animation: lock-movement 2s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes lock-movement {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(-90deg);
+  }
+  100% {
+    transform: rotateZ(-90deg);
+    transform: translateY(1rem);
+  }
+}
