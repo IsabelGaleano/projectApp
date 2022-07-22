@@ -103,9 +103,12 @@ export class RegistroAdminComponent implements OnInit {
         monedero,
         2
       );
-      this.registroAdminService
-        .save(admin)
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+      this.registroAdminService.save(admin).subscribe({
+        next() {
+          window.history.back();
+        },
+        error: response => this.processError(response),
+      });
 
       // const monedero = new Monedero("ADMIN", 0, "Activo");
 

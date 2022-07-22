@@ -8,6 +8,8 @@ import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-final/registro-usuario-final.component';
+import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad-startup.component';
+import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
 
 @NgModule({
   imports: [
@@ -49,6 +51,20 @@ import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-fin
         {
           path: '',
           loadChildren: () => import(`./entities/entity-routing.module`).then(m => m.EntityRoutingModule),
+        },
+        {
+          path: 'comunidad-startup',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: ComunidadStartupComponent,
+        },
+        {
+          path: 'startups-por-categoria',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: StartupsPorCategoriaComponent,
         },
         navbarRoute,
         ...errorRoute,

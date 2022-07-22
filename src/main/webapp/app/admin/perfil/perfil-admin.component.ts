@@ -147,7 +147,7 @@ export class PerfilAdminComponent implements OnInit {
 
     this.adminService.updateInfoBasicaJHI(this.account).subscribe(() => {
       console.warn('usuarios actualizado');
-      window.location.reload();
+      // window.location.reload();
     });
   }
 

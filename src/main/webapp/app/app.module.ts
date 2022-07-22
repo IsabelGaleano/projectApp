@@ -47,6 +47,8 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
 import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/listar-startups-admin.component';
 import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad-startup.component';
+import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
 
 @NgModule({
   imports: [
@@ -96,6 +98,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
     ListarPaquetesStartupComponent,
     ListarStartupsAdminComponent,
     ListarInscripcionesAdminComponent,
+    ComunidadStartupComponent,
+    StartupsPorCategoriaComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
