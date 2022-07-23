@@ -9,13 +9,21 @@
     <jhi-alert-error></jhi-alert-error>
     <div class="col-6 mb-3" [hidden]="editForm.get('id')!.value == null">
       <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-      <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+      <input required type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
     </div>
 
     <div class="col-6 mb-3">
       <label class="form-label" jhiTranslate="projectApp.paquetes.nombre" for="field_nombre">Nombre</label>
-      <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+      <input required type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
       <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+        <small
+          class="form-text text-danger"
+          *ngIf="editForm.get('nombre')?.errors?.required"
+          jhiTranslate="entity.validation.required"
+          [translateValues]="{ min: 1 }"
+        >
+          Este campo es requerido
+        </small>
         <small
           class="form-text text-danger"
           *ngIf="editForm.get('nombre')?.errors?.minlength"
@@ -37,12 +45,39 @@
 
     <div class="col-6 mb-3">
       <label class="form-label" jhiTranslate="projectApp.paquetes.monto" for="field_monto">Monto</label>
-      <input type="number" class="form-control" name="monto" id="field_monto" data-cy="monto" formControlName="monto" />
+      <input required type="number" class="form-control" name="monto" id="field_monto" data-cy="monto" formControlName="monto" />
+      <div *ngIf="editForm.get('monto')!.invalid && (editForm.get('monto')!.dirty || editForm.get('monto')!.touched)">
+        <small
+          class="form-text text-danger"
+          *ngIf="editForm.get('monto')?.errors?.required"
+          jhiTranslate="entity.validation.required"
+          [translateValues]="{ min: 1 }"
+        >
+          Este campo es requerido
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="editForm.get('monto')?.errors?.minlength"
+          jhiTranslate="entity.validation.minlength"
+          [translateValues]="{ min: 1 }"
+        >
+          Este campo es requerido el mínimo es 1 carácter.
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="editForm.get('monto')?.errors?.maxlength"
+          jhiTranslate="entity.validation.maxlength"
+          [translateValues]="{ max: 50 }"
+        >
+          Este campo es requerido el máximo son 50 carácteres.
+        </small>
+      </div>
     </div>
 
     <div class="col-6 mb-3">
       <label class="form-label" jhiTranslate="projectApp.paquetes.dimensiones" for="field_dimensiones">Dimensiones</label>
       <input
+        required
         type="text"
         class="form-control"
         name="dimensiones"
@@ -51,6 +86,14 @@
         formControlName="dimensiones"
       />
       <div *ngIf="editForm.get('dimensiones')!.invalid && (editForm.get('dimensiones')!.dirty || editForm.get('dimensiones')!.touched)">
+        <small
+          class="form-text text-danger"
+          *ngIf="editForm.get('dimensiones')?.errors?.required"
+          jhiTranslate="entity.validation.required"
+          [translateValues]="{ min: 1 }"
+        >
+          Este campo es requerido
+        </small>
         <small
           class="form-text text-danger"
           *ngIf="editForm.get('dimensiones')?.errors?.minlength"
@@ -72,8 +115,16 @@
 
     <div class="col-6 mb-3">
       <label class="form-label" jhiTranslate="projectApp.paquetes.estado" for="field_estado">Estado</label>
-      <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+      <input required type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
       <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
+        <small
+          class="form-text text-danger"
+          *ngIf="editForm.get('estado')?.errors?.required"
+          jhiTranslate="entity.validation.required"
+          [translateValues]="{ min: 1 }"
+        >
+          Este campo es requerido
+        </small>
         <small
           class="form-text text-danger"
           *ngIf="editForm.get('estado')?.errors?.minlength"
@@ -96,6 +147,7 @@
     <div class="col-6 mb-3">
       <label class="form-label" jhiTranslate="projectApp.paquetes.descripcion" for="field_descripcion">Descripción</label>
       <input
+        required
         type="text"
         class="form-control"
         name="descripcion"
@@ -104,6 +156,14 @@
         formControlName="descripcion"
       />
       <div *ngIf="editForm.get('descripcion')!.invalid && (editForm.get('descripcion')!.dirty || editForm.get('descripcion')!.touched)">
+        <small
+          class="form-text text-danger"
+          *ngIf="editForm.get('descripcion')?.errors?.required"
+          jhiTranslate="entity.validation.required"
+          [translateValues]="{ min: 1 }"
+        >
+          Este campo es requerido
+        </small>
         <small
           class="form-text text-danger"
           *ngIf="editForm.get('descripcion')?.errors?.minlength"

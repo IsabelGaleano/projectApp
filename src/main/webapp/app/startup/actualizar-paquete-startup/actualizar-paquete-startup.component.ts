@@ -24,11 +24,11 @@ export class UpdatePaqueteStartupComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nombre: [null, [Validators.minLength(1), Validators.maxLength(200)]],
-    monto: [],
-    descripcion: [null, [Validators.minLength(1), Validators.maxLength(300)]],
-    dimensiones: [null, [Validators.minLength(1), Validators.maxLength(50)]],
-    estado: [null, [Validators.minLength(1), Validators.maxLength(50)]],
+    nombre: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+    monto: [[Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+    descripcion: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(300)]],
+    dimensiones: [null, [Validators.required,Validators.minLength(1), Validators.maxLength(50)]],
+    estado: [null, [Validators.required,Validators.minLength(1), Validators.maxLength(50)]],
   });
 
   constructor(
@@ -57,6 +57,7 @@ export class UpdatePaqueteStartupComponent implements OnInit {
     const paquetes = this.createFromForm();
     if (paquetes.id !== undefined) {
       this.paquetesService.update(paquetes).subscribe( ()=> {
+        this.isSaving = false;
         this.activeModal.close('updated');
       });
     }
