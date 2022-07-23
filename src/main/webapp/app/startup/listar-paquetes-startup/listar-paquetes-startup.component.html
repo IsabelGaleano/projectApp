@@ -51,7 +51,15 @@
                       <button class="btn btn-danger btn-block" value="{{ paquete.id }}">Desactivar</button>
                     </td>
                     <td>
-                      <button class="btn btn-warning btn-block" value="{{ paquete.id }}">Editar</button>
+                      <button
+                        type="button"
+                        (click)="showEditModal(paquete)"
+                        class="btn btn-primary btn-block"
+                        data-cy="entityEditButton"
+                      >
+                        <fa-icon icon="pencil-alt"></fa-icon>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                      </button>
                     </td>
                     <td>
                       <button type="submit" (click)="delete(paquete)" class="btn btn-danger btn-block" data-cy="entityDeleteButton">

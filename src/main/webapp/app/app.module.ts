@@ -52,6 +52,7 @@ import {ValidateotpComponent} from "./validateotp/validateotp.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/registro-adicional-startup.component";
 import {AccountModule} from "./account/account.module";
+import {UpdatePaqueteStartupComponent} from "./startup/actualizar-paquete-startup/actualizar-paquete-startup.component";
 
 @NgModule({
     imports: [
@@ -106,6 +107,7 @@ import {AccountModule} from "./account/account.module";
     ValidateotpComponent,
     ResetPasswordComponent,
     RegistroAdicionalStartupComponent,
+    UpdatePaqueteStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
