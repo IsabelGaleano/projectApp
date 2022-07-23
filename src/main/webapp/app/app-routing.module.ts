@@ -12,6 +12,8 @@ import { PasswordRecoveryComponent } from './password-recovery/password-recovery
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {ValidateotpComponent} from "./validateotp/validateotp.component";
 import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/registro-adicional-startup.component";
+import {PaquetesUpdateComponent} from "./entities/paquetes/update/paquetes-update.component";
+import {CodigosComponent} from "./entities/codigos/list/codigos.component";
 
 @NgModule({
   imports: [
@@ -58,6 +60,7 @@ import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/re
         { path: 'resetPassword', component: ResetPasswordComponent },
         { path: 'validateotp', component: ValidateotpComponent },
         { path: 'registroAdicionalStartup', component: RegistroAdicionalStartupComponent  },
+        { path: 'codigostest', component: CodigosComponent  },
         navbarRoute,
         ...errorRoute,
       ],
