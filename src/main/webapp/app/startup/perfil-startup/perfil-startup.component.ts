@@ -14,6 +14,9 @@ import { PerfilStartupService } from './perfil-startup.service';
 import { Loader } from '@googlemaps/js-api-loader';
 import { ICategorias } from 'app/entities/categorias/categorias.model';
 import { CategoriasService } from 'app/entities/categorias/service/categorias.service';
+import dayjs from 'dayjs';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import { StartupsService } from 'app/entities/startups/service/startups.service';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -47,13 +50,14 @@ export class PerfilStartupComponent implements OnInit {
     private profileService: ProfileService,
     private perfilService: PerfilStartupService,
     private router: Router,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private startupService: StartupsService
   ) {
     this.categorias = [];
     this.categoriasService.get().subscribe(data => {
       this.categorias = data.body;
       /* eslint-disable no-console */
-      console.log(data);
+      console.log(data.body);
     });
 
     if (VERSION) {
@@ -137,6 +141,8 @@ export class PerfilStartupComponent implements OnInit {
         beneficiosF.value = startup.beneficios;
         riesgosF.value = startup.riesgos;
         panoramaMercadoF.value = startup.panoramaMercado;
+        fechaCreacionF.value = this.formatDate(new Date(startup.fechaCreacion));
+        console.warn(this.formatDate(new Date(startup.fechaCreacion)));
 
         saldoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.saldo);
         tipoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.tipo);
@@ -198,7 +204,7 @@ export class PerfilStartupComponent implements OnInit {
   }
 
   actualizarStartup(): void {
-    this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe(data => {
+    this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
       if (data) {
         console.warn(data);
         const nombreCortoU = <HTMLInputElement>document.getElementById('nombreCorto');
@@ -218,14 +224,18 @@ export class PerfilStartupComponent implements OnInit {
         data.telefono = telefonoU.value;
         data.latitudDireccion = latitudU.value;
         data.longitudDireccion = longitudU.value;
-        data.fechaCreacion = fechaCreacionU.value.concat('T19:55:15.', '714688-06:00');
-        data.idCategoria = categoriaU.value;
-        data.enlace = enlaceU.value;
+        data.linkSitioWeb = enlaceU.value;
+        data.fechaCreacion = new Date(fechaCreacionU.value);
         data.descripcionCorta = descripcionCortaU.value;
         console.warn(data);
+
+        this.perfilService.getCategoriasByID(categoriaU.value).subscribe((categoriaResult: any) => {
+          data.idCategoria = categoriaResult;
+          console.warn(categoriaResult);
+        });
+
         this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
           console.warn(dataActualizada);
-          location.reload();
         });
       }
     });
@@ -250,5 +260,9 @@ export class PerfilStartupComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+
+  formatDate(date: Date) {
+    return date.toISOString().slice(0, 10);
   }
 }

@@ -24,6 +24,10 @@ export class PerfilStartupService {
     return this.http.get(this.rootURL.concat('/categorias'));
   }
 
+  getCategoriasByID(id: any): Observable<any> {
+    return this.http.get(this.rootURL.concat('/categorias/', id.toString()));
+  }
+
   getInscripcionStartup(correo: string | any): Observable<any> {
     if (correo != null) {
       return this.http.get(this.rootURL.concat('/inscripciones/inscripcionByStartup/', correo.toString()));
@@ -33,6 +37,6 @@ export class PerfilStartupService {
   }
 
   actualizarStartup(id: number, startup: Record<string, unknown>): Observable<any> {
-    return this.http.put(this.rootURL.concat('/startupsUpdate/', id.toString()), startup);
+    return this.http.put(this.rootURL.concat('/startups/', id.toString()), startup);
   }
 }

@@ -80,7 +80,7 @@ public class StartupsResource {
      * or with status {@code 500 (Internal Server Error)} if the startups couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/startupsUpdate/{id}")
+    @PutMapping("/startups/{id}")
     public ResponseEntity<Startups> updateStartups(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Startups startups
