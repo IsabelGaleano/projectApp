@@ -49,6 +49,12 @@ import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-
 import { NgxPayPalModule } from 'ngx-paypal';
 import { RegistrarPaquetesStartupComponent } from './startup/registrar-paquetes-startup/registrar-paquetes-startup.component';
 import { PerfilStartupComponent } from './startup/perfil-startup/perfil-startup.component';
+import { PerfilUsuarioFinalComponent } from './usuarioFinal/perfil/perfil-usuario-final.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   imports: [
@@ -65,6 +71,7 @@ import { PerfilStartupComponent } from './startup/perfil-startup/perfil-startup.
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    AccountModule,
   ],
   providers: [
     Title,
@@ -101,6 +108,11 @@ import { PerfilStartupComponent } from './startup/perfil-startup/perfil-startup.
     ListarInscripcionesAdminComponent,
     RegistrarPaquetesStartupComponent,
     PerfilStartupComponent,
+    PerfilUsuarioFinalComponent,
+    PasswordRecoveryComponent,
+    ValidateotpComponent,
+    ResetPasswordComponent,
+    RegistroAdicionalStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

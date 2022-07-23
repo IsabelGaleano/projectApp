@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
     public Optional<Usuarios> getUsuariosByCorreoElectronico(String correo);
 
+    Usuarios findOneBycorreoElectronicoIgnoreCase(String correoElectronico);
+
     @Query("SELECT C FROM Usuarios C WHERE C.correoElectronico LIKE %?1%")
     Optional<Usuarios> findByCorreoElectronico(String correoElectronico);
 

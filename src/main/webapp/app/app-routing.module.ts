@@ -8,6 +8,10 @@ import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-final/registro-usuario-final.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
 
 @NgModule({
   imports: [
@@ -50,6 +54,10 @@ import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-fin
           path: '',
           loadChildren: () => import(`./entities/entity-routing.module`).then(m => m.EntityRoutingModule),
         },
+        { path: 'passwordRecovery', component: PasswordRecoveryComponent },
+        { path: 'resetPassword', component: ResetPasswordComponent },
+        { path: 'validateotp', component: ValidateotpComponent },
+        { path: 'registroAdicionalStartup', component: RegistroAdicionalStartupComponent },
         navbarRoute,
         ...errorRoute,
       ],
