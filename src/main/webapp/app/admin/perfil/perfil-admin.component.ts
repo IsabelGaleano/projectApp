@@ -86,7 +86,7 @@ export class PerfilAdminComponent implements OnInit {
         this.user = true;
       }
       // this.account = account;
-      if (account != null) {
+      if (account !== null) {
         this.account = account;
         this.adminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
           this.usuario = data;

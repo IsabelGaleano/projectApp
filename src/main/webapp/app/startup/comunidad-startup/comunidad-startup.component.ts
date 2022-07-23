@@ -98,10 +98,10 @@ export class ComunidadStartupComponent implements OnInit {
   //   return 0;
   // }
 
-  redireccionarAPerfilStartup(nombreStartup: string): void {
-    localStorage.setItem('nombreStartup', nombreStartup);
+  redireccionarAPerfilStartup(correoStartup: string): void {
+    localStorage.setItem('correoStartup', correoStartup);
 
-    console.warn(nombreStartup);
+    console.warn(correoStartup);
 
     this.router.navigate(['/perfil-comercial-startup']);
   }

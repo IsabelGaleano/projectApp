@@ -54,6 +54,7 @@ import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/
 import { AccountModule } from './account/account.module';
 import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad-startup.component';
 import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
+import { PerfilComercialStartupComponent } from './startup/perfil-comercial-startup/perfil-comercial-startup.component';
 
 @NgModule({
   imports: [
@@ -110,6 +111,7 @@ import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/
     RegistroAdicionalStartupComponent,
     ComunidadStartupComponent,
     StartupsPorCategoriaComponent,
+    PerfilComercialStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

@@ -26,6 +26,10 @@
   .card-categoria:hover {
     cursor: pointer;
   }
+
+  .img-lista {
+    height: 100%;
+  }
 </style>
 
 <div class="main-content app-content">
@@ -105,7 +109,7 @@
           <ng-container *ngIf="startupsExistentes; else noExistentes">
             <div class="col-12 col-sm-6 col-lg-6 col-xl-3" *ngFor="let startup of startups; index as i">
               <div class="card card-primary">
-                <img class="card-img-top" src="{{ startup.start.imagenURL }}" alt="Card image cap" />
+                <img class="card-img-top img-lista" src="{{ startup.start.imagenURL }}" alt="Card image cap" />
                 <div class="card-header pb-0">
                   <h5 class="card-title mb-0 pb-0">{{ startup.start.nombreCorto }}</h5>
                 </div>
@@ -113,7 +117,10 @@
                   <span><b>Descripción: </b>{{ startup.start.descripcionCorta }}</span>
                 </div>
                 <div class="card-footer" style="text-align: center">
-                  <button (click)="redireccionarAPerfilStartup(startup.nombre)" class="btn btn-primary waves-effect waves-light">
+                  <button
+                    (click)="redireccionarAPerfilStartup(startup.start.correoElectronico)"
+                    class="btn btn-primary waves-effect waves-light"
+                  >
                     Visitar Startup
                   </button>
                 </div>

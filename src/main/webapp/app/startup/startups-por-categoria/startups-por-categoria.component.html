@@ -48,7 +48,9 @@
                   <span><b>Descripción: </b>{{ startup.descripcionCorta }}</span>
                 </div>
                 <div class="card-footer" style="text-align: center">
-                  <button class="btn btn-primary waves-effect waves-light">Visitar Startup</button>
+                  <button (click)="redireccionarAPerfilStartup(startup.correoElectronico)" class="btn btn-primary waves-effect waves-light">
+                    Visitar Startup
+                  </button>
                 </div>
               </div>
             </div>

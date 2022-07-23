@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { StartupsPorCategoriaService } from './startups-por-categoria.service';
 
@@ -12,7 +13,7 @@ export class StartupsPorCategoriaComponent implements OnInit {
   startups!: any;
   startupsExistentes = false;
 
-  constructor(private startupsPorCategoria: StartupsPorCategoriaService) {
+  constructor(private startupsPorCategoria: StartupsPorCategoriaService, private router: Router) {
     console.warn('dfs');
   }
 
@@ -27,5 +28,13 @@ export class StartupsPorCategoriaComponent implements OnInit {
         this.startupsExistentes = true;
       }
     });
+  }
+
+  redireccionarAPerfilStartup(correoStartup: string): void {
+    localStorage.setItem('correoStartup', correoStartup);
+
+    console.warn(correoStartup);
+
+    this.router.navigate(['/perfil-comercial-startup']);
   }
 }

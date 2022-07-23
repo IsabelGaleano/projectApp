@@ -14,6 +14,7 @@ import { PasswordRecoveryComponent } from './password-recovery/password-recovery
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ValidateotpComponent } from './validateotp/validateotp.component';
 import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import { PerfilComercialStartupComponent } from './startup/perfil-comercial-startup/perfil-comercial-startup.component';
 
 @NgModule({
   imports: [
@@ -73,6 +74,13 @@ import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/
             authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
           },
           component: StartupsPorCategoriaComponent,
+        },
+        {
+          path: 'perfil-comercial-startup',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: PerfilComercialStartupComponent,
         },
         navbarRoute,
         ...errorRoute,
