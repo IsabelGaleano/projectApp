@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data SQL repository for the Startups entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface StartupsRepository extends JpaRepository<Startups, Long> {
     Optional<Startups> findByCorreoElectronico(String correoElectronico);
@@ -20,6 +19,4 @@ public interface StartupsRepository extends JpaRepository<Startups, Long> {
     @Modifying
     @Query("UPDATE Startups C SET C.estado = ?2 WHERE C.id = ?1")
     void updateStartupsEstado(Long id, String estado);
-
-
 }

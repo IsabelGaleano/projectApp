@@ -9,6 +9,7 @@ import com.project.myapp.security.AuthoritiesConstants;
 import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.service.UserService;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
+import com.project.myapp.web.rest.errors.UserNotFoundedError;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -16,8 +17,6 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import com.project.myapp.web.rest.errors.UserNotFoundedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +56,12 @@ public class UsuariosResource {
 
     private final UserService userService;
 
-    public UsuariosResource(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder,UserRepository userRepository, UserService userService) {
+    public UsuariosResource(
+        UsuariosRepository usuariosRepository,
+        PasswordEncoder passwordEncoder,
+        UserRepository userRepository,
+        UserService userService
+    ) {
         this.usuariosRepository = usuariosRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
@@ -332,7 +336,7 @@ public class UsuariosResource {
             userRepository.save(finalUpdatedUser);
             userService.clearUserCaches(finalUpdatedUser);
             return finalUpdatedUser;
-        }  else {
+        } else {
             throw new UserNotFoundedError();
         }
     }
@@ -347,7 +351,7 @@ public class UsuariosResource {
             userRepository.save(finalUpdatedUser);
             userService.clearUserCaches(finalUpdatedUser);
             return finalUpdatedUser;
-        }  else {
+        } else {
             throw new UserNotFoundedError();
         }
     }

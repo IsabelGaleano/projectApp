@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {CodigosService} from "../entities/codigos/service/codigos.service";
-import {Router} from "@angular/router";
+import { CodigosService } from '../entities/codigos/service/codigos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-validateotp',
   templateUrl: './validateotp.component.html',
-  styleUrls: ['./validateotp.component.scss']
+  styleUrls: ['./validateotp.component.scss'],
 })
-export class ValidateotpComponent {//implements OnInit {
-  public code : string;
-  public error : boolean;
-  public info : boolean;
-  public errorMessage : string;
-  public infoMessage : string;
+export class ValidateotpComponent {
+  //implements OnInit {
+  public code: string;
+  public error: boolean;
+  public info: boolean;
+  public errorMessage: string;
+  public infoMessage: string;
   public loading: boolean;
-  constructor(private codeService:CodigosService, private router: Router) {
-    this.code = "";
+  constructor(private codeService: CodigosService, private router: Router) {
+    this.code = '';
     this.error = false;
     this.info = false;
     this.errorMessage = '';
@@ -23,8 +24,8 @@ export class ValidateotpComponent {//implements OnInit {
     this.loading = false;
   }
 
- // ngOnInit(): void {
- // }
+  // ngOnInit(): void {
+  // }
 
   validate(): void {
     try {
@@ -47,14 +48,14 @@ export class ValidateotpComponent {//implements OnInit {
           this.infoMessage = '';
           this.loading = false;
           console.error('ERROR AL VALIDAR OTP', err);
-        },
+        }
       );
     } catch (e) {
       this.error = true;
     }
   }
 
-  reSendCode () : void {
+  reSendCode(): void {
     try {
       this.codeService.reSendCode().subscribe(
         (response: any) => {
@@ -69,11 +70,10 @@ export class ValidateotpComponent {//implements OnInit {
           this.error = true;
           this.errorMessage = err.error.title;
           console.error('ERROR AL ENVIAR OTP', err);
-        },
+        }
       );
     } catch (e) {
       this.error = true;
     }
   }
-
 }

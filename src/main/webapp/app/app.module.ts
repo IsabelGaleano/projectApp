@@ -47,28 +47,29 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
 import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/listar-startups-admin.component';
 import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
 import { NgxPayPalModule } from 'ngx-paypal';
-import {PasswordRecoveryComponent} from "./password-recovery/password-recovery.component";
-import {ValidateotpComponent} from "./validateotp/validateotp.component";
-import {ResetPasswordComponent} from "./reset-password/reset-password.component";
-import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/registro-adicional-startup.component";
-import {AccountModule} from "./account/account.module";
+import { PerfilUsuarioFinalComponent } from './usuarioFinal/perfil/perfil-usuario-final.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        SharedModule,
-        HomeModule,
-        AppRoutingModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: false}),
-        HttpClientModule,
-        FontAwesomeModule,
-        NgxPayPalModule,
-        NgxWebstorageModule.forRoot({prefix: 'jhi', separator: '-', caseSensitive: true}),
-        TranslationModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AccountModule,
-    ],
+  imports: [
+    BrowserModule,
+    SharedModule,
+    HomeModule,
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
+    HttpClientModule,
+    FontAwesomeModule,
+    NgxPayPalModule,
+    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+    TranslationModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AccountModule,
+  ],
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'es' },
@@ -102,6 +103,7 @@ import {AccountModule} from "./account/account.module";
     ListarPaquetesStartupComponent,
     ListarStartupsAdminComponent,
     ListarInscripcionesAdminComponent,
+    PerfilUsuarioFinalComponent,
     PasswordRecoveryComponent,
     ValidateotpComponent,
     ResetPasswordComponent,

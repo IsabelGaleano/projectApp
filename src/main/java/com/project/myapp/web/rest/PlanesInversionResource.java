@@ -123,6 +123,38 @@ public class PlanesInversionResource {
             .body(result);
     }
 
+    @PutMapping("/update-planes-inversions/{correo}/{id}/{porcentajeEmpresarial}")
+    public ResponseEntity<PlanesInversion> actualizarPlanesInversion(
+        @PathVariable String correo,
+        @PathVariable Long id,
+        @PathVariable double porcentajeEmpresarial,
+        @Valid @RequestBody PlanesInversion planesInversion
+    ) throws URISyntaxException {
+        log.debug("REST request to update PlanesInversion : {}, {}", id, planesInversion);
+        if (planesInversion.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, planesInversion.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!planesInversionRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        if (startup.isPresent()) {
+            planesInversion.setPorcentajeEmpresarial(porcentajeEmpresarial);
+            planesInversion.setIdStartup(startup.get());
+            planesInversion.setEstado("Activo");
+            log.debug("REST request to save PlanesInversion : {}", planesInversion);
+        }
+        PlanesInversion result = planesInversionRepository.save(planesInversion);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, planesInversion.getId().toString()))
+            .body(result);
+    }
+
     /**
      * {@code PATCH  /planes-inversions/:id} : Partial updates given fields of an existing planesInversion, field will ignore if it is null
      *

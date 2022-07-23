@@ -78,9 +78,9 @@ public class AccountResource {
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
-    @PostMapping("/register")
+    @PostMapping("/register/{tipoUsuarioFinal}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM, @PathVariable String tipoUsuarioFinal) {
         SendEmail sendEmail = new SendEmail();
         if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
@@ -89,19 +89,19 @@ public class AccountResource {
         Monederos monedero = new Monederos("USUARIO", 0.0, "Activo");
         Monederos monederoCreado = monederosRepository.save(monedero);
         Usuarios usuario = new Usuarios(
-            " ",
+            "",
             user.getLogin(),
-            " ",
-            " ",
+            "",
+            "",
             user.getEmail(),
-            " ",
-            " ",
+            "",
+            "",
             ZonedDateTime.now(),
-            " ",
-            " ",
+            "",
+            "",
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-            "UsuarioFinal",
-            " ",
+            tipoUsuarioFinal,
+            "",
             "Pendiente",
             monederoCreado,
             new RolesUsuarios(3L)
