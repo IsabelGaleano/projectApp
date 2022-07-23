@@ -48,6 +48,12 @@ import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/list
 import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PerfilUsuarioFinalComponent } from './usuarioFinal/perfil/perfil-usuario-final.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ValidateotpComponent } from './validateotp/validateotp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import { AccountModule } from './account/account.module';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -62,6 +68,7 @@ import { PerfilUsuarioFinalComponent } from './usuarioFinal/perfil/perfil-usuari
     TranslationModule,
     FormsModule,
     ReactiveFormsModule,
+    AccountModule,
   ],
   providers: [
     Title,
@@ -97,6 +104,10 @@ import { PerfilUsuarioFinalComponent } from './usuarioFinal/perfil/perfil-usuari
     ListarStartupsAdminComponent,
     ListarInscripcionesAdminComponent,
     PerfilUsuarioFinalComponent,
+    PasswordRecoveryComponent,
+    ValidateotpComponent,
+    ResetPasswordComponent,
+    RegistroAdicionalStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
