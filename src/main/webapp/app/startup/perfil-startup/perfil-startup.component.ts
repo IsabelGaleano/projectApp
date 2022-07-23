@@ -39,7 +39,7 @@ export class PerfilStartupComponent implements OnInit {
   map: google.maps.Map | undefined;
   latitudMarker = 0;
   longitudMarker = 0;
-  categorias: any = [];
+  categorias: any[] = [];
   categoriaSeleccionada: ICategorias = {};
   categoriaSelected: any;
   categoriaIdSelected: any;
@@ -56,11 +56,25 @@ export class PerfilStartupComponent implements OnInit {
     private categoriasService: CategoriasService,
     private startupService: StartupsService
   ) {
-    this.categorias = [];
-    this.categoriasService.get().subscribe(data => {
-      this.categorias = data.body;
-      /* eslint-disable no-console */
-      console.log(data.body);
+    this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((result: any) => {
+      if (result) {
+        this.categoriasService.get().subscribe((data: any) => {
+          /* eslint-disable no-console */
+
+          console.log(data.body);
+          if (data != null) {
+            data.body.forEach((categoria: any) => {
+              if (result.idCategoria != null) {
+                if (categoria.id != result.idCategoria.id) {
+                  this.categorias.push(categoria);
+                }
+              } else {
+                this.categorias.push(categoria);
+              }
+            });
+          }
+        });
+      }
     });
 
     if (VERSION) {
@@ -161,6 +175,26 @@ export class PerfilStartupComponent implements OnInit {
           });
         }
 
+        //Set values header
+        //Set values header
+
+        const nombreHeader = document.getElementById('nombreHeader') as HTMLInputElement;
+        const nombreLargoH = document.getElementById('nombreLargoH') as HTMLInputElement;
+        const correoHeader = document.getElementById('correoHeader') as HTMLInputElement;
+        const telefonoHeader = document.getElementById('telefonoHeader') as HTMLInputElement;
+        const enlaceHeader = document.getElementById('enlaceHeader') as HTMLInputElement;
+        const fechaCreacionHeader = document.getElementById('fechaCreacionHeader') as HTMLInputElement;
+        const estadoHeader = document.getElementById('estadoHeader') as HTMLInputElement;
+        const estadoMonederoHeader = document.getElementById('estadoMonederoHeader') as HTMLInputElement;
+        nombreHeader.insertAdjacentText('beforeend', startup.nombreCorto);
+        nombreLargoH.insertAdjacentText('beforeend', startup.nombreLargo);
+        correoHeader.insertAdjacentText('beforeend', startup.correoElectronico);
+        telefonoHeader.insertAdjacentText('beforeend', startup.telefono);
+        enlaceHeader.insertAdjacentText('beforeend', startup.linkSitioWeb);
+        fechaCreacionHeader.insertAdjacentText('beforeend', startup.fechaCreacion);
+        estadoHeader.insertAdjacentText('beforeend', startup.estado);
+        estadoMonederoHeader.insertAdjacentText('beforeend', startup.idMonedero.estado);
+
         //Set mapa
 
         const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
@@ -240,8 +274,8 @@ export class PerfilStartupComponent implements OnInit {
         data.linkSitioWeb = enlaceU.value;
         data.fechaCreacion = new Date(fechaCreacionU.value);
         data.descripcionCorta = descripcionCortaU.value;
-        console.warn(data);
-        if (categoriaU.value != null) {
+        console.warn(categoriaU.value);
+        if (categoriaU.value != 'default') {
           this.perfilService.getCategoriasByID(categoriaU.value).subscribe((categoriaResult: any) => {
             data.idCategoria = categoriaResult;
             console.warn(categoriaResult);
@@ -255,6 +289,38 @@ export class PerfilStartupComponent implements OnInit {
           });
         }
       }
+    });
+  }
+
+  actualizarInfoInversionista(): void {
+    this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
+      if (data) {
+        console.warn(data);
+        const riesgosU = <HTMLInputElement>document.getElementById('riesgos');
+        const beneficiosU = <HTMLInputElement>document.getElementById('beneficios');
+        const panoramaMercadoU = <HTMLInputElement>document.getElementById('panoramaMercado');
+
+        data.riesgos = riesgosU.value;
+        data.beneficios = beneficiosU.value;
+        data.panoramaMercado = panoramaMercadoU.value;
+        console.warn(data);
+
+        this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
+          console.warn(dataActualizada);
+        });
+      }
+    });
+  }
+
+  actualizarPassword(): void {
+    const contrasenniaNuevaForm = <HTMLInputElement>document.getElementById('contrasenniaNuevaForm');
+
+    const confirmarContrasenniaNuevaForm = <HTMLInputElement>document.getElementById('confirmarContrasenniaNuevaForm');
+
+    const contrasenniaAntiguaForm = <HTMLInputElement>document.getElementById('contrasenniaAntiguaForm');
+
+    this.perfilService.savePassword(contrasenniaAntiguaForm.value, contrasenniaNuevaForm.value).subscribe(() => {
+      window.location.reload();
     });
   }
 

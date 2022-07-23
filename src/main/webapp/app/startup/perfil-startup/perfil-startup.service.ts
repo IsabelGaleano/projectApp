@@ -39,4 +39,8 @@ export class PerfilStartupService {
   actualizarStartup(id: number, startup: Record<string, unknown>): Observable<any> {
     return this.http.put(this.rootURL.concat('/startups/', id.toString()), startup);
   }
+
+  savePassword(currentPassword: string, newPassword: string): Observable<{}> {
+    return this.http.post(this.applicationConfigService.getEndpointFor('api/account/change-password'), { currentPassword, newPassword });
+  }
 }
