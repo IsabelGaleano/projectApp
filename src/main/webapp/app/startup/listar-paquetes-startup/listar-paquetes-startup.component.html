@@ -45,10 +45,10 @@
                     <td>{{ paquete.estado }}</td>
 
                     <td>
-                      <button class="btn btn-success btn-block" value="{{ paquete.id }}">Activar</button>
+                      <button class="btn btn-success btn-block" (click)="activar(paquete)">Activar</button>
                     </td>
                     <td>
-                      <button class="btn btn-danger btn-block" value="{{ paquete.id }}">Desactivar</button>
+                      <button class="btn btn-danger btn-block" (click)="desactivar(paquete)">Desactivar</button>
                     </td>
                   </tr>
                 </tbody>

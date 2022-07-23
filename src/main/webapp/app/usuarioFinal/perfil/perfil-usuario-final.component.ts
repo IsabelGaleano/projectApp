@@ -12,7 +12,6 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { data } from 'autoprefixer';
 import { Loader } from '@googlemaps/js-api-loader';
-
 /* tslint:disable:component-selector */
 @Component({
   selector: 'jhi-perfil-usuario-final',
@@ -56,6 +55,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
     });
 
     this.accountService.getAuthenticationState().subscribe(account => {
+      const imgHeader = document.getElementById('imgHeader') as HTMLInputElement;
       const nombreHeader = document.getElementById('nombreHeader') as HTMLInputElement;
       const apellidosHeader = document.getElementById('apellidosHeader') as HTMLInputElement;
       const correoSidebar = document.getElementById('correoSidebar') as HTMLInputElement;
@@ -63,7 +63,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
       const cedulaSidebar = document.getElementById('cedulaSidebar') as HTMLInputElement;
       const estadoSidebar = document.getElementById('estadoSidebar') as HTMLInputElement;
       const monederoEstadoSidebar = document.getElementById('monederoEstadoSidebar') as HTMLInputElement;
-
+      const tipoUsuarioSidebar = document.getElementById('tipoUsuarioSidebar') as HTMLInputElement;
       if (account) {
         console.warn(account);
         this.user = true;
@@ -74,6 +74,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           const loader = new Loader({
             apiKey: key,
           });
+          console.warn(dataUsuario.idMonedero.id);
           this.perfilUsuarioFinalService.getMovimientosByIdMonedero(dataUsuario.idMonedero.id).subscribe((dataMovimientos: any) => {
             dataMovimientos.forEach((movimiento: any) => {
               this.movimientos.push(movimiento);
@@ -127,6 +128,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           });
 
           this.usuarioFinal = dataUsuario.correoElectronico;
+          imgHeader.src = dataUsuario.imagenURL;
           nombreHeader.insertAdjacentText('beforeend', dataUsuario.nombre);
           apellidosHeader.insertAdjacentText('beforeend', dataUsuario.primerApellido.concat(dataUsuario.segundoApellido));
           correoSidebar.insertAdjacentText('beforeend', dataUsuario.correoElectronico);
@@ -134,6 +136,9 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           cedulaSidebar.insertAdjacentText('beforeend', dataUsuario.cedula);
           estadoSidebar.insertAdjacentText('beforeend', dataUsuario.estado);
           monederoEstadoSidebar.insertAdjacentText('beforeend', dataUsuario.idMonedero.estado);
+          if (dataUsuario.tipoUsuarioFinal === 'Usuario') {
+            tipoUsuarioSidebar.insertAdjacentText('beforeend', 'Cliente');
+          }
           // Form values
           const nombreForm = <HTMLInputElement>document.getElementById('nombreForm');
           nombreForm.value = dataUsuario.nombre;

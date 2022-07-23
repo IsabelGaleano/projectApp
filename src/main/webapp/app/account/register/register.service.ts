@@ -12,8 +12,8 @@ const baseUrl = 'http://localhost:8080/api/usuarios';
 export class RegisterService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  save(registration: Registration): Observable<{}> {
-    return this.http.post(this.applicationConfigService.getEndpointFor('api/register'), registration);
+  save(registration: Registration, tipoUsuarioFinal: string): Observable<{}> {
+    return this.http.post(this.applicationConfigService.getEndpointFor('api/register').concat('/', tipoUsuarioFinal), registration);
   }
 
   saveFinalUser(registro: Registro): Observable<{}> {

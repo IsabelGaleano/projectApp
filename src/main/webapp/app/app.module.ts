@@ -47,6 +47,7 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
 import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/listar-startups-admin.component';
 import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { PerfilUsuarioFinalComponent } from './usuarioFinal/perfil/perfil-usuario-final.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { ValidateotpComponent } from './validateotp/validateotp.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -105,6 +106,7 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
     ListarPaquetesStartupComponent,
     ListarStartupsAdminComponent,
     ListarInscripcionesAdminComponent,
+    PerfilUsuarioFinalComponent,
     PasswordRecoveryComponent,
     ValidateotpComponent,
     ResetPasswordComponent,
