@@ -212,7 +212,10 @@
                               </div>
                               <div class="col-md-9">
                                 <select class="form-control" id="categoriaStartup">
-                                  <option value="default">Seleccione una categoría</option>
+                                  <option value="default" *ngIf="existCategoria">Seleccione una categoría</option>
+                                  <option *ngIf="categoriaSelected" value="{{ categoriaIdSelected }}" selected>
+                                    {{ categoriaSelected }}
+                                  </option>
                                   <option *ngFor="let c of categorias" value="{{ c.id }}">{{ c.categoria }}</option>
                                 </select>
                               </div>

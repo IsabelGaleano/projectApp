@@ -41,6 +41,9 @@ export class PerfilStartupComponent implements OnInit {
   longitudMarker = 0;
   categorias: any = [];
   categoriaSeleccionada: ICategorias = {};
+  categoriaSelected: any;
+  categoriaIdSelected: any;
+  existCategoria: any = true;
 
   constructor(
     private loginService: LoginService,
@@ -148,6 +151,16 @@ export class PerfilStartupComponent implements OnInit {
         tipoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.tipo);
         estadoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.estado);
 
+        //Set categoria
+        if (startup.idCategoria != null) {
+          this.existCategoria = false;
+          this.perfilService.getCategoriasByID(startup.idCategoria.id).subscribe((categoriaResult: any) => {
+            this.categoriaSelected = categoriaResult.categoria;
+            this.categoriaIdSelected = categoriaResult.id;
+            console.warn(categoriaResult);
+          });
+        }
+
         //Set mapa
 
         const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
@@ -228,15 +241,19 @@ export class PerfilStartupComponent implements OnInit {
         data.fechaCreacion = new Date(fechaCreacionU.value);
         data.descripcionCorta = descripcionCortaU.value;
         console.warn(data);
-
-        this.perfilService.getCategoriasByID(categoriaU.value).subscribe((categoriaResult: any) => {
-          data.idCategoria = categoriaResult;
-          console.warn(categoriaResult);
-        });
-
-        this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
-          console.warn(dataActualizada);
-        });
+        if (categoriaU.value != null) {
+          this.perfilService.getCategoriasByID(categoriaU.value).subscribe((categoriaResult: any) => {
+            data.idCategoria = categoriaResult;
+            console.warn(categoriaResult);
+            this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
+              console.warn(dataActualizada);
+            });
+          });
+        } else {
+          this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
+            console.warn(dataActualizada);
+          });
+        }
       }
     });
   }
