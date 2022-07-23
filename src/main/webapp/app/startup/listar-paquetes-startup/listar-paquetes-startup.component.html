@@ -50,6 +50,15 @@
                     <td>
                       <button class="btn btn-danger btn-block" value="{{ paquete.id }}">Desactivar</button>
                     </td>
+                    <td>
+                      <button class="btn btn-warning btn-block" value="{{ paquete.id }}">Editar</button>
+                    </td>
+                    <td>
+                      <button type="submit" (click)="delete(paquete)" class="btn btn-danger btn-block" data-cy="entityDeleteButton">
+                        <fa-icon icon="times"></fa-icon>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
