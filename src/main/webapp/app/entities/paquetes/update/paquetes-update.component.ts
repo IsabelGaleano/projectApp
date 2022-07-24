@@ -9,7 +9,7 @@ import { IPaquetes, Paquetes } from '../paquetes.model';
 import { PaquetesService } from '../service/paquetes.service';
 import { IStartups } from 'app/entities/startups/startups.model';
 import { StartupsService } from 'app/entities/startups/service/startups.service';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-paquetes-update',
@@ -35,7 +35,7 @@ export class PaquetesUpdateComponent implements OnInit {
     protected paquetesService: PaquetesService,
     protected startupsService: StartupsService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder,
+    protected fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

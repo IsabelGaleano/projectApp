@@ -305,4 +305,22 @@ public class StartupsResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/startupsCategoria")
+    public List getAllStartupsWithCategory() {
+        log.debug("REST request to get all Startups with Categories");
+        return startupsRepository.findAllWithCategories();
+    }
+
+    @GetMapping("/cantidadCategoria/{categoria}")
+    public int getCantidadPorCategorias(@PathVariable String categoria) {
+        log.debug("REST request to get all Categorias");
+        return startupsRepository.countStartupsByCategory(categoria);
+    }
+
+    @GetMapping("/startupsPorCategoria/{categoria}")
+    public List getStartupsPorCategorias(@PathVariable String categoria) {
+        log.debug("REST request to get all Categorias");
+        return startupsRepository.startupsPorCategoria(categoria);
+    }
 }

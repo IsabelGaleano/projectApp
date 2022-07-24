@@ -7,7 +7,7 @@ import { PlanInscripcionStartupComponent } from './plan-inscripcion-startup/plan
 import { RegistroPlanInversionComponent } from './registro-plan-inversion/registro-plan-inversion.component';
 import { ListaPlanesInversionComponent } from './lista-planes-inversion/lista-planes-inversion.component';
 import { RegistrarPaquetesStartupComponent } from './registrar-paquetes-startup/registrar-paquetes-startup.component';
-import {UpdatePaqueteStartupComponent} from "./actualizar-paquete-startup/actualizar-paquete-startup.component";
+import { UpdatePaqueteStartupComponent } from './actualizar-paquete-startup/actualizar-paquete-startup.component';
 @NgModule({
   imports: [
     RouterModule.forChild([

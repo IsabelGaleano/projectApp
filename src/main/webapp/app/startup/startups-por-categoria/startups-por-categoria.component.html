@@ -1,0 +1,72 @@
+<style>
+  .main-content {
+    max-width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+  }
+
+  .startup-cards {
+    width: 100%;
+  }
+
+  .card-img-top {
+    max-width: 357px;
+    max-height: 237px;
+  }
+
+  .card-categoria {
+    height: auto;
+  }
+
+  .card-categoria:hover {
+    cursor: pointer;
+  }
+</style>
+
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+      <div class="startup-cards">
+        <h2>Lista de Startups por Categoría {{ categoria }}</h2>
+        <br />
+        <div class="row">
+          <ng-container *ngIf="startupsExistentes; else noExistentes">
+            <div class="col-12 col-sm-6 col-lg-6 col-xl-3" *ngFor="let startup of startups; index as i">
+              <div class="card card-primary">
+                <img class="card-img-top" src="{{ startup.imagenURL }}" alt="Card image cap" />
+                <div class="card-header pb-0">
+                  <h5 class="card-title mb-0 pb-0">{{ startup.nombreCorto }}</h5>
+                </div>
+                <div class="card-body text-primary" style="height: 100px">
+                  <span><b>Descripción: </b>{{ startup.descripcionCorta }}</span>
+                </div>
+                <div class="card-footer" style="text-align: center">
+                  <button (click)="redireccionarAPerfilStartup(startup.correoElectronico)" class="btn btn-primary waves-effect waves-light">
+                    Visitar Startup
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noExistentes>
+            <h1>No existen startups activas con categoría {{ categoria }}</h1>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <!-- breadcrumb -->
+
+    <!-- row -->
+    <div class="row"></div>
+    <!-- row closed -->
+  </div>
+  <!-- Container closed -->
+</div>
+<!-- main-content closed -->

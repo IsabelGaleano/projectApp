@@ -5,12 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-
 import { IStartups } from 'app/entities/startups/startups.model';
 import { StartupsService } from 'app/entities/startups/service/startups.service';
-import {PaquetesService} from "../../entities/paquetes/service/paquetes.service";
-import {IPaquetes, Paquetes} from "../../entities/paquetes/paquetes.model";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import { PaquetesService } from '../../entities/paquetes/service/paquetes.service';
+import { IPaquetes, Paquetes } from '../../entities/paquetes/paquetes.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-actualizar-paquete-startup',
@@ -27,8 +26,8 @@ export class UpdatePaqueteStartupComponent implements OnInit {
     nombre: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
     monto: [[Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
     descripcion: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(300)]],
-    dimensiones: [null, [Validators.required,Validators.minLength(1), Validators.maxLength(50)]],
-    estado: [null, [Validators.required,Validators.minLength(1), Validators.maxLength(50)]],
+    dimensiones: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    estado: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
   });
 
   constructor(
@@ -37,15 +36,14 @@ export class UpdatePaqueteStartupComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
     protected activeModal: NgbActiveModal
-  ) {
-  }
+  ) {}
 
   cancel(): void {
     this.activeModal.dismiss();
   }
 
   ngOnInit(): void {
-      this.updateForm();
+    this.updateForm();
   }
 
   previousState(): void {
@@ -56,7 +54,7 @@ export class UpdatePaqueteStartupComponent implements OnInit {
     this.isSaving = true;
     const paquetes = this.createFromForm();
     if (paquetes.id !== undefined) {
-      this.paquetesService.update(paquetes).subscribe( ()=> {
+      this.paquetesService.update(paquetes).subscribe(() => {
         this.isSaving = false;
         this.activeModal.close('updated');
       });
