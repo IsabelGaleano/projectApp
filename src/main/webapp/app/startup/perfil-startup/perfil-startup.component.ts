@@ -46,6 +46,8 @@ export class PerfilStartupComponent implements OnInit {
   categoriaIdSelected: any;
   existCategoria: any = true;
   imgPerfil: any;
+  tipoMetaSelected: any;
+  tipoMetaSelectedN: any;
 
   constructor(
     private loginService: LoginService,
@@ -145,6 +147,8 @@ export class PerfilStartupComponent implements OnInit {
         const riesgosF = document.getElementById('riesgos') as HTMLInputElement;
         const panoramaMercadoF = document.getElementById('panoramaMercado') as HTMLInputElement;
         const imgPerfilF = document.getElementById('imgPerfil') as HTMLInputElement;
+        const estadoMetaF = document.getElementById('estadoMeta') as HTMLInputElement;
+        const montoMetaF = document.getElementById('montoMeta') as HTMLInputElement;
         //Monedero
         const saldoMonederoF = document.getElementById('saldoMonedero') as HTMLInputElement;
         const tipoMonederoF = document.getElementById('tipoMonedero') as HTMLInputElement;
@@ -162,11 +166,25 @@ export class PerfilStartupComponent implements OnInit {
         panoramaMercadoF.value = startup.panoramaMercado;
         fechaCreacionF.value = this.formatDate(new Date(startup.fechaCreacion));
         imgPerfilF.src = startup.imagenURL;
+        montoMetaF.value = startup.montoMeta;
         console.warn(this.formatDate(new Date(startup.fechaCreacion)));
 
         saldoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.saldo);
         tipoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.tipo);
         estadoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.estado);
+
+        //Set tipo Meta
+
+        if (startup.tipoMeta != null) {
+          if (startup.tipoMeta === 'Activo') {
+            this.tipoMetaSelected = 'Activo';
+          } else {
+            this.tipoMetaSelected = 'Inactivo';
+          }
+        } else {
+          this.tipoMetaSelected = 'Activo';
+          this.tipoMetaSelectedN = 'Inactivo';
+        }
 
         //Set categoria
         if (startup.idCategoria != null) {
@@ -301,10 +319,14 @@ export class PerfilStartupComponent implements OnInit {
         const riesgosU = <HTMLInputElement>document.getElementById('riesgos');
         const beneficiosU = <HTMLInputElement>document.getElementById('beneficios');
         const panoramaMercadoU = <HTMLInputElement>document.getElementById('panoramaMercado');
+        const estadoMetaU = <HTMLInputElement>document.getElementById('estadoMeta');
+        const montoMetaU = <HTMLInputElement>document.getElementById('montoMeta');
 
         data.riesgos = riesgosU.value;
         data.beneficios = beneficiosU.value;
         data.panoramaMercado = panoramaMercadoU.value;
+        data.tipoMeta = estadoMetaU.value;
+        data.montoMeta = montoMetaU.value;
         console.warn(data);
 
         this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
