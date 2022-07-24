@@ -8,7 +8,15 @@
               <div class="ps-0">
                 <div class="main-profile-overview">
                   <div class="main-img-user profile-user">
-                    <img alt="" src="" id="imgHeader" /><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                    <img alt="" id="imgPerfil" />
+                    <label for="fileInput">
+                      <img
+                        id="icon"
+                        style="width: 5px; cursor: pointer"
+                        src="../../../content/images/Edit_icon_(the_Noun_Project_30184).png"
+                      />
+                    </label>
+                    <input id="fileInput" (change)="actualizarImagen($event)" style="display: none" type="file" />
                   </div>
                   <div class="d-flex justify-content-between mg-b-20">
                     <div>
