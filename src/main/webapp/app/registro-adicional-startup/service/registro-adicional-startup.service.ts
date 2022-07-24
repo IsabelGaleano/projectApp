@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import {getStartupsIdentifier, IStartups} from "../../entities/startups/startups.model";
+import { getStartupsIdentifier, IStartups } from '../../entities/startups/startups.model';
 
 export type EntityResponseType = HttpResponse<IStartups>;
 export type EntityArrayResponseType = HttpResponse<IStartups[]>;

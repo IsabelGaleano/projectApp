@@ -9,6 +9,8 @@ import com.project.myapp.repository.UserRepository;
 import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.service.SendGridService;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
+import com.project.myapp.web.rest.errors.CodigoNotFoundedException;
+import com.project.myapp.web.rest.errors.UserNotFoundedError;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -16,9 +18,6 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import com.project.myapp.web.rest.errors.CodigoNotFoundedException;
-import com.project.myapp.web.rest.errors.UserNotFoundedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,7 +54,12 @@ public class CodigosResource {
 
     private final StartupsRepository startupsRepository;
 
-    public CodigosResource(CodigosRepository codigosRepository, UserRepository userRepository, UsuariosRepository usuariosRepository, StartupsRepository startupsRepository) {
+    public CodigosResource(
+        CodigosRepository codigosRepository,
+        UserRepository userRepository,
+        UsuariosRepository usuariosRepository,
+        StartupsRepository startupsRepository
+    ) {
         this.codigosRepository = codigosRepository;
         this.userRepository = userRepository;
         this.usuariosRepository = usuariosRepository;
@@ -218,7 +222,7 @@ public class CodigosResource {
     }
 
     @PostMapping("/codigos/send")
-    public Codigos sendWithTemplate(@RequestBody String correoElectronico)  {
+    public Codigos sendWithTemplate(@RequestBody String correoElectronico) {
         this.foundedCodeUsuario = usuariosRepository.findOneBycorreoElectronicoIgnoreCase(correoElectronico);
         Codigos codigo = new Codigos();
         SendGridService sendGridService = new SendGridService(codigosRepository);
@@ -237,7 +241,7 @@ public class CodigosResource {
     }
 
     @PostMapping("/codigos/validate")
-    public Optional<Codigos> validateOTP(@RequestBody String codigo)  {
+    public Optional<Codigos> validateOTP(@RequestBody String codigo) {
         Optional<Codigos> foundedCodigo = codigosRepository.findCodigosByCodigoAndIdUsuario(codigo, this.foundedCodeUsuario);
         if (foundedCodigo.isPresent()) {
             return foundedCodigo;
@@ -252,7 +256,7 @@ public class CodigosResource {
     }
 
     @PostMapping("/codigos/reSendCode")
-    public Codigos reSendCode(@RequestBody String body)  {
+    public Codigos reSendCode(@RequestBody String body) {
         Codigos codigo = new Codigos();
         SendGridService sendGridService = new SendGridService(codigosRepository);
         if (!Objects.isNull(this.foundedCodeUsuario)) {

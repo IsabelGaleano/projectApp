@@ -8,9 +8,8 @@ describe('ValidateotpComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ValidateotpComponent ]
-    })
-    .compileComponents();
+      declarations: [ValidateotpComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

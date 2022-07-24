@@ -11,14 +11,12 @@ import com.sendgrid.*;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
-
+import org.springframework.stereotype.Service;
 
 @Service
 public class SendGridService {
@@ -30,11 +28,10 @@ public class SendGridService {
         this.codigosRepository = codigosRepository;
     }
 
-    public SendGridService() {
-    }
+    public SendGridService() {}
 
     public void sendOTP(String correo, Usuarios usuarios) {
-        try{
+        try {
             if (!Objects.isNull(usuarios)) {
                 int OTPCode = this.sendFinalMail(correo);
                 Codigos codigos = new Codigos();
@@ -43,13 +40,13 @@ public class SendGridService {
                 codigos.setCodigo(String.valueOf(OTPCode));
                 this.codigosRepository.save(codigos);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new MailServiceException();
         }
     }
 
     public void sendOTP(String correo, Startups startups) {
-        try{
+        try {
             if (!Objects.isNull(startups)) {
                 int OTPCode = this.sendFinalMail(correo);
                 Codigos codigos = new Codigos();
@@ -58,13 +55,13 @@ public class SendGridService {
                 codigos.setCodigo(String.valueOf(OTPCode));
                 this.codigosRepository.save(codigos);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new MailServiceException();
         }
     }
 
     private Integer sendFinalMail(String correo) {
-        try{
+        try {
             int OTPCode = Integer.parseInt(generateOTP());
             String templateId = "d-708a8389bb764fc8b2566d28ba78a19e";
             Mail mail = new Mail();
@@ -76,11 +73,10 @@ public class SendGridService {
             mail.addPersonalization(personalization);
             sendInternal(mail);
             return OTPCode;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new MailServiceException();
         }
     }
-
 
     private void sendInternal(Mail mail) {
         encriptar = new Encriptar();

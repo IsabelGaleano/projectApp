@@ -60,7 +60,7 @@ export class CodigosService {
 
   sendCode(email: string): any {
     try {
-      return this.http.post<any>(this.resourceUrl+'/send', email, { observe: 'response' });
+      return this.http.post<any>(this.resourceUrl + '/send', email, { observe: 'response' });
     } catch (e) {
       return e;
     }
@@ -68,7 +68,7 @@ export class CodigosService {
 
   reSendCode(): any {
     try {
-      return this.http.post<any>(this.resourceUrl+'/reSendCode', {}, { observe: 'response' });
+      return this.http.post<any>(this.resourceUrl + '/reSendCode', {}, { observe: 'response' });
     } catch (e) {
       return e;
     }
@@ -76,7 +76,7 @@ export class CodigosService {
 
   validate(code: string): any {
     try {
-      return this.http.post<any>(this.resourceUrl+'/validate', code, { observe: 'response' });
+      return this.http.post<any>(this.resourceUrl + '/validate', code, { observe: 'response' });
     } catch (e) {
       return e;
     }

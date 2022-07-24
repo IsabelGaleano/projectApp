@@ -22,4 +22,21 @@ export class ListarPaquetesStartupComponent implements OnInit {
       }
     });
   }
+  activar(paquete: any): void {
+    if (paquete.estado !== 'Activo') {
+      paquete.estado = 'Activo';
+      this.actualizarEstado(paquete);
+    }
+  }
+  desactivar(paquete: any): void {
+    if (paquete.estado !== 'Inactivo') {
+      paquete.estado = 'Inactivo';
+      this.actualizarEstado(paquete);
+    }
+  }
+  actualizarEstado(paquete: any): void {
+    this.listadoService.updatePaquetesStartups(paquete, paquete.id).subscribe((data: any) => {
+      location.reload();
+    });
+  }
 }
