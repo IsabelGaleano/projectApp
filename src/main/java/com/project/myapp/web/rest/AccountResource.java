@@ -99,7 +99,7 @@ public class AccountResource {
             ZonedDateTime.now(),
             " ",
             " ",
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+            "https://res.cloudinary.com/moonsoft/image/upload/v1658635377/profile_qfn6i1.png",
             " ",
             " ",
             "Pendiente",
