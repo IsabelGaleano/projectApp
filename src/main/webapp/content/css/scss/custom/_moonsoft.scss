@@ -3,13 +3,13 @@
   width: 30rem;
 }
 
-#lock-opening {
+.lock-opening-animation {
   transform: rotateY(0deg);
-  animation: lock-movement 1s alternate infinite;
+  animation: lock-movement 0.8s alternate infinite;
   transform-origin: left;
   transform-box: fill-box;
 }
-#lock-dollar-sign {
+.lock-dollar-sign {
   //animation: lock-dollar-rotate 1.5s linear infinite;
   transform-origin: center;
   transform-box: fill-box;

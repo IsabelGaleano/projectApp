@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -46,6 +47,7 @@ export class PerfilStartupComponent implements OnInit {
   categoriaIdSelected: any;
   existCategoria: any = true;
   imgPerfil: any;
+  faEdit = faEdit;
 
   constructor(
     private loginService: LoginService,
