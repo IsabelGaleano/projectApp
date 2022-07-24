@@ -8,9 +8,8 @@ describe('RegistroAdicionalStartupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistroAdicionalStartupComponent ]
-    })
-    .compileComponents();
+      declarations: [RegistroAdicionalStartupComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
