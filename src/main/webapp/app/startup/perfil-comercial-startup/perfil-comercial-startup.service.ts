@@ -25,4 +25,12 @@ export class PerfilComercialStartupService {
   getStartupByCorreo(correo: string): Observable<any> {
     return this.http.get(this.rootURL.concat('startups/findbyCorreo/').concat(correo));
   }
+
+  getPlanesDeInversionByCorreoStartup(correo: string): Observable<any> {
+    return this.http.get(this.rootURL.concat('planes-inversionsByCorreo/').concat(correo));
+  }
+
+  getPaquetesByCorreoStartup(correo: string): Observable<any> {
+    return this.http.get(this.rootURL.concat('paquetes/paquetesStartups/').concat(correo));
+  }
 }

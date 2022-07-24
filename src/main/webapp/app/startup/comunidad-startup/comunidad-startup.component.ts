@@ -22,17 +22,11 @@ export class ComunidadStartupComponent implements OnInit {
 
   ngOnInit(): void {
     this.comunidadStartupService.getAllStartups().subscribe((data: any) => {
-      // this.startups = data;
-
-      // this.startups.sort( this.compare );
-
-      // data.forEach(startup => {
-      //   this.comunidadStartupService.getVotosPorStartup(data[0]).subscribe((votos) => {
-      //     console.warn("VOTOOOOOOOOOOOOS: ", votos);
-      //   });
-      // });
-
       for (let i = 0; i < data.length; i++) {
+        if (!data[i].descripcionCorta) {
+          data[i].descripcionCorta = 'Sin descripción corta registrada';
+        }
+
         // eslint-disable-next-line prefer-const
         let start = data[i];
 
@@ -43,6 +37,20 @@ export class ComunidadStartupComponent implements OnInit {
         });
       }
 
+      if (data.length >= 1) {
+        this.startupsExistentes = true;
+      }
+
+      // this.startups = data;
+
+      // this.startups.sort( this.compare );
+
+      // data.forEach(startup => {
+      //   this.comunidadStartupService.getVotosPorStartup(data[0]).subscribe((votos) => {
+      //     console.warn("VOTOOOOOOOOOOOOS: ", votos);
+      //   });
+      // });
+
       // this.startups.sort( (a, b) => (a.valor > b.valor) ? 1 : -1 );
       // this.startups.sort( this.compare );
       // this.startups.sort();
@@ -52,10 +60,6 @@ export class ComunidadStartupComponent implements OnInit {
       // this.startups.forEach(element => {
       //   console.warn(element, " MIAMOOOOOOOOOOOOOOOOOR");
       // });
-
-      if (data.length >= 1) {
-        this.startupsExistentes = true;
-      }
 
       // console.warn(data, " DATAAAAAAAAAAAAAAAAA");
     });

@@ -355,7 +355,7 @@ public class AccountResource {
             " ",
             " ",
             usuario.getImagenURL(),
-            " ",
+            "Admin",
             " ",
             "Activo",
             monederoCreado,
