@@ -89,23 +89,24 @@ public class AccountResource {
         Monederos monedero = new Monederos("USUARIO", 0.0, "Activo");
         Monederos monederoCreado = monederosRepository.save(monedero);
         Usuarios usuario = new Usuarios(
-            "",
+            " ",
             user.getLogin(),
-            "",
-            "",
+            " ",
+            " ",
             user.getEmail(),
-            "",
-            "",
+            " ",
+            " ",
             ZonedDateTime.now(),
-            "",
-            "",
+            " ",
+            " ",
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-            tipoUsuarioFinal,
-            "",
+            " ",
+            " ",
             "Pendiente",
             monederoCreado,
             new RolesUsuarios(3L)
         );
+        usuario.setTipoUsuarioFinal(tipoUsuarioFinal);
         String codigo = String.valueOf(generateOTP());
         Codigos codigoDTO = new Codigos(codigo, "Activo", usuario);
         sendEmail.correoVerificacionUsuario(Integer.parseInt(codigo), usuario.getCorreoElectronico());
