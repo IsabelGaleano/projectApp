@@ -5,6 +5,7 @@ import {IPaquetes} from "../../entities/paquetes/paquetes.model";
 import {PaquetesDeleteDialogComponent} from "../../entities/paquetes/delete/paquetes-delete-dialog.component";
 import {HttpResponse} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {UpdatePaqueteStartupComponent} from "../actualizar-paquete-startup/actualizar-paquete-startup.component";
 
 @Component({
   selector: 'jhi-listar-paquetes-startup',
@@ -21,9 +22,9 @@ export class ListarPaquetesStartupComponent implements OnInit {
     this.isLoading = true;
 
     this.listadoService.listarPaquetesStartups(sessionStorage.getItem("startupLogin")).subscribe({
-      next: (res: HttpResponse<IPaquetes[]>) => {
+      next: (res: any) => {
         this.isLoading = false;
-        this.paquetes = res.body ?? [];
+        this.paquetes = res ?? [];
       },
       error: () => {
         this.isLoading = false;
@@ -65,6 +66,17 @@ export class ListarPaquetesStartupComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
+        this.loadAll();
+      }
+    });
+  }
+
+  showEditModal(paquetes: IPaquetes):void {
+    const modalRef = this.modalService.open(UpdatePaqueteStartupComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.paquetes = paquetes;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'updated') {
         this.loadAll();
       }
     });

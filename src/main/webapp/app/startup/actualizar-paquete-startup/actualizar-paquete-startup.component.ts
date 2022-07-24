@@ -5,17 +5,18 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { IPaquetes, Paquetes } from '../paquetes.model';
-import { PaquetesService } from '../service/paquetes.service';
+
 import { IStartups } from 'app/entities/startups/startups.model';
 import { StartupsService } from 'app/entities/startups/service/startups.service';
+import {PaquetesService} from "../../entities/paquetes/service/paquetes.service";
+import {IPaquetes, Paquetes} from "../../entities/paquetes/paquetes.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'jhi-paquetes-update',
-  templateUrl: './paquetes-update.component.html',
+  selector: 'jhi-actualizar-paquete-startup',
+  templateUrl: './actualizar-paquete-startup.component.html',
 })
-export class PaquetesUpdateComponent implements OnInit {
+export class UpdatePaqueteStartupComponent implements OnInit {
   isSaving = false;
 
   startupsSharedCollection: IStartups[] = [];
@@ -23,12 +24,11 @@ export class PaquetesUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nombre: [null, [Validators.minLength(1), Validators.maxLength(200)]],
-    monto: [],
-    descripcion: [null, [Validators.minLength(1), Validators.maxLength(300)]],
-    dimensiones: [null, [Validators.minLength(1), Validators.maxLength(50)]],
-    estado: [null, [Validators.minLength(1), Validators.maxLength(50)]],
-    idStartup: [],
+    nombre: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+    monto: [[Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+    descripcion: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(300)]],
+    dimensiones: [null, [Validators.required,Validators.minLength(1), Validators.maxLength(50)]],
+    estado: [null, [Validators.required,Validators.minLength(1), Validators.maxLength(50)]],
   });
 
   constructor(
@@ -36,14 +36,16 @@ export class PaquetesUpdateComponent implements OnInit {
     protected startupsService: StartupsService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
-  ) {}
+    protected activeModal: NgbActiveModal
+  ) {
+  }
+
+  cancel(): void {
+    this.activeModal.dismiss();
+  }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ paquetes }) => {
-      this.updateForm(paquetes);
-
-      this.loadRelationshipsOptions();
-    });
+      this.updateForm();
   }
 
   previousState(): void {
@@ -54,9 +56,10 @@ export class PaquetesUpdateComponent implements OnInit {
     this.isSaving = true;
     const paquetes = this.createFromForm();
     if (paquetes.id !== undefined) {
-      this.subscribeToSaveResponse(this.paquetesService.update(paquetes));
-    } else {
-      this.subscribeToSaveResponse(this.paquetesService.create(paquetes));
+      this.paquetesService.update(paquetes).subscribe( ()=> {
+        this.isSaving = false;
+        this.activeModal.close('updated');
+      });
     }
   }
 
@@ -83,21 +86,13 @@ export class PaquetesUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  protected updateForm(paquetes: IPaquetes): void {
-    this.editForm.patchValue({
-      id: paquetes.id,
-      nombre: paquetes.nombre,
-      monto: paquetes.monto,
-      descripcion: paquetes.descripcion,
-      dimensiones: paquetes.dimensiones,
-      estado: paquetes.estado,
-      idStartup: paquetes.idStartup,
-    });
-
-    this.startupsSharedCollection = this.startupsService.addStartupsToCollectionIfMissing(
-      this.startupsSharedCollection,
-      paquetes.idStartup
-    );
+  protected updateForm(): void {
+    this.editForm.controls.id.setValue(this.paquetes ? this.paquetes.id : '');
+    this.editForm.controls.nombre.setValue(this.paquetes ? this.paquetes.nombre : '');
+    this.editForm.controls.monto.setValue(this.paquetes ? this.paquetes.monto : '');
+    this.editForm.controls.descripcion.setValue(this.paquetes ? this.paquetes.descripcion : '');
+    this.editForm.controls.dimensiones.setValue(this.paquetes ? this.paquetes.dimensiones : '');
+    this.editForm.controls.estado.setValue(this.paquetes ? this.paquetes.estado : '');
   }
 
   protected loadRelationshipsOptions(): void {
@@ -121,7 +116,7 @@ export class PaquetesUpdateComponent implements OnInit {
       descripcion: this.editForm.get(['descripcion'])!.value,
       dimensiones: this.editForm.get(['dimensiones'])!.value,
       estado: this.editForm.get(['estado'])!.value,
-      idStartup: this.editForm.get(['idStartup'])!.value,
+      idStartup: this.paquetes?.idStartup,
     };
   }
 }
