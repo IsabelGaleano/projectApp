@@ -4,20 +4,30 @@
 }
 
 #lock-opening {
-  animation: lock-movement 2s linear infinite;
+  transform: rotateY(0deg);
+  animation: lock-movement 1s alternate infinite;
+  transform-origin: left;
+  transform-box: fill-box;
+}
+#lock-dollar-sign {
+  //animation: lock-dollar-rotate 1.5s linear infinite;
   transform-origin: center;
   transform-box: fill-box;
 }
 
 @keyframes lock-movement {
   0% {
-    transform: rotateZ(0deg);
-  }
-  50% {
-    transform: rotateZ(-90deg);
+    transform: rotateY(0deg);
   }
   100% {
-    transform: rotateZ(-90deg);
-    transform: translateY(1rem);
+    transform: rotateY(180deg);
+  }
+}
+@keyframes lock-dollar-rotate {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
   }
 }

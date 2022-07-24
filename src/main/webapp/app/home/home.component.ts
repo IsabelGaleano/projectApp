@@ -5,8 +5,6 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
-import { CategoriasService } from 'app/entities/categorias/service/categorias.service';
-import { ICategorias } from 'app/entities/categorias/categorias.model';
 
 @Component({
   selector: 'jhi-home',
@@ -15,29 +13,10 @@ import { ICategorias } from 'app/entities/categorias/categorias.model';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
-  categorias: any = [];
-  categoriaSeleccionada: ICategorias = {};
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router, private categoriasService: CategoriasService) {
-    this.categorias = [];
-    this.categoriasService.get().subscribe(data => {
-      this.categorias = data.body;
-      /* eslint-disable no-console */
-      console.log(data.body);
-    });
-  }
-
-  cambioDropdownCategorias(event: any): void {
-    /* eslint-disable no-console */
-    console.log(event.target.value);
-    if (event.target.value !== 'default') {
-      this.categoriaSeleccionada = event.target.value;
-    } else {
-      this.categoriaSeleccionada = {};
-    }
-  }
+  constructor(private accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {
     this.accountService

@@ -161,13 +161,6 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
-        <span>{{ categoriaSeleccionada }}</span>
-        <select (change)="cambioDropdownCategorias($event)" class="btn btn-secondary dropdown-toggle">
-          <option value="default">Seleccione una categoría</option>
-          <option *ngFor="let c of categorias" value="{{ c.categoria }}">{{ c.categoria }}</option>
-        </select>
-      </div>
 
       <div class="py-6">
         <svg class="logo_svg" width="120" height="100" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
