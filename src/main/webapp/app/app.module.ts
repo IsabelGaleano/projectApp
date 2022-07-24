@@ -1,5 +1,5 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/es';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -47,6 +47,8 @@ import { ListarPaquetesStartupComponent } from './startup/listar-paquetes-startu
 import { ListarStartupsAdminComponent } from './admin/listar-startups-admin/listar-startups-admin.component';
 import { ListarInscripcionesAdminComponent } from './admin/listar-inscripciones-admin/listar-inscripciones-admin.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { RegistrarPaquetesStartupComponent } from './startup/registrar-paquetes-startup/registrar-paquetes-startup.component';
+import { PerfilStartupComponent } from './startup/perfil-startup/perfil-startup.component';
 import { PerfilUsuarioFinalComponent } from './usuarioFinal/perfil/perfil-usuario-final.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { ValidateotpComponent } from './validateotp/validateotp.component';
@@ -71,6 +73,7 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
     TranslationModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
     AccountModule,
   ],
   providers: [
@@ -106,6 +109,8 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
     ListarPaquetesStartupComponent,
     ListarStartupsAdminComponent,
     ListarInscripcionesAdminComponent,
+    RegistrarPaquetesStartupComponent,
+    PerfilStartupComponent,
     PerfilUsuarioFinalComponent,
     PasswordRecoveryComponent,
     ValidateotpComponent,
