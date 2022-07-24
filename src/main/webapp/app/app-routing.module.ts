@@ -9,9 +9,11 @@ import { Authority } from 'app/config/authority.constants';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { RegistroUsuarioFinalComponent } from 'app/registro/registro-usuario-final/registro-usuario-final.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ValidateotpComponent } from './validateotp/validateotp.component';
-import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/registro-adicional-startup.component';
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {ValidateotpComponent} from "./validateotp/validateotp.component";
+import {RegistroAdicionalStartupComponent} from "./registro-adicional-startup/registro-adicional-startup.component";
+import {PaquetesUpdateComponent} from "./entities/paquetes/update/paquetes-update.component";
+import {CodigosComponent} from "./entities/codigos/list/codigos.component";
 
 @NgModule({
   imports: [
