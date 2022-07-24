@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Documentos } from 'app/entities/documentos/documentos.model';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 
 @Injectable({
@@ -25,7 +25,9 @@ export class PerfilUsuarioFinalService {
       return this.http.get(this.rootURL.concat('/usuarios'));
     }
   }
-
+  postImagenCloudinary(documento: Documentos): Observable<any> {
+    return this.http.post(this.rootURL.concat('/usuarios/uploadImage'), documento);
+  }
   updateUsers(id: number, usuarios: Record<string, unknown>): Observable<any> {
     return this.http.put(this.rootURL.concat('/usuarios/', id.toString()), usuarios);
   }

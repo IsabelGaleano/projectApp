@@ -58,6 +58,7 @@ import { AccountModule } from './account/account.module';
 import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad-startup.component';
 import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
 import { PerfilComercialStartupComponent } from './startup/perfil-comercial-startup/perfil-comercial-startup.component';
+import { UpdatePaqueteStartupComponent } from './startup/actualizar-paquete-startup/actualizar-paquete-startup.component';
 
 @NgModule({
   imports: [
@@ -119,6 +120,7 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
     ComunidadStartupComponent,
     StartupsPorCategoriaComponent,
     PerfilComercialStartupComponent,
+    UpdatePaqueteStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

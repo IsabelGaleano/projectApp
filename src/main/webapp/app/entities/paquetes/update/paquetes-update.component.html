@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-paquetes-heading" data-cy="PaquetesCreateUpdateHeading" jhiTranslate="projectApp.paquetes.home.createOrEditLabel">
-        Create or edit a Paquetes
+        Actualizar paquete
       </h2>
 
       <div>
@@ -23,7 +23,7 @@
               jhiTranslate="entity.validation.minlength"
               [translateValues]="{ min: 1 }"
             >
-              This field is required to be at least 1 characters.
+              Este campo es requerido el mínimo es 1 carácter.
             </small>
             <small
               class="form-text text-danger"
@@ -31,7 +31,7 @@
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 200 }"
             >
-              This field cannot be longer than 200 characters.
+              Este campo es requerido el máximo son 200 carácteres.
             </small>
           </div>
         </div>
@@ -39,36 +39,6 @@
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="projectApp.paquetes.monto" for="field_monto">Monto</label>
           <input type="number" class="form-control" name="monto" id="field_monto" data-cy="monto" formControlName="monto" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="projectApp.paquetes.descripcion" for="field_descripcion">Descripcion</label>
-          <input
-            type="text"
-            class="form-control"
-            name="descripcion"
-            id="field_descripcion"
-            data-cy="descripcion"
-            formControlName="descripcion"
-          />
-          <div *ngIf="editForm.get('descripcion')!.invalid && (editForm.get('descripcion')!.dirty || editForm.get('descripcion')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('descripcion')?.errors?.minlength"
-              jhiTranslate="entity.validation.minlength"
-              [translateValues]="{ min: 1 }"
-            >
-              This field is required to be at least 1 characters.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('descripcion')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 300 }"
-            >
-              This field cannot be longer than 300 characters.
-            </small>
-          </div>
         </div>
 
         <div class="row mb-3">
@@ -88,7 +58,7 @@
               jhiTranslate="entity.validation.minlength"
               [translateValues]="{ min: 1 }"
             >
-              This field is required to be at least 1 characters.
+              Este campo es requerido el mínimo es 1 carácter.
             </small>
             <small
               class="form-text text-danger"
@@ -96,7 +66,7 @@
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 50 }"
             >
-              This field cannot be longer than 50 characters.
+              Este campo es requerido el máximo son 50 carácteres.
             </small>
           </div>
         </div>
@@ -111,7 +81,7 @@
               jhiTranslate="entity.validation.minlength"
               [translateValues]="{ min: 1 }"
             >
-              This field is required to be at least 1 characters.
+              Este campo es requerido el mínimo es 1 carácter.
             </small>
             <small
               class="form-text text-danger"
@@ -119,7 +89,37 @@
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 50 }"
             >
-              This field cannot be longer than 50 characters.
+              Este campo es requerido el máximo son 50 carácteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="projectApp.paquetes.descripcion" for="field_descripcion">Descripción</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
+          <div *ngIf="editForm.get('descripcion')!.invalid && (editForm.get('descripcion')!.dirty || editForm.get('descripcion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              Este campo es requerido el mínimo es 1 carácter.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 300 }"
+            >
+              Este campo es requerido el máximo son 300 carácteres.
             </small>
           </div>
         </div>
@@ -140,7 +140,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
         </button>
 
         <button
@@ -150,7 +150,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Actualizar</span>
         </button>
       </div>
     </form>

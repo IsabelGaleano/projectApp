@@ -57,7 +57,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
     });
 
     this.accountService.getAuthenticationState().subscribe(account => {
-      const imgHeader = document.getElementById('imgHeader') as HTMLInputElement;
+      const imgHeader = document.getElementById('imgPerfil') as HTMLInputElement;
       const nombreHeader = document.getElementById('nombreHeader') as HTMLInputElement;
       const apellidosHeader = document.getElementById('apellidosHeader') as HTMLInputElement;
       const correoSidebar = document.getElementById('correoSidebar') as HTMLInputElement;
@@ -69,7 +69,6 @@ export class PerfilUsuarioFinalComponent implements OnInit {
       if (account) {
         console.warn(account);
         this.user = true;
-
         this.perfilUsuarioFinalService.getUsersByMail(account.email).subscribe((dataUsuario: any) => {
           this.usuario = dataUsuario;
           const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
@@ -216,7 +215,27 @@ export class PerfilUsuarioFinalComponent implements OnInit {
       window.location.reload();
     });
   }
+  actualizarImagen(event: any): void {
+    const nombre = 'Imagen de perfil';
+    const descripcion = 'Imagen del perfil startup';
+    const estado = 'Activo';
+    const url = 'C:\\imgStartupSafe\\'.concat(event.target.files[0].name);
 
+    this.perfilUsuarioFinalService.postImagenCloudinary({ nombre, descripcion, estado, url }).subscribe((dataActualizada: any) => {
+      console.warn(dataActualizada);
+      const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
+      imgPerfilStartup.src = dataActualizada.url;
+
+      this.perfilUsuarioFinalService.getUsersByMail(this.usuarioFinal).subscribe((dataUsuarioF: any) => {
+        if (dataUsuarioF) {
+          dataUsuarioF.imagenURL = dataActualizada.url;
+          this.perfilUsuarioFinalService.updateUsers(dataUsuarioF.id, dataUsuarioF).subscribe((result: any) => {
+            console.warn(result);
+          });
+        }
+      });
+    });
+  }
   desencriptar(s: string): string {
     const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
     let strDescodificado = '';

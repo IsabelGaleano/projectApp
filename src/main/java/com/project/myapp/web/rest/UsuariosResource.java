@@ -1,5 +1,7 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.cloudinary.CloudinaryService;
+import com.project.myapp.domain.Documentos;
 import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.User;
 import com.project.myapp.domain.Usuarios;
@@ -354,5 +356,13 @@ public class UsuariosResource {
         } else {
             throw new UserNotFoundedError();
         }
+    }
+
+    @PostMapping("/usuarios/uploadImage")
+    public Documentos uploadImage(@Valid @RequestBody Documentos image) {
+        CloudinaryService cloudinaryService = new CloudinaryService();
+        String imgPerfil = cloudinaryService.uploadFile(image.getUrl());
+        image.setUrl(imgPerfil);
+        return image;
     }
 }
