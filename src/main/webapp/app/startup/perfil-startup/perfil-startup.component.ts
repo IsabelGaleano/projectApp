@@ -17,6 +17,7 @@ import { CategoriasService } from 'app/entities/categorias/service/categorias.se
 import dayjs from 'dayjs';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { StartupsService } from 'app/entities/startups/service/startups.service';
+import { Documentos } from 'app/entities/documentos/documentos.model';
 
 /* tslint:disable:component-selector */
 @Component({
@@ -44,6 +45,7 @@ export class PerfilStartupComponent implements OnInit {
   categoriaSelected: any;
   categoriaIdSelected: any;
   existCategoria: any = true;
+  imgPerfil: any;
 
   constructor(
     private loginService: LoginService,
@@ -142,7 +144,7 @@ export class PerfilStartupComponent implements OnInit {
         const beneficiosF = document.getElementById('beneficios') as HTMLInputElement;
         const riesgosF = document.getElementById('riesgos') as HTMLInputElement;
         const panoramaMercadoF = document.getElementById('panoramaMercado') as HTMLInputElement;
-
+        const imgPerfilF = document.getElementById('imgPerfil') as HTMLInputElement;
         //Monedero
         const saldoMonederoF = document.getElementById('saldoMonedero') as HTMLInputElement;
         const tipoMonederoF = document.getElementById('tipoMonedero') as HTMLInputElement;
@@ -159,6 +161,7 @@ export class PerfilStartupComponent implements OnInit {
         riesgosF.value = startup.riesgos;
         panoramaMercadoF.value = startup.panoramaMercado;
         fechaCreacionF.value = this.formatDate(new Date(startup.fechaCreacion));
+        imgPerfilF.src = startup.imagenURL;
         console.warn(this.formatDate(new Date(startup.fechaCreacion)));
 
         saldoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.saldo);
@@ -175,7 +178,6 @@ export class PerfilStartupComponent implements OnInit {
           });
         }
 
-        //Set values header
         //Set values header
 
         const nombreHeader = document.getElementById('nombreHeader') as HTMLInputElement;
@@ -321,6 +323,28 @@ export class PerfilStartupComponent implements OnInit {
 
     this.perfilService.savePassword(contrasenniaAntiguaForm.value, contrasenniaNuevaForm.value).subscribe(() => {
       window.location.reload();
+    });
+  }
+
+  actualizarImagen(event: any): void {
+    let nombre: string = 'Imagen de perfil';
+    let descripcion: string = 'Imagen del perfil startup';
+    let estado: string = 'Activo';
+    let url = 'C:\\imgStartupSafe\\'.concat(event.target.files[0].name);
+
+    this.perfilService.getImagenCloudinary({ nombre, descripcion, estado, url }).subscribe((dataActualizada: any) => {
+      console.warn(dataActualizada);
+      const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
+      imgPerfilStartup.src = dataActualizada.url;
+
+      this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
+        if (data) {
+          data.imagenURL = dataActualizada.url;
+          this.perfilService.actualizarStartup(data.id, data).subscribe((result: any) => {
+            console.warn(result);
+          });
+        }
+      });
     });
   }
 

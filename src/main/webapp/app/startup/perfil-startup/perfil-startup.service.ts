@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { Startups } from 'app/entities/startups/startups.model';
+import { Documentos } from 'app/entities/documentos/documentos.model';
 
 @Injectable({ providedIn: 'root' })
 export class PerfilStartupService {
@@ -38,6 +39,10 @@ export class PerfilStartupService {
 
   actualizarStartup(id: number, startup: Record<string, unknown>): Observable<any> {
     return this.http.put(this.rootURL.concat('/startups/', id.toString()), startup);
+  }
+
+  getImagenCloudinary(documento: Documentos): Observable<any> {
+    return this.http.post(this.rootURL.concat('/startups/uploadImage'), documento);
   }
 
   savePassword(currentPassword: string, newPassword: string): Observable<{}> {

@@ -283,9 +283,11 @@ public class StartupsResource {
     }
 
     @PostMapping("/startups/uploadImage")
-    public String uploadImage(@Valid @RequestBody Documentos image) {
+    public Documentos uploadImage(@Valid @RequestBody Documentos image) {
         CloudinaryService cloudinaryService = new CloudinaryService();
-        return cloudinaryService.uploadFile(image.getUrl());
+        String imgPerfil = cloudinaryService.uploadFile(image.getUrl());
+        image.setUrl(imgPerfil);
+        return image;
     }
 
     /**
