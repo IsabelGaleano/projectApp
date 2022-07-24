@@ -241,6 +241,21 @@
                               </div>
                             </div>
                             <div class="form-group">
+                              <label class="form-label" for="tipoUsuario">Tipo de cuenta</label>
+                              <div class="row mg-t-15">
+                                <div class="col-lg-3">
+                                  <label class="rdiobox"
+                                    ><input checked name="rdio" type="radio" value="Usuario" /> <span>Cliente</span></label
+                                  >
+                                </div>
+                                <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                  <label class="rdiobox"
+                                    ><input name="rdio" type="radio" value="Inversionista" /> <span>Inversionista</span></label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
                               <button
                                 type="submit"
                                 [disabled]="registerForm.invalid"

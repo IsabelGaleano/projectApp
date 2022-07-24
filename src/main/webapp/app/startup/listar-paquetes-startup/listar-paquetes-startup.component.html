@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between">
               <h4 style="display: inline" class="card-title mg-b-0">Lista de paquetes</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
-              <a href="#">
+              <a href="startup/registrar-paquetes-startup">
                 <button
                   id="agregar-admins-button"
                   style="margin: 0 0 0 0 !important"
@@ -45,10 +45,10 @@
                     <td>{{ paquete.estado }}</td>
 
                     <td>
-                      <button class="btn btn-success btn-block" value="{{ paquete.id }}">Activar</button>
+                      <button class="btn btn-success btn-block" (click)="activar(paquete)">Activar</button>
                     </td>
                     <td>
-                      <button class="btn btn-danger btn-block" value="{{ paquete.id }}">Desactivar</button>
+                      <button class="btn btn-danger btn-block" (click)="desactivar(paquete)">Desactivar</button>
                     </td>
                     <td>
                       <button

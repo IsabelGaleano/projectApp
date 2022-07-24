@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import {StartupService} from "./service/registro-adicional-startup.service";
-import {IStartups, Startups} from "../entities/startups/startups.model";
+import { StartupService } from './service/registro-adicional-startup.service';
+import { IStartups, Startups } from '../entities/startups/startups.model';
 
 @Component({
   selector: 'jhi-registro-adicional-startup',
   templateUrl: './registro-adicional-startup.component.html',
-  styleUrls: ['./registro-adicional-startup.component.scss']
+  styleUrls: ['./registro-adicional-startup.component.scss'],
 })
-export class RegistroAdicionalStartupComponent  { //implements OnInit {
+export class RegistroAdicionalStartupComponent {
+  //implements OnInit {
   startup: Startups;
-  public code : string;
-  public error : boolean;
-  public info : boolean;
-  public errorMessage : string;
-  public infoMessage : string;
+  public code: string;
+  public error: boolean;
+  public info: boolean;
+  public errorMessage: string;
+  public infoMessage: string;
   public loading: boolean;
- constructor(private startupService: StartupService) {
-   this.startup = new Startups();
-   this.code = "";
-   this.error = false;
-   this.info = false;
-   this.errorMessage = '';
-   this.infoMessage = '';
-   this.loading = false;
- }
+  constructor(private startupService: StartupService) {
+    this.startup = new Startups();
+    this.code = '';
+    this.error = false;
+    this.info = false;
+    this.errorMessage = '';
+    this.infoMessage = '';
+    this.loading = false;
+  }
 
   // ngOnInit(): void {}
 
-  public updateAditionalInfo () : void {
+  public updateAditionalInfo(): void {
     try {
       // se pone el id estático porque debe después integrarse con el registro de startups
       this.startup.id = 1;
@@ -49,7 +50,7 @@ export class RegistroAdicionalStartupComponent  { //implements OnInit {
           this.errorMessage = err.error.title;
           this.loading = false;
           console.error('ERROR AL GUARDAR', err);
-        },
+        }
       );
     } catch (e) {
       this.error = true;

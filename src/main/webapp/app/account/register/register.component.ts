@@ -62,8 +62,15 @@ export class RegisterComponent implements AfterViewInit {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
       sessionStorage.setItem('usuarioFinalPendiente', email);
+      const rdioTipoUsuario = document.getElementsByName('rdio') as NodeListOf<HTMLInputElement>;
+      let tipoUsuario = ' ';
+      for (let i = 0; i < rdioTipoUsuario.length; i++) {
+        if (rdioTipoUsuario[i].checked) {
+          tipoUsuario = rdioTipoUsuario[i].value;
+        }
+      }
       this.registerService
-        .save({ login, email, password, langKey: this.translateService.currentLang })
+        .save({ login, email, password, langKey: this.translateService.currentLang }, tipoUsuario.toString())
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
       this.router.navigate(['account/verificacion-codigo-usuario-final']);
     }
