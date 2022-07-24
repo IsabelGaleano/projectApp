@@ -1,6 +1,8 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.cloudinary.CloudinaryService;
 import com.project.myapp.domain.Codigos;
+import com.project.myapp.domain.Documentos;
 import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.encriptar.Encriptar;
@@ -278,6 +280,12 @@ public class StartupsResource {
         List<String> result = new ArrayList<>();
         result.add(keyDesincriptada);
         return result;
+    }
+
+    @PostMapping("/startups/uploadImage")
+    public String uploadImage(@Valid @RequestBody Documentos image) {
+        CloudinaryService cloudinaryService = new CloudinaryService();
+        return cloudinaryService.uploadFile(image.getUrl());
     }
 
     /**
