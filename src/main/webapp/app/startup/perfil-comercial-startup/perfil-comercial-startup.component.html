@@ -149,12 +149,6 @@
                               <h5>Categoría</h5>
                               <span>{{ startup.idCategoria.categoria }}</span>
                               <p></p>
-                              <h5>Dirección</h5>
-                              <!-- <span>{{startup.latitudDireccion}} {{startup.longitudDireccion}}</span> -->
-                              <div>
-                                <div id="map" style="width: 15vw; height: 15vh"></div>
-                              </div>
-                              <p></p>
                               <h5>Riesgos</h5>
                               <span>
                                 {{ startup.riesgos }}
@@ -168,6 +162,11 @@
                                 ><a href="{{ startup.linkSitioWeb }}">{{ startup.linkSitioWeb }}</a></span
                               >
                               <p></p>
+                              <h5>Dirección</h5>
+                              <!-- <span>{{startup.latitudDireccion}} {{startup.longitudDireccion}}</span> -->
+                              <div>
+                                <div id="map" style="width: 55vw; height: 25vh"></div>
+                              </div>
                             </div>
                           </div>
 
