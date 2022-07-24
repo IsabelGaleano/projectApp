@@ -12,6 +12,7 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { data } from 'autoprefixer';
 import { Loader } from '@googlemaps/js-api-loader';
+import { FormBuilder, Validators } from '@angular/forms';
 /* tslint:disable:component-selector */
 @Component({
   selector: 'jhi-perfil-usuario-final',
@@ -39,6 +40,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
+    private fb: FormBuilder,
     private router: Router,
     private perfilUsuarioFinalService: PerfilUsuarioFinalService
   ) {
@@ -82,10 +84,10 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           });
           loader.load().then(() => {
             const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudDireccionForm');
-            latitudDireccionForm.value = dataUsuario.latitudDireccion;
+            latitudDireccionForm.value = dataUsuario.latitudDireccion.trim();
 
             const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitudDireccionForm');
-            longitudDireccionForm.value = dataUsuario.longitudDireccion;
+            longitudDireccionForm.value = dataUsuario.longitudDireccion.trim();
 
             const latitudValue: number = +dataUsuario.latitudDireccion;
             const longitudValue: number = +dataUsuario.longitudDireccion;
@@ -129,41 +131,43 @@ export class PerfilUsuarioFinalComponent implements OnInit {
 
           this.usuarioFinal = dataUsuario.correoElectronico;
           imgHeader.src = dataUsuario.imagenURL;
-          nombreHeader.insertAdjacentText('beforeend', dataUsuario.nombre);
-          apellidosHeader.insertAdjacentText('beforeend', dataUsuario.primerApellido.concat(dataUsuario.segundoApellido));
-          correoSidebar.insertAdjacentText('beforeend', dataUsuario.correoElectronico);
-          telefonoSidebar.insertAdjacentText('beforeend', dataUsuario.telefono);
-          cedulaSidebar.insertAdjacentText('beforeend', dataUsuario.cedula);
-          estadoSidebar.insertAdjacentText('beforeend', dataUsuario.estado);
-          monederoEstadoSidebar.insertAdjacentText('beforeend', dataUsuario.idMonedero.estado);
+          nombreHeader.insertAdjacentText('beforeend', dataUsuario.nombre.trim());
+          apellidosHeader.insertAdjacentText('beforeend', dataUsuario.primerApellido.concat(dataUsuario.segundoApellido.trim()));
+          correoSidebar.insertAdjacentText('beforeend', dataUsuario.correoElectronico.trim());
+          telefonoSidebar.insertAdjacentText('beforeend', dataUsuario.telefono.trim());
+          cedulaSidebar.insertAdjacentText('beforeend', dataUsuario.cedula.trim());
+          estadoSidebar.insertAdjacentText('beforeend', dataUsuario.estado.trim());
+          monederoEstadoSidebar.insertAdjacentText('beforeend', dataUsuario.idMonedero.estado.trim());
           if (dataUsuario.tipoUsuarioFinal === 'Usuario') {
             tipoUsuarioSidebar.insertAdjacentText('beforeend', 'Cliente');
+          } else {
+            tipoUsuarioSidebar.insertAdjacentText('beforeend', 'Inversionista');
           }
           // Form values
           const nombreForm = <HTMLInputElement>document.getElementById('nombreForm');
-          nombreForm.value = dataUsuario.nombre;
+          nombreForm.value = dataUsuario.nombre.trim();
 
           const apellido1Form = <HTMLInputElement>document.getElementById('apellido1Form');
-          apellido1Form.value = dataUsuario.primerApellido;
+          apellido1Form.value = dataUsuario.primerApellido.trim();
 
           const apellido2Form = <HTMLInputElement>document.getElementById('apellido2Form');
-          apellido2Form.value = dataUsuario.segundoApellido;
+          apellido2Form.value = dataUsuario.segundoApellido.trim();
 
           const cedulaForm = <HTMLInputElement>document.getElementById('cedulaForm');
-          cedulaForm.value = dataUsuario.cedula;
+          cedulaForm.value = dataUsuario.cedula.trim();
 
           const correoForm = <HTMLInputElement>document.getElementById('correoForm');
-          correoForm.value = dataUsuario.correoElectronico;
+          correoForm.value = dataUsuario.correoElectronico.trim();
 
           const telefonoForm = <HTMLInputElement>document.getElementById('telefonoForm');
-          telefonoForm.value = dataUsuario.telefono;
+          telefonoForm.value = dataUsuario.telefono.trim();
 
           const fechaNacimientoForm = <HTMLInputElement>document.getElementById('fechaNacimientoForm');
           const fechaFormato = dataUsuario.fechaNacimiento.split('T', 2);
           fechaNacimientoForm.value = fechaFormato[0];
 
           const generoForm = <HTMLInputElement>document.getElementById('generoForm');
-          generoForm.value = dataUsuario.genero;
+          generoForm.value = dataUsuario.genero.trim();
         });
       }
       this.account = account;

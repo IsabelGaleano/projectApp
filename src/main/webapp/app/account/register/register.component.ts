@@ -70,7 +70,7 @@ export class RegisterComponent implements AfterViewInit {
         }
       }
       this.registerService
-        .save({ login, email, password, langKey: this.translateService.currentLang }, tipoUsuario)
+        .save({ login, email, password, langKey: this.translateService.currentLang }, tipoUsuario.toString())
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
       this.router.navigate(['account/verificacion-codigo-usuario-final']);
     }
