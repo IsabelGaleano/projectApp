@@ -1,6 +1,8 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.cloudinary.CloudinaryService;
 import com.project.myapp.domain.Codigos;
+import com.project.myapp.domain.Documentos;
 import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.encriptar.Encriptar;
@@ -83,7 +85,7 @@ public class StartupsResource {
     @PutMapping("/startups/{id}")
     public ResponseEntity<Startups> updateStartups(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody Startups startups
+        @RequestBody Startups startups
     ) throws URISyntaxException {
         log.debug("REST request to update Startups : {}, {}", id, startups);
         if (startups.getId() == null) {
@@ -278,6 +280,14 @@ public class StartupsResource {
         List<String> result = new ArrayList<>();
         result.add(keyDesincriptada);
         return result;
+    }
+
+    @PostMapping("/startups/uploadImage")
+    public Documentos uploadImage(@Valid @RequestBody Documentos image) {
+        CloudinaryService cloudinaryService = new CloudinaryService();
+        String imgPerfil = cloudinaryService.uploadFile(image.getUrl());
+        image.setUrl(imgPerfil);
+        return image;
     }
 
     /**
