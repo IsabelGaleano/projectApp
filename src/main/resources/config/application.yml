@@ -200,7 +200,7 @@ jhipster:
     license: unlicensed
     license-url:
   security:
-    content-security-policy: "connect-src 'self' https://maps.googleapis.com https://www.sandbox.paypal.com; default-src 'self'; frame-src 'self' https://www.sandbox.paypal.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com https://maps.googleapis.com https://www.paypal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/css; img-src https://cdn.pixabay.com https://maps.googleapis.com https://maps.gstatic.com 'self' data:; font-src 'self' data:"
+    content-security-policy: "connect-src 'self' https://maps.googleapis.com https://www.sandbox.paypal.com; default-src 'self'; frame-src 'self' https://www.sandbox.paypal.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com https://maps.googleapis.com https://www.paypal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/css; img-src https://res.cloudinary.com https://cdn.pixabay.com https://maps.googleapis.com https://maps.gstatic.com 'self' data:; font-src 'self' data:"
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
