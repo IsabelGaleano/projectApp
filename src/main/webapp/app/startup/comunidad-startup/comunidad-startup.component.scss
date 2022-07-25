@@ -1,0 +1,59 @@
+.main-content {
+  max-width: 80% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+}
+
+.startup-cards {
+  width: 100%;
+}
+
+.card-img-top {
+  max-width: 357px;
+  max-height: 237px;
+}
+
+.card-categoria {
+  height: auto;
+}
+
+.card-categoria:hover {
+  cursor: pointer;
+}
+
+.img-lista {
+  height: 100%;
+}
+
+.software-icon {
+  color: #058930;
+}
+
+.cocina-icon {
+  color: #fa5401;
+}
+
+.hogar-icon {
+  color: #ffbd5a;
+}
+
+.moda-icon {
+  color: #e11a22;
+}
+
+.descripcion-corta {
+  height: 6.3rem;
+  // height: 100px;
+}
+
+.msg-no-startups {
+  text-align: center;
+}
+.msg-no-startups h1 {
+  color: #5b6e88;
+}
