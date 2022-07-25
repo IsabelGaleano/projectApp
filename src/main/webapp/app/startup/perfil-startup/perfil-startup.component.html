@@ -10,12 +10,8 @@
               <div class="main-profile-overview">
                 <div class="main-img-user profile-user">
                   <img alt="" id="imgPerfil" />
-                  <label for="fileInput">
-                    <img
-                      id="icon"
-                      style="width: 5px; cursor: pointer"
-                      src="../../../content/images/Edit_icon_(the_Noun_Project_30184).png"
-                    />
+                  <label role="button" for="fileInput">
+                    <fa-icon class="fa-2x" [icon]="faEdit"></fa-icon>
                   </label>
                   <input id="fileInput" (change)="actualizarImagen($event)" style="display: none" type="file" />
                 </div>
@@ -143,7 +139,7 @@
                                 <label class="form-label">Correo electrónico</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" id="correoElectronico" />
+                                <input type="text" class="form-control" disabled id="correoElectronico" />
                               </div>
                             </div>
                           </div>
