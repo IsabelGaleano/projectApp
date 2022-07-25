@@ -9,12 +9,16 @@
             <div class="ps-0">
               <div class="main-profile-overview">
                 <div class="main-img-user profile-user">
-                  <img alt="" src="../assets/img/faces/6.jpg" /><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                  <img alt="" id="imgPerfil" />
+                  <label role="button" for="fileInput">
+                    <fa-icon class="fa-2x" [icon]="faEdit"></fa-icon>
+                  </label>
+                  <input id="fileInput" (change)="actualizarImagen($event)" style="display: none" type="file" />
                 </div>
                 <div class="d-flex justify-content-between mg-b-20">
                   <div>
-                    <h5 class="main-profile-name">Nombre</h5>
-                    <p class="main-profile-name-text">Apellidos o correo</p>
+                    <h5 class="main-profile-name" id="nombreHeader"></h5>
+                    <p class="main-profile-name-text" id="nombreLargoH"></p>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
@@ -24,25 +28,25 @@
                     <div class="media-icon bg-primary-transparent text-primary">
                       <i class="icon ion-md-link"></i>
                     </div>
-                    <div class="media-body"><span>Correo</span> <a href="">github.com/spruko</a></div>
+                    <div class="media-body"><span>Correo</span> <a href="" id="correoHeader"></a></div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
                       <i class="icon ion-md-phone-portrait"></i>
                     </div>
-                    <div class="media-body"><span>Teléfono</span> <a href="">twitter.com/spruko.me</a></div>
+                    <div class="media-body"><span>Teléfono</span> <a href="" id="telefonoHeader"></a></div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
                       <i class="icon ion-md-locate"></i>
                     </div>
-                    <div class="media-body"><span>Cédula</span> <a href="">linkedin.com/in/spruko</a></div>
+                    <div class="media-body"><span>Sitio web</span> <a href="" id="enlaceHeader"></a></div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-danger-transparent text-danger">
                       <i class="icon ion-md-contacts"></i>
                     </div>
-                    <div class="media-body"><span>Tipo de usuario</span> <a href="">Startup</a></div>
+                    <div class="media-body"><span>Fecha de creación</span> <a href="" id="fechaCreacionHeader"></a></div>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
@@ -61,7 +65,7 @@
                 </div>
                 <div class="media-body">
                   <span>Estado de cuenta</span>
-                  <div>Activo</div>
+                  <div id="estadoHeader"></div>
                 </div>
               </div>
               <div class="media">
@@ -70,16 +74,7 @@
                 </div>
                 <div class="media-body">
                   <span>Monedero</span>
-                  <div>Activo</div>
-                </div>
-              </div>
-              <div class="media">
-                <div class="media-icon bg-info-transparent text-info">
-                  <i class="icon ion-md-locate"></i>
-                </div>
-                <div class="media-body">
-                  <span>Ubicación actual</span>
-                  <div>San Francisco, CA</div>
+                  <div id="estadoMonederoHeader"></div>
                 </div>
               </div>
             </div>
@@ -112,7 +107,7 @@
                   <div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab1">
-                        <form class="form-horizontal">
+                        <form>
                           <div class="mb-4 main-content-label">Nombre</div>
                           <div class="form-group">
                             <div class="row">
@@ -120,7 +115,7 @@
                                 <label class="form-label">Nombre corto</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="David" />
+                                <input type="text" class="form-control" id="nombreCorto" />
                               </div>
                             </div>
                           </div>
@@ -131,22 +126,12 @@
                                 <label class="form-label">Nombre completo</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="First Name" value="David R C" />
+                                <input type="text" class="form-control" id="nombreLargo" />
                               </div>
                             </div>
                           </div>
                           <hr class="mg-y-30" />
                           <div class="mb-4 main-content-label">Información de contacto</div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <label class="form-label">Cédula</label>
-                              </div>
-                              <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="118920211" />
-                              </div>
-                            </div>
-                          </div>
                           <p></p>
                           <div class="form-group">
                             <div class="row">
@@ -154,7 +139,7 @@
                                 <label class="form-label">Correo electrónico</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Email" value="drodriguezc1@ucenfotec.ac." />
+                                <input type="text" class="form-control" disabled id="correoElectronico" />
                               </div>
                             </div>
                           </div>
@@ -165,7 +150,7 @@
                                 <label class="form-label">Teléfono</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="phone number" value="+245 354 654" />
+                                <input type="text" class="form-control" id="telefono" />
                               </div>
                             </div>
                           </div>
@@ -176,7 +161,7 @@
                                 <label class="form-label">Ubicación</label>
                               </div>
                               <div class="col-md-9">
-                                <div><img alt="Responsive image" class="img-fluid" src="../assets/img/photos/1.jpg" /></div>
+                                <div id="map" style="width: 50vw; height: 50vh"></div>
                               </div>
                             </div>
                           </div>
@@ -187,7 +172,7 @@
                                 <label class="form-label">Latitud</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" name="example-textarea-input" rows="2" placeholder="12321313" />
+                                <input class="form-control" name="example-textarea-input" rows="2" id="latitud" />
                               </div>
                             </div>
                           </div>
@@ -198,7 +183,7 @@
                                 <label class="form-label">Longitud</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" name="example-textarea-input" rows="2" placeholder="-12321313" />
+                                <input class="form-control" name="example-textarea-input" rows="2" id="longitud" />
                               </div>
                             </div>
                           </div>
@@ -210,7 +195,7 @@
                                 <label class="form-label">Fecha de creación</label>
                               </div>
                               <div class="col-md-9">
-                                <input class="form-control" id="dateMask" placeholder="MM/DD/YYYY" type="date" />
+                                <input class="form-control" id="fechaCreacion" placeholder="MM/DD/YYYY" type="date" />
                               </div>
                             </div>
                           </div>
@@ -221,7 +206,13 @@
                                 <label class="form-label">Categoría</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="Tecnología" />
+                                <select class="form-control" id="categoriaStartup">
+                                  <option value="default" *ngIf="existCategoria">Seleccione una categoría</option>
+                                  <option *ngIf="categoriaSelected" value="{{ categoriaIdSelected }}" selected>
+                                    {{ categoriaSelected }}
+                                  </option>
+                                  <option *ngFor="let c of categorias" value="{{ c.id }}">{{ c.categoria }}</option>
+                                </select>
                               </div>
                             </div>
                           </div>
@@ -229,10 +220,10 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-3">
-                                <label class="form-label">Link al sitio web</label>
+                                <label class="form-label">Enlace al sitio web</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="www." />
+                                <input type="text" class="form-control" id="enlace" />
                               </div>
                             </div>
                           </div>
@@ -243,21 +234,53 @@
                                 <label class="form-label">Descripción</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="User Name" value="Descripción" />
+                                <textarea
+                                  class="form-control"
+                                  id="descripcionCorta"
+                                  name="descripcionCorta"
+                                  formControlName="descripcionCorta"
+                                  data-cy="descripcionCorta"
+                                  rows="4"
+                                  cols="50"
+                                >
+                                </textarea>
                               </div>
                             </div>
                           </div>
                         </form>
                         <p></p>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" (click)="actualizarStartup()">
+                          Actualizar
+                        </button>
                       </div>
                       <div class="tab-pane" id="tab2">
                         <form class="form-horizontal">
+                          <div class="mb-4 main-content-label">Estado de la meta</div>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-9">
+                                <select name="estadoMeta" class="form-control" id="estadoMeta">
+                                  <option value="{{ tipoMetaSelected }}" selected>{{ tipoMetaSelected }}</option>
+                                  <option value="{{ tipoMetaSelectedN }}">{{ tipoMetaSelectedN }}</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="mg-y-30" />
+                          <div class="mb-4 main-content-label">Monto de la meta</div>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-9">
+                                <input type="number" id="montoMeta" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="mg-y-30" />
                           <div class="mb-4 main-content-label">Riesgos</div>
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-9">
-                                <textarea class="form-control" placeholder="Riesgos del startup" rows="10"></textarea>
+                                <textarea class="form-control" rows="10" id="riesgos"></textarea>
                               </div>
                             </div>
                           </div>
@@ -266,7 +289,7 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-9">
-                                <textarea class="form-control" placeholder="Beneficios del startup" rows="10"></textarea>
+                                <textarea class="form-control" id="beneficios" rows="10"></textarea>
                               </div>
                             </div>
                           </div>
@@ -275,13 +298,15 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-9">
-                                <textarea class="form-control" placeholder="Panorama" rows="10"></textarea>
+                                <textarea class="form-control" id="panoramaMercado" rows="10"></textarea>
                               </div>
                             </div>
                           </div>
                         </form>
                         <p></p>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" (click)="actualizarInfoInversionista()">
+                          Actualizar
+                        </button>
                       </div>
                       <div class="tab-pane" id="tab3">
                         <div class="tab-pane">
@@ -289,37 +314,42 @@
                           <div class="m-t-30">
                             <div class="p-t-10">
                               <p><b>Nombre</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="nombreInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Descripción</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="descripcionInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Monto</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="montoInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Tipo</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="tipoInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Fecha inicial</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="fechaInicialInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
-                              <p><b>Fecha final</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p><b>Fecha de vencimiento</b></p>
+                              <p class="text-muted tx-12 m-b-0" id="fechaFinalInscripcion"></p>
+                            </div>
+                            <hr />
+                            <div class="p-t-10">
+                              <p><b>Beneficios</b></p>
+                              <p class="text-muted tx-12 m-b-0" id="beneficiosInscripcion"></p>
                             </div>
                             <hr />
                             <div class="p-t-10">
                               <p><b>Estado</b></p>
-                              <p class="text-muted tx-12 m-b-0">Test</p>
+                              <p class="text-muted tx-12 m-b-0" id="estadoInscripcion"></p>
                             </div>
                           </div>
                         </div>
@@ -328,17 +358,17 @@
                         <h4 class="tx-18 mb-3">Monedero</h4>
                         <div class="p-t-10">
                           <p><b>Saldo actual</b></p>
-                          <p class="text-muted tx-12 m-b-0">Test</p>
+                          <p class="text-muted tx-12 m-b-0" id="saldoMonedero"></p>
                         </div>
                         <hr />
                         <div class="p-t-10">
                           <p><b>Tipo</b></p>
-                          <p class="text-muted tx-12 m-b-0">Test</p>
+                          <p class="text-muted tx-12 m-b-0" id="tipoMonedero"></p>
                         </div>
                         <hr />
                         <div class="p-t-10">
                           <p><b>Estado</b></p>
-                          <p class="text-muted tx-12 m-b-0">Test</p>
+                          <p class="text-muted tx-12 m-b-0" id="estadoMonedero"></p>
                         </div>
                         <hr />
                       </div>
@@ -351,7 +381,7 @@
                                 <label class="form-label">Contraseña antigua</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Contraseña antigua" />
+                                <input type="password" class="form-control" placeholder="Contraseña antigua" id="contrasenniaAntiguaForm" />
                               </div>
                             </div>
                           </div>
@@ -362,7 +392,7 @@
                                 <label class="form-label">Nueva contraseña</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Nueva contraseña" />
+                                <input type="password" class="form-control" placeholder="Nueva contraseña" id="contrasenniaNuevaForm" />
                               </div>
                             </div>
                           </div>
@@ -373,12 +403,19 @@
                                 <label class="form-label">Confirmar nueva contraseña</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="Confirmar contraseña" />
+                                <input
+                                  type="password"
+                                  class="form-control"
+                                  id="confirmarContrasenniaNuevaForm"
+                                  placeholder="Confirmar contraseña"
+                                />
                               </div>
                             </div>
                           </div>
                         </form>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" (click)="actualizarPassword()">
+                          Actualizar
+                        </button>
                       </div>
                     </div>
                   </div>

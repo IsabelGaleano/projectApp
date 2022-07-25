@@ -29,5 +29,6 @@ import { VerificacionStartupRoute } from './verificacion-startup/verificacion-st
     RegisterStartupComponent,
     VerificacionStartupComponent,
   ],
+  exports: [PasswordStrengthBarComponent],
 })
 export class AccountModule {}

@@ -9,6 +9,7 @@ import { IPaquetes, Paquetes } from '../paquetes.model';
 import { PaquetesService } from '../service/paquetes.service';
 import { IStartups } from 'app/entities/startups/startups.model';
 import { StartupsService } from 'app/entities/startups/service/startups.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-paquetes-update',
@@ -18,6 +19,7 @@ export class PaquetesUpdateComponent implements OnInit {
   isSaving = false;
 
   startupsSharedCollection: IStartups[] = [];
+  paquetes?: IPaquetes;
 
   editForm = this.fb.group({
     id: [],

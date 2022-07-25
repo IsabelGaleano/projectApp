@@ -257,6 +257,14 @@ public class InscripcionesResource {
         return ResponseUtil.wrapOrNotFound(inscripciones);
     }
 
+    @GetMapping("/inscripciones/inscripcionByStartup/{correo}")
+    public ResponseEntity<Inscripciones> getInscripcionesByCorreo(@PathVariable String correo) {
+        log.debug("REST request to get Inscripciones : {}", correo);
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(correo);
+        Optional<Inscripciones> inscripciones = inscripcionesRepository.findByIdStartup(startups.get());
+        return ResponseUtil.wrapOrNotFound(inscripciones);
+    }
+
     /**
      * {@code DELETE  /inscripciones/:id} : delete the "id" inscripciones.
      *

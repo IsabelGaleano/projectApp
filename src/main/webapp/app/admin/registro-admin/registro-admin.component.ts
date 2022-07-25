@@ -96,16 +96,20 @@ export class RegistroAdminComponent implements OnInit {
         new Date(fechaNacimiento),
         ' ',
         ' ',
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+        // 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+        'https://res.cloudinary.com/moonsoft/image/upload/v1658635377/profile_qfn6i1.png',
         'Admin',
         contrasennia,
         'Activo',
         monedero,
         2
       );
-      this.registroAdminService
-        .save(admin)
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+      this.registroAdminService.save(admin).subscribe({
+        next() {
+          window.history.back();
+        },
+        error: response => this.processError(response),
+      });
 
       // const monedero = new Monedero("ADMIN", 0, "Activo");
 

@@ -1,6 +1,8 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.cloudinary.CloudinaryService;
 import com.project.myapp.domain.Codigos;
+import com.project.myapp.domain.Documentos;
 import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Usuarios;
 import com.project.myapp.encriptar.Encriptar;
@@ -83,7 +85,7 @@ public class StartupsResource {
     @PutMapping("/startups/{id}")
     public ResponseEntity<Startups> updateStartups(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody Startups startups
+        @RequestBody Startups startups
     ) throws URISyntaxException {
         log.debug("REST request to update Startups : {}, {}", id, startups);
         if (startups.getId() == null) {
@@ -280,6 +282,14 @@ public class StartupsResource {
         return result;
     }
 
+    @PostMapping("/startups/uploadImage")
+    public Documentos uploadImage(@Valid @RequestBody Documentos image) {
+        CloudinaryService cloudinaryService = new CloudinaryService();
+        String imgPerfil = cloudinaryService.uploadFile(image.getUrl());
+        image.setUrl(imgPerfil);
+        return image;
+    }
+
     /**
      * {@code DELETE  /startups/:id} : delete the "id" startups.
      *
@@ -294,5 +304,23 @@ public class StartupsResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/startupsCategoria")
+    public List getAllStartupsWithCategory() {
+        log.debug("REST request to get all Startups with Categories");
+        return startupsRepository.findAllWithCategories();
+    }
+
+    @GetMapping("/cantidadCategoria/{categoria}")
+    public int getCantidadPorCategorias(@PathVariable String categoria) {
+        log.debug("REST request to get all Categorias");
+        return startupsRepository.countStartupsByCategory(categoria);
+    }
+
+    @GetMapping("/startupsPorCategoria/{categoria}")
+    public List getStartupsPorCategorias(@PathVariable String categoria) {
+        log.debug("REST request to get all Categorias");
+        return startupsRepository.startupsPorCategoria(categoria);
     }
 }

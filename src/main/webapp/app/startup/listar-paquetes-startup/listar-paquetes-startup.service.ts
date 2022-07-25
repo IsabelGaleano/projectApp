@@ -17,4 +17,7 @@ export class ListarPaquetesStartupService {
       return this.http.get(this.rootURL.concat('/paquetes/'));
     }
   }
+  updatePaquetesStartups(data: any, id: string): Observable<any> {
+    return this.http.put(this.rootURL.concat('/paquetes/').concat(id), data);
+  }
 }
