@@ -1,0 +1,7 @@
+<svg width="36" height="23" viewBox="0 0 36 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="lock-opening">
+<path id="outside-ellipse" d="M34 23C34 11.402 26.8366 2 18 2C9.16344 2 2 11.402 2 23" stroke="#8DBEB8" stroke-width="3"/>
+<path id="inside-ellipse" d="M28 23C28 14.7157 23.5228 8 18 8C12.4772 8 8 14.7157 8 23" stroke="#8DBEB8" stroke-width="3"/>
+<path id="middle-ellipse" d="M31 23C31 13.0589 25.1797 5 18 5C10.8203 5 5 13.0589 5 23" stroke="white" stroke-width="3"/>
+</g>
+</svg>

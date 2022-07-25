@@ -1,0 +1,33 @@
+.logo_svg {
+  height: 30rem;
+  width: 30rem;
+}
+
+.lock-opening-animation {
+  transform: rotateY(0deg);
+  animation: lock-movement 0.8s alternate infinite;
+  transform-origin: left;
+  transform-box: fill-box;
+}
+.lock-dollar-sign {
+  //animation: lock-dollar-rotate 1.5s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes lock-movement {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes lock-dollar-rotate {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}

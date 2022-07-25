@@ -10,12 +10,8 @@
               <div class="main-profile-overview">
                 <div class="main-img-user profile-user">
                   <img alt="" id="imgPerfil" />
-                  <label for="fileInput">
-                    <img
-                      id="icon"
-                      style="width: 5px; cursor: pointer"
-                      src="../../../content/images/Edit_icon_(the_Noun_Project_30184).png"
-                    />
+                  <label role="button" for="fileInput">
+                    <fa-icon class="fa-2x" [icon]="faEdit"></fa-icon>
                   </label>
                   <input id="fileInput" (change)="actualizarImagen($event)" style="display: none" type="file" />
                 </div>
@@ -143,7 +139,7 @@
                                 <label class="form-label">Correo electrónico</label>
                               </div>
                               <div class="col-md-9">
-                                <input type="text" class="form-control" id="correoElectronico" />
+                                <input type="text" class="form-control" disabled id="correoElectronico" />
                               </div>
                             </div>
                           </div>
@@ -259,6 +255,27 @@
                       </div>
                       <div class="tab-pane" id="tab2">
                         <form class="form-horizontal">
+                          <div class="mb-4 main-content-label">Estado de la meta</div>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-9">
+                                <select name="estadoMeta" class="form-control" id="estadoMeta">
+                                  <option value="{{ tipoMetaSelected }}" selected>{{ tipoMetaSelected }}</option>
+                                  <option value="{{ tipoMetaSelectedN }}">{{ tipoMetaSelectedN }}</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="mg-y-30" />
+                          <div class="mb-4 main-content-label">Monto de la meta</div>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-9">
+                                <input type="number" id="montoMeta" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="mg-y-30" />
                           <div class="mb-4 main-content-label">Riesgos</div>
                           <div class="form-group">
                             <div class="row">
