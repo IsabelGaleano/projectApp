@@ -1,5 +1,6 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Votos;
 import com.project.myapp.repository.VotosRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
@@ -182,5 +183,11 @@ public class VotosResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/votosStartup")
+    public int getAllVotosByStartupId(@RequestBody Startups startup) {
+        log.debug("REST request to get all Votos");
+        return votosRepository.getVotosByStartup(startup);
     }
 }

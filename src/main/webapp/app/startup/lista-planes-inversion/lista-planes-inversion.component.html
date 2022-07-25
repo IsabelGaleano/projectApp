@@ -31,9 +31,6 @@
             </div>
           </div>
           <div class="card-body">
-            <!-- <th class="table-header-centered">Activar</th>
-                        <th class="table-header-centered">Desactivar</th>
-                        <th class="table-header-centered">Perfil</th> -->
             <div class="table-responsive">
               <table class="table table-hover mb-0 text-md-nowrap">
                 <thead>
@@ -44,6 +41,8 @@
                     <th>Beneficios</th>
                     <th>Porcentaje Empresarial</th>
                     <th>Estado</th>
+                    <th>Actualizar</th>
+                    <th>Borrar</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let plan of planes; index as i">
@@ -54,6 +53,45 @@
                     <td>{{ plan.beneficios }}</td>
                     <td>{{ plan.porcentajeEmpresarial }}</td>
                     <td>{{ plan.estado }}</td>
+                    <td>
+                      <div class="d-flex justify-content-between">
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        <a id="btn_{{ plan.id }}" data-bs-target="#modaldemo1" data-bs-toggle="modal">
+                          <button
+                            (click)="llenarFormulario(plan)"
+                            style="margin: 0 0 0 0 !important"
+                            type="button"
+                            class="btn btn-outline-success mx-2 button-icon mb-1"
+                          >
+                            <i class="fa fa-pen me-2"></i>
+                            Editar
+                          </button>
+                        </a>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-between">
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        <!-- <a href="/startup/actualizar-plan-inversion/{{ plan.id }}">
+                          <button style="margin: 0 0 0 0 !important" type="button"
+                            class="btn btn-outline-primary mx-2 button-icon mb-1">
+                            <i class="fa fa-pen me-2"></i>
+                            Editar
+                          </button>
+                        </a> -->
+                        <a href="" data-bs-target="#modaldemo2" data-bs-toggle="modal">
+                          <button
+                            (click)="obtenerIdPlan(plan)"
+                            style="margin: 0 0 0 0 !important"
+                            type="button"
+                            class="btn btn-outline-danger mx-2 button-icon mb-1"
+                          >
+                            <i class="fa fa-pen me-2"></i>
+                            Borrar
+                          </button>
+                        </a>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -64,3 +102,162 @@
     </div>
   </div>
 </div>
+<!-- Basic modal -->
+<div class="modal" id="modaldemo1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-content-demo">
+      <div class="modal-header">
+        <h6 class="modal-title">Editar plan</h6>
+        <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form name="form" role="form" (ngSubmit)="actualizarPlanInversion()" [formGroup]="registerForm" *ngIf="!success">
+          <div class="form-group">
+            <label class="form-label" for="codigo">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              name="nombre"
+              placeholder="Nombre"
+              formControlName="nombre"
+              data-cy="username"
+              #nombre
+            />
+            <div *ngIf="registerForm.get('nombre')!.invalid && (registerForm.get('nombre')!.dirty || registerForm.get('nombre')!.touched)">
+              <small class="form-text text-danger" *ngIf="registerForm.get('nombre')?.errors?.required"> Nombre requerido. </small>
+
+              <small class="form-text text-danger" *ngIf="registerForm.get('nombre')?.errors?.minlength">
+                Tamaño del nombre debe ser mayor a 3 dígitos.
+              </small>
+              <small class="form-text text-danger" *ngIf="registerForm.get('nombre')?.errors?.maxlength">
+                Tamaño del nombre debe ser menor a 100 dígitos.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="codigo">Monto</label>
+            <input
+              type="number"
+              class="form-control"
+              id="monto"
+              name="monto"
+              placeholder="Monto"
+              formControlName="monto"
+              data-cy="username"
+              #monto
+            />
+            <div *ngIf="registerForm.get('monto')!.invalid && (registerForm.get('monto')!.dirty || registerForm.get('monto')!.touched)">
+              <small class="form-text text-danger" *ngIf="registerForm.get('monto')?.errors?.required"> Monto requerido. </small>
+
+              <small class="form-text text-danger" *ngIf="registerForm.get('monto')?.errors?.minlength">
+                Tamaño del monto debe ser mayor a 4 dígitos.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="codigo">Descripción</label>
+            <textarea id="descripcion" class="form-control" cols="20" rows="5" formControlName="descripcion" #descripcion></textarea>
+            <div
+              *ngIf="
+                registerForm.get('descripcion')!.invalid &&
+                (registerForm.get('descripcion')!.dirty || registerForm.get('descripcion')!.touched)
+              "
+            >
+              <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.required">
+                Descripción requerida.
+              </small>
+
+              <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.minlength">
+                Tamaño de la descripción debe ser mayor a 10 dígitos.
+              </small>
+
+              <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.maxlength">
+                Tamaño de la descripción debe ser menor a 300 dígitos.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="codigo">Beneficios del plan</label>
+            <textarea id="beneficios" class="form-control" cols="10" rows="5" formControlName="beneficios" #beneficios></textarea>
+            <div
+              *ngIf="
+                registerForm.get('beneficios')!.invalid &&
+                (registerForm.get('beneficios')!.dirty || registerForm.get('beneficios')!.touched)
+              "
+            >
+              <small class="form-text text-danger" *ngIf="registerForm.get('beneficios')?.errors?.required"> Beneficios requeridos. </small>
+
+              <small class="form-text text-danger" *ngIf="registerForm.get('beneficios')?.errors?.minlength">
+                Los beneficios deben tener 10 dígitos o más.
+              </small>
+
+              <small class="form-text text-danger" *ngIf="registerForm.get('beneficios')?.errors?.maxlength">
+                Los beneficios deben tener 300 dígitos o menos.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="porcentajeEmpresarial">Porcentaje empresarial</label>
+            <input
+              type="number"
+              class="form-control"
+              id="porcentajeEmpresarial"
+              name="porcentajeEmpresarial"
+              formControlName="porcentajeEmpresarial"
+              data-cy="username"
+              #porcentajeEmpresarial
+            />
+            <div
+              *ngIf="
+                registerForm.get('porcentajeEmpresarial')!.invalid &&
+                (registerForm.get('porcentajeEmpresarial')!.dirty || registerForm.get('porcentajeEmpresarial')!.touched)
+              "
+            >
+              <small class="form-text text-danger" *ngIf="registerForm.get('porcentajeEmpresarial')?.errors?.required">
+                Porcentaje empresarial requerido.
+              </small>
+              <small class="form-text text-danger" *ngIf="registerForm.get('porcentajeEmpresarial')?.errors?.pattern">
+                Tamaño del porcentaje empresarial debe ser menor a 3 dígitos.
+              </small>
+            </div>
+          </div>
+          <p></p>
+          <div class="form-group">
+            <button
+              type="submit"
+              id="botonActualizar"
+              data-bs-dismiss="modal"
+              [disabled]="registerForm.invalid"
+              class="btn btn-main-primary btn-block"
+              data-cy="submit"
+            >
+              Actualizar plan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Basic modal -->
+<!-- Basic modal -->
+<div class="modal" id="modaldemo2">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-content-demo">
+      <div class="modal-header">
+        <h6 class="modal-title">Borrar startup</h6>
+        <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <h6>Confirmación</h6>
+        <p>Desea borrar el plan de inversión?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn ripple btn-success" data-bs-dismiss="modal" type="button" (click)="borrarPlanInversion()">Sí</button>
+        <button class="btn ripple btn-danger" data-bs-dismiss="modal" type="button">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Basic modal -->
