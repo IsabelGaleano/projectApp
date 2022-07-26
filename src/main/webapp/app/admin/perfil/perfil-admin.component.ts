@@ -21,6 +21,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'jhi-perfil-admin',
   templateUrl: './perfil-admin.component.html',
   //styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./perfil-admin.component.scss'],
 })
 export class PerfilAdminComponent implements OnInit {
   movimientos: any[] = [];
