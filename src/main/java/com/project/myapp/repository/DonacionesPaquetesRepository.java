@@ -1,6 +1,9 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.DonacionesPaquetes;
+import com.project.myapp.domain.PlanesInversion;
+import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -14,6 +17,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DonacionesPaquetesRepository extends JpaRepository<DonacionesPaquetes, Long> {
+    List<DonacionesPaquetes> findDonacionesPaquetesByIdStartup(Optional<Startups> idStartup);
+
+    List<DonacionesPaquetes> findDonacionesPaquetesByIdUsuario(Optional<Usuarios> idUsuario);
+
     default Optional<DonacionesPaquetes> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }

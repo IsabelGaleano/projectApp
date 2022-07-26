@@ -1,7 +1,12 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.DonacionesPaquetes;
+import com.project.myapp.domain.PlanesInversion;
+import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.DonacionesPaquetesRepository;
+import com.project.myapp.repository.StartupsRepository;
+import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,8 +41,18 @@ public class DonacionesPaquetesResource {
 
     private final DonacionesPaquetesRepository donacionesPaquetesRepository;
 
-    public DonacionesPaquetesResource(DonacionesPaquetesRepository donacionesPaquetesRepository) {
+    private final StartupsRepository startupsRepository;
+
+    private final UsuariosRepository usuariosRepository;
+
+    public DonacionesPaquetesResource(
+        DonacionesPaquetesRepository donacionesPaquetesRepository,
+        StartupsRepository startupsRepository,
+        UsuariosRepository usuariosRepository
+    ) {
         this.donacionesPaquetesRepository = donacionesPaquetesRepository;
+        this.startupsRepository = startupsRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
     /**
@@ -206,5 +221,17 @@ public class DonacionesPaquetesResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/donaciones-paquetesByStartupCorreo/{correo}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByIdStartup(@PathVariable String correo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        return donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+    }
+
+    @GetMapping("/donaciones-paquetesByUsuarioCorreo/{correo}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByIdUsuario(@PathVariable String correo) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        return donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
     }
 }

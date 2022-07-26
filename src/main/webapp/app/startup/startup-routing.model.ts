@@ -8,6 +8,7 @@ import { RegistroPlanInversionComponent } from './registro-plan-inversion/regist
 import { ListaPlanesInversionComponent } from './lista-planes-inversion/lista-planes-inversion.component';
 import { RegistrarPaquetesStartupComponent } from './registrar-paquetes-startup/registrar-paquetes-startup.component';
 import { UpdatePaqueteStartupComponent } from './actualizar-paquete-startup/actualizar-paquete-startup.component';
+import { ListaDonacionesStartupComponent } from './lista-donaciones-startup/lista-donaciones-startup.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -65,6 +66,13 @@ import { UpdatePaqueteStartupComponent } from './actualizar-paquete-startup/actu
         component: UpdatePaqueteStartupComponent,
         data: {
           pageTitle: 'actualizar.paquete.startup.title',
+        },
+      },
+      {
+        path: 'lista-donaciones-startup',
+        component: ListaDonacionesStartupComponent,
+        data: {
+          pageTitle: 'lista.donaciones.startup.title',
         },
       },
     ]),
