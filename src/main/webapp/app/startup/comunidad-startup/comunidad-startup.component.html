@@ -40,6 +40,14 @@
       <div class="startup-cards">
         <h2>Categorías de Startups</h2>
         <br />
+        <div class="card-body pb-0">
+          <div class="input-group mb-2">
+            <input type="text" class="form-control rounded-3 br-te-0 br-be-0" placeholder="Search..." (input)="filtrarStartups($event)" />
+            <span class="input-group-text bg-transparent p-0 rounded-3 br-ts-0 br-bs-0 overflow-hidden">
+              <button class="btn ripple btn-primary" type="button">Search</button>
+            </span>
+          </div>
+        </div>
         <div>
           <div class="row">
             <div class="col-md-6 col-xl-3">
@@ -107,7 +115,7 @@
         <br />
         <div class="row">
           <ng-container *ngIf="startupsExistentes; else noExistentes">
-            <div class="col-12 col-sm-6 col-lg-6 col-xl-3" *ngFor="let startup of startups; index as i">
+            <div class="col-12 col-sm-6 col-lg-6 col-xl-3" *ngFor="let startup of startupsFiltered; index as i">
               <div class="card card-primary">
                 <img class="card-img-top img-lista" src="{{ startup.start.imagenURL }}" alt="Card image cap" />
                 <div class="card-header pb-0">
