@@ -21,6 +21,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'jhi-perfil-admin',
   templateUrl: './perfil-admin.component.html',
   //styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./perfil-admin.component.scss'],
 })
 export class PerfilAdminComponent implements OnInit {
   movimientos: any[] = [];
@@ -39,6 +40,7 @@ export class PerfilAdminComponent implements OnInit {
   errorVacia = false;
   errorNuevasVacias = false;
   fechaFormateada: string | null | undefined;
+  imagenActualizada = true;
 
   formInfoBasica = new FormGroup({
     nombre: new FormControl(),
@@ -206,5 +208,25 @@ export class PerfilAdminComponent implements OnInit {
     console.warn(contrasenniaActual);
 
     console.warn('nuevaContrasennia: ', nuevaContrasennia, ' confirmacion: ', confirmacionNuevaContrasennia);
+  }
+
+  actualizarImagen(event: any): void {
+    const imageFormData = new FormData();
+    //imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+    imageFormData.append('file', event.target.files[0]);
+    imageFormData.append('upload_preset', 'eqakakzu');
+    this.adminService.subirImagen(imageFormData).subscribe(
+      (cloudinaryData: any) => {
+        const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
+        // imgPerfilStartup.src = cloudinaryData.url;
+        this.adminService.actualizarImagen(this.account.email, cloudinaryData.url).subscribe(() => {
+          this.imagenActualizada = true;
+          window.location.reload();
+        });
+      },
+      err => {
+        this.imagenActualizada = false;
+      }
+    );
   }
 }
