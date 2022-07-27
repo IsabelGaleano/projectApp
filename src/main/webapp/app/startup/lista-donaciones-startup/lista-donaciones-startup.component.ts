@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ListaDonacionesStartupService } from './lista-donaciones-startup.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
@@ -24,7 +24,8 @@ export class ListaDonacionesStartupComponent implements OnInit {
     private route: ActivatedRoute,
     private accountService: AccountService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private changeDetection: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -40,5 +41,40 @@ export class ListaDonacionesStartupComponent implements OnInit {
         });
       }
     });
+  }
+  buscarPorNombreCorreo(): void {
+    this.donacionesPaquetes = [];
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    this.listaDonacionesStartupService
+      .getDonacionesPaquetesByNombreUsuario(this.emailUsuario, searchInput.value)
+      .subscribe(donacionesPaquetes => {
+        if (donacionesPaquetes != null) {
+          donacionesPaquetes.forEach((donacion: any) => {
+            console.warn(donacion);
+            this.donacionesPaquetes.push(donacion);
+          });
+        }
+      });
+    this.listaDonacionesStartupService
+      .getDonacionesPaquetesByCorreoUsuario(this.emailUsuario, searchInput.value)
+      .subscribe(donacionesPaquetes => {
+        if (donacionesPaquetes != null) {
+          donacionesPaquetes.forEach((donacion: any) => {
+            console.warn(donacion);
+            this.donacionesPaquetes.push(donacion);
+          });
+        }
+      });
+    this.changeDetection.detectChanges();
+  }
+  reset(): void {
+    this.listaDonacionesStartupService.getDonacionesPaquetesByCorreo(this.emailUsuario).subscribe(donacionesPaquetes => {
+      this.donacionesPaquetes = [];
+      donacionesPaquetes.forEach((donacion: any) => {
+        console.warn(donacion);
+        this.donacionesPaquetes.push(donacion);
+      });
+    });
+    this.changeDetection.detectChanges();
   }
 }

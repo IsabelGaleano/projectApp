@@ -253,12 +253,38 @@ public class DonacionesPaquetesResource {
     public List<DonacionesPaquetes> getDonacionesPaquetesByCorreoStartup(@PathVariable String correo, @PathVariable String correoStartup) {
         Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
         List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
-        ArrayList<DonacionesPaquetes> donacionesPorNombre = new ArrayList<>();
+        ArrayList<DonacionesPaquetes> donacionesPorCorreo = new ArrayList<>();
         for (DonacionesPaquetes donacion : donacionesTotales) {
             if (donacion.getIdStartup().getCorreoElectronico().contains(correoStartup)) {
+                donacionesPorCorreo.add(donacion);
+            }
+        }
+        return donacionesPorCorreo;
+    }
+
+    @GetMapping("/donaciones-paquetesByUsuarioNombre/{correo}/{nombre}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByNombreUsuario(@PathVariable String correo, @PathVariable String nombre) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+        ArrayList<DonacionesPaquetes> donacionesPorNombre = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdUsuario().getNombre().contains(nombre)) {
                 donacionesPorNombre.add(donacion);
             }
         }
         return donacionesPorNombre;
+    }
+
+    @GetMapping("/donaciones-paquetesByUsuarioCorreo/{correo}/{correoStartup}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByCorreoUsuario(@PathVariable String correo, @PathVariable String correoStartup) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+        ArrayList<DonacionesPaquetes> donacionesPorCorreo = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdUsuario().getCorreoElectronico().contains(correoStartup)) {
+                donacionesPorCorreo.add(donacion);
+            }
+        }
+        return donacionesPorCorreo;
     }
 }

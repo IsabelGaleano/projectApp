@@ -17,4 +17,20 @@ export class ListaDonacionesStartupService {
       return this.http.get(this.rootURL.concat('/donaciones-paquetes'));
     }
   }
+  getDonacionesPaquetesByNombreUsuario(correo: string | null, nombre: string | null): Observable<any> {
+    if (correo != null && nombre != null) {
+      return this.http.get(this.rootURL.concat('/donaciones-paquetesByUsuarioNombre/', correo.toString()).concat('/', nombre.toString()));
+    } else {
+      return this.http.get(this.rootURL.concat('/donaciones-paquetes'));
+    }
+  }
+  getDonacionesPaquetesByCorreoUsuario(correo: string | null, correoUsuario: string | null): Observable<any> {
+    if (correo != null && correoUsuario != null) {
+      return this.http.get(
+        this.rootURL.concat('/donaciones-paquetesByUsuarioCorreo/', correo.toString()).concat('/', correoUsuario.toString())
+      );
+    } else {
+      return this.http.get(this.rootURL.concat('/donaciones-paquetes'));
+    }
+  }
 }
