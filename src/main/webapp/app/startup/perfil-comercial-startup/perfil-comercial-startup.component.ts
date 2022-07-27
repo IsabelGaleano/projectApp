@@ -76,8 +76,11 @@ export class PerfilComercialStartupComponent implements OnInit {
     this.perfilComercialStartupService.getStartupByCorreo(this.correoStartup).subscribe((startup: any) => {
       this.startup = startup;
 
+      // if (!this.startup.idCategoria) {
+      //   this.startup.idCategoria.categoria = 'Sin categoría registrada';
+      // }
       if (!this.startup.idCategoria) {
-        this.startup.idCategoria.categoria = 'Sin categoría registrada';
+        this.startup.idCategoria = { id: 0, categoria: 'Sin categoría registrada' };
       }
 
       if (!this.startup.nombreLargo) {

@@ -365,4 +365,10 @@ public class UsuariosResource {
         image.setUrl(imgPerfil);
         return image;
     }
+
+    @PutMapping("/usuarios/actualizarImagen/{correoUsuario}")
+    public int updateImagenURL(@PathVariable String correoUsuario, @Valid @RequestBody String imagen) {
+        int resultado = this.usuariosRepository.updateImagenURL(correoUsuario, imagen);
+        return resultado;
+    }
 }

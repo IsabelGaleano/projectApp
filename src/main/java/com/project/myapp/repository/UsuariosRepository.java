@@ -36,4 +36,9 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
     @Modifying
     @Query("UPDATE Usuarios C SET C.estado = ?2 WHERE C.correoElectronico LIKE ?1")
     void updateUserActivated(String email, String activated);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Usuarios U SET U.imagenURL = ?2 WHERE U.correoElectronico LIKE ?1")
+    int updateImagenURL(String correoUsuario, String imagenURL);
 }
