@@ -25,6 +25,7 @@ import { Documentos } from 'app/entities/documentos/documentos.model';
   selector: 'jhi-perfil-startup',
   templateUrl: './perfil-startup.component.html',
   //styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./perfil-startup.component.scss'],
 })
 export class PerfilStartupComponent implements OnInit {
   inProduction?: boolean;
