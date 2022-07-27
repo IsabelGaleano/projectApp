@@ -10,6 +10,7 @@ import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -233,5 +234,31 @@ public class DonacionesPaquetesResource {
     public List<DonacionesPaquetes> getDonacionesPaquetesByIdUsuario(@PathVariable String correo) {
         Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
         return donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
+    }
+
+    @GetMapping("/donaciones-paquetesByStartupNombre/{correo}/{nombre}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByNombreStartup(@PathVariable String correo, @PathVariable String nombre) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
+        ArrayList<DonacionesPaquetes> donacionesPorNombre = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdStartup().getNombreCorto().contains(nombre)) {
+                donacionesPorNombre.add(donacion);
+            }
+        }
+        return donacionesPorNombre;
+    }
+
+    @GetMapping("/donaciones-paquetesByStartupCorreo/{correo}/{correoStartup}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByCorreoStartup(@PathVariable String correo, @PathVariable String correoStartup) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
+        ArrayList<DonacionesPaquetes> donacionesPorNombre = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdStartup().getCorreoElectronico().contains(correoStartup)) {
+                donacionesPorNombre.add(donacion);
+            }
+        }
+        return donacionesPorNombre;
     }
 }
