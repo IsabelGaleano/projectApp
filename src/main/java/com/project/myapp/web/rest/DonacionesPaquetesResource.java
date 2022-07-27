@@ -287,4 +287,17 @@ public class DonacionesPaquetesResource {
         }
         return donacionesPorCorreo;
     }
+
+    @GetMapping("/donaciones-paquetesByUsuarioTipo/{correo}/{tipo}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByTipoUsuario(@PathVariable String correo, @PathVariable String tipo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+        ArrayList<DonacionesPaquetes> donacionesPorTipoUsuario = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdUsuario().getTipoUsuarioFinal().equals(tipo)) {
+                donacionesPorTipoUsuario.add(donacion);
+            }
+        }
+        return donacionesPorTipoUsuario;
+    }
 }

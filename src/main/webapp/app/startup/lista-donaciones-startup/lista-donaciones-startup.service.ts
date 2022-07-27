@@ -33,4 +33,11 @@ export class ListaDonacionesStartupService {
       return this.http.get(this.rootURL.concat('/donaciones-paquetes'));
     }
   }
+  getDonacionesPaquetesByTipoUsuario(correo: string | null, tipo: string | null): Observable<any> {
+    if (correo != null && tipo != null) {
+      return this.http.get(this.rootURL.concat('/donaciones-paquetesByUsuarioTipo/', correo.toString()).concat('/', tipo.toString()));
+    } else {
+      return this.http.get(this.rootURL.concat('/donaciones-paquetes'));
+    }
+  }
 }

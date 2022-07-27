@@ -35,6 +35,15 @@
               <div class="pe-1 mb-xl-0">
                 <button class="btn btn-secondary btn-icon me-2" (click)="reset()"><i class="mdi mdi-refresh"></i>Reiniciar</button>
               </div>
+              <div class="col-md-3"></div>
+              <div class="col-md-3"></div>
+              <div class="pe-1 mb-xl-0">
+                <span>Filtrar: </span>
+                <select (change)="onChange($event)" class="form-control form-select">
+                  <option value="Usuario">Cliente</option>
+                  <option value="Inversionista">Inversionista</option>
+                </select>
+              </div>
             </div>
             <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
               <div class="card-body">

@@ -77,4 +77,17 @@ export class ListaDonacionesStartupComponent implements OnInit {
     });
     this.changeDetection.detectChanges();
   }
+  onChange(newValue): void {
+    console.warn(newValue.target.value);
+    this.listaDonacionesStartupService
+      .getDonacionesPaquetesByTipoUsuario(this.emailUsuario, newValue.target.value)
+      .subscribe(donacionesPaquetes => {
+        this.donacionesPaquetes = [];
+        donacionesPaquetes.forEach((donacion: any) => {
+          console.warn(donacion);
+          this.donacionesPaquetes.push(donacion);
+        });
+      });
+    this.changeDetection.detectChanges();
+  }
 }
