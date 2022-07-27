@@ -42,4 +42,13 @@ export class PerfilAdminService {
   //   const ruta = '/api/usuariosContrasennia/' + correoElectronico;
   //   return this.http.put(ruta, contrasenniaNueva);
   // }
+
+  subirImagen(imageFormData: FormData): Observable<any> {
+    return this.http.post('https://api.cloudinary.com/v1_1/moonsoft/image/upload', imageFormData);
+  }
+
+  actualizarImagen(correoElectronico: string, imagen: string): Observable<any> {
+    const ruta = '/api/usuarios/actualizarImagen/';
+    return this.http.put(ruta.concat(correoElectronico), imagen);
+  }
 }
