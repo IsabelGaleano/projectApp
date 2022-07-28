@@ -59,6 +59,7 @@ import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad
 import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
 import { PerfilComercialStartupComponent } from './startup/perfil-comercial-startup/perfil-comercial-startup.component';
 import { UpdatePaqueteStartupComponent } from './startup/actualizar-paquete-startup/actualizar-paquete-startup.component';
+import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 
 @NgModule({
   imports: [
@@ -121,6 +122,7 @@ import { UpdatePaqueteStartupComponent } from './startup/actualizar-paquete-star
     StartupsPorCategoriaComponent,
     PerfilComercialStartupComponent,
     UpdatePaqueteStartupComponent,
+    RegistroEnvioPaquetesComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
