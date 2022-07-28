@@ -7,7 +7,7 @@ import { PerfilComercialStartupService } from './perfil-comercial-startup.servic
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { AccountService } from 'app/core/auth/account.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'jhi-perfil-comercial-startup',
   templateUrl: './perfil-comercial-startup.component.html',
@@ -29,7 +29,8 @@ export class PerfilComercialStartupComponent implements OnInit {
     private perfilComercialStartupService: PerfilComercialStartupService,
     private profileService: ProfileService,
     private accountService: AccountService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {
     console.warn();
 
@@ -214,5 +215,11 @@ export class PerfilComercialStartupComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+  registrarEnvio(event: any): void {
+    const router = this.router;
+    console.warn(event.target.value);
+    this.router.navigate(['startup/registro-envio-paquetes']);
+    sessionStorage.setItem('paqueteRegistroEnvio', event.target.value);
   }
 }
