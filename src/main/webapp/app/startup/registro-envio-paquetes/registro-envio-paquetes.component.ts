@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
+import { RegistroEnvioPaqueteService } from './registro-envio-paquetes.service';
 
 @Component({
   selector: 'jhi-registro-envio-paquetes',
@@ -11,8 +13,30 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
   map: google.maps.Map | undefined;
   latitudMarker = 0;
   longitudMarker = 0;
-  constructor() {
+  startup: any;
+  paquete: any;
+  usuarioFinal: any;
+  constructor(private router: Router, private RegistroEnvioService: RegistroEnvioPaqueteService) {
     console.warn(sessionStorage.getItem('paqueteRegistroEnvio'));
+
+    this.RegistroEnvioService.getStartupByCorreo(sessionStorage.getItem('startupEnvioPaquete')).subscribe((resultS: any) => {
+      if (resultS) {
+        this.startup = resultS;
+      }
+    });
+
+    this.RegistroEnvioService.getPaquete(sessionStorage.getItem('paqueteRegistroEnvio')).subscribe((resultP: any) => {
+      if (resultP) {
+        this.paquete = resultP;
+        console.warn(resultP);
+      }
+    });
+
+    this.RegistroEnvioService.getUsuarioByCorreo(sessionStorage.getItem('usuarioLogin')).subscribe((resultU: any) => {
+      if (resultU) {
+        this.usuarioFinal = resultU;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -68,5 +92,61 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+  calcularDistancia(latUser: any, lngUser: any, latStartup: any, lngUStartup: any): any {
+    var R = 6371.071;
+    var rlat1 = latUser * (Math.PI / 180);
+    var rlat2 = latStartup * (Math.PI / 180);
+    var difflat = rlat2 - rlat1;
+    var difflon = (lngUStartup - lngUser) * (Math.PI / 180);
+
+    var d =
+      2 *
+      R *
+      Math.asin(
+        Math.sqrt(
+          Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2)
+        )
+      );
+    return d;
+  }
+
+  registrarDonacionPaquete(): void {
+    console.warn(this.usuarioFinal);
+    console.warn(this.startup);
+    console.warn(this.paquete);
+    //this.router.navigate(['pago-paquete-startup']);
+    const latitudDireccionUser = <HTMLInputElement>document.getElementById('latitud');
+    const longitudDireccionUser = <HTMLInputElement>document.getElementById('longitud');
+
+    const distancia = this.calcularDistancia(
+      latitudDireccionUser.value,
+      longitudDireccionUser.value,
+      this.startup.latitudDireccion,
+      this.startup.longitudDireccion
+    );
+
+    console.warn(Math.round(distancia));
+
+    const montoEnvioCal = Math.round(distancia) * 0.5;
+    const montoTotalCal = montoEnvioCal + 1 + this.paquete.monto;
+
+    const donacionesPaquetes = {
+      descripcion: this.paquete.descripcion,
+      montoEnvio: montoEnvioCal,
+      montoImpuesto: 1,
+      montoTotal: montoTotalCal,
+      fechaDonacion: new Date(),
+      estado: 'Pendiente',
+      idUsuario: this.usuarioFinal,
+      idStartup: this.startup,
+      idPaquete: this.paquete,
+    };
+
+    this.RegistroEnvioService.registrarDonacion(donacionesPaquetes).subscribe((data: any) => {
+      if (data) {
+        console.warn(data);
+      }
+    });
   }
 }

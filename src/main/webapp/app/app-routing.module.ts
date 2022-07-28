@@ -17,6 +17,8 @@ import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/
 import { PaquetesUpdateComponent } from './entities/paquetes/update/paquetes-update.component';
 import { CodigosComponent } from './entities/codigos/list/codigos.component';
 import { PerfilComercialStartupComponent } from './startup/perfil-comercial-startup/perfil-comercial-startup.component';
+import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago-paquete-startup.component';
+import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 
 @NgModule({
   imports: [
@@ -83,6 +85,20 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
             authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
           },
           component: PerfilComercialStartupComponent,
+        },
+        {
+          path: 'registro-envio-paquetes',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: RegistroEnvioPaquetesComponent,
+        },
+        {
+          path: 'pago-paquete-startup',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: PagoPaqueteStartupComponent,
         },
         navbarRoute,
         ...errorRoute,
