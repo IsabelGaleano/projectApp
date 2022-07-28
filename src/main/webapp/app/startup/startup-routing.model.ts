@@ -9,6 +9,7 @@ import { ListaPlanesInversionComponent } from './lista-planes-inversion/lista-pl
 import { RegistrarPaquetesStartupComponent } from './registrar-paquetes-startup/registrar-paquetes-startup.component';
 import { UpdatePaqueteStartupComponent } from './actualizar-paquete-startup/actualizar-paquete-startup.component';
 import { ListaDonacionesStartupComponent } from './lista-donaciones-startup/lista-donaciones-startup.component';
+import { RegistroEnvioPaquetesComponent } from './registro-envio-paquetes/registro-envio-paquetes.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -73,6 +74,13 @@ import { ListaDonacionesStartupComponent } from './lista-donaciones-startup/list
         component: ListaDonacionesStartupComponent,
         data: {
           pageTitle: 'lista.donaciones.startup.title',
+        },
+      },
+      {
+        path: 'registro-envio-paquetes',
+        component: RegistroEnvioPaquetesComponent,
+        data: {
+          pageTitle: 'registro.envio.paquetes.title',
         },
       },
     ]),

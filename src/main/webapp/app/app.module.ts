@@ -61,6 +61,7 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
 import { UpdatePaqueteStartupComponent } from './startup/actualizar-paquete-startup/actualizar-paquete-startup.component';
 import { ListaDonacionesStartupComponent } from './startup/lista-donaciones-startup/lista-donaciones-startup.component';
 import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones-usuario/lista-donaciones-usuario.component';
+import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 
 @NgModule({
   imports: [
@@ -125,6 +126,7 @@ import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones
     UpdatePaqueteStartupComponent,
     ListaDonacionesStartupComponent,
     ListaDonacionesUsuarioComponent,
+    RegistroEnvioPaquetesComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
