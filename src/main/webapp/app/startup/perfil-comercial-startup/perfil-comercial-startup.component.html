@@ -91,11 +91,13 @@
               <div class="ms-auto mb-2 d-flex mt-3">
                 <a href="javascript:void(0);" class="me-3 mb-2 d-flex"
                   ><span class="fe fe-calendar text-muted me-2 tx-17"></span>
-                  <div class="mt-0 mt-0 text-dark">{{ startup.fechaCreacion }}</div>
+                  <div class="mt-0 mt-0 text-dark">{{ startup.fechaCreacion.substring(0, 10) }}</div>
                 </a>
                 <a class="me-0 d-flex a-comentarios" (click)="scroll(seccionComentarios)"
                   ><span class="fe fe-message-square text-muted me-2 tx-17"></span>
-                  <div class="mt-0 mt-0 text-dark">3 Comments</div>
+                  <div class="mt-0 mt-0 text-dark">
+                    {{ comentarios.length }} {{ comentarios.length === 1 ? ' comentario' : ' comentarios' }}
+                  </div>
                 </a>
               </div>
             </div>
@@ -224,55 +226,24 @@
               <div class="card-header">
                 <h3 #seccionComentarios class="card-title">Comentarios</h3>
               </div>
-              <div class="card-body">
+              <div class="card-body" *ngFor="let comentario of comentarios">
                 <div class="d-sm-flex p-3 mt-4 border sub-review-section pb-0">
                   <div class="d-flex me-3">
-                    <a href="javascript:void(0);"
-                      ><img class="media-object brround avatar-md" alt="64x64" src="../assets/img/faces/5.jpg" />
+                    <a href="javascript:void(0);" class="comentario__img"
+                      ><img class="media-object brround avatar-md" alt="64x64" src="{{ comentario.idUsuario.imagenURL }}" />
                     </a>
                   </div>
                   <div class="media-body">
                     <h5 class="mt-0 mb-1 font-weight-semibold">
-                      David Rodriguez
+                      {{ comentario.idUsuario.nombre }}
+                      {{ comentario.idUsuario.primerApellido }}
+                      {{ comentario.idUsuario.segundoApellido }}
                       <span class="tx-14 ms-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-original-title="verified"
                         ><i class="fe fe-check-circle text-success tx-12"></i
                       ></span>
                     </h5>
-                    <p class="font-13 mb-2 mt-2">Considero que es una muy buena startup, compré el primer paquete, muy satisfecho.</p>
-                  </div>
-                </div>
-
-                <div class="d-sm-flex p-3 mt-4 border sub-review-section pb-0">
-                  <div class="d-flex me-3">
-                    <a href="javascript:void(0);"
-                      ><img class="media-object brround avatar-md" alt="64x64" src="../assets/img/faces/5.jpg" />
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h5 class="mt-0 mb-1 font-weight-semibold">
-                      Isabel Galeano
-                      <span class="tx-14 ms-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-original-title="verified"
-                        ><i class="fe fe-check-circle text-success tx-12"></i
-                      ></span>
-                    </h5>
-                    <p class="font-13 mb-2 mt-2">Productos de muy mala calidad.</p>
-                  </div>
-                </div>
-
-                <div class="d-sm-flex p-3 mt-4 border sub-review-section pb-0">
-                  <div class="d-flex me-3">
-                    <a href="javascript:void(0);"
-                      ><img class="media-object brround avatar-md" alt="64x64" src="../assets/img/faces/5.jpg" />
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h5 class="mt-0 mb-1 font-weight-semibold">
-                      Alex García
-                      <span class="tx-14 ms-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-original-title="verified"
-                        ><i class="fe fe-check-circle text-success tx-12"></i
-                      ></span>
-                    </h5>
-                    <p class="font-13 mb-2 mt-2">Los paquetes están un poco caros pero son de buena calidad</p>
+                    <p class="font-13 mb-2 mt-2">{{ comentario.fecha.substring(0, 10) }}</p>
+                    <p class="font-13 mb-2 mt-2">{{ comentario.comentario }}</p>
                   </div>
                 </div>
               </div>
@@ -286,9 +257,22 @@
               <div class="card-body">
                 <div class="mt-2">
                   <div class="form-group">
-                    <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="Tu Comentario"></textarea>
+                    <textarea
+                      class="form-control"
+                      name="example-textarea-input"
+                      rows="6"
+                      placeholder="Tu Comentario"
+                      (change)="obtenerValorComentario($event)"
+                    ></textarea>
                   </div>
-                  <a #seccionComentar class="btn btn-primary">Comentar</a>
+                  <button
+                    #seccionComentar
+                    class="btn btn-primary"
+                    (click)="guardarComentario()"
+                    [disabled]="comentarioRealizado === true ? 'disabled' : null"
+                  >
+                    Comentar
+                  </button>
                 </div>
               </div>
             </div>

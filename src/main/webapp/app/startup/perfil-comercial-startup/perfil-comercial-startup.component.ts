@@ -27,7 +27,10 @@ export class PerfilComercialStartupComponent implements OnInit {
   map: google.maps.Map | undefined;
   votos!: any;
   startupVotada = false;
+  comentarioRealizado = false;
   votoUsuario!: any;
+  comentarios!: any;
+  comentarioHaciaStartup!: any;
 
   constructor(
     private perfilComercialStartupService: PerfilComercialStartupService,
@@ -36,18 +39,20 @@ export class PerfilComercialStartupComponent implements OnInit {
     private datePipe: DatePipe,
     private router: Router
   ) {
-    console.warn();
-
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         // eslint-disable-next-line no-console
         console.log(account);
         this.user = true;
         this.account = account;
-        if (account.authorities[0] === 'ROLE_USER') {
+        if (account.authorities[0] === 'ROLE_USER' && !account.authorities[1]) {
           this.startupVotada = false;
+          console.warn('USUARIO');
         } else {
+          console.warn('ADMIN O STARTUP');
+          this.comentarioRealizado = true;
           this.startupVotada = true;
+          console.warn(this.startupVotada);
         }
 
         this.perfilComercialStartupService.getUsuarioByCorreo(account.email).subscribe((usuarioLogeado: any) => {
@@ -61,15 +66,6 @@ export class PerfilComercialStartupComponent implements OnInit {
             this.inversionistaOAdmin = false;
             this.usuario = true;
           }
-
-          // if (usuarioLogeado.tipoUsuarioFinal === 'Usuario') {
-          //   this.inversionistaOAdmin = false;
-          //   this.usuario = true;
-          // }
-          // else {
-          //   this.inversionistaOAdmin = true;
-          //   this.usuario = false;
-          // }
         });
       }
     });
@@ -78,34 +74,10 @@ export class PerfilComercialStartupComponent implements OnInit {
 
     console.warn(this.correoStartup);
 
-    if (this.account.authorities[0] === 'ROLE_USER') {
-      this.startupVotada = false;
-    } else {
-      this.startupVotada = true;
-    }
-
     this.perfilComercialStartupService.getStartupByCorreo(this.correoStartup).subscribe((startup: any) => {
       this.startup = startup;
-      // eslint-disable-next-line no-console
-      console.log(startup);
 
-      //Cantidad votos
       console.warn(startup);
-      this.perfilComercialStartupService.getVotosByStartup(startup.id).subscribe((cantVotos: any) => {
-        // eslint-disable-next-line no-console
-        console.log(cantVotos);
-        this.votos = cantVotos;
-      });
-
-      //Verificar
-      console.warn(this.usuarioSesion);
-      this.perfilComercialStartupService.getVotosByStartupAndUsuario(startup.id, this.usuarioSesion.id).subscribe((voto: any) => {
-        console.warn(voto);
-        if (voto) {
-          this.votoUsuario = voto;
-          this.startupVotada = true;
-        }
-      });
 
       if (!this.startup.idCategoria) {
         this.startup.idCategoria = { id: 0, categoria: 'Sin categoría registrada' };
@@ -178,6 +150,41 @@ export class PerfilComercialStartupComponent implements OnInit {
           draggable: true,
         });
       });
+
+      //Cantidad de votos
+      this.perfilComercialStartupService.getVotosByStartup(startup.id).subscribe((cantVotos: any) => {
+        // eslint-disable-next-line no-console
+        console.log(cantVotos);
+        this.votos = cantVotos;
+      });
+
+      //Verificar
+      if (this.usuario === true) {
+        this.perfilComercialStartupService.getVotosByStartupAndUsuario(startup.id, this.usuarioSesion.id).subscribe((voto: any) => {
+          if (voto) {
+            this.votoUsuario = voto;
+            this.startupVotada = true;
+          }
+        });
+
+        //Comentario de usuario si hay
+        this.perfilComercialStartupService
+          .getComentariosByStartupAndUsuario(startup.id, this.usuarioSesion.id)
+          .subscribe((comentarioUsuario: any) => {
+            console.warn(comentarioUsuario);
+            if (comentarioUsuario) {
+              this.comentarioRealizado = true;
+            }
+          });
+      }
+
+      //Todos los comentarios de la startup actual
+      this.perfilComercialStartupService.getComentariosByStartup(startup.id).subscribe((comentariosService: any) => {
+        console.warn(comentariosService);
+        if (comentariosService) {
+          this.comentarios = comentariosService;
+        }
+      });
     });
 
     this.perfilComercialStartupService.getPlanesDeInversionByCorreoStartup(this.correoStartup).subscribe((planesDeInversion: any) => {
@@ -215,12 +222,7 @@ export class PerfilComercialStartupComponent implements OnInit {
 
   ngOnInit(): void {
     console.warn('HOLAAAA');
-
-    // this.entitiesNavbarItems = EntityNavbarItems;
-    // this.profileService.getProfileInfo().subscribe(profileInfo => {
-    //   this.inProduction = profileInfo.inProduction;
-    //   this.openAPIEnabled = profileInfo.openAPIEnabled;
-    // });
+    console.warn(this.startupVotada);
   }
 
   scroll(el: HTMLElement): void {
@@ -254,12 +256,7 @@ export class PerfilComercialStartupComponent implements OnInit {
     sessionStorage.setItem('paqueteRegistroEnvio', event.target.value);
   }
 
-  previousState(): void {
-    window.history.back();
-  }
-
   votarStartup(): void {
-    const d = new Date();
     const votoNuevo = {
       votos: 1,
       estado: 'Activo',
@@ -267,10 +264,30 @@ export class PerfilComercialStartupComponent implements OnInit {
       idStartup: this.startup,
       idUsuario: this.usuarioSesion,
     };
-    console.warn(votoNuevo);
     this.perfilComercialStartupService.guardarVoto(votoNuevo).subscribe((voto: any) => {
       this.startupVotada = true;
       this.votos += 1;
     });
+  }
+
+  //Guarda el valor del input text de comentario
+  obtenerValorComentario(event: any): void {
+    this.comentarioHaciaStartup = event.target.value;
+  }
+
+  //Guarda el comentario en la bd una vez clickeado el botón de submit
+  guardarComentario(): void {
+    if (this.comentarioHaciaStartup !== null || this.comentarioHaciaStartup.length > 0) {
+      const comentarioNuevo = {
+        comentario: this.comentarioHaciaStartup,
+        estado: 'Activo',
+        fecha: new Date(),
+        idStartup: this.startup,
+        idUsuario: this.usuarioSesion,
+      };
+      this.perfilComercialStartupService.guardarComentario(comentarioNuevo).subscribe((comentario: any) => {
+        this.comentarios.push(comentario);
+      });
+    }
   }
 }

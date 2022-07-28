@@ -49,9 +49,23 @@ export class PerfilComercialStartupService {
     return this.http.get(this.rootURL.concat('votos/startupAndUsuario/').concat(idStartup).concat('/').concat(idUsuario));
   }
 
+  //Comentarios by startup
+  getComentariosByStartup(id: string): Observable<any> {
+    return this.http.get(this.rootURL.concat('comentarios/startup/').concat(id));
+  }
+
+  //Comentarios by startup and usuario
+  getComentariosByStartupAndUsuario(idStartup: string, idUsuario: string): Observable<any> {
+    return this.http.get(this.rootURL.concat('comentarios/startupAndUsuario/').concat(idStartup).concat('/').concat(idUsuario));
+  }
+
   //Guardar voto
   guardarVoto(voto: any): Observable<any> {
     console.warn(voto);
     return this.http.post(this.rootURL.concat('votos/'), voto);
+  }
+  //Guardar comentario
+  guardarComentario(comentario: any): Observable<any> {
+    return this.http.post(this.rootURL.concat('comentarios/'), comentario);
   }
 }
