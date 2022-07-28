@@ -14,8 +14,6 @@ export class PerfilVisualizableAdminComponent implements OnInit {
   constructor(private appService: ListaAdministradoresService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
-    console.warn(localStorage.getItem('correoSession'));
-
     this.correoSession = localStorage.getItem('correoSession') as string;
 
     this.appService.getUsuariosByCorreo(this.correoSession).subscribe((user: any) => {
@@ -100,8 +98,6 @@ export class PerfilVisualizableAdminComponent implements OnInit {
           this.usuario.idRol = rol;
         }
       }
-
-      console.warn(this.usuario);
     });
   }
 }

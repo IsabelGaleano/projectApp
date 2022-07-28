@@ -19,8 +19,6 @@ export class PerfilVisualizableStartupComponent implements OnInit {
   constructor(private perfilVisualizableStartupService: PerfilVisualizableStartupService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
-    console.warn(localStorage.getItem('correoStartupVisualizable'));
-
     this.correoSession = localStorage.getItem('correoStartupVisualizable') as string;
 
     this.perfilVisualizableStartupService.getStartupByCorreo(this.correoSession).subscribe((startup: any) => {
