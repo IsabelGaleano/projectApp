@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { Account } from 'app/core/auth/account.model';
+import { Startups } from 'app/entities/startups/startups.model';
+import { Votos } from 'app/entities/votos/votos.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,5 +34,24 @@ export class PerfilComercialStartupService {
 
   getPaquetesByCorreoStartup(correo: string): Observable<any> {
     return this.http.get(this.rootURL.concat('paquetes/paquetesStartups/').concat(correo));
+  }
+
+  //Votos
+  getVotosByStartup(id: string): Observable<any> {
+    return this.http.get(this.rootURL.concat('votos/startup/').concat(id));
+  }
+  getVotosPorStartup(startup: Startups): Observable<any> {
+    return this.http.post(this.rootURL.concat('votosStartup'), startup);
+  }
+
+  //Voto
+  getVotosByStartupAndUsuario(idStartup: string, idUsuario: string): Observable<any> {
+    return this.http.get(this.rootURL.concat('votos/startupAndUsuario/').concat(idStartup).concat('/').concat(idUsuario));
+  }
+
+  //Guardar voto
+  guardarVoto(voto: any): Observable<any> {
+    console.warn(voto);
+    return this.http.post(this.rootURL.concat('votos/'), voto);
   }
 }

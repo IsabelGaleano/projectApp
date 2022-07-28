@@ -49,8 +49,8 @@
       <div class="d-flex my-xl-auto right-content">
         <div class="pe-1 mb-xl-0">
           <div class="btn-group dropdown">
-            <button class="btn btn-success">
-              Votar por esta Startup
+            <button class="btn btn-success" [disabled]="startupVotada === true ? 'disabled' : null" (click)="votarStartup()">
+              Votar {{ votos }}
               <i class="mdi mdi-arrow-up-bold-circle-outline"></i>
             </button>
           </div>

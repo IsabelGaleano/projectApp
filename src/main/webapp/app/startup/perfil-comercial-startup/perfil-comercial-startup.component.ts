@@ -16,6 +16,7 @@ import { AccountService } from 'app/core/auth/account.service';
 export class PerfilComercialStartupComponent implements OnInit {
   user = false;
   account!: Account;
+  usuarioSesion!: any;
   inversionistaOAdmin = false;
   usuario = false;
   tipoStartup = true;
@@ -24,6 +25,9 @@ export class PerfilComercialStartupComponent implements OnInit {
   planesDeInversion!: Array<any>;
   paquetes!: Array<any>;
   map: google.maps.Map | undefined;
+  votos!: any;
+  startupVotada = false;
+  votoUsuario!: any;
 
   constructor(
     private perfilComercialStartupService: PerfilComercialStartupService,
@@ -36,14 +40,18 @@ export class PerfilComercialStartupComponent implements OnInit {
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         // eslint-disable-next-line no-console
+        console.log(account);
         this.user = true;
         this.account = account;
-
-        console.warn(account);
+        if (account.authorities[0] === 'ROLE_USER') {
+          this.startupVotada = false;
+        } else {
+          this.startupVotada = true;
+        }
 
         this.perfilComercialStartupService.getUsuarioByCorreo(account.email).subscribe((usuarioLogeado: any) => {
           console.warn(usuarioLogeado.tipoUsuarioFinal);
-          console.warn('MERYYYY');
+          this.usuarioSesion = usuarioLogeado;
 
           if (usuarioLogeado.tipoUsuarioFinal === 'Admin' || usuarioLogeado.tipoUsuarioFinal === 'Inversionista') {
             this.inversionistaOAdmin = true;
@@ -64,21 +72,40 @@ export class PerfilComercialStartupComponent implements OnInit {
         });
       }
     });
-  }
-
-  ngOnInit(): void {
-    console.warn('HOLAAAA');
 
     this.correoStartup = localStorage.getItem('correoStartup');
 
     console.warn(this.correoStartup);
 
+    if (this.account.authorities[0] === 'ROLE_USER') {
+      this.startupVotada = false;
+    } else {
+      this.startupVotada = true;
+    }
+
     this.perfilComercialStartupService.getStartupByCorreo(this.correoStartup).subscribe((startup: any) => {
       this.startup = startup;
+      // eslint-disable-next-line no-console
+      console.log(startup);
 
-      // if (!this.startup.idCategoria) {
-      //   this.startup.idCategoria.categoria = 'Sin categoría registrada';
-      // }
+      //Cantidad votos
+      console.warn(startup);
+      this.perfilComercialStartupService.getVotosByStartup(startup.id).subscribe((cantVotos: any) => {
+        // eslint-disable-next-line no-console
+        console.log(cantVotos);
+        this.votos = cantVotos;
+      });
+
+      //Verificar
+      console.warn(this.usuarioSesion);
+      this.perfilComercialStartupService.getVotosByStartupAndUsuario(startup.id, this.usuarioSesion.id).subscribe((voto: any) => {
+        console.warn(voto);
+        if (voto) {
+          this.votoUsuario = voto;
+          this.startupVotada = true;
+        }
+      });
+
       if (!this.startup.idCategoria) {
         this.startup.idCategoria = { id: 0, categoria: 'Sin categoría registrada' };
       }
@@ -183,6 +210,10 @@ export class PerfilComercialStartupComponent implements OnInit {
         this.paquetes.push(paquete);
       }
     });
+  }
+
+  ngOnInit(): void {
+    console.warn('HOLAAAA');
 
     // this.entitiesNavbarItems = EntityNavbarItems;
     // this.profileService.getProfileInfo().subscribe(profileInfo => {
@@ -214,5 +245,25 @@ export class PerfilComercialStartupComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+
+  previousState(): void {
+    window.history.back();
+  }
+
+  votarStartup(): void {
+    const d = new Date();
+    const votoNuevo = {
+      votos: 1,
+      estado: 'Activo',
+      fecha: new Date(),
+      idStartup: this.startup,
+      idUsuario: this.usuarioSesion,
+    };
+    console.warn(votoNuevo);
+    this.perfilComercialStartupService.guardarVoto(votoNuevo).subscribe((voto: any) => {
+      this.startupVotada = true;
+      this.votos += 1;
+    });
   }
 }
