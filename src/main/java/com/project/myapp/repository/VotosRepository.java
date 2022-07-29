@@ -41,4 +41,10 @@ public interface VotosRepository extends JpaRepository<Votos, Long> {
 
     @Query("SELECT COUNT(V.id) FROM Votos V WHERE V.idStartup = ?1")
     int getVotosByStartup(Startups startup);
+
+    @Query("SELECT COUNT(V.id) FROM Votos V WHERE V.idStartup.id = :id")
+    int findAllByIdStartup(@Param("id") Long id);
+
+    @Query("SELECT V FROM Votos V WHERE V.idStartup.id = :idStartup and V.idUsuario.id = :idUsuario")
+    Optional<Votos> findAllByIdStartupAndIdUsuario(@Param("idStartup") Long idStartup, @Param("idUsuario") Long idUsuario);
 }

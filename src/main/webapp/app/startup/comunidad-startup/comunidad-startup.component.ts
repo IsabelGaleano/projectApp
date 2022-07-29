@@ -11,12 +11,13 @@ import { ComunidadStartupService } from './comunidad-startup.service';
 export class ComunidadStartupComponent implements OnInit {
   // startupsDesordenadas: Array<any> = [];
   startups: Array<any> = [];
-
+  startupsFiltered: Array<any> = [];
   startupsExistentes = false;
   cantidadSoftware = 0;
   cantidadCocina = 0;
   cantidadHogar = 0;
   cantidadModa = 0;
+  infoSearch = '';
 
   constructor(private comunidadStartupService: ComunidadStartupService, private router: Router) {}
 
@@ -33,6 +34,7 @@ export class ComunidadStartupComponent implements OnInit {
         this.comunidadStartupService.getVotosPorStartup(data[i]).subscribe(votos => {
           this.startups.push({ votos, start });
           this.bblSort();
+          this.startupsFiltered = this.startups;
         });
       }
 
@@ -68,6 +70,30 @@ export class ComunidadStartupComponent implements OnInit {
     localStorage.setItem('nombreCategoria', nombreCategoria);
 
     this.router.navigate(['/startups-por-categoria']);
+  }
+
+  //Filtra listado de startups por montoMeta mayor o igual al ingresado
+  //Filtra por nombre corto, nombre largo, sitio web, panorama mercado y fecha creacion
+  filtrarStartups(event: any): void {
+    this.infoSearch = event.target.value;
+    const numberRegex = /^\d+$/;
+    if (numberRegex.test(this.infoSearch)) {
+      this.startupsFiltered = this.startups.filter(startup => {
+        if (!startup.start.montoMeta) {
+          return;
+        }
+        return startup.start.montoMeta >= this.infoSearch;
+      });
+    } else {
+      this.startupsFiltered = this.startups.filter(
+        startup =>
+          startup.start.nombreCorto?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.nombreLargo?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.linkSitioWeb?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.panoramaMercado?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.fechaCreacion?.toLowerCase().includes(this.infoSearch.toLowerCase())
+      );
+    }
   }
 
   bblSort(): void {
