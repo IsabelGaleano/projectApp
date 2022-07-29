@@ -59,6 +59,8 @@ import { ComunidadStartupComponent } from './startup/comunidad-startup/comunidad
 import { StartupsPorCategoriaComponent } from './startup/startups-por-categoria/startups-por-categoria.component';
 import { PerfilComercialStartupComponent } from './startup/perfil-comercial-startup/perfil-comercial-startup.component';
 import { UpdatePaqueteStartupComponent } from './startup/actualizar-paquete-startup/actualizar-paquete-startup.component';
+import { ListaDonacionesStartupComponent } from './startup/lista-donaciones-startup/lista-donaciones-startup.component';
+import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones-usuario/lista-donaciones-usuario.component';
 import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago-paquete-startup.component';
 import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-startup/perfil-visualizable-startup.component';
@@ -125,6 +127,8 @@ import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-f
     StartupsPorCategoriaComponent,
     PerfilComercialStartupComponent,
     UpdatePaqueteStartupComponent,
+    ListaDonacionesStartupComponent,
+    ListaDonacionesUsuarioComponent,
     RegistroEnvioPaquetesComponent,
     PagoPaqueteStartupComponent,
     PerfilVisualizableStartupComponent,

@@ -1,10 +1,16 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.DonacionesPaquetes;
+import com.project.myapp.domain.PlanesInversion;
+import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.DonacionesPaquetesRepository;
+import com.project.myapp.repository.StartupsRepository;
+import com.project.myapp.repository.UsuariosRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -36,8 +42,18 @@ public class DonacionesPaquetesResource {
 
     private final DonacionesPaquetesRepository donacionesPaquetesRepository;
 
-    public DonacionesPaquetesResource(DonacionesPaquetesRepository donacionesPaquetesRepository) {
+    private final StartupsRepository startupsRepository;
+
+    private final UsuariosRepository usuariosRepository;
+
+    public DonacionesPaquetesResource(
+        DonacionesPaquetesRepository donacionesPaquetesRepository,
+        StartupsRepository startupsRepository,
+        UsuariosRepository usuariosRepository
+    ) {
         this.donacionesPaquetesRepository = donacionesPaquetesRepository;
+        this.startupsRepository = startupsRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
     /**
@@ -206,5 +222,82 @@ public class DonacionesPaquetesResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/donaciones-paquetesByStartupCorreo/{correo}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByIdStartup(@PathVariable String correo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        return donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+    }
+
+    @GetMapping("/donaciones-paquetesByUsuarioCorreo/{correo}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByIdUsuario(@PathVariable String correo) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        return donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
+    }
+
+    @GetMapping("/donaciones-paquetesByStartupNombre/{correo}/{nombre}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByNombreStartup(@PathVariable String correo, @PathVariable String nombre) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
+        ArrayList<DonacionesPaquetes> donacionesPorNombre = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdStartup().getNombreCorto().contains(nombre)) {
+                donacionesPorNombre.add(donacion);
+            }
+        }
+        return donacionesPorNombre;
+    }
+
+    @GetMapping("/donaciones-paquetesByStartupCorreo/{correo}/{correoStartup}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByCorreoStartup(@PathVariable String correo, @PathVariable String correoStartup) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdUsuario(usuario);
+        ArrayList<DonacionesPaquetes> donacionesPorCorreo = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdStartup().getCorreoElectronico().contains(correoStartup)) {
+                donacionesPorCorreo.add(donacion);
+            }
+        }
+        return donacionesPorCorreo;
+    }
+
+    @GetMapping("/donaciones-paquetesByUsuarioNombre/{correo}/{nombre}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByNombreUsuario(@PathVariable String correo, @PathVariable String nombre) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+        ArrayList<DonacionesPaquetes> donacionesPorNombre = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdUsuario().getNombre().contains(nombre)) {
+                donacionesPorNombre.add(donacion);
+            }
+        }
+        return donacionesPorNombre;
+    }
+
+    @GetMapping("/donaciones-paquetesByUsuarioCorreo/{correo}/{correoStartup}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByCorreoUsuario(@PathVariable String correo, @PathVariable String correoStartup) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+        ArrayList<DonacionesPaquetes> donacionesPorCorreo = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdUsuario().getCorreoElectronico().contains(correoStartup)) {
+                donacionesPorCorreo.add(donacion);
+            }
+        }
+        return donacionesPorCorreo;
+    }
+
+    @GetMapping("/donaciones-paquetesByUsuarioTipo/{correo}/{tipo}")
+    public List<DonacionesPaquetes> getDonacionesPaquetesByTipoUsuario(@PathVariable String correo, @PathVariable String tipo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<DonacionesPaquetes> donacionesTotales = donacionesPaquetesRepository.findDonacionesPaquetesByIdStartup(startup);
+        ArrayList<DonacionesPaquetes> donacionesPorTipoUsuario = new ArrayList<>();
+        for (DonacionesPaquetes donacion : donacionesTotales) {
+            if (donacion.getIdUsuario().getTipoUsuarioFinal().equals(tipo)) {
+                donacionesPorTipoUsuario.add(donacion);
+            }
+        }
+        return donacionesPorTipoUsuario;
     }
 }
