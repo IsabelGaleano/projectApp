@@ -61,6 +61,7 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
 import { UpdatePaqueteStartupComponent } from './startup/actualizar-paquete-startup/actualizar-paquete-startup.component';
 import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago-paquete-startup.component';
+import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-startup/perfil-visualizable-startup.component';
 
 @NgModule({
   imports: [
@@ -125,6 +126,7 @@ import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago
     UpdatePaqueteStartupComponent,
     RegistroEnvioPaquetesComponent,
     PagoPaqueteStartupComponent,
+    PerfilVisualizableStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

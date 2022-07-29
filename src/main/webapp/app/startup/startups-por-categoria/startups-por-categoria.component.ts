@@ -13,14 +13,10 @@ export class StartupsPorCategoriaComponent implements OnInit {
   startups: Array<any> = [];
   startupsExistentes = false;
 
-  constructor(private startupsPorCategoria: StartupsPorCategoriaService, private router: Router) {
-    console.warn('dfs');
-  }
+  constructor(private startupsPorCategoria: StartupsPorCategoriaService, private router: Router) {}
 
   ngOnInit(): void {
     this.categoria = localStorage.getItem('nombreCategoria');
-    console.warn(this.categoria);
-
     this.startupsPorCategoria.getStartupsPorCategoria(this.categoria).subscribe((data: any) => {
       // this.startups = data;
 
@@ -40,8 +36,6 @@ export class StartupsPorCategoriaComponent implements OnInit {
 
   redireccionarAPerfilStartup(correoStartup: string): void {
     localStorage.setItem('correoStartup', correoStartup);
-
-    console.warn(correoStartup);
 
     this.router.navigate(['/perfil-comercial-startup']);
   }

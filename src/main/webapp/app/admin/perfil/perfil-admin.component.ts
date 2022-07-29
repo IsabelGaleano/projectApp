@@ -83,8 +83,6 @@ export class PerfilAdminComponent implements OnInit {
 
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
-        // eslint-disable-next-line no-console
-        console.log(account);
         this.user = true;
       }
       // this.account = account;
@@ -136,8 +134,6 @@ export class PerfilAdminComponent implements OnInit {
     } else {
       this.usuario.fechaNacimiento = new Date(this.usuario.fechaNacimiento);
     }
-
-    console.warn(fechaNacimiento, ' ', this.usuario.fechaNacimiento);
 
     this.adminService
       .updateInfoBasicaUsuarios(this.usuario.correoElectronico, this.usuario)
@@ -204,10 +200,6 @@ export class PerfilAdminComponent implements OnInit {
       //   .updateContrasenniaUsuarios(this.usuario.correoElectronico, contrasenniaActual, nuevaContrasennia)
       //   .subscribe(() => window.location.reload());
     }
-
-    console.warn(contrasenniaActual);
-
-    console.warn('nuevaContrasennia: ', nuevaContrasennia, ' confirmacion: ', confirmacionNuevaContrasennia);
   }
 
   actualizarImagen(event: any): void {
