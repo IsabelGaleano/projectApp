@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'jhi-listar-startups-admin',
   templateUrl: './listar-startups-admin.component.html',
+  styleUrls: ['./listar-startups-admin.component.scss'],
 })
 export class ListarStartupsAdminComponent implements OnInit {
   startups: any[] = [];
@@ -47,5 +48,17 @@ export class ListarStartupsAdminComponent implements OnInit {
         window.location.reload();
       });
     }
+  }
+
+  redireccionarPerfilComercialStartup(correoStartup: string): void {
+    localStorage.setItem('correoStartup', correoStartup);
+
+    this.router.navigate(['/perfil-comercial-startup']);
+  }
+
+  redireccionarPerfilVisualizableStartup(correoStartup: string): void {
+    localStorage.setItem('correoStartupVisualizable', correoStartup);
+
+    this.router.navigate(['/admin/perfil-visualizable-startup']);
   }
 }

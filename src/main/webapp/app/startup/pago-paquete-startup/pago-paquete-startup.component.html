@@ -1,0 +1,118 @@
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between"></div>
+    <div class="mt-4 row justify-content-center">
+      <div class="row row-sm">
+        <div class="col-md-12 col-xl-12">
+          <div class="main-content-body-invoice">
+            <div class="card card-invoice">
+              <div class="card-body">
+                <div class="invoice-header">
+                  <h1 class="invoice-title">Factura</h1>
+                  <div class="billed-from">
+                    <h6>{{ startup.nombreCorto }}</h6>
+                    <p>
+                      Descripción: {{ startup.descripcionCorta }}<br />
+                      Teléfono: {{ startup.telefono }}<br />
+                      Correo electrónico: {{ startup.correoElectronico }}
+                    </p>
+                  </div>
+                  <!-- billed-from -->
+                </div>
+                <!-- invoice-header -->
+                <div class="row mg-t-20">
+                  <div class="col-md">
+                    <label class="tx-gray-600">Factura de:</label>
+                    <div class="billed-to">
+                      <h6>{{ usuario.nombre }} {{ usuario.primerApellido }}</h6>
+                      <p>
+                        Cédula: {{ usuario.cedula }} <br />
+                        Teléfono: {{ usuario.telefono }}<br />
+                        Correo electrónico: {{ usuario.correoElectronico }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <label class="tx-gray-600">Información de la factura</label>
+                    <p class="invoice-info-row">
+                      <span>Código de la factura</span> <span>Factura #{{ donacionPaquete.id }}</span>
+                    </p>
+                    <p class="invoice-info-row">
+                      <span>Código del paquete</span> <span>{{ paquete.id }}</span>
+                    </p>
+                    <p class="invoice-info-row">
+                      <span>Fecha:</span> <span>{{ donacionPaquete.fechaDonacion }}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="table-responsive mg-t-40">
+                  <table class="table table-invoice border text-md-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th class="wd-20p">Monto</th>
+                        <th class="wd-40p">Descripción</th>
+                        <th class="tx-right">Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Monto de envío</td>
+                        <td class="tx-12">El monto de envío se valida según su ubicación</td>
+                        <td class="tx-right">${{ donacionPaquete.montoEnvio }}</td>
+                      </tr>
+                      <tr>
+                        <td>Monto de impuesto</td>
+                        <td class="tx-12">El impuesto es establecido por StartupSafe</td>
+                        <td class="tx-right">${{ donacionPaquete.montoImpuesto }}</td>
+                      </tr>
+                      <tr>
+                        <td>Monto del paquete</td>
+                        <td class="tx-12">Monto del paquete es establecido por el startup</td>
+                        <td class="tx-right">${{ paquete.monto }}</td>
+                      </tr>
+                      <tr>
+                        <td class="valign-middle" colspan="2" rowspan="4">
+                          <div class="invoice-notes">
+                            <label class="main-content-label tx-13">Notas</label>
+                            <p>
+                              {{ paquete.descripcion }}
+                            </p>
+                          </div>
+                          <!-- invoice-notes -->
+                        </td>
+                        <td class="tx-right">Subtotal</td>
+                        <td class="tx-right" colspan="2">${{ paquete.monto }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tx-right">Impuesto</td>
+                        <td class="tx-right" colspan="2">${{ donacionPaquete.montoImpuesto }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tx-right">Envío</td>
+                        <td class="tx-right" colspan="2">${{ donacionPaquete.montoEnvio }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tx-right tx-uppercase tx-bold tx-inverse">Total</td>
+                        <td class="tx-right" colspan="2">
+                          <h4 class="tx-primary tx-bold">${{ donacionPaquete.montoTotal }}</h4>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <button class="btn btn-purple float-end mt-3 ms-2" (click)="pagarPaquete()">Pagar</button>
+                <a href="javascript:void(0);" class="btn btn-danger float-end mt-3 ms-2" onclick="javascript:window.print();">
+                  <i class="mdi mdi-printer me-1"></i>Imprimr
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- COL-END -->
+      </div>
+    </div>
+  </div>
+</div>
