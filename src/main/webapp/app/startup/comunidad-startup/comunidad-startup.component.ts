@@ -32,7 +32,6 @@ export class ComunidadStartupComponent implements OnInit {
         let start = data[i];
 
         this.comunidadStartupService.getVotosPorStartup(data[i]).subscribe(votos => {
-          // console.warn("VOTOOOOOOOOOOOOS: ", votos);
           this.startups.push({ votos, start });
           this.bblSort();
           this.startupsFiltered = this.startups;
@@ -42,31 +41,7 @@ export class ComunidadStartupComponent implements OnInit {
       if (data.length >= 1) {
         this.startupsExistentes = true;
       }
-
-      // this.startups = data;
-
-      // this.startups.sort( this.compare );
-
-      // data.forEach(startup => {
-      //   this.comunidadStartupService.getVotosPorStartup(data[0]).subscribe((votos) => {
-      //     console.warn("VOTOOOOOOOOOOOOS: ", votos);
-      //   });
-      // });
-
-      // this.startups.sort( (a, b) => (a.valor > b.valor) ? 1 : -1 );
-      // this.startups.sort( this.compare );
-      // this.startups.sort();
-
-      // console.warn(this.startups);
-
-      // this.startups.forEach(element => {
-      //   console.warn(element, " MIAMOOOOOOOOOOOOOOOOOR");
-      // });
-
-      // console.warn(data, " DATAAAAAAAAAAAAAAAAA");
     });
-
-    // this.startups.sort( (a, b) => (a.valor > b.valor) ? 1 : -1 );
 
     this.comunidadStartupService.getCantidadCategoria('Software').subscribe((cantidad: number) => {
       this.cantidadSoftware = cantidad;
@@ -83,31 +58,10 @@ export class ComunidadStartupComponent implements OnInit {
     this.comunidadStartupService.getCantidadCategoria('Moda').subscribe((cantidad: number) => {
       this.cantidadModa = cantidad;
     });
-
-    // this.startups.sort( (a, b) => (a.valor > b.valor) ? 1 : -1 );
   }
-
-  // ngAfterViewInit():void{
-  //   this.startups.sort( (a, b) => (a.valor > b.valor) ? 1 : -1 );
-  // }
-
-  // compare( a, b ):number {
-  //   if ( a.votos < b.votos ){
-  //     console.warn(a.votos, " ", b.votos, " ", -1);
-  //     return -1;
-  //   }
-  //   if ( a.votos > b.votos ){
-  //     console.warn(a.votos, " ", b.votos, " ", 1);
-  //     return 1;
-  //   }
-  //   console.warn(a.votos, " ", b.votos, " ", 0);
-  //   return 0;
-  // }
 
   redireccionarAPerfilStartup(correoStartup: string): void {
     localStorage.setItem('correoStartup', correoStartup);
-
-    console.warn(correoStartup);
 
     this.router.navigate(['/perfil-comercial-startup']);
   }
@@ -115,15 +69,8 @@ export class ComunidadStartupComponent implements OnInit {
   redireccionarACategoria(nombreCategoria): void {
     localStorage.setItem('nombreCategoria', nombreCategoria);
 
-    console.warn(nombreCategoria);
-
     this.router.navigate(['/startups-por-categoria']);
   }
-
-  // ordernarStartups():void{
-  //   console.warn("Me llamaron");
-  //   this.startups.sort( (a, b) => (a.valor > b.valor) ? 1 : -1 );
-  // }
 
   //Filtra listado de startups por montoMeta mayor o igual al ingresado
   //Filtra por nombre corto, nombre largo, sitio web, panorama mercado y fecha creacion
@@ -153,7 +100,6 @@ export class ComunidadStartupComponent implements OnInit {
     for (let i = 0; i < this.startups.length; i++) {
       for (let j = 0; j < this.startups.length - i - 1; j++) {
         if (this.startups[j].votos < this.startups[j + 1].votos) {
-          console.warn('mayor');
           // eslint-disable-next-line prefer-const
           let temp = this.startups[j];
           this.startups[j] = this.startups[j + 1];

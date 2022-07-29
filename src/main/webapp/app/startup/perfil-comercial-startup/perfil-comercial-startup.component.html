@@ -279,34 +279,42 @@
           </div>
         </div>
       </div>
-      <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12" *ngFor="let paquete of paquetes">
-        <div class="card-perfil custom-card overflow-hidden">
-          <div class="card-header border-bottom">
-            <h3 class="card-title">{{ paquete.nombre }}</h3>
-          </div>
-          <div class="card-body">
-            <div class="text-center">
-              <div class="rounded-5 px-0 text-justify">
-                <h6>Descripción del Paquete</h6>
-                <span>
-                  {{ paquete.descripcion }}
-                </span>
-              </div>
-              <br />
-              <div class="rounded-5 px-0 text-justify">
-                <h6>Costo</h6>
-                <span> ${{ paquete.monto }} </span>
+      <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12">
+        <h5>Paquetes</h5>
+        <ng-container *ngIf="existenPaquetes; else noExistentes">
+          <div *ngFor="let paquete of paquetes" class="card-perfil custom-card overflow-hidden">
+            <div class="card-header border-bottom">
+              <h3 class="card-title">{{ paquete.nombre }}</h3>
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+                <div class="rounded-5 px-0 text-justify">
+                  <h6>Descripción del Paquete</h6>
+                  <span>
+                    {{ paquete.descripcion }}
+                  </span>
+                </div>
+                <br />
+                <div class="rounded-5 px-0 text-justify">
+                  <h6>Costo</h6>
+                  <span> ${{ paquete.monto }} </span>
+                </div>
               </div>
             </div>
+            <button
+              class="btn btn-primary waves-effect waves-light btn-comprar-paquete"
+              (click)="registrarEnvio($event)"
+              value="{{ paquete.id }}"
+            >
+              Comprar este Paquete
+            </button>
           </div>
-          <button
-            class="btn btn-primary waves-effect waves-light btn-comprar-paquete"
-            (click)="registrarEnvio($event)"
-            value="{{ paquete.id }}"
-          >
-            Comprar este Paquete
-          </button>
-        </div>
+        </ng-container>
+        <ng-template #noExistentes>
+          <div class="msg-no-existentes">
+            <h6>No existen paquetes activos en este momento</h6>
+          </div>
+        </ng-template>
       </div>
 
       <!-- row -->

@@ -56,8 +56,6 @@ export class RegistroAdminComponent implements OnInit {
     this.errorEmailExists = false;
     this.errorUserExists = false;
 
-    console.warn('Registrado');
-
     // const nombre = this.formInfoAdmin.get(['contrasennia'])!.value;
     // const primerApellido = this.formInfoAdmin.get(['contrasennia'])!.value;
     // const segundoApellido = this.formInfoAdmin.get(['contrasennia'])!.value;
