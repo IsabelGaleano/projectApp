@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.router.navigate(['admin/profile-admin']);
                   } else if (account.authorities[0]) {
                     if (account.authorities[0] === 'ROLE_USER') {
+                      sessionStorage.setItem('usuarioLogin', account.email);
                       this.router.navigate(['usuario-final/perfil-usuario-final']);
                     } else if (account.authorities[0] === 'ROLE_STARTUP') {
                       this.loginService.getStartupByCorreo(account.email).subscribe((startup: any) => {
