@@ -10,6 +10,7 @@ import { RegistrarPaquetesStartupComponent } from './registrar-paquetes-startup/
 import { UpdatePaqueteStartupComponent } from './actualizar-paquete-startup/actualizar-paquete-startup.component';
 import { RegistroEnvioPaquetesComponent } from './registro-envio-paquetes/registro-envio-paquetes.component';
 import { PagoPaqueteStartupComponent } from './pago-paquete-startup/pago-paquete-startup.component';
+import { PagoFinalPaquetesComponent } from './pago-final-paquetes/pago-final-paquetes.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -81,6 +82,13 @@ import { PagoPaqueteStartupComponent } from './pago-paquete-startup/pago-paquete
         component: PagoPaqueteStartupComponent,
         data: {
           pageTitle: 'pago.paquete.startup.title',
+        },
+      },
+      {
+        path: 'pago-final-paquetes',
+        component: PagoFinalPaquetesComponent,
+        data: {
+          pageTitle: 'pago.final.paquetes.title',
         },
       },
     ]),

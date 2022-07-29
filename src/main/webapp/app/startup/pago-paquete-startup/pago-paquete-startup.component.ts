@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-pago-paquete-startup',
@@ -11,7 +12,7 @@ export class PagoPaqueteStartupComponent implements OnInit {
   paquete: any;
   usuario: any;
 
-  constructor() {
+  constructor(private router: Router) {
     this.rastreador = JSON.parse(sessionStorage.donacionPaquete);
     this.donacionPaquete = this.rastreador.idDonacionPaquete;
     this.startup = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
@@ -27,5 +28,10 @@ export class PagoPaqueteStartupComponent implements OnInit {
 
   ngOnInit(): void {
     console.warn(this.rastreador);
+  }
+
+  pagarPaquete(): void {
+    const router = this.router;
+    this.router.navigate(['pago-final-paquetes']);
   }
 }
