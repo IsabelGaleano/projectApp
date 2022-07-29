@@ -146,6 +146,20 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
     this.RegistroEnvioService.registrarDonacion(donacionesPaquetes).subscribe((data: any) => {
       if (data) {
         console.warn(data);
+        const rastreador = {
+          descripcion: 'UsuarioEntrega',
+          latitud: latitudDireccionUser.value,
+          longitud: longitudDireccionUser.value,
+          fecha: new Date(),
+          estado: 'Activo',
+          idDonacionPaquete: data,
+        };
+
+        this.RegistroEnvioService.registrarUbicación(rastreador).subscribe((dataRastreador: any) => {
+          if (dataRastreador) {
+            console.warn(data);
+          }
+        });
       }
     });
   }

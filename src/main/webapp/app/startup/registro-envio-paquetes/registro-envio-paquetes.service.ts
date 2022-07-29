@@ -27,4 +27,8 @@ export class RegistroEnvioPaqueteService {
   registrarDonacion(paquete: Record<string, unknown>): Observable<any> {
     return this.http.post(this.rootURL.concat('donaciones-paquetes/'), paquete);
   }
+
+  registrarUbicación(rastreador: Record<string, unknown>): Observable<any> {
+    return this.http.post(this.rootURL.concat('rastreadors/'), rastreador);
+  }
 }
