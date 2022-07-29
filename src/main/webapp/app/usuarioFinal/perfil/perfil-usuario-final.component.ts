@@ -17,7 +17,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'jhi-perfil-usuario-final',
   templateUrl: './perfil-usuario-final.component.html',
-  //styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./perfil-usuario-final.component.scss'],
 })
 export class PerfilUsuarioFinalComponent implements OnInit {
   movimientos: any[] = [];
