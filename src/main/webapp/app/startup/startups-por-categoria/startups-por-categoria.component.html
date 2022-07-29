@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
   .main-content {
     max-width: 80% !important;
     margin-left: auto;
@@ -26,7 +26,7 @@
   .card-categoria:hover {
     cursor: pointer;
   }
-</style>
+</style> -->
 
 <div class="main-content app-content">
   <!-- container -->
@@ -44,10 +44,10 @@
                 <div class="card-header pb-0">
                   <h5 class="card-title mb-0 pb-0">{{ startup.nombreCorto }}</h5>
                 </div>
-                <div class="card-body text-primary" style="height: 100px">
+                <div class="card-body text-primary descripcion-corta">
                   <span><b>Descripción: </b>{{ startup.descripcionCorta }}</span>
                 </div>
-                <div class="card-footer" style="text-align: center">
+                <div class="card-footer btn-visitar-startup">
                   <button (click)="redireccionarAPerfilStartup(startup.correoElectronico)" class="btn btn-primary waves-effect waves-light">
                     Visitar Startup
                   </button>
@@ -56,7 +56,9 @@
             </div>
           </ng-container>
           <ng-template #noExistentes>
-            <h1>No existen startups activas con categoría {{ categoria }}</h1>
+            <div class="msg-no-startups">
+              <h1>No existen startups activas con categoría {{ categoria }}</h1>
+            </div>
           </ng-template>
         </div>
       </div>

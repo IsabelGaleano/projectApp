@@ -18,25 +18,29 @@
                   <tr>
                     <th>Nombre</th>
                     <th>Correo</th>
-                    <th>Teléfono</th>
+                    <!-- <th>Teléfono</th>
                     <th>Descripción corta</th>
-                    <th>Beneficios</th>
-                    <th>Monto meta</th>
-                    <th>Sitio web</th>
+                    <th>Beneficios</th> -->
+                    <!-- <th>Monto meta</th> -->
+                    <!-- <th>Sitio web</th>-->
+                    <!-- <th>Fecha de Creación</th> -->
                     <th>Estado</th>
                     <th class="table-header-centered">Activar</th>
                     <th class="table-header-centered">Desactivar</th>
+                    <th class="table-header-centered">Perfil</th>
+                    <th class="table-header-centered">Perfil Comercial</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let startup of startups; index as i">
                   <tr>
-                    <td>{{ startup.nombre }}</td>
+                    <td>{{ startup.nombreCorto }}</td>
                     <td>{{ startup.correoElectronico }}</td>
-                    <td>{{ startup.telefono }}</td>
-                    <td>{{ startup.descripcionCorta }}</td>
-                    <td>{{ startup.beneficios }}</td>
-                    <td>{{ startup.montoMeta }}</td>
-                    <td>{{ startup.linkSitioWeb }}</td>
+                    <!-- <td>{{ startup.telefono }}</td> -->
+                    <!-- <td>{{ startup.descripcionCorta }}</td> -->
+                    <!-- <td>{{ startup.beneficios }}</td> -->
+                    <!-- <td>{{ startup.montoMeta }}</td> -->
+                    <!-- <td>{{ startup.linkSitioWeb }}</td> -->
+                    <!-- <td>{{ startup.fechaCreacion }}</td> -->
                     <td>{{ startup.estado }}</td>
 
                     <td>
@@ -55,6 +59,16 @@
                         value="{{ startup.id }},{{ startup.estado }}"
                       >
                         Desactivar
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary btn-block" (click)="redireccionarPerfilVisualizableStartup(startup.correoElectronico)">
+                        Ver Perfil
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-info btn-block" (click)="redireccionarPerfilComercialStartup(startup.correoElectronico)">
+                        Ver Perfil Comercial
                       </button>
                     </td>
                   </tr>

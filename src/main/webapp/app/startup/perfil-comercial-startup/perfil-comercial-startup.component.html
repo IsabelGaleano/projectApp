@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
   .card-perfil {
     border-radius: 7px;
     position: relative;
@@ -32,7 +32,7 @@
     color: #fff !important;
     text-decoration: none !important;
   }
-</style>
+</style> -->
 
 <!-- main-content -->
 <div class="main-content app-content">
@@ -70,7 +70,7 @@
         <div class="card overflow-hidden bloque-superior-perfil">
           <div class="item7-card-img px-4 pt-4">
             <a href="javascript:void(0);"></a>
-            <img src="{{ startup.imagenURL }}" alt="img" class="cover-image rounded-7 w-100" />
+            <img src="{{ startup.imagenURL }}" alt="img" class="cover-image rounded-7 w-100 imagen-startup" />
           </div>
           <div class="card-body">
             <!-- <a href="javascript:void(0);" class="mt-4"><h5 class="font-weight-semibold text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5></a> -->
@@ -102,16 +102,9 @@
 
             <br />
 
-            <div style="text-align: center">
+            <div class="div-progreso">
               <h6>Progreso</h6>
-              <progress
-                id="file"
-                value="{{ startup.idMonedero.saldo }}"
-                max="{{ startup.montoMeta }}"
-                style="width: 90%; height: 2rem; text-align: center"
-              >
-                32%
-              </progress>
+              <progress class="barra-progreso" id="file" value="{{ startup.idMonedero.saldo }}" max="{{ startup.montoMeta }}">32%</progress>
             </div>
           </div>
         </div>
@@ -165,7 +158,7 @@
                               <h5>Dirección</h5>
                               <!-- <span>{{startup.latitudDireccion}} {{startup.longitudDireccion}}</span> -->
                               <div>
-                                <div id="map" style="width: 55vw; height: 25vh"></div>
+                                <div id="map" class="map-direccion"></div>
                               </div>
                             </div>
                           </div>
@@ -183,7 +176,7 @@
 
                             <br />
 
-                            <div class="row row-xs wd-xl-80p" style="width: 100%">
+                            <div class="row row-xs wd-xl-80p div-comunicar-startup">
                               <div class="col-sm-6 mg-t-10 mg-sm-t-0">
                                 <button class="btn btn-primary btn-block">Enviar mensaje a la startup</button>
                               </div>
@@ -198,7 +191,7 @@
                             <div *ngFor="let planDeInversion of planesDeInversion">
                               <div>
                                 <h4>{{ planDeInversion.nombre }}</h4>
-                                <div style="padding: 1% 0% 0% 1%">
+                                <div class="planes-de-inversion">
                                   <h5>Monto</h5>
                                   <span>${{ planDeInversion.monto }}</span>
                                   <p></p>
@@ -302,28 +295,42 @@
           </div>
         </div>
       </div>
-      <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12" *ngFor="let paquete of paquetes">
-        <div class="card-perfil custom-card overflow-hidden">
-          <div class="card-header border-bottom">
-            <h3 class="card-title">{{ paquete.nombre }}</h3>
-          </div>
-          <div class="card-body">
-            <div class="text-center">
-              <div class="rounded-5 px-0 text-justify">
-                <h6>Descripción del Paquete</h6>
-                <span>
-                  {{ paquete.descripcion }}
-                </span>
-              </div>
-              <br />
-              <div class="rounded-5 px-0 text-justify">
-                <h6>Costo</h6>
-                <span> ${{ paquete.monto }} </span>
+      <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12">
+        <h5>Paquetes</h5>
+        <ng-container *ngIf="existenPaquetes; else noExistentes">
+          <div *ngFor="let paquete of paquetes" class="card-perfil custom-card overflow-hidden">
+            <div class="card-header border-bottom">
+              <h3 class="card-title">{{ paquete.nombre }}</h3>
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+                <div class="rounded-5 px-0 text-justify">
+                  <h6>Descripción del Paquete</h6>
+                  <span>
+                    {{ paquete.descripcion }}
+                  </span>
+                </div>
+                <br />
+                <div class="rounded-5 px-0 text-justify">
+                  <h6>Costo</h6>
+                  <span> ${{ paquete.monto }} </span>
+                </div>
               </div>
             </div>
+            <button
+              class="btn btn-primary waves-effect waves-light btn-comprar-paquete"
+              (click)="registrarEnvio($event)"
+              value="{{ paquete.id }}"
+            >
+              Comprar este Paquete
+            </button>
           </div>
-          <button class="btn btn-primary waves-effect waves-light" style="border-radius: 0">Comprar este Paquete</button>
-        </div>
+        </ng-container>
+        <ng-template #noExistentes>
+          <div class="msg-no-existentes">
+            <h6>No existen paquetes activos en este momento</h6>
+          </div>
+        </ng-template>
       </div>
 
       <!-- row -->

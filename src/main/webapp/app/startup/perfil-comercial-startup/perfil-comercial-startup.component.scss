@@ -1,0 +1,69 @@
+.card-perfil {
+  border-radius: 7px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background: #fff;
+  background-clip: border-box;
+  border-radius: 5px;
+  border: 1px solid #deebfd;
+  margin-bottom: 1.3rem;
+  box-shadow: -8px 12px 18px 0 #dadee8;
+}
+
+.main-content {
+  max-width: 80% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bloque-superior-perfil {
+  height: fit-content !important;
+}
+
+.a-comentarios {
+  cursor: pointer;
+}
+
+.btn-comentarios {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.div-progreso {
+  text-align: center;
+}
+
+.barra-progreso {
+  width: 90%;
+  height: 2rem;
+  text-align: center;
+}
+
+.map-direccion {
+  width: 55vw;
+  height: 25vh;
+}
+
+.div-comunicar-startup {
+  width: 100%;
+}
+
+.planes-de-inversion {
+  padding: 1% 0% 0% 1%;
+}
+
+.btn-comprar-paquete {
+  border-radius: 0;
+}
+
+.imagen-startup {
+  height: 20rem;
+}
+
+.msg-no-existentes {
+  color: #5b6e88 !important;
+  padding-left: 2%;
+}

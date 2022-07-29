@@ -8,6 +8,9 @@ import { RegistroPlanInversionComponent } from './registro-plan-inversion/regist
 import { ListaPlanesInversionComponent } from './lista-planes-inversion/lista-planes-inversion.component';
 import { RegistrarPaquetesStartupComponent } from './registrar-paquetes-startup/registrar-paquetes-startup.component';
 import { UpdatePaqueteStartupComponent } from './actualizar-paquete-startup/actualizar-paquete-startup.component';
+import { RegistroEnvioPaquetesComponent } from './registro-envio-paquetes/registro-envio-paquetes.component';
+import { PagoPaqueteStartupComponent } from './pago-paquete-startup/pago-paquete-startup.component';
+import { PagoFinalPaquetesComponent } from './pago-final-paquetes/pago-final-paquetes.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -65,6 +68,27 @@ import { UpdatePaqueteStartupComponent } from './actualizar-paquete-startup/actu
         component: UpdatePaqueteStartupComponent,
         data: {
           pageTitle: 'actualizar.paquete.startup.title',
+        },
+      },
+      {
+        path: 'registro-envio-paquetes',
+        component: RegistroEnvioPaquetesComponent,
+        data: {
+          pageTitle: 'registro.envio.paquetes.title',
+        },
+      },
+      {
+        path: 'pago-paquete-startup',
+        component: PagoPaqueteStartupComponent,
+        data: {
+          pageTitle: 'pago.paquete.startup.title',
+        },
+      },
+      {
+        path: 'pago-final-paquetes',
+        component: PagoFinalPaquetesComponent,
+        data: {
+          pageTitle: 'pago.final.paquetes.title',
         },
       },
     ]),
