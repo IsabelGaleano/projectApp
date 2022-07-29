@@ -13,8 +13,8 @@ export class PagoPaqueteStartupComponent implements OnInit {
   usuario: any;
 
   constructor(private router: Router) {
-    this.rastreador = JSON.parse(sessionStorage.donacionPaquete);
-    this.donacionPaquete = this.rastreador.idDonacionPaquete;
+    this.rastreador = JSON.parse(sessionStorage.rastreadorPaquete);
+    this.donacionPaquete = JSON.parse(sessionStorage.donacionPaquete);
     this.startup = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
     this.paquete = JSON.parse(sessionStorage.paqueteRegistroEnvioObject);
     this.usuario = JSON.parse(sessionStorage.usuarioLoginObject);

@@ -161,7 +161,8 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
         this.RegistroEnvioService.registrarUbicación(rastreador).subscribe((dataRastreador: any) => {
           if (dataRastreador) {
             console.warn(dataRastreador);
-            sessionStorage.setItem('donacionPaquete', JSON.stringify(dataRastreador));
+            sessionStorage.setItem('donacionPaquete', JSON.stringify(data));
+            sessionStorage.setItem('rastreadorPaquete', JSON.stringify(dataRastreador));
             this.router.navigate(['pago-paquete-startup']);
           }
         });
