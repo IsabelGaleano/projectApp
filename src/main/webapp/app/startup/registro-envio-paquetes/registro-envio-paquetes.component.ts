@@ -22,6 +22,7 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
     this.RegistroEnvioService.getStartupByCorreo(sessionStorage.getItem('startupEnvioPaquete')).subscribe((resultS: any) => {
       if (resultS) {
         this.startup = resultS;
+        sessionStorage.setItem('startupEnvioPaqueteObject', JSON.stringify(resultS));
       }
     });
 
@@ -29,12 +30,14 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
       if (resultP) {
         this.paquete = resultP;
         console.warn(resultP);
+        sessionStorage.setItem('paqueteRegistroEnvioObject', JSON.stringify(resultP));
       }
     });
 
     this.RegistroEnvioService.getUsuarioByCorreo(sessionStorage.getItem('usuarioLogin')).subscribe((resultU: any) => {
       if (resultU) {
         this.usuarioFinal = resultU;
+        sessionStorage.setItem('usuarioLoginObject', JSON.stringify(resultU));
       }
     });
   }
@@ -115,7 +118,7 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
     console.warn(this.usuarioFinal);
     console.warn(this.startup);
     console.warn(this.paquete);
-    //this.router.navigate(['pago-paquete-startup']);
+
     const latitudDireccionUser = <HTMLInputElement>document.getElementById('latitud');
     const longitudDireccionUser = <HTMLInputElement>document.getElementById('longitud');
 
@@ -157,7 +160,9 @@ export class RegistroEnvioPaquetesComponent implements OnInit {
 
         this.RegistroEnvioService.registrarUbicación(rastreador).subscribe((dataRastreador: any) => {
           if (dataRastreador) {
-            console.warn(data);
+            console.warn(dataRastreador);
+            sessionStorage.setItem('donacionPaquete', JSON.stringify(dataRastreador));
+            this.router.navigate(['pago-paquete-startup']);
           }
         });
       }
