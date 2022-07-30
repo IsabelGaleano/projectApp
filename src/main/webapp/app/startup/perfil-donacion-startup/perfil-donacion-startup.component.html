@@ -164,56 +164,101 @@
                         <p></p>
                       </div>
                       <div class="tab-pane" id="tab2">
-                        <form class="form-horizontal">
-                          <div class="mb-4 main-content-label">Estado de la meta</div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-9">
-                                <select name="estadoMeta" class="form-control" id="estadoMeta">
-                                  <option>Opcion</option>
-                                </select>
+                        <div class="card box-shadow-0">
+                          <div class="card-header">
+                            <p class="mb-2">Ingrese la información requerida para iniciar el envío.</p>
+                          </div>
+                          <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+                            <div>
+                              <div class="col-md-8">
+                                <div class="alert alert-success" *ngIf="success">
+                                  <strong>Inicialización exitosa!</strong> La inicialización del envío se realizó con éxito.
+                                </div>
                               </div>
                             </div>
                           </div>
-                          <hr class="mg-y-30" />
-                          <div class="mb-4 main-content-label">Monto de la meta</div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-9">
-                                <input type="number" id="montoMeta" class="form-control" />
+                          <div class="card-body pt-0">
+                            <form name="form" role="form" (ngSubmit)="iniciarEnvio()" [formGroup]="inicialForm" *ngIf="!success">
+                              <div class="form-group">
+                                <label class="form-label" for="fechaInicial">Fecha inicial del envío</label>
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  id="fechaInicial"
+                                  name="fechaInicial"
+                                  formControlName="fechaInicial"
+                                  data-cy="fechaInicial"
+                                />
+                                <div
+                                  *ngIf="
+                                    inicialForm.get('fechaInicial')!.invalid &&
+                                    (inicialForm.get('fechaInicial')!.dirty || inicialForm.get('fechaInicial')!.touched)
+                                  "
+                                >
+                                  <small class="form-text text-danger" *ngIf="inicialForm.get('fechaInicial')?.errors?.required">
+                                    La fecha inicial es requerida.
+                                  </small>
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                          <hr class="mg-y-30" />
-                          <div class="mb-4 main-content-label">Riesgos</div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-9">
-                                <textarea class="form-control" rows="10" id="riesgos"></textarea>
+                              <div class="form-group">
+                                <label class="form-label" for="fechaEntrega">Fecha de entrega</label>
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  id="fechaEntrega"
+                                  name="fechaEntrega"
+                                  formControlName="fechaEntrega"
+                                  data-cy="fechaEntrega"
+                                />
+                                <div
+                                  *ngIf="
+                                    inicialForm.get('fechaEntrega')!.invalid &&
+                                    (inicialForm.get('fechaEntrega')!.dirty || inicialForm.get('fechaEntrega')!.touched)
+                                  "
+                                >
+                                  <small class="form-text text-danger" *ngIf="inicialForm.get('fechaEntrega')?.errors?.required">
+                                    La fecha de entrega es requerida.
+                                  </small>
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                          <hr class="mg-y-30" />
-                          <div class="mb-4 main-content-label">Beneficios</div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-9">
-                                <textarea class="form-control" id="beneficios" rows="10"></textarea>
+                              <div class="form-group">
+                                <label class="form-label" for="diasRetraso">Días de retraso</label>
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="diasRetraso"
+                                  name="diasRetraso"
+                                  formControlName="diasRetraso"
+                                  data-cy="diasRetraso"
+                                />
+                                <div
+                                  *ngIf="
+                                    inicialForm.get('diasRetraso')!.invalid &&
+                                    (inicialForm.get('diasRetraso')!.dirty || inicialForm.get('diasRetraso')!.touched)
+                                  "
+                                >
+                                  <small class="form-text text-danger" *ngIf="inicialForm.get('diasRetraso')?.errors?.required">
+                                    Los días de retraso son requeridos.
+                                  </small>
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                          <hr class="mg-y-30" />
-                          <div class="mb-4 main-content-label">Panorama del mercado</div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-9">
-                                <textarea class="form-control" id="panoramaMercado" rows="10"></textarea>
+
+                              <div class="form-group">
+                                <button
+                                  type="submit"
+                                  [disabled]="inicialForm.invalid"
+                                  class="btn btn-main-primary btn-block"
+                                  id="inicioEnvioButton"
+                                  data-cy="submit"
+                                >
+                                  Iniciar envío
+                                </button>
                               </div>
-                            </div>
+                            </form>
                           </div>
-                        </form>
+                        </div>
+
                         <p></p>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar</button>
                       </div>
                       <div class="tab-pane" id="tab3">
                         <div class="tab-pane">
@@ -280,47 +325,78 @@
                         <hr />
                       </div>
                       <div class="tab-pane" id="tab5">
-                        <form class="form-horizontal">
-                          <h4 class="tx-18 mb-3">Actualizar contraseña</h4>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <label class="form-label">Contraseña antigua</label>
-                              </div>
-                              <div class="col-md-9">
-                                <input type="password" class="form-control" placeholder="Contraseña antigua" id="contrasenniaAntiguaForm" />
+                        <div class="card box-shadow-0">
+                          <div class="card-header">
+                            <p class="mb-2">Ingrese la información requerida para finalizar la entrega.</p>
+                          </div>
+                          <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+                            <div>
+                              <div class="col-md-8">
+                                <div class="alert alert-success" *ngIf="successFinal">
+                                  <strong>Finalización exitosa!</strong> La finalización del envío se realizó con éxito.
+                                </div>
                               </div>
                             </div>
                           </div>
-                          <p></p>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <label class="form-label">Nueva contraseña</label>
-                              </div>
-                              <div class="col-md-9">
-                                <input type="password" class="form-control" placeholder="Nueva contraseña" id="contrasenniaNuevaForm" />
-                              </div>
-                            </div>
-                          </div>
-                          <p></p>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <label class="form-label">Confirmar nueva contraseña</label>
-                              </div>
-                              <div class="col-md-9">
+                          <div class="card-body pt-0">
+                            <form name="form" role="form" (ngSubmit)="finalizarEnvio()" [formGroup]="finalForm" *ngIf="!successFinal">
+                              <div class="form-group">
+                                <label class="form-label" for="fechaFinal">Fecha final de la entrega</label>
                                 <input
-                                  type="password"
+                                  type="date"
                                   class="form-control"
-                                  id="confirmarContrasenniaNuevaForm"
-                                  placeholder="Confirmar contraseña"
+                                  id="fechaFinal"
+                                  name="fechaFinal"
+                                  formControlName="fechaFinal"
+                                  data-cy="fechaFinal"
                                 />
+                                <div
+                                  *ngIf="
+                                    finalForm.get('fechaFinal')!.invalid &&
+                                    (finalForm.get('fechaFinal')!.dirty || finalForm.get('fechaFinal')!.touched)
+                                  "
+                                >
+                                  <small class="form-text text-danger" *ngIf="finalForm.get('fechaFinal')?.errors?.required">
+                                    La fecha final es requerida.
+                                  </small>
+                                </div>
                               </div>
-                            </div>
+                              <div class="form-group">
+                                <label class="form-label" for="diasRetrasoFinal">Días de retraso</label>
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="diasRetrasoFinal"
+                                  name="diasRetrasoFinal"
+                                  formControlName="diasRetrasoFinal"
+                                  data-cy="diasRetrasoFinal"
+                                />
+                                <div
+                                  *ngIf="
+                                    finalForm.get('diasRetrasoFinal')!.invalid &&
+                                    (finalForm.get('diasRetrasoFinal')!.dirty || finalForm.get('diasRetrasoFinal')!.touched)
+                                  "
+                                >
+                                  <small class="form-text text-danger" *ngIf="finalForm.get('diasRetrasoFinal')?.errors?.required">
+                                    Los días de retraso son requeridos.
+                                  </small>
+                                </div>
+                              </div>
+                              <p></p>
+                              <div class="form-group">
+                                <button
+                                  type="submit"
+                                  [disabled]="finalForm.invalid"
+                                  class="btn btn-main-primary btn-block"
+                                  id="inicioEnvioButton"
+                                  data-cy="submit"
+                                >
+                                  Finalizar entrega
+                                </button>
+                              </div>
+                            </form>
                           </div>
-                        </form>
-                        <button type="submit" (click)="prueba()" class="btn btn-primary waves-effect waves-light">Actualizar</button>
+                        </div>
                       </div>
                     </div>
                   </div>

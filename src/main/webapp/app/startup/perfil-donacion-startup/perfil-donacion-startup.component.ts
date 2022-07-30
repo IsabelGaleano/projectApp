@@ -1,5 +1,8 @@
+/* eslint-disable */
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import { PerfilDonacionStartupPService } from './perfil-donacion-startup.service';
 
 @Component({
@@ -12,8 +15,22 @@ export class PerfilDonacionStartupComponent implements OnInit {
   startup: any;
   usuario: any;
   dateDonacion: any;
+  success = false;
+  isEnabled = true;
+  successFinal = false;
 
-  constructor(private router: Router, private perfilService: PerfilDonacionStartupPService) {
+  inicialForm = this.fb.group({
+    fechaInicial: ['', [Validators.required]],
+    fechaEntrega: ['', [Validators.required]],
+    diasRetraso: ['', [Validators.required]],
+  });
+
+  finalForm = this.fb.group({
+    fechaFinal: ['', [Validators.required]],
+    diasRetrasoFinal: ['', [Validators.required]],
+  });
+
+  constructor(private router: Router, private perfilService: PerfilDonacionStartupPService, private fb: FormBuilder) {
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaqueteStartup);
 
     console.warn(this.donacionPaquete);
@@ -42,7 +59,39 @@ export class PerfilDonacionStartupComponent implements OnInit {
     this.dateDonacion = fechatemp.toLocaleString();
   }
 
-  prueba(): void {
-    console.warn(this.usuario);
+  iniciarEnvio(): void {
+    console.warn('prueba');
+    const fechaInicial = <HTMLInputElement>document.getElementById('fechaInicial');
+    const fechaEntrega = <HTMLInputElement>document.getElementById('fechaEntrega');
+    const diasRetraso = <HTMLInputElement>document.getElementById('diasRetraso');
+
+    this.donacionPaquete.fechaInicialEnvio = new Date(fechaInicial.value);
+    this.donacionPaquete.fechaPosibleEntrega = new Date(fechaEntrega.value);
+    this.donacionPaquete.diasRetraso = diasRetraso.value;
+    this.donacionPaquete.estado = 'Activo';
+
+    this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
+      if (result) {
+        console.warn(result);
+        this.success = true;
+      }
+    });
+  }
+
+  finalizarEnvio(): void {
+    console.warn('prueba');
+    const fechaFinal = <HTMLInputElement>document.getElementById('fechaFinal');
+    const diasRetraso = <HTMLInputElement>document.getElementById('diasRetrasoFinal');
+
+    this.donacionPaquete.fechaEntrega = new Date(fechaFinal.value);
+    this.donacionPaquete.diasRetraso = diasRetraso.value;
+    this.donacionPaquete.estado = 'Finalizado';
+
+    this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
+      if (result) {
+        console.warn(result);
+        this.successFinal = true;
+      }
+    });
   }
 }

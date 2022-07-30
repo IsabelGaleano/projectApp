@@ -29,4 +29,8 @@ export class PerfilDonacionStartupPService {
   getPaquete(id: string | any): Observable<any> {
     return this.http.get(this.rootURL.concat('/paquetes/').concat(id));
   }
+
+  actualizarDonacion(id: string | any, donacion: Record<string, unknown>): Observable<any> {
+    return this.http.put(this.rootURL.concat('/donaciones-paquetes/', id), donacion);
+  }
 }
