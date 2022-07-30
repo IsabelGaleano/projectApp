@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {ICodigos} from "../../entities/codigos/codigos.model";
+import {EntityResponseType} from "../../entities/codigos/service/codigos.service";
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +44,12 @@ export class AppService {
     let ruta = '/api/usuarios/';
     ruta = ruta.concat(id);
     return this.http.put(ruta, user);
+  }
+
+  findByNombre(nombre: string):  Observable<any> {
+    let ruta = '/api/usuarios/findUsuariosByNombreOrApellido/';
+    ruta = ruta + nombre;
+    return this.http.get(ruta);
   }
 
   getUsuariosByCorreo(correoElectronico: string): Observable<any> {

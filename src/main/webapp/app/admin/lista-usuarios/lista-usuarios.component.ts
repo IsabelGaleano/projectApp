@@ -9,9 +9,13 @@ import { AppService } from './lista-usuarios.service';
 })
 export class ListaUsuariosComponent implements OnInit {
   usuarios: any[] = [];
+  busqueda: string;
+  usuariosTmp: any[] = [];
   // show:boolean;
 
-  constructor(private appService: AppService, private router: Router) {}
+  constructor(private appService: AppService, private router: Router) {
+    this.busqueda = '';
+  }
 
   ngOnInit(): void {
     this.appService.getUsers().subscribe((data: any) => {
@@ -28,6 +32,7 @@ export class ListaUsuariosComponent implements OnInit {
           });
         });
       });
+      this.usuariosTmp = this.usuarios;
     });
   }
 
@@ -91,6 +96,37 @@ export class ListaUsuariosComponent implements OnInit {
     });
   }
 
+
+  searchByName(): void {
+    try {
+      this.appService.findByNombre(this.busqueda).subscribe(
+
+        (response: any) => {
+
+          if (response) {
+
+            this.usuarios = response;
+
+          } else {
+            this.usuarios = [];
+          }
+
+        },
+        (err: any) => {
+
+          this.usuarios = [];
+        }
+      );
+    } catch (e) {
+      console.error('hola', e);
+    }
+  }
+
+  clearSearch() : void {
+    if (!this.busqueda) {
+      this.usuarios = this.usuariosTmp;
+    }
+  }
   // getAllUsers():void{
 
   // }
