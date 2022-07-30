@@ -109,13 +109,6 @@ import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones
           },
           component: PagoFinalPaquetesComponent,
         },
-        {
-          path: 'lista-donaciones-usuario',
-          data: {
-            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
-          },
-          component: ListaDonacionesUsuarioComponent,
-        },
         navbarRoute,
         ...errorRoute,
       ],

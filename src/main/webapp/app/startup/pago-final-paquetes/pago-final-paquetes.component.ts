@@ -82,7 +82,7 @@ export class PagoFinalPaquetesComponent implements OnInit {
           this.pagoService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
             this.success = true;
             window.setTimeout(function () {
-              router.navigate(['lista-donaciones-usuario']);
+              router.navigate(['usuario-final/lista-donaciones-usuario']);
             }, 3000);
           });
         },

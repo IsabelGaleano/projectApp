@@ -12,6 +12,7 @@ import { ListaDonacionesStartupComponent } from './lista-donaciones-startup/list
 import { RegistroEnvioPaquetesComponent } from './registro-envio-paquetes/registro-envio-paquetes.component';
 import { PagoPaqueteStartupComponent } from './pago-paquete-startup/pago-paquete-startup.component';
 import { PagoFinalPaquetesComponent } from './pago-final-paquetes/pago-final-paquetes.component';
+import { PerfilDonacionStartupComponent } from './perfil-donacion-startup/perfil-donacion-startup.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -97,6 +98,13 @@ import { PagoFinalPaquetesComponent } from './pago-final-paquetes/pago-final-paq
         component: PagoFinalPaquetesComponent,
         data: {
           pageTitle: 'pago.final.paquetes.title',
+        },
+      },
+      {
+        path: 'perfil-donacion-startup',
+        component: PerfilDonacionStartupComponent,
+        data: {
+          pageTitle: 'perfil.donacion.startup.title',
         },
       },
     ]),
