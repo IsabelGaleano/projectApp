@@ -24,6 +24,7 @@ export class PerfilComercialStartupComponent implements OnInit {
   planesDeInversion!: Array<any>;
   paquetes!: Array<any>;
   map: google.maps.Map | undefined;
+  existenPaquetes = false;
 
   constructor(
     private perfilComercialStartupService: PerfilComercialStartupService,
@@ -32,20 +33,13 @@ export class PerfilComercialStartupComponent implements OnInit {
     private datePipe: DatePipe,
     private router: Router
   ) {
-    console.warn();
-
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         // eslint-disable-next-line no-console
         this.user = true;
         this.account = account;
 
-        console.warn(account);
-
         this.perfilComercialStartupService.getUsuarioByCorreo(account.email).subscribe((usuarioLogeado: any) => {
-          console.warn(usuarioLogeado.tipoUsuarioFinal);
-          console.warn('MERYYYY');
-
           if (usuarioLogeado.tipoUsuarioFinal === 'Admin' || usuarioLogeado.tipoUsuarioFinal === 'Inversionista') {
             this.inversionistaOAdmin = true;
             this.usuario = false;
@@ -53,33 +47,17 @@ export class PerfilComercialStartupComponent implements OnInit {
             this.inversionistaOAdmin = false;
             this.usuario = true;
           }
-
-          // if (usuarioLogeado.tipoUsuarioFinal === 'Usuario') {
-          //   this.inversionistaOAdmin = false;
-          //   this.usuario = true;
-          // }
-          // else {
-          //   this.inversionistaOAdmin = true;
-          //   this.usuario = false;
-          // }
         });
       }
     });
   }
 
   ngOnInit(): void {
-    console.warn('HOLAAAA');
-
     this.correoStartup = localStorage.getItem('correoStartup');
-
-    console.warn(this.correoStartup);
 
     this.perfilComercialStartupService.getStartupByCorreo(this.correoStartup).subscribe((startup: any) => {
       this.startup = startup;
 
-      // if (!this.startup.idCategoria) {
-      //   this.startup.idCategoria.categoria = 'Sin categoría registrada';
-      // }
       if (!this.startup.idCategoria) {
         this.startup.idCategoria = { id: 0, categoria: 'Sin categoría registrada' };
       }
@@ -156,8 +134,6 @@ export class PerfilComercialStartupComponent implements OnInit {
     this.perfilComercialStartupService.getPlanesDeInversionByCorreoStartup(this.correoStartup).subscribe((planesDeInversion: any) => {
       this.planesDeInversion = planesDeInversion;
 
-      console.warn(this.planesDeInversion);
-
       if (planesDeInversion.length === 0) {
         const plan = {
           nombre: 'Aún no se registra nombre para el plan de inversión',
@@ -175,13 +151,16 @@ export class PerfilComercialStartupComponent implements OnInit {
       this.paquetes = paquetes;
 
       if (paquetes.length === 0) {
-        const paquete = {
-          nombre: 'Aún no se registra nombre para el paquete',
-          monto: 0,
-          descripcion: 'Aún no se registra descripción para el paquete',
-        };
+        this.existenPaquetes = false;
+        // const paquete = {
+        //   nombre: 'Aún no se registra nombre para el paquete',
+        //   monto: 0,
+        //   descripcion: 'Aún no se registra descripción para el paquete',
+        // };
 
-        this.paquetes.push(paquete);
+        // this.paquetes.push(paquete);
+      } else {
+        this.existenPaquetes = true;
       }
     });
 
@@ -219,7 +198,9 @@ export class PerfilComercialStartupComponent implements OnInit {
   registrarEnvio(event: any): void {
     const router = this.router;
     console.warn(event.target.value);
-    this.router.navigate(['startup/registro-envio-paquetes']);
+    this.correoStartup = localStorage.getItem('correoStartup');
+    this.router.navigate(['registro-envio-paquetes']);
     sessionStorage.setItem('paqueteRegistroEnvio', event.target.value);
+    sessionStorage.setItem('startupEnvioPaquete', this.correoStartup);
   }
 }
