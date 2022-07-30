@@ -17,6 +17,10 @@ import { RegistroAdicionalStartupComponent } from './registro-adicional-startup/
 import { PaquetesUpdateComponent } from './entities/paquetes/update/paquetes-update.component';
 import { CodigosComponent } from './entities/codigos/list/codigos.component';
 import { PerfilComercialStartupComponent } from './startup/perfil-comercial-startup/perfil-comercial-startup.component';
+import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago-paquete-startup.component';
+import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
+import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
+import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones-usuario/lista-donaciones-usuario.component';
 
 @NgModule({
   imports: [
@@ -83,6 +87,34 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
             authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
           },
           component: PerfilComercialStartupComponent,
+        },
+        {
+          path: 'registro-envio-paquetes',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: RegistroEnvioPaquetesComponent,
+        },
+        {
+          path: 'pago-paquete-startup',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: PagoPaqueteStartupComponent,
+        },
+        {
+          path: 'pago-final-paquetes',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: PagoFinalPaquetesComponent,
+        },
+        {
+          path: 'lista-donaciones-usuario',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: ListaDonacionesUsuarioComponent,
         },
         navbarRoute,
         ...errorRoute,
