@@ -17,11 +17,13 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -370,5 +372,13 @@ public class UsuariosResource {
     public int updateImagenURL(@PathVariable String correoUsuario, @Valid @RequestBody String imagen) {
         int resultado = this.usuariosRepository.updateImagenURL(correoUsuario, imagen);
         return resultado;
+    }
+
+    @GetMapping("/usuarios/findUsuariosByNombreOrApellido/{nombre}")
+    public List<Usuarios> getUsuariosByCorrreoOrApellido(@PathVariable String nombre) {
+        log.debug("REST request to get Usuarios : {}", nombre);
+        String formattedData = nombre.replace("%20", "");
+        List<Usuarios> usuarios = usuariosRepository.findText(formattedData);
+        return usuarios;
     }
 }
