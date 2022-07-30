@@ -6,11 +6,12 @@ import { PerfilDonacionStartupPService } from './perfil-donacion-startup.service
   selector: 'jhi-perfil-donacion-startup',
   templateUrl: './perfil-donacion-startup.component.html',
 })
-export class PerfilDonacionStartupComponent {
+export class PerfilDonacionStartupComponent implements OnInit {
   donacionPaquete: any;
   paquete: any;
   startup: any;
   usuario: any;
+  dateDonacion: any;
 
   constructor(private router: Router, private perfilService: PerfilDonacionStartupPService) {
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaqueteStartup);
@@ -34,6 +35,11 @@ export class PerfilDonacionStartupComponent {
         this.usuario = resultU;
       }
     });
+  }
+  ngOnInit(): void {
+    const fechatemp = new Date(this.donacionPaquete.fechaDonacion);
+    console.warn(fechatemp.toLocaleString());
+    this.dateDonacion = fechatemp.toLocaleString();
   }
 
   prueba(): void {
