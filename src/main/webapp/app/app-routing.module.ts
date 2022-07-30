@@ -20,6 +20,7 @@ import { PerfilComercialStartupComponent } from './startup/perfil-comercial-star
 import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago-paquete-startup.component';
 import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
+import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones-usuario/lista-donaciones-usuario.component';
 
 @NgModule({
   imports: [

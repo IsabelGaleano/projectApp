@@ -90,4 +90,15 @@ export class ListaDonacionesStartupComponent implements OnInit {
       });
     this.changeDetection.detectChanges();
   }
+
+  verPerfilDonacion(event: any): void {
+    const router = this.router;
+    console.warn(event.target.value);
+    this.listaDonacionesStartupService.getDonacionPaquete(event.target.value).subscribe((resultD: any) => {
+      if (resultD) {
+        sessionStorage.setItem('donacionPaqueteStartup', JSON.stringify(resultD));
+        this.router.navigate(['startup/perfil-donacion-startup']);
+      }
+    });
+  }
 }
