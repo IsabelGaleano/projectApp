@@ -65,6 +65,7 @@ import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquete
 import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago-paquete-startup.component';
 import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-startup/perfil-visualizable-startup.component';
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
+import { PerfilDonacionStartupComponent } from './startup/perfil-donacion-startup/perfil-donacion-startup.component';
 
 @NgModule({
   imports: [
@@ -133,6 +134,7 @@ import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-f
     PagoPaqueteStartupComponent,
     PerfilVisualizableStartupComponent,
     PagoFinalPaquetesComponent,
+    PerfilDonacionStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

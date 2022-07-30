@@ -40,4 +40,12 @@ export class ListaDonacionesStartupService {
       return this.http.get(this.rootURL.concat('/donaciones-paquetes'));
     }
   }
+
+  getDonacionPaquete(id: string | any): Observable<any> {
+    if (id != null) {
+      return this.http.get(this.rootURL.concat('/donaciones-paquetes/', id.toString()));
+    } else {
+      return this.http.get(this.rootURL.concat('/donaciones-paquetes/'));
+    }
+  }
 }
