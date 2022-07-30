@@ -199,8 +199,8 @@ export class PerfilComercialStartupComponent implements OnInit {
     const router = this.router;
     console.warn(event.target.value);
     this.correoStartup = localStorage.getItem('correoStartup');
-    this.router.navigate(['registro-envio-paquetes']);
     sessionStorage.setItem('paqueteRegistroEnvio', event.target.value);
     sessionStorage.setItem('startupEnvioPaquete', this.correoStartup);
+    this.router.navigate(['registro-envio-paquetes']);
   }
 }
