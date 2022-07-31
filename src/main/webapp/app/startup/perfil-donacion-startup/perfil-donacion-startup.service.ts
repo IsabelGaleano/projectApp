@@ -33,4 +33,8 @@ export class PerfilDonacionStartupPService {
   actualizarDonacion(id: string | any, donacion: Record<string, unknown>): Observable<any> {
     return this.http.put(this.rootURL.concat('/donaciones-paquetes/', id), donacion);
   }
+
+  registrarUbicación(rastreador: Record<string, unknown>): Observable<any> {
+    return this.http.post(this.rootURL.concat('/rastreadors/'), rastreador);
+  }
 }

@@ -20,6 +20,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
   isEnabled = true;
   successFinal = false;
   map: google.maps.Map | undefined;
+  mapEnvio: google.maps.Map | undefined;
 
   inicialForm = this.fb.group({
     fechaInicial: ['', [Validators.required]],
@@ -64,7 +65,100 @@ export class PerfilDonacionStartupComponent implements OnInit {
       lat: '9.930251',
       lng: '-84.013474',
     };
+    this.cargarMapInicioEnvio();
+    this.cargarRastreador();
+  }
 
+  iniciarEnvio(): void {
+    console.warn('prueba');
+    const fechaInicial = <HTMLInputElement>document.getElementById('fechaInicial');
+    const fechaEntrega = <HTMLInputElement>document.getElementById('fechaEntrega');
+    const diasRetraso = <HTMLInputElement>document.getElementById('diasRetraso');
+    const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitud');
+    const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitud');
+
+    this.donacionPaquete.fechaInicialEnvio = new Date(fechaInicial.value);
+    this.donacionPaquete.fechaPosibleEntrega = new Date(fechaEntrega.value);
+    this.donacionPaquete.diasRetraso = diasRetraso.value;
+    this.donacionPaquete.estado = 'Activo';
+
+    this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
+      if (result) {
+        console.warn(result);
+        this.success = true;
+        const rastreador = {
+          descripcion: 'StartupInicio',
+          latitud: latitudDireccionForm.value,
+          longitud: longitudDireccionForm.value,
+          fecha: new Date(),
+          estado: 'Activo',
+          idDonacionPaquete: result,
+        };
+
+        this.perfilService.registrarUbicación(rastreador).subscribe((dataRastreador: any) => {
+          if (dataRastreador) {
+            console.warn(dataRastreador);
+          }
+        });
+      }
+    });
+  }
+
+  finalizarEnvio(): void {
+    console.warn('prueba');
+    const fechaFinal = <HTMLInputElement>document.getElementById('fechaFinal');
+    const diasRetraso = <HTMLInputElement>document.getElementById('diasRetrasoFinal');
+
+    this.donacionPaquete.fechaEntrega = new Date(fechaFinal.value);
+    this.donacionPaquete.diasRetraso = diasRetraso.value;
+    this.donacionPaquete.estado = 'Finalizado';
+
+    this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
+      if (result) {
+        console.warn(result);
+        this.successFinal = true;
+      }
+    });
+  }
+
+  cargarMapInicioEnvio(): void {
+    const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+    const loader = new Loader({
+      apiKey: key,
+    });
+
+    loader.load().then(() => {
+      const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitud');
+      const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitud');
+
+      let location = {
+        lat: 9.93333,
+        lng: -84.08333,
+      };
+
+      this.mapEnvio = new google.maps.Map(<HTMLInputElement>document.getElementById('mapInicial'), {
+        center: location,
+        zoom: 15,
+      });
+
+      const marker: google.maps.Marker | undefined = new google.maps.Marker({
+        position: location,
+        map: this.mapEnvio,
+        draggable: true,
+      });
+      google.maps.event.addListener(
+        marker,
+        'dragend',
+        function (evt: { latLng: { lat: () => { (): any; new (): any; toString: { (): string; new (): any } }; lng: () => string } }) {
+          latitudDireccionForm.value = evt.latLng.lat().toString();
+
+          longitudDireccionForm.value = evt.latLng.lng();
+        }
+      );
+    });
+  }
+
+  cargarRastreador(): void {
     // initialize services
     const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
     const loader = new Loader({
@@ -130,42 +224,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
       service.getDistanceMatrix(request).then(response => {
         console.warn(response);
       });
-    });
-  }
-
-  iniciarEnvio(): void {
-    console.warn('prueba');
-    const fechaInicial = <HTMLInputElement>document.getElementById('fechaInicial');
-    const fechaEntrega = <HTMLInputElement>document.getElementById('fechaEntrega');
-    const diasRetraso = <HTMLInputElement>document.getElementById('diasRetraso');
-
-    this.donacionPaquete.fechaInicialEnvio = new Date(fechaInicial.value);
-    this.donacionPaquete.fechaPosibleEntrega = new Date(fechaEntrega.value);
-    this.donacionPaquete.diasRetraso = diasRetraso.value;
-    this.donacionPaquete.estado = 'Activo';
-
-    this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
-      if (result) {
-        console.warn(result);
-        this.success = true;
-      }
-    });
-  }
-
-  finalizarEnvio(): void {
-    console.warn('prueba');
-    const fechaFinal = <HTMLInputElement>document.getElementById('fechaFinal');
-    const diasRetraso = <HTMLInputElement>document.getElementById('diasRetrasoFinal');
-
-    this.donacionPaquete.fechaEntrega = new Date(fechaFinal.value);
-    this.donacionPaquete.diasRetraso = diasRetraso.value;
-    this.donacionPaquete.estado = 'Finalizado';
-
-    this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
-      if (result) {
-        console.warn(result);
-        this.successFinal = true;
-      }
     });
   }
 
