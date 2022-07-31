@@ -1,5 +1,6 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.DonacionesPaquetes;
 import com.project.myapp.domain.Rastreador;
 import com.project.myapp.repository.RastreadorRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
@@ -173,6 +174,12 @@ public class RastreadorResource {
         log.debug("REST request to get Rastreador : {}", id);
         Optional<Rastreador> rastreador = rastreadorRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(rastreador);
+    }
+
+    @PostMapping("/rastreadors/findByDonacionPaquete")
+    public List<Rastreador> getAllRastreadorsByDonacion(@Valid @RequestBody DonacionesPaquetes donacionesPaquetes) {
+        log.debug("REST request to get all Rastreadors");
+        return rastreadorRepository.findAllByIdDonacionPaquete(donacionesPaquetes);
     }
 
     /**

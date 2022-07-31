@@ -21,6 +21,11 @@ export class PerfilDonacionStartupComponent implements OnInit {
   successFinal = false;
   map: google.maps.Map | undefined;
   mapEnvio: google.maps.Map | undefined;
+  ubicaciones: any;
+  distanceMatrix: any;
+  ubicacionInicialRastreador: any;
+  ubicacionFinalRastreador: any;
+  ubicacionActualRastreador: any;
 
   inicialForm = this.fb.group({
     fechaInicial: ['', [Validators.required]],
@@ -55,11 +60,18 @@ export class PerfilDonacionStartupComponent implements OnInit {
         this.usuario = resultU;
       }
     });
+
+    this.perfilService.getUbicaciones(this.donacionPaquete).subscribe((resultUbicaciones: any) => {
+      if (resultUbicaciones) {
+        this.ubicaciones = resultUbicaciones;
+      }
+    });
   }
   ngOnInit(): void {
     const fechatemp = new Date(this.donacionPaquete.fechaDonacion);
     console.warn(fechatemp.toLocaleString());
     this.dateDonacion = fechatemp.toLocaleString();
+    console.warn(this.ubicaciones);
 
     const origin = {
       lat: '9.930251',
@@ -81,6 +93,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
     this.donacionPaquete.fechaPosibleEntrega = new Date(fechaEntrega.value);
     this.donacionPaquete.diasRetraso = diasRetraso.value;
     this.donacionPaquete.estado = 'Activo';
+    console.warn(this.distanceMatrix);
 
     this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
       if (result) {
@@ -175,28 +188,56 @@ export class PerfilDonacionStartupComponent implements OnInit {
         zoom: 15,
       });
 
-      const marker: google.maps.Marker | undefined = new google.maps.Marker({
-        position: location,
-        map: this.map,
-        draggable: true,
-      });
+      for (let i = 0; i < this.ubicaciones.length; i++) {
+        const latitudValue: number = +this.ubicaciones[i].latitud;
+        const longitudValue: number = +this.ubicaciones[i].longitud;
 
-      var marker1 = new google.maps.Marker({
-        position: { lat: 9.943585, lng: -84.046075 },
+        if (this.ubicaciones[i].descripcion === 'StartupInicio') {
+          this.ubicacionInicialRastreador = {
+            lat: latitudValue,
+            lng: longitudValue,
+          };
+        }
+
+        if (this.ubicaciones[i].descripcion === 'UsuarioEntrega') {
+          this.ubicacionFinalRastreador = {
+            lat: latitudValue,
+            lng: longitudValue,
+          };
+        }
+
+        if (this.ubicaciones[i].descripcion === 'Actualizacion') {
+          if (this.ubicaciones[i].estado === 'Activo') {
+            this.ubicacionActualRastreador = {
+              lat: latitudValue,
+              lng: longitudValue,
+            };
+          }
+        }
+      }
+
+      const markerInicial = new google.maps.Marker({
+        position: this.ubicacionInicialRastreador,
         title: 'Hello World!',
       });
 
-      var marker2 = new google.maps.Marker({
-        position: { lat: 9.939136, lng: -84.06213 },
+      console.warn(this.ubicacionActualRastreador);
+
+      var markerActual = new google.maps.Marker({
+        position: this.ubicacionActualRastreador,
         title: 'Hello World!',
       });
 
-      marker.setMap(this.map);
+      var markerFinal = new google.maps.Marker({
+        position: this.ubicacionFinalRastreador,
+        title: 'Hello World!',
+      });
 
-      marker1.setMap(this.map);
-      marker2.setMap(this.map);
+      markerInicial.setMap(this.map);
+      markerActual.setMap(this.map);
+      markerFinal.setMap(this.map);
 
-      const flightPlanCoordinates = [location, { lat: 9.943585, lng: -84.046075 }];
+      const flightPlanCoordinates = [this.ubicacionInicialRastreador, this.ubicacionActualRastreador, this.ubicacionFinalRastreador];
       const flightPath = new google.maps.Polyline({
         path: flightPlanCoordinates,
         geodesic: true,
@@ -223,6 +264,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
 
       service.getDistanceMatrix(request).then(response => {
         console.warn(response);
+        this.distanceMatrix = response;
       });
     });
   }
