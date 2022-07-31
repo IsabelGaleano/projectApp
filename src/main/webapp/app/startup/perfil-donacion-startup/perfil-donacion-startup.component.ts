@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import { Loader } from '@googlemaps/js-api-loader';
 import { PerfilDonacionStartupPService } from './perfil-donacion-startup.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
   success = false;
   isEnabled = true;
   successFinal = false;
+  map: google.maps.Map | undefined;
 
   inicialForm = this.fb.group({
     fechaInicial: ['', [Validators.required]],
@@ -57,6 +59,78 @@ export class PerfilDonacionStartupComponent implements OnInit {
     const fechatemp = new Date(this.donacionPaquete.fechaDonacion);
     console.warn(fechatemp.toLocaleString());
     this.dateDonacion = fechatemp.toLocaleString();
+
+    const origin = {
+      lat: '9.930251',
+      lng: '-84.013474',
+    };
+
+    // initialize services
+    const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+    const loader = new Loader({
+      apiKey: key,
+    });
+
+    loader.load().then(() => {
+      let location = {
+        lat: 9.93333,
+        lng: -84.08333,
+      };
+      this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
+        center: location,
+        zoom: 15,
+      });
+
+      const marker: google.maps.Marker | undefined = new google.maps.Marker({
+        position: location,
+        map: this.map,
+        draggable: true,
+      });
+
+      var marker1 = new google.maps.Marker({
+        position: { lat: 9.943585, lng: -84.046075 },
+        title: 'Hello World!',
+      });
+
+      var marker2 = new google.maps.Marker({
+        position: { lat: 9.939136, lng: -84.06213 },
+        title: 'Hello World!',
+      });
+
+      marker.setMap(this.map);
+
+      marker1.setMap(this.map);
+      marker2.setMap(this.map);
+
+      const flightPlanCoordinates = [location, { lat: 9.943585, lng: -84.046075 }];
+      const flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+      });
+
+      flightPath.setMap(this.map);
+
+      const geocoder = new google.maps.Geocoder();
+      const service = new google.maps.DistanceMatrixService();
+
+      const origin1 = { lat: 9.943585, lng: -84.046075 };
+      const destinationB = { lat: 9.933578, lng: -84.011699 };
+      const request = {
+        origins: [origin1],
+        destinations: [destinationB],
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false,
+      };
+
+      service.getDistanceMatrix(request).then(response => {
+        console.warn(response);
+      });
+    });
   }
 
   iniciarEnvio(): void {
@@ -93,5 +167,26 @@ export class PerfilDonacionStartupComponent implements OnInit {
         this.successFinal = true;
       }
     });
+  }
+
+  desencriptar(s: string): string {
+    const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+    let strDescodificado = '';
+    let caracter;
+    for (let i = 0; i < s.length; i++) {
+      caracter = s.charAt(i);
+      const pos = abecedario.indexOf(caracter);
+      if (pos === -1) {
+        strDescodificado += caracter;
+      } else {
+        if (pos - 3 < 0) {
+          strDescodificado += abecedario.charAt(abecedario.length + (pos - 3));
+        } else {
+          strDescodificado += abecedario.charAt((pos - 3) % abecedario.length);
+        }
+      }
+    }
+
+    return strDescodificado;
   }
 }
