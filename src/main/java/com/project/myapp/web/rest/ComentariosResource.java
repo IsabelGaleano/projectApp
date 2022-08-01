@@ -1,6 +1,7 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Comentarios;
+import com.project.myapp.domain.Votos;
 import com.project.myapp.repository.ComentariosRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -155,6 +156,20 @@ public class ComentariosResource {
     public List<Comentarios> getAllComentarios(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Comentarios");
         return comentariosRepository.findAllWithEagerRelationships();
+    }
+
+    //Comentario por usuario y startup
+    @GetMapping("/comentarios/startupAndUsuario/{idStartup}/{idUsuario}")
+    public Optional<Comentarios> getComentariosByStartupAndUsuario(@PathVariable Long idStartup, @PathVariable Long idUsuario) {
+        log.debug("REST request to get comentario by id Startup and id usuario: {}", idStartup);
+        return comentariosRepository.findComentariosByIdStartupAndIdUsuario(idStartup, idUsuario);
+    }
+
+    //Comentario por startup
+    @GetMapping("/comentarios/startup/{idStartup}")
+    public List<Comentarios> getComentariosByStartup(@PathVariable Long idStartup) {
+        log.debug("REST request to get comentario by id Startup : {}", idStartup);
+        return comentariosRepository.findComentariosByIdStartup(idStartup);
     }
 
     /**

@@ -169,6 +169,20 @@ public class VotosResource {
         return ResponseUtil.wrapOrNotFound(votos);
     }
 
+    //Cantidad de votos por startup
+    @GetMapping("/votos/startup/{id}")
+    public int getVotosByStartup(@PathVariable Long id) {
+        log.debug("REST request to get Votos by id Startup: {}", id);
+        return votosRepository.findAllByIdStartup(id);
+    }
+
+    //Voto por usuario y startup
+    @GetMapping("/votos/startupAndUsuario/{idStartup}/{idUsuario}")
+    public Optional<Votos> getVotoByUsuarioAndId(@PathVariable Long idStartup, @PathVariable Long idUsuario) {
+        log.debug("REST request to get voto by id Startup and id usuario: {}", idStartup);
+        return votosRepository.findAllByIdStartupAndIdUsuario(idStartup, idUsuario);
+    }
+
     /**
      * {@code DELETE  /votos/:id} : delete the "id" votos.
      *
