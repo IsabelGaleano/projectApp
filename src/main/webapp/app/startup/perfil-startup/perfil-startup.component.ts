@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEnvelope, faPhone, faLink, faCalendarDays, faWallet, faUserCheck, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -51,6 +51,13 @@ export class PerfilStartupComponent implements OnInit {
   tipoMetaSelected: any;
   tipoMetaSelectedN: any;
   faEdit = faEdit;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
 
   constructor(
     private loginService: LoginService,
@@ -214,7 +221,7 @@ export class PerfilStartupComponent implements OnInit {
         correoHeader.insertAdjacentText('beforeend', startup.correoElectronico);
         telefonoHeader.insertAdjacentText('beforeend', startup.telefono);
         enlaceHeader.insertAdjacentText('beforeend', startup.linkSitioWeb);
-        fechaCreacionHeader.insertAdjacentText('beforeend', startup.fechaCreacion);
+        fechaCreacionHeader.insertAdjacentText('beforeend', startup.fechaCreacion.substring(0, 10));
         estadoHeader.insertAdjacentText('beforeend', startup.estado);
         estadoMonederoHeader.insertAdjacentText('beforeend', startup.idMonedero.estado);
 
@@ -270,25 +277,6 @@ export class PerfilStartupComponent implements OnInit {
           );
         });
       }
-    });
-  }
-
-  actualizarImagen(event: any) {
-    const imageFormData = new FormData();
-    //imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
-    imageFormData.append('file', event.target.files[0]);
-    imageFormData.append('upload_preset', 'eqakakzu');
-    this.perfilService.subirImagen(imageFormData).subscribe((cloudinaryData: any) => {
-      const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
-      imgPerfilStartup.src = cloudinaryData.url;
-      this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
-        if (data) {
-          data.imagenURL = cloudinaryData.url;
-          this.perfilService.actualizarStartup(data.id, data).subscribe((result: any) => {
-            console.warn(result);
-          });
-        }
-      });
     });
   }
 
@@ -367,6 +355,28 @@ export class PerfilStartupComponent implements OnInit {
 
     this.perfilService.savePassword(contrasenniaAntiguaForm.value, contrasenniaNuevaForm.value).subscribe(() => {
       window.location.reload();
+    });
+  }
+
+  actualizarImagen(event: any): void {
+    let nombre: string = 'Imagen de perfil';
+    let descripcion: string = 'Imagen del perfil startup';
+    let estado: string = 'Activo';
+    let url = 'C:\\imgStartupSafe\\'.concat(event.target.files[0].name);
+
+    this.perfilService.getImagenCloudinary({ nombre, descripcion, estado, url }).subscribe((dataActualizada: any) => {
+      console.warn(dataActualizada);
+      const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
+      imgPerfilStartup.src = dataActualizada.url;
+
+      this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
+        if (data) {
+          data.imagenURL = dataActualizada.url;
+          this.perfilService.actualizarStartup(data.id, data).subscribe((result: any) => {
+            console.warn(result);
+          });
+        }
+      });
     });
   }
 

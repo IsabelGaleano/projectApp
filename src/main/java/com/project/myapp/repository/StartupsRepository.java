@@ -16,6 +16,8 @@ public interface StartupsRepository extends JpaRepository<Startups, Long> {
 
     Startups findStartupsByCorreoElectronico(String correoElectronico);
 
+    List<Startups> findStartupsByNombreCortoContains(String nombre);
+
     @Transactional
     @Modifying
     @Query("UPDATE Startups C SET C.estado = ?2 WHERE C.id = ?1")

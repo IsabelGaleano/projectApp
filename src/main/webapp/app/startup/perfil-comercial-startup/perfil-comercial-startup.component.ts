@@ -7,7 +7,7 @@ import { PerfilComercialStartupService } from './perfil-comercial-startup.servic
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { AccountService } from 'app/core/auth/account.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'jhi-perfil-comercial-startup',
   templateUrl: './perfil-comercial-startup.component.html',
@@ -16,6 +16,7 @@ import { AccountService } from 'app/core/auth/account.service';
 export class PerfilComercialStartupComponent implements OnInit {
   user = false;
   account!: Account;
+  usuarioSesion!: any;
   inversionistaOAdmin = false;
   usuario = false;
   tipoStartup = true;
@@ -24,26 +25,40 @@ export class PerfilComercialStartupComponent implements OnInit {
   planesDeInversion!: Array<any>;
   paquetes!: Array<any>;
   map: google.maps.Map | undefined;
+  existenPaquetes = false;
+  votos!: any;
+  startupVotada = false;
+  comentarioRealizado = false;
+  votoUsuario!: any;
+  comentarios!: any;
+  comentarioHaciaStartup!: any;
 
   constructor(
     private perfilComercialStartupService: PerfilComercialStartupService,
     private profileService: ProfileService,
     private accountService: AccountService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {
-    console.warn();
-
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         // eslint-disable-next-line no-console
+        console.log(account);
         this.user = true;
         this.account = account;
-
-        console.warn(account);
+        if (account.authorities[0] === 'ROLE_USER' && !account.authorities[1]) {
+          this.startupVotada = false;
+          console.warn('USUARIO');
+        } else {
+          console.warn('ADMIN O STARTUP');
+          this.comentarioRealizado = true;
+          this.startupVotada = true;
+          console.warn(this.startupVotada);
+        }
 
         this.perfilComercialStartupService.getUsuarioByCorreo(account.email).subscribe((usuarioLogeado: any) => {
           console.warn(usuarioLogeado.tipoUsuarioFinal);
-          console.warn('MERYYYY');
+          this.usuarioSesion = usuarioLogeado;
 
           if (usuarioLogeado.tipoUsuarioFinal === 'Admin' || usuarioLogeado.tipoUsuarioFinal === 'Inversionista') {
             this.inversionistaOAdmin = true;
@@ -52,33 +67,17 @@ export class PerfilComercialStartupComponent implements OnInit {
             this.inversionistaOAdmin = false;
             this.usuario = true;
           }
-
-          // if (usuarioLogeado.tipoUsuarioFinal === 'Usuario') {
-          //   this.inversionistaOAdmin = false;
-          //   this.usuario = true;
-          // }
-          // else {
-          //   this.inversionistaOAdmin = true;
-          //   this.usuario = false;
-          // }
         });
       }
     });
-  }
-
-  ngOnInit(): void {
-    console.warn('HOLAAAA');
 
     this.correoStartup = localStorage.getItem('correoStartup');
-
-    console.warn(this.correoStartup);
 
     this.perfilComercialStartupService.getStartupByCorreo(this.correoStartup).subscribe((startup: any) => {
       this.startup = startup;
 
-      // if (!this.startup.idCategoria) {
-      //   this.startup.idCategoria.categoria = 'Sin categoría registrada';
-      // }
+      console.warn(startup);
+
       if (!this.startup.idCategoria) {
         this.startup.idCategoria = { id: 0, categoria: 'Sin categoría registrada' };
       }
@@ -150,12 +149,45 @@ export class PerfilComercialStartupComponent implements OnInit {
           draggable: true,
         });
       });
+
+      //Cantidad de votos
+      this.perfilComercialStartupService.getVotosByStartup(startup.id).subscribe((cantVotos: any) => {
+        // eslint-disable-next-line no-console
+        console.log(cantVotos);
+        this.votos = cantVotos;
+      });
+
+      //Verificar
+      if (this.usuario === true) {
+        this.perfilComercialStartupService.getVotosByStartupAndUsuario(startup.id, this.usuarioSesion.id).subscribe((voto: any) => {
+          if (voto) {
+            this.votoUsuario = voto;
+            this.startupVotada = true;
+          }
+        });
+
+        //Comentario de usuario si hay
+        this.perfilComercialStartupService
+          .getComentariosByStartupAndUsuario(startup.id, this.usuarioSesion.id)
+          .subscribe((comentarioUsuario: any) => {
+            console.warn(comentarioUsuario);
+            if (comentarioUsuario) {
+              this.comentarioRealizado = true;
+            }
+          });
+      }
+
+      //Todos los comentarios de la startup actual
+      this.perfilComercialStartupService.getComentariosByStartup(startup.id).subscribe((comentariosService: any) => {
+        console.warn(comentariosService);
+        if (comentariosService) {
+          this.comentarios = comentariosService;
+        }
+      });
     });
 
     this.perfilComercialStartupService.getPlanesDeInversionByCorreoStartup(this.correoStartup).subscribe((planesDeInversion: any) => {
       this.planesDeInversion = planesDeInversion;
-
-      console.warn(this.planesDeInversion);
 
       if (planesDeInversion.length === 0) {
         const plan = {
@@ -174,21 +206,23 @@ export class PerfilComercialStartupComponent implements OnInit {
       this.paquetes = paquetes;
 
       if (paquetes.length === 0) {
-        const paquete = {
-          nombre: 'Aún no se registra nombre para el paquete',
-          monto: 0,
-          descripcion: 'Aún no se registra descripción para el paquete',
-        };
+        this.existenPaquetes = false;
+        // const paquete = {
+        //   nombre: 'Aún no se registra nombre para el paquete',
+        //   monto: 0,
+        //   descripcion: 'Aún no se registra descripción para el paquete',
+        // };
 
-        this.paquetes.push(paquete);
+        // this.paquetes.push(paquete);
+      } else {
+        this.existenPaquetes = true;
       }
     });
+  }
 
-    // this.entitiesNavbarItems = EntityNavbarItems;
-    // this.profileService.getProfileInfo().subscribe(profileInfo => {
-    //   this.inProduction = profileInfo.inProduction;
-    //   this.openAPIEnabled = profileInfo.openAPIEnabled;
-    // });
+  ngOnInit(): void {
+    console.warn('HOLAAAA');
+    console.warn(this.startupVotada);
   }
 
   scroll(el: HTMLElement): void {
@@ -214,5 +248,48 @@ export class PerfilComercialStartupComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+  registrarEnvio(event: any): void {
+    const router = this.router;
+    console.warn(event.target.value);
+    this.correoStartup = localStorage.getItem('correoStartup');
+    sessionStorage.setItem('paqueteRegistroEnvio', event.target.value);
+    sessionStorage.setItem('startupEnvioPaquete', this.correoStartup);
+    this.router.navigate(['registro-envio-paquetes']);
+  }
+
+  votarStartup(): void {
+    const votoNuevo = {
+      votos: 1,
+      estado: 'Activo',
+      fecha: new Date(),
+      idStartup: this.startup,
+      idUsuario: this.usuarioSesion,
+    };
+    this.perfilComercialStartupService.guardarVoto(votoNuevo).subscribe((voto: any) => {
+      this.startupVotada = true;
+      this.votos += 1;
+    });
+  }
+
+  //Guarda el valor del input text de comentario
+  obtenerValorComentario(event: any): void {
+    this.comentarioHaciaStartup = event.target.value;
+  }
+
+  //Guarda el comentario en la bd una vez clickeado el botón de submit
+  guardarComentario(): void {
+    if (this.comentarioHaciaStartup !== null || this.comentarioHaciaStartup.length > 0) {
+      const comentarioNuevo = {
+        comentario: this.comentarioHaciaStartup,
+        estado: 'Activo',
+        fecha: new Date(),
+        idStartup: this.startup,
+        idUsuario: this.usuarioSesion,
+      };
+      this.perfilComercialStartupService.guardarComentario(comentarioNuevo).subscribe((comentario: any) => {
+        this.comentarios.push(comentario);
+      });
+    }
   }
 }

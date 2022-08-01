@@ -8,11 +8,11 @@
   <div class="container-fluid main-container">
     <div class="main-header-left">
       <div class="main-sidebar-header active">
-        <a class="nav-logo desktop-logo logo-light active logo__nav__usuario" href="index.html"
-          ><svg width="125" height="75" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a class="nav-logo desktop-logo logo-light active logo__nav__usuario" href="index.html">
+          <svg width="150" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
             <rect width="125" height="75" fill="#F5F5F5" />
             <g id="Startup_candado_capas">
-              <rect width="125" height="75" fill="white" />
+              <rect width="200" height="75" fill="white" />
               <g id="lock-opening">
                 <path
                   id="outside-ellipse"
@@ -106,15 +106,16 @@
                   fill="#3D8FFF"
                 />
               </g>
-            </g></svg
-        ></a>
+            </g>
+          </svg>
+        </a>
       </div>
       <div class="app-sidebar__toggle" data-bs-toggle="sidebar">
         <a class="open-toggle" href="javascript:void(0);"><i class="header-icon fe fe-align-left"></i></a>
         <a class="close-toggle" href="javascript:void(0);"><i class="header-icons fe fe-x"></i></a>
       </div>
       <div class="main-header-center ms-3 d-sm-none d-md-none d-lg-block">
-        <input class="form-control" placeholder="Buscar..." type="search" />
+        <input class="form-control" placeholder="Buscar..." type="search" (click)="busqueda($event)" />
         <button class="btn"><i class="fas fa-search d-none d-md-block"></i></button>
       </div>
     </div>

@@ -10,6 +10,17 @@ import { LoginService } from 'app/login/login.service';
 import { PerfilUsuarioFinalService } from './perfil-usuario-final.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
+import {
+  faEdit,
+  faEnvelope,
+  faPhone,
+  faLink,
+  faCalendarDays,
+  faWallet,
+  faUserCheck,
+  faIdCard,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { data } from 'autoprefixer';
 import { Loader } from '@googlemaps/js-api-loader';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -17,7 +28,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'jhi-perfil-usuario-final',
   templateUrl: './perfil-usuario-final.component.html',
-  //styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./perfil-usuario-final.component.scss'],
 })
 export class PerfilUsuarioFinalComponent implements OnInit {
   movimientos: any[] = [];
@@ -34,6 +45,15 @@ export class PerfilUsuarioFinalComponent implements OnInit {
   map: google.maps.Map | undefined;
   latitudMarker = 0;
   longitudMarker = 0;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
+  faUser = faUser;
+
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,

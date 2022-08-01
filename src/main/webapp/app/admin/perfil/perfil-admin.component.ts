@@ -4,7 +4,17 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import {
+  faEdit,
+  faEnvelope,
+  faPhone,
+  faLink,
+  faCalendarDays,
+  faWallet,
+  faUserCheck,
+  faIdCard,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -41,6 +51,15 @@ export class PerfilAdminComponent implements OnInit {
   errorNuevasVacias = false;
   fechaFormateada: string | null | undefined;
   imagenActualizada = true;
+
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
+  faUser = faUser;
 
   formInfoBasica = new FormGroup({
     nombre: new FormControl(),
@@ -83,8 +102,6 @@ export class PerfilAdminComponent implements OnInit {
 
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
-        // eslint-disable-next-line no-console
-        console.log(account);
         this.user = true;
       }
       // this.account = account;
@@ -136,8 +153,6 @@ export class PerfilAdminComponent implements OnInit {
     } else {
       this.usuario.fechaNacimiento = new Date(this.usuario.fechaNacimiento);
     }
-
-    console.warn(fechaNacimiento, ' ', this.usuario.fechaNacimiento);
 
     this.adminService
       .updateInfoBasicaUsuarios(this.usuario.correoElectronico, this.usuario)
@@ -204,10 +219,6 @@ export class PerfilAdminComponent implements OnInit {
       //   .updateContrasenniaUsuarios(this.usuario.correoElectronico, contrasenniaActual, nuevaContrasennia)
       //   .subscribe(() => window.location.reload());
     }
-
-    console.warn(contrasenniaActual);
-
-    console.warn('nuevaContrasennia: ', nuevaContrasennia, ' confirmacion: ', confirmacionNuevaContrasennia);
   }
 
   actualizarImagen(event: any): void {
