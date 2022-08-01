@@ -26,40 +26,43 @@
                       <label class="main-profile-name tx-20 mg-b-20">Información social</label>
                     </div>
                   </div>
-                  <div class="main-profile-social-list">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div id="correoSidebar" class="mg-b-25 tx-13">
-                          <span class="tx-18 font-weight-semibold">Correo</span>
-                          <div></div>
-                        </div>
+                  <div class="main-profile-social-list main-profile-contact-list">
+                    <div class="media">
+                      <div class="media-icon bg-primary-transparent text-primary">
+                        <fa-icon [icon]="faEnvelope"></fa-icon>
+                      </div>
+                      <div class="media-body">
+                        <span>Correo</span>
+                        <div id="correoSidebar"></div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div id="telefonoSidebar" class="mg-b-25">
-                          <span class="tx-18 font-weight-semibold">Teléfono</span>
-                          <div></div>
-                        </div>
+                    <div class="media">
+                      <div class="media-icon bg-success-transparent text-success">
+                        <fa-icon [icon]="faPhone"></fa-icon>
+                      </div>
+                      <div class="media-body">
+                        <span>Teléfono</span>
+                        <div id="telefonoSidebar"></div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div id="cedulaSidebar" class="mg-b-25 tx-13">
-                          <span class="tx-18 font-weight-semibold">Cédula</span>
-                          <div></div>
-                        </div>
+                    <div class="media">
+                      <div class="media-icon bg-info-transparent text-info">
+                        <fa-icon [icon]="faIdCard"></fa-icon>
+                      </div>
+                      <div class="media-body">
+                        <span>Cédula</span>
+                        <div id="cedulaSidebar"></div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="mg-b-25 tx-13">
-                          <span class="tx-20 font-weight-semibold"> Tipo de usuario</span>
-                          <div id="tipoUsuarioSidebar"></div>
-                        </div>
+                    <div class="media">
+                      <div class="media-icon bg-danger-transparent text-danger">
+                        <fa-icon [icon]="faUser"></fa-icon>
+                      </div>
+                      <div class="media-body">
+                        <span>Tipo de usuario</span>
+                        <div id="tipoUsuarioSidebar"></div>
                       </div>
                     </div>
-                    <div></div>
                   </div>
                   <hr class="mg-y-30" />
                 </div>
@@ -67,20 +70,34 @@
               </div>
             </div>
           </div>
-          <div class="card mg-b-20">
+          <div class="card mg-b-10">
             <div class="card-body">
-              <div class="main-content-label tx-18 mg-b-25">Información de sitio</div>
-              <div>
-                <div>
-                  <div>
-                    <span class="main-content-label">Estado de cuenta</span>
-                    <div id="estadoSidebar" class="mg-b-25 tx-13"></div>
+              <div class="ps-0">
+                <div class="main-profile-overview">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label class="main-profile-name tx-20 mg-b-20">Información de sitio</label>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div>
-                    <span class="main-content-label">Monedero</span>
-                    <div id="monederoEstadoSidebar" class="mg-b-25 tx-13"></div>
+                  <div class="main-profile-social-list main-profile-contact-list">
+                    <div class="media">
+                      <div class="media-icon bg-primary-transparent text-primary">
+                        <fa-icon [icon]="faUserCheck"></fa-icon>
+                      </div>
+                      <div class="media-body">
+                        <span>Estado de cuenta</span>
+                        <div id="estadoSidebar"></div>
+                      </div>
+                    </div>
+                    <div class="media">
+                      <div class="media-icon bg-success-transparent text-success">
+                        <fa-icon [icon]="faWallet"></fa-icon>
+                      </div>
+                      <div class="media-body">
+                        <span>Monedero</span>
+                        <div id="monederoEstadoSidebar"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

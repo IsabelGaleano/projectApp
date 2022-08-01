@@ -24,30 +24,33 @@
                 </div>
                 <hr class="mg-y-30" />
                 <label class="main-content-label tx-13 mg-b-20">Información social</label>
-                <div class="main-profile-social-list">
+                <div class="main-profile-social-list main-profile-contact-list">
                   <div class="media">
                     <div class="media-icon bg-primary-transparent text-primary">
-                      <i class="icon ion-md-link"></i>
+                      <fa-icon [icon]="faEnvelope"></fa-icon>
                     </div>
                     <div class="media-body"><span>Correo</span> <a href="" id="correoHeader"></a></div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
-                      <i class="icon ion-md-phone-portrait"></i>
+                      <fa-icon [icon]="faPhone"></fa-icon>
                     </div>
                     <div class="media-body"><span>Teléfono</span> <a href="" id="telefonoHeader"></a></div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
-                      <i class="icon ion-md-locate"></i>
+                      <fa-icon [icon]="faLink"></fa-icon>
                     </div>
                     <div class="media-body"><span>Sitio web</span> <a href="" id="enlaceHeader"></a></div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-danger-transparent text-danger">
-                      <i class="icon ion-md-contacts"></i>
+                      <fa-icon [icon]="faCalendarDays"></fa-icon>
                     </div>
-                    <div class="media-body"><span>Fecha de creación</span> <a href="" id="fechaCreacionHeader"></a></div>
+                    <div class="media-body">
+                      <span>Fecha de creación</span>
+                      <div id="fechaCreacionHeader"></div>
+                    </div>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
@@ -62,7 +65,7 @@
             <div class="main-profile-contact-list">
               <div class="media">
                 <div class="media-icon bg-primary-transparent text-primary">
-                  <i class="icon ion-md-phone-portrait"></i>
+                  <fa-icon [icon]="faUserCheck"></fa-icon>
                 </div>
                 <div class="media-body">
                   <span>Estado de cuenta</span>
@@ -71,7 +74,7 @@
               </div>
               <div class="media">
                 <div class="media-icon bg-success-transparent text-success">
-                  <i class="icon ion-logo-slack"></i>
+                  <fa-icon [icon]="faWallet"></fa-icon>
                 </div>
                 <div class="media-body">
                   <span>Monedero</span>
