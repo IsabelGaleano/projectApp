@@ -19,8 +19,8 @@ export class PagoFinalPaquetesComponent implements OnInit {
   usuario: any;
 
   constructor(private pagoService: PagoFinalPaqueteService, private router: Router) {
-    this.rastreador = JSON.parse(sessionStorage.donacionPaquete);
-    this.donacionPaquete = this.rastreador.idDonacionPaquete;
+    this.rastreador = JSON.parse(sessionStorage.rastreadorPaquete);
+    this.donacionPaquete = JSON.parse(sessionStorage.donacionPaquete);
     this.startup = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
     this.paquete = JSON.parse(sessionStorage.paqueteRegistroEnvioObject);
     this.usuario = JSON.parse(sessionStorage.usuarioLoginObject);
@@ -78,7 +78,13 @@ export class PagoFinalPaquetesComponent implements OnInit {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           console.warn(order);
-          this.success = true;
+          this.donacionPaquete.estado = 'Iniciado';
+          this.pagoService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
+            this.success = true;
+            window.setTimeout(function () {
+              router.navigate(['usuario-final/lista-donaciones-usuario']);
+            }, 3000);
+          });
         },
         onClientAuthorization: data => {
           console.warn('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
