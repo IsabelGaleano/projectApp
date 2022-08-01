@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEnvelope, faPhone, faLink, faCalendarDays, faWallet, faUserCheck, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -51,6 +51,13 @@ export class PerfilStartupComponent implements OnInit {
   tipoMetaSelected: any;
   tipoMetaSelectedN: any;
   faEdit = faEdit;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
 
   constructor(
     private loginService: LoginService,
@@ -214,7 +221,7 @@ export class PerfilStartupComponent implements OnInit {
         correoHeader.insertAdjacentText('beforeend', startup.correoElectronico);
         telefonoHeader.insertAdjacentText('beforeend', startup.telefono);
         enlaceHeader.insertAdjacentText('beforeend', startup.linkSitioWeb);
-        fechaCreacionHeader.insertAdjacentText('beforeend', startup.fechaCreacion);
+        fechaCreacionHeader.insertAdjacentText('beforeend', startup.fechaCreacion.substring(0, 10));
         estadoHeader.insertAdjacentText('beforeend', startup.estado);
         estadoMonederoHeader.insertAdjacentText('beforeend', startup.idMonedero.estado);
 

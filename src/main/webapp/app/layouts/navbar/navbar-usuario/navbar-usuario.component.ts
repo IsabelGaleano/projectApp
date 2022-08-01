@@ -92,4 +92,8 @@ export class NavbarUsuarioComponent implements OnInit {
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
+
+  busqueda(event: any): void {
+    this.router.navigate(['']);
+  }
 }
