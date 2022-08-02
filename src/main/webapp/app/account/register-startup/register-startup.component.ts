@@ -19,6 +19,7 @@ export class RegisterStartupComponent implements AfterViewInit {
   errorEmailExists = false;
   errorUserExists = false;
   success = false;
+  loading = false;
 
   registerForm = this.fb.group({
     login: [
@@ -49,6 +50,7 @@ export class RegisterStartupComponent implements AfterViewInit {
   }
 
   register(): void {
+    this.loading = true;
     const router = this.router;
     this.doNotMatch = false;
     this.error = false;
@@ -64,10 +66,8 @@ export class RegisterStartupComponent implements AfterViewInit {
       sessionStorage.setItem('startupPendiente', email);
       this.registerService
         .save({ login, email, password, langKey: this.translateService.currentLang })
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
-      window.setTimeout(function () {
-        router.navigate(['account/verificacion-startup']);
-      }, 3000);
+        .subscribe({ next: () => (this.success = false), error: response => this.processError(response) });
+      router.navigate(['account/verificacion-startup']);
     }
   }
 
