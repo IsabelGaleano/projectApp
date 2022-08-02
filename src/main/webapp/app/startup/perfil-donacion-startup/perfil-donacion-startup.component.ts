@@ -17,7 +17,8 @@ export class PerfilDonacionStartupComponent implements OnInit {
   usuario: any;
   dateDonacion: any;
   success = false;
-  isEnabled = true;
+  isEnabled = false;
+  isEnabledFinal = false;
   successFinal = false;
   map: google.maps.Map | undefined;
   mapEnvio: google.maps.Map | undefined;
@@ -26,11 +27,14 @@ export class PerfilDonacionStartupComponent implements OnInit {
   ubicacionInicialRastreador: any;
   ubicacionFinalRastreador: any;
   ubicacionActualRastreador: any;
+  existUbicacionActual: any;
 
   inicialForm = this.fb.group({
     fechaInicial: ['', [Validators.required]],
     fechaEntrega: ['', [Validators.required]],
     diasRetraso: ['', [Validators.required]],
+    latitud: [''],
+    longitud: [''],
   });
 
   finalForm = this.fb.group({
@@ -72,11 +76,14 @@ export class PerfilDonacionStartupComponent implements OnInit {
     console.warn(fechatemp.toLocaleString());
     this.dateDonacion = fechatemp.toLocaleString();
     console.warn(this.ubicaciones);
-
-    const origin = {
-      lat: '9.930251',
-      lng: '-84.013474',
-    };
+    if (this.donacionPaquete.diasRetraso != null) {
+      this.isEnabled = true;
+      this.cargarInFoInicialEnvio();
+    }
+    if (this.donacionPaquete.fechaEntrega != null) {
+      this.isEnabledFinal = true;
+      this.cargarInFoFinalEntrega();
+    }
     this.cargarMapInicioEnvio();
     this.cargarRastreador();
   }
@@ -98,7 +105,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
     this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
       if (result) {
         console.warn(result);
-        this.success = true;
         const rastreador = {
           descripcion: 'StartupInicio',
           latitud: latitudDireccionForm.value,
@@ -107,10 +113,11 @@ export class PerfilDonacionStartupComponent implements OnInit {
           estado: 'Activo',
           idDonacionPaquete: result,
         };
-
         this.perfilService.registrarUbicación(rastreador).subscribe((dataRastreador: any) => {
           if (dataRastreador) {
             console.warn(dataRastreador);
+            this.isEnabled = true;
+            this.cargarInFoInicialEnvio();
           }
         });
       }
@@ -118,7 +125,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
   }
 
   finalizarEnvio(): void {
-    console.warn('prueba');
     const fechaFinal = <HTMLInputElement>document.getElementById('fechaFinal');
     const diasRetraso = <HTMLInputElement>document.getElementById('diasRetrasoFinal');
 
@@ -129,7 +135,42 @@ export class PerfilDonacionStartupComponent implements OnInit {
     this.perfilService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
       if (result) {
         console.warn(result);
-        this.successFinal = true;
+        this.isEnabledFinal = true;
+        this.cargarInFoFinalEntrega();
+      }
+    });
+  }
+
+  cargarInFoFinalEntrega(): void {
+    this.perfilService.getDonacionPaquete(this.donacionPaquete.id).subscribe((result: any) => {
+      this.donacionPaquete = result;
+      if (result) {
+        this.finalForm.controls['fechaFinal'].setValue(this.formatDate(new Date(result.fechaInicialEnvio)));
+        this.finalForm.controls['diasRetrasoFinal'].setValue(result.diasRetraso);
+      }
+    });
+  }
+
+  cargarInFoInicialEnvio(): void {
+    this.perfilService.getDonacionPaquete(this.donacionPaquete.id).subscribe((result: any) => {
+      this.donacionPaquete = result;
+      if (result) {
+        this.inicialForm.controls['fechaInicial'].setValue(this.formatDate(new Date(result.fechaInicialEnvio)));
+        this.inicialForm.controls['fechaEntrega'].setValue(this.formatDate(new Date(result.fechaPosibleEntrega)));
+        this.inicialForm.controls['diasRetraso'].setValue(result.diasRetraso);
+      }
+    });
+
+    this.perfilService.getUbicaciones(this.donacionPaquete).subscribe((resultU: any) => {
+      if (resultU) {
+        console.warn(resultU);
+        for (let i = 0; i < resultU.length; i++) {
+          if (resultU[i].descripcion === 'StartupInicio') {
+            console.warn(resultU[i].latitud);
+            this.inicialForm.controls['latitud'].setValue(resultU[i].latitud);
+            this.inicialForm.controls['longitud'].setValue(resultU[i].longitud);
+          }
+        }
       }
     });
   }
@@ -212,6 +253,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
               lat: latitudValue,
               lng: longitudValue,
             };
+            this.existUbicacionActual = true;
           }
         }
       }
@@ -237,7 +279,15 @@ export class PerfilDonacionStartupComponent implements OnInit {
       markerActual.setMap(this.map);
       markerFinal.setMap(this.map);
 
-      const flightPlanCoordinates = [this.ubicacionInicialRastreador, this.ubicacionActualRastreador, this.ubicacionFinalRastreador];
+      const flightPlanCoordinates = [this.ubicacionInicialRastreador];
+
+      if (this.existUbicacionActual) {
+        flightPlanCoordinates.push(this.ubicacionActualRastreador);
+        flightPlanCoordinates.push(this.ubicacionFinalRastreador);
+      } else {
+        flightPlanCoordinates.push(this.ubicacionFinalRastreador);
+      }
+
       const flightPath = new google.maps.Polyline({
         path: flightPlanCoordinates,
         geodesic: true,
@@ -288,5 +338,9 @@ export class PerfilDonacionStartupComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+
+  formatDate(date: Date) {
+    return date.toISOString().slice(0, 10);
   }
 }
