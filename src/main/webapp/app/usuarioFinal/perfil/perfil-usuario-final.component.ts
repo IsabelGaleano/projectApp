@@ -33,7 +33,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class PerfilUsuarioFinalComponent implements OnInit {
   movimientos: any[] = [];
   usuario: any;
-  usuarioFinal = null;
+  usuarioFinal = ' ';
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
@@ -53,6 +53,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
   faUserCheck = faUserCheck;
   faIdCard = faIdCard;
   faUser = faUser;
+  imagenActualizada = true;
 
   constructor(
     private loginService: LoginService,
@@ -96,6 +97,11 @@ export class PerfilUsuarioFinalComponent implements OnInit {
             apiKey: key,
           });
           console.warn(dataUsuario.idMonedero.id);
+          const monederoTipo = document.getElementById('monederoTipo') as HTMLInputElement;
+          monederoTipo.insertAdjacentText(
+            'beforeend',
+            dataUsuario.idMonedero.tipo.charAt(0).toUpperCase().concat(dataUsuario.idMonedero.tipo.slice(1).toLowerCase())
+          );
           this.perfilUsuarioFinalService.getMovimientosByIdMonedero(dataUsuario.idMonedero.id).subscribe((dataMovimientos: any) => {
             dataMovimientos.forEach((movimiento: any) => {
               this.movimientos.push(movimiento);
@@ -149,9 +155,9 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           });
 
           this.usuarioFinal = dataUsuario.correoElectronico;
-          imgHeader.src = dataUsuario.imagenURL;
+          // imgHeader.src = dataUsuario.imagenURL;
           nombreHeader.insertAdjacentText('beforeend', dataUsuario.nombre.trim());
-          apellidosHeader.insertAdjacentText('beforeend', dataUsuario.primerApellido.concat(dataUsuario.segundoApellido.trim()));
+          apellidosHeader.insertAdjacentText('beforeend', dataUsuario.primerApellido.concat(' ', dataUsuario.segundoApellido.trim()));
           correoSidebar.insertAdjacentText('beforeend', dataUsuario.correoElectronico.trim());
           telefonoSidebar.insertAdjacentText('beforeend', dataUsuario.telefono.trim());
           cedulaSidebar.insertAdjacentText('beforeend', dataUsuario.cedula.trim());
@@ -182,8 +188,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           telefonoForm.value = dataUsuario.telefono.trim();
 
           const fechaNacimientoForm = <HTMLInputElement>document.getElementById('fechaNacimientoForm');
-          const fechaFormato = dataUsuario.fechaNacimiento.split('T', 2);
-          fechaNacimientoForm.value = fechaFormato[0];
+          fechaNacimientoForm.value = this.formatDate(new Date(dataUsuario.fechaNacimiento));
 
           const generoForm = <HTMLInputElement>document.getElementById('generoForm');
           generoForm.value = dataUsuario.genero.trim();
@@ -195,7 +200,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
   actualizarUsuario(): void {
     this.perfilUsuarioFinalService.getUsersByMail(this.usuarioFinal).subscribe((dataUsuario: any) => {
       const fechaNacimientoForm = <HTMLInputElement>document.getElementById('fechaNacimientoForm');
-      dataUsuario.fechaNacimiento = fechaNacimientoForm.value.concat('T19:55:15.', '714688-06:00');
+      dataUsuario.fechaNacimiento = new Date(fechaNacimientoForm.value);
 
       const generoForm = <HTMLInputElement>document.getElementById('generoForm');
       dataUsuario.genero = generoForm.value;
@@ -236,25 +241,23 @@ export class PerfilUsuarioFinalComponent implements OnInit {
     });
   }
   actualizarImagen(event: any): void {
-    const nombre = 'Imagen de perfil';
-    const descripcion = 'Imagen del perfil startup';
-    const estado = 'Activo';
-    const url = 'C:\\imgStartupSafe\\'.concat(event.target.files[0].name);
-
-    this.perfilUsuarioFinalService.postImagenCloudinary({ nombre, descripcion, estado, url }).subscribe((dataActualizada: any) => {
-      console.warn(dataActualizada);
-      const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
-      imgPerfilStartup.src = dataActualizada.url;
-
-      this.perfilUsuarioFinalService.getUsersByMail(this.usuarioFinal).subscribe((dataUsuarioF: any) => {
-        if (dataUsuarioF) {
-          dataUsuarioF.imagenURL = dataActualizada.url;
-          this.perfilUsuarioFinalService.updateUsers(dataUsuarioF.id, dataUsuarioF).subscribe((result: any) => {
-            console.warn(result);
-          });
-        }
-      });
-    });
+    const imageFormData = new FormData();
+    //imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+    imageFormData.append('file', event.target.files[0]);
+    imageFormData.append('upload_preset', 'eqakakzu');
+    this.perfilUsuarioFinalService.subirImagen(imageFormData).subscribe(
+      (cloudinaryData: any) => {
+        const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
+        // imgPerfilStartup.src = cloudinaryData.url;
+        this.perfilUsuarioFinalService.actualizarImagen(this.usuarioFinal, cloudinaryData.url).subscribe(() => {
+          this.imagenActualizada = true;
+          window.location.reload();
+        });
+      },
+      err => {
+        this.imagenActualizada = false;
+      }
+    );
   }
   desencriptar(s: string): string {
     const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
@@ -275,5 +278,8 @@ export class PerfilUsuarioFinalComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+  formatDate(date: Date): string {
+    return date.toISOString().slice(0, 10);
   }
 }
