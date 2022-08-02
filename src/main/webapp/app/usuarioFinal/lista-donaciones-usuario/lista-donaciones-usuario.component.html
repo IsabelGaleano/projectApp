@@ -19,6 +19,7 @@
               <div class="pe-1 mb-xl-0">
                 <label>
                   <input
+                    (input)="buscarPorNombreCorreo()"
                     id="searchInput"
                     type="text"
                     class="form-control form-control"
@@ -26,14 +27,6 @@
                     aria-controls="basic-datatable"
                   />
                 </label>
-              </div>
-              <div class="pe-1 mb-xl-0">
-                <button class="btn btn-secondary btn-icon me-2" (click)="buscarPorNombreCorreo()">
-                  <i class="mdi mdi-filter-variant"></i>Buscar
-                </button>
-              </div>
-              <div class="pe-1 mb-xl-0">
-                <button class="btn btn-secondary btn-icon me-2" (click)="reset()"><i class="mdi mdi-refresh"></i>Reiniciar</button>
               </div>
             </div>
             <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
