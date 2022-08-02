@@ -21,4 +21,8 @@ export class PagoFinalPaqueteService {
       return this.http.get(this.rootURL.concat('/donaciones-paquetes/'));
     }
   }
+
+  sendFactura(donacion: Record<string, unknown>): Observable<any> {
+    return this.http.post(this.rootURL.concat('/donaciones-paquetesFactura'), donacion);
+  }
 }

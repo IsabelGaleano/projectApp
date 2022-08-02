@@ -8,7 +8,7 @@
               <div class="ps-0">
                 <div class="main-profile-overview">
                   <div class="main-img-user profile-user">
-                    <img alt="" id="imgPerfil" />
+                    <img alt="Foto de Perfil" src="{{ usuario.imagenURL }}" />
                     <label class="lbl-subir-imagen" for="selecccionarImagen">
                       <i class="fas fa-camera profile-edit"></i>
                     </label>
@@ -237,7 +237,7 @@
                                   <label class="form-label">Fecha de nacimiento</label>
                                 </div>
                                 <div class="col-md-9">
-                                  <input type="text" class="form-control" id="fechaNacimientoForm" #fecha />
+                                  <input class="form-control" id="fechaNacimientoForm" placeholder="MM/DD/YYYY" type="date" />
                                 </div>
                               </div>
                             </div>
@@ -247,7 +247,7 @@
                                 <div class="col-md-3">
                                   <label class="form-label">Género</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-9">
                                   <select
                                     formControlName="genero"
                                     class="form-control"
@@ -262,16 +262,6 @@
                                 </div>
                               </div>
                             </div>
-                            <!-- <div class="form-group">
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <label class="form-label">Género</label>
-                                </div>
-                                <div class="col-md-9">
-                                  <input type="text" class="form-control" id="generoForm" />
-                                </div>
-                              </div>
-                            </div> -->
                           </form>
                           <p></p>
                           <button (click)="actualizarUsuario()" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
@@ -300,19 +290,13 @@
                                               <div class="media-body">
                                                 <div class="card-item-desc mt-0">
                                                   <h6 class="text-lg text-medium">
-                                                    {{ usuario.idMonedero.id }}
+                                                    {{ usuario.idMonedero.id }}, {{ usuario.correoElectronico }}
                                                   </h6>
-                                                  <dl class="card-item-desc-1">
-                                                    <dt>Correo:</dt>
-                                                    <dd>{{ usuario.correoElectronico }}</dd>
-                                                  </dl>
                                                 </div>
                                               </div>
                                             </div>
                                           </td>
-                                          <td class="text-center text-lg text-medium">
-                                            {{ usuario.idMonedero.tipo }}
-                                          </td>
+                                          <td class="text-center text-lg text-medium" id="monederoTipo"></td>
                                           <td class="text-center text-lg text-medium">
                                             {{ usuario.idMonedero.saldo }}
                                           </td>

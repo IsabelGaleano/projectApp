@@ -358,20 +358,17 @@ export class PerfilStartupComponent implements OnInit {
     });
   }
 
-  actualizarImagen(event: any): void {
-    let nombre: string = 'Imagen de perfil';
-    let descripcion: string = 'Imagen del perfil startup';
-    let estado: string = 'Activo';
-    let url = 'C:\\imgStartupSafe\\'.concat(event.target.files[0].name);
-
-    this.perfilService.getImagenCloudinary({ nombre, descripcion, estado, url }).subscribe((dataActualizada: any) => {
-      console.warn(dataActualizada);
+  actualizarImagen(event: any) {
+    const imageFormData = new FormData();
+    //imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+    imageFormData.append('file', event.target.files[0]);
+    imageFormData.append('upload_preset', 'eqakakzu');
+    this.perfilService.subirImagen(imageFormData).subscribe((cloudinaryData: any) => {
       const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
-      imgPerfilStartup.src = dataActualizada.url;
-
+      imgPerfilStartup.src = cloudinaryData.url;
       this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
         if (data) {
-          data.imagenURL = dataActualizada.url;
+          data.imagenURL = cloudinaryData.url;
           this.perfilService.actualizarStartup(data.id, data).subscribe((result: any) => {
             console.warn(result);
           });
