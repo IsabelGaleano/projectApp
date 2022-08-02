@@ -33,7 +33,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class PerfilUsuarioFinalComponent implements OnInit {
   movimientos: any[] = [];
   usuario: any;
-  usuarioFinal = null;
+  usuarioFinal = ' ';
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
@@ -53,6 +53,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
   faUserCheck = faUserCheck;
   faIdCard = faIdCard;
   faUser = faUser;
+  imagenActualizada = true;
 
   constructor(
     private loginService: LoginService,
@@ -154,7 +155,7 @@ export class PerfilUsuarioFinalComponent implements OnInit {
           });
 
           this.usuarioFinal = dataUsuario.correoElectronico;
-          imgHeader.src = dataUsuario.imagenURL;
+          // imgHeader.src = dataUsuario.imagenURL;
           nombreHeader.insertAdjacentText('beforeend', dataUsuario.nombre.trim());
           apellidosHeader.insertAdjacentText('beforeend', dataUsuario.primerApellido.concat(' ', dataUsuario.segundoApellido.trim()));
           correoSidebar.insertAdjacentText('beforeend', dataUsuario.correoElectronico.trim());
@@ -240,25 +241,23 @@ export class PerfilUsuarioFinalComponent implements OnInit {
     });
   }
   actualizarImagen(event: any): void {
-    const nombre = 'Imagen de perfil';
-    const descripcion = 'Imagen del perfil startup';
-    const estado = 'Activo';
-    const url = 'C:\\imgStartupSafe\\'.concat(event.target.files[0].name);
-
-    this.perfilUsuarioFinalService.postImagenCloudinary({ nombre, descripcion, estado, url }).subscribe((dataActualizada: any) => {
-      console.warn(dataActualizada);
-      const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
-      imgPerfilStartup.src = dataActualizada.url;
-
-      this.perfilUsuarioFinalService.getUsersByMail(this.usuarioFinal).subscribe((dataUsuarioF: any) => {
-        if (dataUsuarioF) {
-          dataUsuarioF.imagenURL = dataActualizada.url;
-          this.perfilUsuarioFinalService.updateUsers(dataUsuarioF.id, dataUsuarioF).subscribe((result: any) => {
-            console.warn(result);
-          });
-        }
-      });
-    });
+    const imageFormData = new FormData();
+    //imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+    imageFormData.append('file', event.target.files[0]);
+    imageFormData.append('upload_preset', 'eqakakzu');
+    this.perfilUsuarioFinalService.subirImagen(imageFormData).subscribe(
+      (cloudinaryData: any) => {
+        const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
+        // imgPerfilStartup.src = cloudinaryData.url;
+        this.perfilUsuarioFinalService.actualizarImagen(this.usuarioFinal, cloudinaryData.url).subscribe(() => {
+          this.imagenActualizada = true;
+          window.location.reload();
+        });
+      },
+      err => {
+        this.imagenActualizada = false;
+      }
+    );
   }
   desencriptar(s: string): string {
     const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
