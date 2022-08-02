@@ -18,8 +18,9 @@ export class VerificacionCodigoUsuarioFinalComponent implements OnInit {
   errorEmailExists = false;
   errorUserExists = false;
   success = false;
+  fail = false;
   codigoReenviado = false;
-
+  loading = false;
   registerForm = this.fb.group({
     login: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
   });
@@ -58,6 +59,8 @@ export class VerificacionCodigoUsuarioFinalComponent implements OnInit {
                 router.navigate(['login']);
               }, 3000);
             });
+          } else {
+            this.error = true;
           }
         }
       });

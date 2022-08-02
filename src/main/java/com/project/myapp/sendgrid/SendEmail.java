@@ -9,8 +9,6 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Random;
 
 public class SendEmail {
 
@@ -41,5 +39,30 @@ public class SendEmail {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void correoFacturaDonacionesPaquetes(
+        String correo,
+        String nombreStartup,
+        String idDonacion,
+        String montoDonacion,
+        String montoEnvio,
+        String montoImpuesto,
+        String total
+    ) {
+        String templateId = "d-3187dd310cfa40efb46066c35d5262fe";
+        Mail mail = new Mail();
+        mail.setFrom(new Email("dcoto37@gmail.com", "StartupSafe"));
+        mail.setTemplateId(templateId);
+        Personalization personalization = new Personalization();
+        personalization.addDynamicTemplateData("nombreStartup", nombreStartup);
+        personalization.addDynamicTemplateData("codigoDonacion", idDonacion);
+        personalization.addDynamicTemplateData("montoDonacion", montoDonacion);
+        personalization.addDynamicTemplateData("montoEnvio", montoEnvio);
+        personalization.addDynamicTemplateData("montoImpuesto", montoImpuesto);
+        personalization.addDynamicTemplateData("total", total);
+        personalization.addTo(new Email(correo));
+        mail.addPersonalization(personalization);
+        sendInternal(mail);
     }
 }
