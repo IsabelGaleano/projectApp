@@ -35,4 +35,13 @@ export class PerfilUsuarioFinalService {
   save(currentPassword: string, newPassword: string): Observable<{}> {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/account/change-password'), { currentPassword, newPassword });
   }
+
+  subirImagen(imageFormData: FormData): Observable<any> {
+    return this.http.post('https://api.cloudinary.com/v1_1/moonsoft/image/upload', imageFormData);
+  }
+
+  actualizarImagen(correoElectronico: string, imagen: string): Observable<any> {
+    const ruta = '/api/usuarios/actualizarImagen/';
+    return this.http.put(ruta.concat(correoElectronico), imagen);
+  }
 }

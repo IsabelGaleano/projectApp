@@ -74,10 +74,7 @@ export class RegistroPlanInversionComponent implements OnInit {
       beneficiosForm.value
     );
     this.registroPlanInversionService.savePlanInversion(this.emailUsuario, porcentajeEmpresarialForm.value, plan).subscribe(data => {
-      this.success = true;
-      window.setTimeout(function () {
-        router.navigate(['startup/lista-planes-inversion']);
-      }, 3000);
+      router.navigate(['startup/lista-planes-inversion']);
     });
   }
 }
