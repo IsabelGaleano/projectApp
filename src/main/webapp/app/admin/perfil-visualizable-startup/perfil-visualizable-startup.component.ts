@@ -39,19 +39,19 @@ export class PerfilVisualizableStartupComponent implements OnInit {
       // }
 
       if (!this.startup.nombreCorto) {
-        this.startup.nombreCorto = 'No existe un nombre corto reigstrado';
+        this.startup.nombreCorto = 'No existe un nombre corto registrado';
       }
 
       if (!this.startup.nombreLargo) {
-        this.startup.nombreLargo = 'No existe un nombre largo reigstrado';
+        this.startup.nombreLargo = 'No existe un nombre largo registrado';
       }
 
       if (!this.startup.telefono) {
-        this.startup.telefono = 'No existe un teléfono reigstrado';
+        this.startup.telefono = 'No existe un teléfono registrado';
       }
 
       if (!this.startup.contrasennia) {
-        this.startup.contrasennia = 'No existe una contraseña reigstrada';
+        this.startup.contrasennia = 'No existe una contraseña registrada';
       }
 
       if (!this.startup.latitudDireccion) {
@@ -63,49 +63,49 @@ export class PerfilVisualizableStartupComponent implements OnInit {
       }
 
       if (!this.startup.descripcion) {
-        this.startup.descripcion = 'No existe una descripción reigstrada';
+        this.startup.descripcion = 'No existe una descripción registrada';
       }
 
       if (!this.startup.descripcionCorta) {
-        this.startup.descripcionCorta = 'No existe una descripción corta reigstrada';
+        this.startup.descripcionCorta = 'No existe una descripción corta registrada';
       }
 
       if (!this.startup.beneficios) {
-        this.startup.beneficios = 'No existen beneficios reigstrados';
+        this.startup.beneficios = 'No existen beneficios registrados';
       }
 
       if (!this.startup.riesgos) {
-        this.startup.riesgos = 'No existen riesgos reigstrados';
+        this.startup.riesgos = 'No existen riesgos registrados';
       }
 
       if (!this.startup.panoramaMercado) {
-        this.startup.panoramaMercado = 'No existe un panorama del mercado reigstrado';
+        this.startup.panoramaMercado = 'No existe un panorama del mercado registrado';
       }
 
       if (!this.startup.montoMeta) {
-        this.startup.montoMeta = 'No existe un monto metareigstrado';
+        this.startup.montoMeta = 'No existe un monto meta registrado';
       }
 
       if (!this.startup.tipoMeta) {
-        this.startup.tipoMeta = 'No existe un tipo de meta reigstrado';
+        this.startup.tipoMeta = 'No existe un tipo de meta registrado';
       }
 
       if (!this.startup.linkSitioWeb) {
-        this.startup.linkSitioWeb = 'No existe un link de sitio web reigstrado';
+        this.startup.linkSitioWeb = 'No existe un link de sitio web registrado';
       }
 
       if (!this.startup.imagenURL) {
-        this.startup.imagenURL = 'No existe un URL de imágen reigstrado';
+        this.startup.imagenURL = 'No existe un URL de imágen registrado';
       }
 
       if (!this.startup.fechaCreacion) {
-        this.startup.fechaCreacion = 'No existe una fecha de creación reigstrada';
+        this.startup.fechaCreacion = 'No existe una fecha de creación registrada';
       } else {
         this.startup.fechaCreacion = this.datePipe.transform(this.startup.fechaCreacion, 'yyyy-MM-dd');
       }
 
       if (!this.startup.estado) {
-        this.startup.estado = 'No existe un estado reigstrado';
+        this.startup.estado = 'No existe un estado registrado';
       }
 
       if (!this.startup.idMonedero) {
@@ -130,7 +130,7 @@ export class PerfilVisualizableStartupComponent implements OnInit {
       }
 
       if (!this.startup.correoElectronico) {
-        this.startup.correoElectronico = 'No existe un correo electrónico reigstrado';
+        this.startup.correoElectronico = 'No existe un correo electrónico registrado';
       } else {
         this.perfilVisualizableStartupService
           .getInscripcionesByCorreoStartup(this.startup.correoElectronico)
