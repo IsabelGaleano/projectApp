@@ -301,8 +301,8 @@ export class PerfilDonacionStartupComponent implements OnInit {
       const geocoder = new google.maps.Geocoder();
       const service = new google.maps.DistanceMatrixService();
 
-      const origin1 = { lat: 9.943585, lng: -84.046075 };
-      const destinationB = { lat: 9.933578, lng: -84.011699 };
+      const origin1 = this.ubicacionInicialRastreador;
+      const destinationB = this.ubicacionFinalRastreador;
       const request = {
         origins: [origin1],
         destinations: [destinationB],
