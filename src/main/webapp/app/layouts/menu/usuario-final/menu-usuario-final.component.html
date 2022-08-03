@@ -1,20 +1,19 @@
 <aside class="app-sidebar sidebar-scroll" style="justify-content: center">
-  <div class="main-sidemenu">
-    <div class="app-sidebar__user clearfix">
-      <div class="dropdown user-pro-body">
-        <div class="">
-          <img class="avatar avatar-xl brround" src="../assets/img/faces/6.jpg" /><span
-            class="avatar-status profile-status bg-green"
-          ></span>
-        </div>
-        <div class="user-info">
-          <h4 class="fw-semibold mt-3 mb-0">Petey Cruiser</h4>
-          <span class="mb-0 text-muted">Premium Member</span>
-        </div>
-      </div>
-    </div>
-
+  <div class="row d-flex flex-row flex-nowrap categorias__cards__cnt" style="overflow-x: auto; overflow-y: hidden">
     <ul class="side-menu justify-content-between">
+      <li class="slide mr-3">
+        <div class="">
+          <div class="d-flex flex-row align-items-center">
+            <div class="demo-avatar-group main-img-user mr-3">
+              <img src="{{ usuario.imagenURL }}" />
+            </div>
+            <div class="user-info d-flex flex-column align-items-center">
+              <h4 class="fw-semibold mt-3 mb-0">{{ usuario.nombre }}</h4>
+              <span class="mb-0">{{ usuario.correoElectronico }}</span>
+            </div>
+          </div>
+        </div>
+      </li>
       <li class="slide">
         <a class="side-menu__item" href="comunidad-startup"
           ><svg

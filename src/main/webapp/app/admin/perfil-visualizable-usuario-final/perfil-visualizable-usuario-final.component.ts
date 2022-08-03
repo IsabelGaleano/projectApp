@@ -2,7 +2,17 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 // import { Usuarios } from 'app/entities/usuarios/usuarios.model';
 import { Loader } from '@googlemaps/js-api-loader';
-
+import {
+  faEdit,
+  faEnvelope,
+  faPhone,
+  faLink,
+  faCalendarDays,
+  faWallet,
+  faUserCheck,
+  faIdCard,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { AppService } from '../lista-usuarios/lista-usuarios.service';
 
 @Component({
@@ -15,6 +25,14 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
   correoSession?: string;
   // map: google.maps.Map | undefined;
   mapDos: google.maps.Map | undefined;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
+  faUser = faUser;
 
   constructor(private appService: AppService, private datePipe: DatePipe) {}
 

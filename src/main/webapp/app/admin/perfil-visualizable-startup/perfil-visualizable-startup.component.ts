@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Loader } from '@googlemaps/js-api-loader';
-
+import { faEdit, faEnvelope, faPhone, faLink, faCalendarDays, faWallet, faUserCheck, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { PerfilVisualizableStartupService } from './perfil-visualizable-startup.service';
 
 @Component({
@@ -15,6 +15,14 @@ export class PerfilVisualizableStartupComponent implements OnInit {
   inscripcion?: any;
   // map: google.maps.Map | undefined;
   mapDos: google.maps.Map | undefined;
+  faEdit = faEdit;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
 
   constructor(private perfilVisualizableStartupService: PerfilVisualizableStartupService, private datePipe: DatePipe) {}
 
