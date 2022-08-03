@@ -28,6 +28,10 @@ export class PerfilDonacionStartupComponent implements OnInit {
   ubicacionFinalRastreador: any;
   ubicacionActualRastreador: any;
   existUbicacionActual: any;
+  destinationAddresses: any;
+  originAddresses: any;
+  distancia: any;
+  duracion: any;
 
   inicialForm = this.fb.group({
     fechaInicial: ['', [Validators.required]],
@@ -163,10 +167,8 @@ export class PerfilDonacionStartupComponent implements OnInit {
 
     this.perfilService.getUbicaciones(this.donacionPaquete).subscribe((resultU: any) => {
       if (resultU) {
-        console.warn(resultU);
         for (let i = 0; i < resultU.length; i++) {
           if (resultU[i].descripcion === 'StartupInicio') {
-            console.warn(resultU[i].latitud);
             this.inicialForm.controls['latitud'].setValue(resultU[i].latitud);
             this.inicialForm.controls['longitud'].setValue(resultU[i].longitud);
           }
@@ -313,8 +315,17 @@ export class PerfilDonacionStartupComponent implements OnInit {
       };
 
       service.getDistanceMatrix(request).then(response => {
-        console.warn(response);
+        let strOrigin = response.originAddresses[0];
+        const arrayOrigin = strOrigin.split(',');
+
+        let strDestination = response.destinationAddresses[0];
+        const arrayDestination = strDestination.split(',');
+
         this.distanceMatrix = response;
+        this.destinationAddresses = arrayDestination[1].concat(arrayDestination[2]);
+        this.originAddresses = arrayOrigin[1].concat(arrayOrigin[2]);
+        this.distancia = response.rows[0].elements[0].distance.text;
+        this.duracion = response.rows[0].elements[0].duration.text;
       });
     });
   }
