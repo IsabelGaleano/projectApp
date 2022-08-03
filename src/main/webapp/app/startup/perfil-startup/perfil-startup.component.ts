@@ -58,6 +58,7 @@ export class PerfilStartupComponent implements OnInit {
   faWallet = faWallet;
   faUserCheck = faUserCheck;
   faIdCard = faIdCard;
+  arrayBeneficiosI: any;
 
   constructor(
     private loginService: LoginService,
@@ -125,17 +126,27 @@ export class PerfilStartupComponent implements OnInit {
         const tipoInscripcion = document.getElementById('tipoInscripcion') as HTMLInputElement;
         const fechaInicialInscripcion = document.getElementById('fechaInicialInscripcion') as HTMLInputElement;
         const fechaFinalInscripcion = document.getElementById('fechaFinalInscripcion') as HTMLInputElement;
-        const beneficiosInscripcion = document.getElementById('beneficiosInscripcion') as HTMLInputElement;
         const estadoInscripcion = document.getElementById('estadoInscripcion') as HTMLInputElement;
 
+        const dateTemp = new Date(result.fechaInicial);
+        fechaInicialInscripcion.insertAdjacentText('beforeend', dateTemp.toLocaleDateString());
+
+        if (result.fechaFinal === null) {
+          result.fechaFinal = 'Dato no registrado';
+          fechaFinalInscripcion.insertAdjacentText('beforeend', result.fechaFinal);
+        } else {
+          const dateTempF = new Date(result.fechaFinal);
+          fechaFinalInscripcion.insertAdjacentText('beforeend', dateTempF.toLocaleDateString());
+        }
+
+        let str = result.beneficios;
+        this.arrayBeneficiosI = str.split('-');
+
+        estadoInscripcion.insertAdjacentText('beforeend', result.estado);
         nombreInscripcion.insertAdjacentText('beforeend', result.nombre);
         descripcionInscripcion.insertAdjacentText('beforeend', result.descripcion);
         montoInscripcion.insertAdjacentText('beforeend', result.monto);
         tipoInscripcion.insertAdjacentText('beforeend', result.tipo);
-        fechaInicialInscripcion.insertAdjacentText('beforeend', result.fechaInicial);
-        fechaFinalInscripcion.insertAdjacentText('beforeend', result.fechaFinal);
-        beneficiosInscripcion.insertAdjacentText('beforeend', result.beneficios);
-        estadoInscripcion.insertAdjacentText('beforeend', result.estado);
       }
     });
 
@@ -150,7 +161,7 @@ export class PerfilStartupComponent implements OnInit {
         const estadoMonederoF = document.getElementById('estadoMonedero') as HTMLInputElement;
 
         saldoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.saldo);
-        tipoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.tipo);
+        tipoMonederoF.insertAdjacentText('beforeend', this.capitalizeWords(startup.idMonedero.tipo));
         estadoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.estado);
 
         //Set mapa
@@ -465,6 +476,10 @@ export class PerfilStartupComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+
+  capitalizeWords(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
   formatDate(date: Date) {
