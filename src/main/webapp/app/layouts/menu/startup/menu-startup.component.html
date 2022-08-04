@@ -1,23 +1,26 @@
 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
 <div class="sticky">
-  <aside class="app-sidebar sidebar-scroll" style="justify-content: center">
+  <aside class="app-sidebar sidebar-scroll container-fluid py-2" style="justify-content: center">
     <div class="main-sidebar-header active">
       <a class="desktop-logo logo-light active" href="index.html"
         ><img src="../../../../content/images/StatupSafe-horizontal-azul.png" class="main-logo" alt="logo"
       /></a>
     </div>
-    <div class="main-sidemenu">
-      <div class="app-sidebar__user clearfix">
-        <div class="dropdown user-pro-body">
-          <div class=""></div>
-          <div class="user-info">
-            <!-- <h4 class="fw-semibold mt-3 mb-0">{{ startup.nombreCorto }}</h4> -->
-            <!-- <span class="mb-0 text-muted">{{ startup.correoElectronico }}</span>-->
-          </div>
-        </div>
-      </div>
-
+    <div class="row d-flex flex-row flex-nowrap categorias__cards__cnt" style="overflow-x: auto; overflow-y: hidden">
       <ul class="side-menu justify-content-between">
+        <li class="slide mr-3">
+          <div class="">
+            <div class="d-flex flex-row align-items-center">
+              <div class="demo-avatar-group main-img-user mr-3">
+                <img src="{{ startup.imagenURL }}" />
+              </div>
+              <div class="user-info d-flex flex-column align-items-center">
+                <h4 class="fw-semibold mt-3 mb-0">{{ startup.nombreCorto }}</h4>
+                <span class="mb-0">{{ startup.correoElectronico }}</span>
+              </div>
+            </div>
+          </div>
+        </li>
         <li class="slide">
           <a class="side-menu__item" href="comunidad-startup"
             ><svg

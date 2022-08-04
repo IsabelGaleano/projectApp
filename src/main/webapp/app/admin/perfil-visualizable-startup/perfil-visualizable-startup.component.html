@@ -16,38 +16,42 @@
                   </div>
                 </div>
                 <hr class="mg-y-30" />
-                <label class="main-content-label tx-13 mg-b-20">Información social</label>
-                <div class="main-profile-social-list">
+                <label class="main-content-label tx-15 mg-b-20">Información social</label>
+                <div class="main-profile-social-list main-profile-contact-list">
                   <div class="media">
                     <div class="media-icon bg-primary-transparent text-primary">
-                      <i class="icon ion-md-link"></i>
+                      <fa-icon [icon]="faEnvelope"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Correo</span> <a href="">{{ startup.correoElectronico }}</a>
+                      <h5 class="mb-1 tx-15">Correo electrónico</h5>
+                      <p class="mb-0 tx-14" id="correoHeader">{{ startup.correoElectronico }}</p>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
-                      <i class="icon ion-md-phone-portrait"></i>
+                      <fa-icon [icon]="faPhone"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Teléfono</span> <a href="">{{ startup.telefono }}</a>
+                      <h5 class="mb-1 tx-15">Teléfono</h5>
+                      <p class="mb-0 tx-14" id="telefonoHeader">{{ startup.telefono }}</p>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
-                      <i class="icon ion-md-locate"></i>
+                      <fa-icon [icon]="faLink"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Sitio Web</span> <a href="">{{ startup.linkSitioWeb }}</a>
+                      <h5 class="mb-1 tx-15">Sitio web</h5>
+                      <a href="" class="mb-0 tx-18" id="enlaceHeader">{{ startup.linkSitioWeb }}</a>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-danger-transparent text-danger">
-                      <i class="icon ion-md-contacts"></i>
+                      <fa-icon [icon]="faCalendarDays"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Fecha de creación</span> <a href="">{{ startup.fechaCreacion }}</a>
+                      <h5 class="mb-1 tx-15">Fecha de creación</h5>
+                      <p class="mb-0 tx-14" id="fechaCreacionHeader">{{ startup.fechaCreacion }}</p>
                     </div>
                   </div>
                 </div>
@@ -58,39 +62,28 @@
         </div>
         <div class="card mg-b-20">
           <div class="card-body">
-            <div class="main-content-label tx-13 mg-b-25">Información de sitio</div>
+            <div class="main-content-label tx-15 mg-b-25">Información de sitio</div>
             <div class="main-profile-contact-list">
               <div class="media">
                 <div class="media-icon bg-primary-transparent text-primary">
-                  <i class="icon ion-md-phone-portrait"></i>
+                  <fa-icon [icon]="faUserCheck"></fa-icon>
                 </div>
                 <div class="media-body">
-                  <span>Estado de cuenta</span>
-                  <div>{{ startup.estado }}</div>
+                  <h5 class="mb-1 tx-15">Estado de cuenta</h5>
+                  <p class="mb-0 tx-14" id="estadoHeader">{{ startup.estado }}</p>
                 </div>
               </div>
               <div class="media">
                 <div class="media-icon bg-success-transparent text-success">
-                  <i class="icon ion-logo-slack"></i>
+                  <fa-icon [icon]="faWallet"></fa-icon>
                 </div>
                 <div class="media-body">
-                  <span>Monedero</span>
-                  <div>{{ startup.idMonedero.estado }}</div>
+                  <h5 class="mb-1 tx-15">Monedero</h5>
+                  <p class="mb-0 tx-14" id="estadoMonederoHeader">{{ startup.idMonedero.estado }}</p>
                 </div>
               </div>
-              <!-- <div class="media">
-                  <div class="media-icon bg-info-transparent text-info">
-                    <i class="icon ion-md-locate"></i>
-                  </div>
-                  <div class="media-body">
-                    <span>Ubicación actual</span>
-                    <br />
-                    <div>
-                      <div id="map" class="mapa-uno"></div>
-                    </div>
-                  </div>
-                </div> -->
             </div>
+            <!-- main-profile-contact-list -->
           </div>
         </div>
       </div>

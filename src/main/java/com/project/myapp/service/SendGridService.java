@@ -65,11 +65,12 @@ public class SendGridService {
             int OTPCode = Integer.parseInt(generateOTP());
             String templateId = "d-708a8389bb764fc8b2566d28ba78a19e";
             Mail mail = new Mail();
-            mail.setFrom(new Email("dcoto37@gmail.com", "Tripnary"));
+            mail.setFrom(new Email("dcoto37@gmail.com", "StartupSafe"));
             mail.setTemplateId(templateId);
             Personalization personalization = new Personalization();
             personalization.addDynamicTemplateData("header", OTPCode);
             personalization.addTo(new Email(correo));
+            personalization.setSubject("Código para recuperar contraseña");
             mail.addPersonalization(personalization);
             sendInternal(mail);
             return OTPCode;
