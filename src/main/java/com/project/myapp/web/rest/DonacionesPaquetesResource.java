@@ -1,12 +1,10 @@
 package com.project.myapp.web.rest;
 
-import com.project.myapp.domain.DonacionesPaquetes;
-import com.project.myapp.domain.PlanesInversion;
-import com.project.myapp.domain.Startups;
-import com.project.myapp.domain.Usuarios;
+import com.project.myapp.domain.*;
 import com.project.myapp.repository.DonacionesPaquetesRepository;
 import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.repository.UsuariosRepository;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -299,5 +297,25 @@ public class DonacionesPaquetesResource {
             }
         }
         return donacionesPorTipoUsuario;
+    }
+
+    @PostMapping("/donaciones-paquetesFactura")
+    public void enviarFacturaDonacionesPaquetes(@Valid @RequestBody DonacionesPaquetes donacionesPaquetes) {
+        SendEmail sendEmail = new SendEmail();
+        String nombreStartup = donacionesPaquetes.getIdStartup().getNombreCorto();
+        String codigoDonacion = String.valueOf(donacionesPaquetes.getId());
+        String montoDonacion = String.valueOf(donacionesPaquetes.getIdPaquete().getMonto());
+        String montoEnvio = String.valueOf(donacionesPaquetes.getMontoEnvio());
+        String montoImpuesto = String.valueOf(donacionesPaquetes.getMontoImpuesto());
+        String total = String.valueOf(donacionesPaquetes.getMontoTotal());
+        sendEmail.correoFacturaDonacionesPaquetes(
+            donacionesPaquetes.getIdUsuario().getCorreoElectronico(),
+            nombreStartup,
+            codigoDonacion,
+            montoDonacion,
+            montoEnvio,
+            montoImpuesto,
+            total
+        );
     }
 }

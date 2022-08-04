@@ -10,7 +10,8 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
-
+import { MenuAdminService } from '../../menu/admin/menu-admin.service';
+import { MenuStartupService } from '../../menu/startup/menu-startup.service';
 /* tslint:disable:component-selector */
 @Component({
   selector: 'jhi-navbar-usuario',
@@ -23,7 +24,7 @@ export class NavbarUsuarioComponent implements OnInit {
   languages = LANGUAGES;
   openAPIEnabled?: boolean;
   version = '';
-  account: Account | null = null;
+  account!: Account | null;
   entitiesNavbarItems: any[] = [];
   user = false;
   emailCollapsed = true;
@@ -32,6 +33,7 @@ export class NavbarUsuarioComponent implements OnInit {
   faUserCircle = faUserCircle;
   faBell = faBell;
   faMessage = faMessage;
+  usuario!: any;
 
   constructor(
     private loginService: LoginService,
@@ -39,7 +41,9 @@ export class NavbarUsuarioComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private menuAdminService: MenuAdminService,
+    private menuStartupService: MenuStartupService
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -59,7 +63,18 @@ export class NavbarUsuarioComponent implements OnInit {
         console.log(account);
         this.user = true;
       }
-      this.account = account;
+      if (account !== null) {
+        this.account = account;
+        if (account.authorities[0] === 'ROLE_USER') {
+          this.menuAdminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
+            this.usuario = data;
+          });
+        } else if (account.authorities[0] === 'ROLE_STARTUP') {
+          this.menuStartupService.getStartupLogin(account.email).subscribe((data: any) => {
+            this.usuario = data;
+          });
+        }
+      }
     });
   }
 

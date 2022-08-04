@@ -87,7 +87,7 @@ public class InscripcionesResource {
         inscripciones.setFechaInicial(today);
         inscripciones.setBeneficios(
             "Potenciar su empresa-Más acercamiento a la experiencia de clientes-Accesibilidad a clientes" +
-            "-Interacción con posibles clientes-Acceso a inversionistas-Interacción con posibles inversionistas a través de reuniones-" +
+            "-Interacción con posibles clientes-Acceso a inversionistas-Interacción con posibles inversionistas a través de reuniones" +
             "-Posibilidad de conseguir donaciones de forma rápida"
         );
 
