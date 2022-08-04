@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEnvelope, faPhone, faLink, faCalendarDays, faWallet, faUserCheck, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -51,6 +51,14 @@ export class PerfilStartupComponent implements OnInit {
   tipoMetaSelected: any;
   tipoMetaSelectedN: any;
   faEdit = faEdit;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
+  arrayBeneficiosI: any;
 
   constructor(
     private loginService: LoginService,
@@ -105,9 +113,9 @@ export class PerfilStartupComponent implements OnInit {
       this.account = account;
     });
 
-    //Get Categorias
-
-    //Get Inscripcion
+    this.cargarInfoPersonal();
+    this.cargarInfoInversionistas();
+    this.cargarInfoHeader();
 
     this.perfilService.getInscripcionStartup(this.account?.email).subscribe((result: any) => {
       if (result != null) {
@@ -118,17 +126,27 @@ export class PerfilStartupComponent implements OnInit {
         const tipoInscripcion = document.getElementById('tipoInscripcion') as HTMLInputElement;
         const fechaInicialInscripcion = document.getElementById('fechaInicialInscripcion') as HTMLInputElement;
         const fechaFinalInscripcion = document.getElementById('fechaFinalInscripcion') as HTMLInputElement;
-        const beneficiosInscripcion = document.getElementById('beneficiosInscripcion') as HTMLInputElement;
         const estadoInscripcion = document.getElementById('estadoInscripcion') as HTMLInputElement;
 
+        const dateTemp = new Date(result.fechaInicial);
+        fechaInicialInscripcion.insertAdjacentText('beforeend', dateTemp.toLocaleDateString());
+
+        if (result.fechaFinal === null) {
+          result.fechaFinal = 'Dato no registrado';
+          fechaFinalInscripcion.insertAdjacentText('beforeend', result.fechaFinal);
+        } else {
+          const dateTempF = new Date(result.fechaFinal);
+          fechaFinalInscripcion.insertAdjacentText('beforeend', dateTempF.toLocaleDateString());
+        }
+
+        let str = result.beneficios;
+        this.arrayBeneficiosI = str.split('-');
+
+        estadoInscripcion.insertAdjacentText('beforeend', result.estado);
         nombreInscripcion.insertAdjacentText('beforeend', result.nombre);
         descripcionInscripcion.insertAdjacentText('beforeend', result.descripcion);
         montoInscripcion.insertAdjacentText('beforeend', result.monto);
         tipoInscripcion.insertAdjacentText('beforeend', result.tipo);
-        fechaInicialInscripcion.insertAdjacentText('beforeend', result.fechaInicial);
-        fechaFinalInscripcion.insertAdjacentText('beforeend', result.fechaFinal);
-        beneficiosInscripcion.insertAdjacentText('beforeend', result.beneficios);
-        estadoInscripcion.insertAdjacentText('beforeend', result.estado);
       }
     });
 
@@ -136,87 +154,15 @@ export class PerfilStartupComponent implements OnInit {
       if (startup) {
         this.startup = startup;
         console.warn(startup);
-        //Set form variables informacion personal
 
-        const nombreCortoF = document.getElementById('nombreCorto') as HTMLInputElement;
-        const nombreCompletoF = document.getElementById('nombreLargo') as HTMLInputElement;
-        const correoElectronicoF = document.getElementById('correoElectronico') as HTMLInputElement;
-        const telefonoF = document.getElementById('telefono') as HTMLInputElement;
-        const fechaCreacionF = document.getElementById('fechaCreacion') as HTMLInputElement;
-        const categoriaF = document.getElementById('categoriaStartup') as HTMLInputElement;
-        const enlaceF = document.getElementById('enlace') as HTMLInputElement;
-        const descripcionCortaF = document.getElementById('descripcionCorta') as HTMLInputElement;
-        const beneficiosF = document.getElementById('beneficios') as HTMLInputElement;
-        const riesgosF = document.getElementById('riesgos') as HTMLInputElement;
-        const panoramaMercadoF = document.getElementById('panoramaMercado') as HTMLInputElement;
-        const imgPerfilF = document.getElementById('imgPerfil') as HTMLInputElement;
-        const estadoMetaF = document.getElementById('estadoMeta') as HTMLInputElement;
-        const montoMetaF = document.getElementById('montoMeta') as HTMLInputElement;
         //Monedero
         const saldoMonederoF = document.getElementById('saldoMonedero') as HTMLInputElement;
         const tipoMonederoF = document.getElementById('tipoMonedero') as HTMLInputElement;
         const estadoMonederoF = document.getElementById('estadoMonedero') as HTMLInputElement;
 
-        nombreCortoF.value = startup.nombreCorto;
-        nombreCompletoF.value = startup.nombreLargo;
-        correoElectronicoF.value = startup.correoElectronico;
-        telefonoF.value = startup.telefono;
-        fechaCreacionF.value = startup.fechaCreacion;
-        enlaceF.value = startup.linkSitioWeb;
-        descripcionCortaF.value = startup.descripcionCorta;
-        beneficiosF.value = startup.beneficios;
-        riesgosF.value = startup.riesgos;
-        panoramaMercadoF.value = startup.panoramaMercado;
-        fechaCreacionF.value = this.formatDate(new Date(startup.fechaCreacion));
-        imgPerfilF.src = startup.imagenURL;
-        montoMetaF.value = startup.montoMeta;
-        console.warn(this.formatDate(new Date(startup.fechaCreacion)));
-
         saldoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.saldo);
-        tipoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.tipo);
+        tipoMonederoF.insertAdjacentText('beforeend', this.capitalizeWords(startup.idMonedero.tipo));
         estadoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.estado);
-
-        //Set tipo Meta
-
-        if (startup.tipoMeta != null) {
-          if (startup.tipoMeta === 'Activo') {
-            this.tipoMetaSelected = 'Activo';
-          } else {
-            this.tipoMetaSelected = 'Inactivo';
-          }
-        } else {
-          this.tipoMetaSelected = 'Activo';
-          this.tipoMetaSelectedN = 'Inactivo';
-        }
-
-        //Set categoria
-        if (startup.idCategoria != null) {
-          this.existCategoria = false;
-          this.perfilService.getCategoriasByID(startup.idCategoria.id).subscribe((categoriaResult: any) => {
-            this.categoriaSelected = categoriaResult.categoria;
-            this.categoriaIdSelected = categoriaResult.id;
-            console.warn(categoriaResult);
-          });
-        }
-
-        //Set values header
-
-        const nombreHeader = document.getElementById('nombreHeader') as HTMLInputElement;
-        const nombreLargoH = document.getElementById('nombreLargoH') as HTMLInputElement;
-        const correoHeader = document.getElementById('correoHeader') as HTMLInputElement;
-        const telefonoHeader = document.getElementById('telefonoHeader') as HTMLInputElement;
-        const enlaceHeader = document.getElementById('enlaceHeader') as HTMLInputElement;
-        const fechaCreacionHeader = document.getElementById('fechaCreacionHeader') as HTMLInputElement;
-        const estadoHeader = document.getElementById('estadoHeader') as HTMLInputElement;
-        const estadoMonederoHeader = document.getElementById('estadoMonederoHeader') as HTMLInputElement;
-        nombreHeader.insertAdjacentText('beforeend', startup.nombreCorto);
-        nombreLargoH.insertAdjacentText('beforeend', startup.nombreLargo);
-        correoHeader.insertAdjacentText('beforeend', startup.correoElectronico);
-        telefonoHeader.insertAdjacentText('beforeend', startup.telefono);
-        enlaceHeader.insertAdjacentText('beforeend', startup.linkSitioWeb);
-        fechaCreacionHeader.insertAdjacentText('beforeend', startup.fechaCreacion);
-        estadoHeader.insertAdjacentText('beforeend', startup.estado);
-        estadoMonederoHeader.insertAdjacentText('beforeend', startup.idMonedero.estado);
 
         //Set mapa
 
@@ -273,6 +219,139 @@ export class PerfilStartupComponent implements OnInit {
     });
   }
 
+  cargarInfoPersonal(): void {
+    this.perfilService.getStartupByCorreo(this.account?.email).subscribe((startup: any) => {
+      if (startup != null) {
+        const nombreCortoF = document.getElementById('nombreCorto') as HTMLInputElement;
+        const nombreCompletoF = document.getElementById('nombreLargo') as HTMLInputElement;
+        const correoElectronicoF = document.getElementById('correoElectronico') as HTMLInputElement;
+        const telefonoF = document.getElementById('telefono') as HTMLInputElement;
+        const fechaCreacionF = document.getElementById('fechaCreacion') as HTMLInputElement;
+        const categoriaF = document.getElementById('categoriaStartup') as HTMLInputElement;
+        const enlaceF = document.getElementById('enlace') as HTMLInputElement;
+        const descripcionCortaF = document.getElementById('descripcionCorta') as HTMLInputElement;
+        const imgPerfilF = document.getElementById('imgPerfil') as HTMLInputElement;
+
+        nombreCortoF.value = startup.nombreCorto;
+        nombreCompletoF.value = startup.nombreLargo;
+        correoElectronicoF.value = startup.correoElectronico;
+        telefonoF.value = startup.telefono;
+        fechaCreacionF.value = startup.fechaCreacion;
+        enlaceF.value = startup.linkSitioWeb;
+        descripcionCortaF.value = startup.descripcionCorta;
+        fechaCreacionF.value = this.formatDate(new Date(startup.fechaCreacion));
+        imgPerfilF.src = startup.imagenURL;
+
+        //Set categoria
+        if (startup.idCategoria != null) {
+          this.existCategoria = false;
+          this.perfilService.getCategoriasByID(startup.idCategoria.id).subscribe((categoriaResult: any) => {
+            this.categoriaSelected = categoriaResult.categoria;
+            this.categoriaIdSelected = categoriaResult.id;
+            console.warn(categoriaResult);
+          });
+        }
+      }
+    });
+  }
+
+  cargarInfoInversionistas(): void {
+    const beneficiosF = document.getElementById('beneficios') as HTMLInputElement;
+    const riesgosF = document.getElementById('riesgos') as HTMLInputElement;
+    const panoramaMercadoF = document.getElementById('panoramaMercado') as HTMLInputElement;
+    const montoMetaF = document.getElementById('montoMeta') as HTMLInputElement;
+
+    this.perfilService.getStartupByCorreo(this.account?.email).subscribe((startup: any) => {
+      if (startup != null) {
+        beneficiosF.value = startup.beneficios;
+        riesgosF.value = startup.riesgos;
+        panoramaMercadoF.value = startup.panoramaMercado;
+        montoMetaF.value = startup.montoMeta;
+        if (startup.tipoMeta != null) {
+          if (startup.tipoMeta === 'Activo') {
+            this.tipoMetaSelected = 'Activo';
+            this.tipoMetaSelectedN = 'Inactivo';
+          }
+          if (startup.tipoMeta === 'Inactivo') {
+            this.tipoMetaSelected = 'Inactivo';
+            this.tipoMetaSelectedN = 'Activo';
+          }
+        } else {
+          this.tipoMetaSelected = 'Activo';
+          this.tipoMetaSelectedN = 'Inactivo';
+        }
+      }
+    });
+  }
+
+  cargarInfoHeader(): void {
+    this.perfilService.getStartupByCorreo(this.account?.email).subscribe((startup: any) => {
+      if (startup != null) {
+        const nombreHeader = document.getElementById('nombreHeader') as HTMLInputElement;
+        const nombreLargoH = document.getElementById('nombreLargoH') as HTMLInputElement;
+        const correoHeader = document.getElementById('correoHeader') as HTMLInputElement;
+        const telefonoHeader = document.getElementById('telefonoHeader') as HTMLInputElement;
+        const enlaceHeader = document.getElementById('enlaceHeader') as HTMLInputElement;
+        const fechaCreacionHeader = document.getElementById('fechaCreacionHeader') as HTMLInputElement;
+        const estadoHeader = document.getElementById('estadoHeader') as HTMLInputElement;
+        const estadoMonederoHeader = document.getElementById('estadoMonederoHeader') as HTMLInputElement;
+        const datoNRegister = 'Dato no registrado';
+        if (startup.nombreCorto === null) {
+          startup.nombreCorto = datoNRegister;
+        }
+        if (startup.nombreLargo === null) {
+          startup.nombreLargo = datoNRegister;
+        }
+        if (startup.telefono === null) {
+          startup.telefono = datoNRegister;
+        }
+        if (startup.telefono === null) {
+          startup.telefono = datoNRegister;
+        }
+        if (startup.linkSitioWeb === null) {
+          startup.linkSitioWeb = datoNRegister;
+        }
+
+        if (startup.fechaCreacion === null) {
+          startup.fechaCreacion = datoNRegister;
+          fechaCreacionHeader.insertAdjacentText('beforeend', startup.fechaCreacion);
+        } else {
+          const dateTemp = new Date(startup.fechaCreacion);
+          dateTemp.setDate(dateTemp.getDate() + 1);
+          fechaCreacionHeader.insertAdjacentText('beforeend', dateTemp.toLocaleDateString());
+        }
+
+        nombreHeader.insertAdjacentText('beforeend', startup.nombreCorto);
+        nombreLargoH.insertAdjacentText('beforeend', startup.nombreLargo);
+        correoHeader.insertAdjacentText('beforeend', startup.correoElectronico);
+        telefonoHeader.insertAdjacentText('beforeend', startup.telefono);
+        enlaceHeader.insertAdjacentText('beforeend', startup.linkSitioWeb);
+        estadoHeader.insertAdjacentText('beforeend', startup.estado);
+        estadoMonederoHeader.insertAdjacentText('beforeend', startup.idMonedero.estado);
+      }
+    });
+  }
+
+  vaciarInfoPersonal(): void {
+    const nombreHeader = document.getElementById('nombreHeader') as HTMLInputElement;
+    const nombreLargoH = document.getElementById('nombreLargoH') as HTMLInputElement;
+    const correoHeader = document.getElementById('correoHeader') as HTMLInputElement;
+    const telefonoHeader = document.getElementById('telefonoHeader') as HTMLInputElement;
+    const enlaceHeader = document.getElementById('enlaceHeader') as HTMLInputElement;
+    const fechaCreacionHeader = document.getElementById('fechaCreacionHeader') as HTMLInputElement;
+    const estadoHeader = document.getElementById('estadoHeader') as HTMLInputElement;
+    const estadoMonederoHeader = document.getElementById('estadoMonederoHeader') as HTMLInputElement;
+
+    nombreHeader.textContent = ' ';
+    nombreLargoH.textContent = ' ';
+    correoHeader.textContent = ' ';
+    telefonoHeader.textContent = ' ';
+    enlaceHeader.textContent = ' ';
+    fechaCreacionHeader.textContent = ' ';
+    estadoHeader.textContent = ' ';
+    estadoMonederoHeader.textContent = ' ';
+  }
+
   actualizarStartup(): void {
     this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
       if (data) {
@@ -298,17 +377,24 @@ export class PerfilStartupComponent implements OnInit {
         data.fechaCreacion = new Date(fechaCreacionU.value);
         data.descripcionCorta = descripcionCortaU.value;
         console.warn(categoriaU.value);
+
         if (categoriaU.value != 'default') {
           this.perfilService.getCategoriasByID(categoriaU.value).subscribe((categoriaResult: any) => {
             data.idCategoria = categoriaResult;
             console.warn(categoriaResult);
             this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
               console.warn(dataActualizada);
+              this.vaciarInfoPersonal();
+              this.cargarInfoHeader();
+              this.cargarInfoPersonal();
             });
           });
         } else {
           this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
             console.warn(dataActualizada);
+            this.vaciarInfoPersonal();
+            this.cargarInfoHeader();
+            this.cargarInfoPersonal();
           });
         }
       }
@@ -334,6 +420,7 @@ export class PerfilStartupComponent implements OnInit {
 
         this.perfilService.actualizarStartup(data.id, data).subscribe((dataActualizada: any) => {
           console.warn(dataActualizada);
+          this.cargarInfoInversionistas();
         });
       }
     });
@@ -351,20 +438,17 @@ export class PerfilStartupComponent implements OnInit {
     });
   }
 
-  actualizarImagen(event: any): void {
-    let nombre: string = 'Imagen de perfil';
-    let descripcion: string = 'Imagen del perfil startup';
-    let estado: string = 'Activo';
-    let url = 'C:\\imgStartupSafe\\'.concat(event.target.files[0].name);
-
-    this.perfilService.getImagenCloudinary({ nombre, descripcion, estado, url }).subscribe((dataActualizada: any) => {
-      console.warn(dataActualizada);
+  actualizarImagen(event: any) {
+    const imageFormData = new FormData();
+    //imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+    imageFormData.append('file', event.target.files[0]);
+    imageFormData.append('upload_preset', 'eqakakzu');
+    this.perfilService.subirImagen(imageFormData).subscribe((cloudinaryData: any) => {
       const imgPerfilStartup = <HTMLInputElement>document.getElementById('imgPerfil');
-      imgPerfilStartup.src = dataActualizada.url;
-
+      imgPerfilStartup.src = cloudinaryData.url;
       this.perfilService.getStartupByCorreo(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
         if (data) {
-          data.imagenURL = dataActualizada.url;
+          data.imagenURL = cloudinaryData.url;
           this.perfilService.actualizarStartup(data.id, data).subscribe((result: any) => {
             console.warn(result);
           });
@@ -392,6 +476,10 @@ export class PerfilStartupComponent implements OnInit {
     }
 
     return strDescodificado;
+  }
+
+  capitalizeWords(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
   formatDate(date: Date) {

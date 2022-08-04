@@ -41,11 +41,19 @@ export class PerfilStartupService {
     return this.http.put(this.rootURL.concat('/startups/', id.toString()), startup);
   }
 
+  subirImagen(imageFormData: FormData): Observable<any> {
+    return this.http.post('https://api.cloudinary.com/v1_1/moonsoft/image/upload', imageFormData);
+  }
+
   getImagenCloudinary(documento: Documentos): Observable<any> {
     return this.http.post(this.rootURL.concat('/startups/uploadImage'), documento);
   }
 
   savePassword(currentPassword: string, newPassword: string): Observable<{}> {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/account/change-password'), { currentPassword, newPassword });
+  }
+
+  registrarUbicación(rastreador: Record<string, unknown>): Observable<any> {
+    return this.http.post(this.rootURL.concat('rastreadors/'), rastreador);
   }
 }
