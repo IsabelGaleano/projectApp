@@ -190,7 +190,34 @@
                           </div>
 
                           <div class="tab-pane" id="tab3">
-                            <div *ngFor="let planDeInversion of planesDeInversion">
+                            <table class="tabla-planes">
+                              <thead>
+                                <tr>
+                                  <th>Nombre</th>
+                                  <th>Descripción</th>
+                                  <th>Beneficios</th>
+                                  <th>Porcentaje Empresarial</th>
+                                  <th>Monto</th>
+                                </tr>
+                              </thead>
+                              <tbody *ngFor="let planDeInversion of planesDeInversion" class="custom-cls-no-br">
+                                <tr>
+                                  <td class="mid-td">
+                                    {{ planDeInversion.nombre }}
+                                  </td>
+                                  <td class="big-td">
+                                    {{ planDeInversion.descripcion }}
+                                  </td>
+                                  <td class="big-td">
+                                    {{ planDeInversion.beneficios }}
+                                  </td>
+                                  <td class="small-td text-center">{{ planDeInversion.porcentajeEmpresarial }} %</td>
+                                  <td class="small-td text-center">$ {{ planDeInversion.monto }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <!-- <div *ngFor="let planDeInversion of planesDeInversion">
                               <div>
                                 <h4>{{ planDeInversion.nombre }}</h4>
                                 <div class="planes-de-inversion">
@@ -210,7 +237,7 @@
                                   <p></p>
                                 </div>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
                         </div>
                       </div>

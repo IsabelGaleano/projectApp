@@ -8,7 +8,7 @@
               <div class="ps-0">
                 <div class="main-profile-overview">
                   <div class="main-img-user profile-user">
-                    <img alt="" id="imgPerfil" />
+                    <img alt="Foto de Perfil" src="{{ usuario.imagenURL }}" />
                     <label class="lbl-subir-imagen" for="selecccionarImagen">
                       <i class="fas fa-camera profile-edit"></i>
                     </label>
@@ -32,8 +32,8 @@
                         <fa-icon [icon]="faEnvelope"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Correo</span>
-                        <div id="correoSidebar"></div>
+                        <div>Correo</div>
+                        <span id="correoSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -41,8 +41,8 @@
                         <fa-icon [icon]="faPhone"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Teléfono</span>
-                        <div id="telefonoSidebar"></div>
+                        <div>Teléfono</div>
+                        <span id="telefonoSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -50,8 +50,8 @@
                         <fa-icon [icon]="faIdCard"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Cédula</span>
-                        <div id="cedulaSidebar"></div>
+                        <div>Cédula</div>
+                        <span id="cedulaSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -59,8 +59,8 @@
                         <fa-icon [icon]="faUser"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Tipo de usuario</span>
-                        <div id="tipoUsuarioSidebar"></div>
+                        <div>Tipo de usuario</div>
+                        <span id="tipoUsuarioSidebar"></span>
                       </div>
                     </div>
                   </div>
@@ -85,8 +85,8 @@
                         <fa-icon [icon]="faUserCheck"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Estado de cuenta</span>
-                        <div id="estadoSidebar"></div>
+                        <div>Estado de cuenta</div>
+                        <span id="estadoSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -94,8 +94,8 @@
                         <fa-icon [icon]="faWallet"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Monedero</span>
-                        <div id="monederoEstadoSidebar"></div>
+                        <div>Monedero</div>
+                        <span id="monederoEstadoSidebar"></span>
                       </div>
                     </div>
                   </div>
@@ -237,7 +237,7 @@
                                   <label class="form-label">Fecha de nacimiento</label>
                                 </div>
                                 <div class="col-md-9">
-                                  <input type="text" class="form-control" id="fechaNacimientoForm" #fecha />
+                                  <input class="form-control" id="fechaNacimientoForm" placeholder="MM/DD/YYYY" type="date" />
                                 </div>
                               </div>
                             </div>
@@ -247,7 +247,7 @@
                                 <div class="col-md-3">
                                   <label class="form-label">Género</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-9">
                                   <select
                                     formControlName="genero"
                                     class="form-control"
@@ -262,16 +262,6 @@
                                 </div>
                               </div>
                             </div>
-                            <!-- <div class="form-group">
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <label class="form-label">Género</label>
-                                </div>
-                                <div class="col-md-9">
-                                  <input type="text" class="form-control" id="generoForm" />
-                                </div>
-                              </div>
-                            </div> -->
                           </form>
                           <p></p>
                           <button (click)="actualizarUsuario()" class="btn btn-primary waves-effect waves-light">Actualizar Perfil</button>
@@ -299,20 +289,14 @@
                                             <div class="media">
                                               <div class="media-body">
                                                 <div class="card-item-desc mt-0">
-                                                  <h6 class="text-lg text-medium">
-                                                    {{ usuario.idMonedero.id }}
-                                                  </h6>
-                                                  <dl class="card-item-desc-1">
-                                                    <dt>Correo:</dt>
-                                                    <dd>{{ usuario.correoElectronico }}</dd>
-                                                  </dl>
+                                                  <span class="text-md">
+                                                    Código: {{ usuario.idMonedero.id }}, {{ usuario.correoElectronico }}
+                                                  </span>
                                                 </div>
                                               </div>
                                             </div>
                                           </td>
-                                          <td class="text-center text-lg text-medium">
-                                            {{ usuario.idMonedero.tipo }}
-                                          </td>
+                                          <td class="text-center text-lg text-medium" id="monederoTipo"></td>
                                           <td class="text-center text-lg text-medium">
                                             {{ usuario.idMonedero.saldo }}
                                           </td>

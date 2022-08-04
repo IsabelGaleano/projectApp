@@ -19,37 +19,43 @@
                   </div>
                 </div>
                 <hr class="mg-y-30" />
-                <label class="main-content-label tx-13 mg-b-20">Información social</label>
+                <label class="main-content-label tx-15 mg-b-20">Información social</label>
                 <div class="main-profile-social-list">
                   <div class="media">
                     <div class="media-icon bg-primary-transparent text-primary">
-                      <i class="icon ion-md-link"></i>
+                      <fa-icon [icon]="faEnvelope"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Correo</span> <a href="">{{ usuario.correoElectronico }}</a>
+                      <h5 class="mb-1 tx-15">Correo electrónico</h5>
+                      <p class="mb-0 tx-14">{{ usuario.correoElectronico }}</p>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
-                      <i class="icon ion-md-phone-portrait"></i>
+                      <fa-icon [icon]="faPhone"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Teléfono</span> <a href="">{{ usuario.telefono }}</a>
+                      <h5 class="mb-1 tx-15">Teléfono</h5>
+                      <p class="mb-0 tx-14">{{ usuario.telefono }}</p>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
-                      <i class="icon ion-md-locate"></i>
+                      <fa-icon [icon]="faIdCard"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Cédula</span> <a href="">{{ usuario.cedula }}</a>
+                      <h5 class="mb-1 tx-15">Cédula</h5>
+                      <p class="mb-0 tx-14">{{ usuario.cedula }}</p>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-danger-transparent text-danger">
-                      <i class="icon ion-md-contacts"></i>
+                      <fa-icon [icon]="faUserCheck"></fa-icon>
                     </div>
-                    <div class="media-body"><span>Tipo de usuario</span> <a href="">Administrador</a></div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Tipo de usuario</h5>
+                      <p class="mb-0 tx-14">Administrador</p>
+                    </div>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
@@ -60,24 +66,24 @@
         </div>
         <div class="card mg-b-20">
           <div class="card-body">
-            <div class="main-content-label tx-13 mg-b-25">Información de sitio</div>
+            <div class="main-content-label tx-15 mg-b-25">Información de sitio</div>
             <div class="main-profile-contact-list">
               <div class="media">
                 <div class="media-icon bg-primary-transparent text-primary">
-                  <i class="icon ion-md-phone-portrait"></i>
+                  <fa-icon [icon]="faUserCheck"></fa-icon>
                 </div>
                 <div class="media-body">
-                  <span>Estado de cuenta</span>
-                  <div>{{ usuario.estado }}</div>
+                  <h5 class="mb-1 tx-15">Estado de cuenta</h5>
+                  <p class="mb-0 tx-14">{{ usuario.estado }}</p>
                 </div>
               </div>
               <div class="media">
                 <div class="media-icon bg-success-transparent text-success">
-                  <i class="icon ion-logo-slack"></i>
+                  <fa-icon [icon]="faWallet"></fa-icon>
                 </div>
                 <div class="media-body">
-                  <span>Monedero</span>
-                  <div>{{ usuario.idMonedero.estado }}</div>
+                  <h5 class="mb-1 tx-15">Monedero</h5>
+                  <p class="mb-0 tx-14">{{ usuario.idMonedero.estado }}</p>
                 </div>
               </div>
             </div>
