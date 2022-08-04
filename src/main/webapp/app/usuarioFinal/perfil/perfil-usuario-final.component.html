@@ -32,8 +32,8 @@
                         <fa-icon [icon]="faEnvelope"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Correo</span>
-                        <div id="correoSidebar"></div>
+                        <div>Correo</div>
+                        <span id="correoSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -41,8 +41,8 @@
                         <fa-icon [icon]="faPhone"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Teléfono</span>
-                        <div id="telefonoSidebar"></div>
+                        <div>Teléfono</div>
+                        <span id="telefonoSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -50,8 +50,8 @@
                         <fa-icon [icon]="faIdCard"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Cédula</span>
-                        <div id="cedulaSidebar"></div>
+                        <div>Cédula</div>
+                        <span id="cedulaSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -59,8 +59,8 @@
                         <fa-icon [icon]="faUser"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Tipo de usuario</span>
-                        <div id="tipoUsuarioSidebar"></div>
+                        <div>Tipo de usuario</div>
+                        <span id="tipoUsuarioSidebar"></span>
                       </div>
                     </div>
                   </div>
@@ -85,8 +85,8 @@
                         <fa-icon [icon]="faUserCheck"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Estado de cuenta</span>
-                        <div id="estadoSidebar"></div>
+                        <div>Estado de cuenta</div>
+                        <span id="estadoSidebar"></span>
                       </div>
                     </div>
                     <div class="media">
@@ -94,8 +94,8 @@
                         <fa-icon [icon]="faWallet"></fa-icon>
                       </div>
                       <div class="media-body">
-                        <span>Monedero</span>
-                        <div id="monederoEstadoSidebar"></div>
+                        <div>Monedero</div>
+                        <span id="monederoEstadoSidebar"></span>
                       </div>
                     </div>
                   </div>
@@ -289,9 +289,9 @@
                                             <div class="media">
                                               <div class="media-body">
                                                 <div class="card-item-desc mt-0">
-                                                  <h6 class="text-lg text-medium">
-                                                    {{ usuario.idMonedero.id }}, {{ usuario.correoElectronico }}
-                                                  </h6>
+                                                  <span class="text-md">
+                                                    Código: {{ usuario.idMonedero.id }}, {{ usuario.correoElectronico }}
+                                                  </span>
                                                 </div>
                                               </div>
                                             </div>
