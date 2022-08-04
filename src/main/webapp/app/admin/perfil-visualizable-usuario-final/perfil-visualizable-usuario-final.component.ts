@@ -15,6 +15,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AppService } from '../lista-usuarios/lista-usuarios.service';
 
+import { PerfilVisualizableUsuarioFinalService } from './perfil-visualizable-usuario-final.service';
+
 @Component({
   selector: 'jhi-perfil-visualizable-usuario-final',
   templateUrl: './perfil-visualizable-usuario-final.component.html',
@@ -34,7 +36,13 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
   faIdCard = faIdCard;
   faUser = faUser;
 
-  constructor(private appService: AppService, private datePipe: DatePipe) {}
+  movimientos: any[] = [];
+
+  constructor(
+    private appService: AppService,
+    private datePipe: DatePipe,
+    private perfilVisualizableUsuarioFinalService: PerfilVisualizableUsuarioFinalService
+  ) {}
 
   ngOnInit(): void {
     this.correoSession = localStorage.getItem('correoSession') as string;
@@ -120,6 +128,14 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
 
           this.usuarioFinal.idRol = rol;
         }
+
+        this.perfilVisualizableUsuarioFinalService
+          .getMovimientosByIdMonedero(this.usuarioFinal.idMonedero.id)
+          .subscribe((dataMovimientos: any) => {
+            dataMovimientos.forEach((movimiento: any) => {
+              this.movimientos.push(movimiento);
+            });
+          });
 
         const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
         const loader = new Loader({

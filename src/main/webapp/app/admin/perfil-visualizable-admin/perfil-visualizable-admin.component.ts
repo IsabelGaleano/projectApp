@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { faEdit, faEnvelope, faPhone, faLink, faCalendarDays, faWallet, faUserCheck, faIdCard } from '@fortawesome/free-solid-svg-icons';
 
 import { ListaAdministradoresService } from '../lista-administradores/lista-administradores.service';
 @Component({
@@ -10,6 +11,14 @@ import { ListaAdministradoresService } from '../lista-administradores/lista-admi
 export class PerfilVisualizableAdminComponent implements OnInit {
   usuario: any;
   correoSession?: string;
+  faEdit = faEdit;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
 
   constructor(private appService: ListaAdministradoresService, private datePipe: DatePipe) {}
 
