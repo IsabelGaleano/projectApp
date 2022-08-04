@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -109,18 +110,28 @@ export class PerfilAdminComponent implements OnInit {
         this.account = account;
         this.adminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
           this.usuario = data;
+
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.charAt(0).toUpperCase() + this.usuario.idMonedero.tipo.slice(1);
+
           this.adminService.getMovimientosByIdMonedero(data.idMonedero.id).subscribe((dataMovimientos: any) => {
             dataMovimientos.forEach((movimiento: any) => {
+              movimiento.tipo = movimiento.tipo.toLowerCase();
+              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+              movimiento.tipo = movimiento.tipo.charAt(0).toUpperCase() + movimiento.tipo.slice(1);
+
               this.movimientos.push(movimiento);
             });
           });
+
           this.formInfoBasica.controls['nombre'].setValue(this.usuario.nombre);
           this.formInfoBasica.controls['primerApellido'].setValue(this.usuario.primerApellido);
           this.formInfoBasica.controls['segundoApellido'].setValue(this.usuario.segundoApellido);
           // this.formInfoBasica.controls['cedula'].setValue(this.usuario.cedula);
           // this.formInfoBasica.controls['correoElectronico'].setValue(this.usuario.correoElectronico);
           this.formInfoBasica.controls['telefono'].setValue(this.usuario.telefono);
-          this.formInfoBasica.controls['fechaNacimiento'].setValue(this.usuario.fechaNacimiento);
+          this.formInfoBasica.controls['fechaNacimiento'].setValue(this.formatDate(new Date(this.usuario.fechaNacimiento)));
 
           this.fechaFormateada = this.datePipe.transform(this.usuario.fechaNacimiento, 'yyyy-MM-dd');
 
@@ -239,5 +250,9 @@ export class PerfilAdminComponent implements OnInit {
         this.imagenActualizada = false;
       }
     );
+  }
+
+  formatDate(date: Date) {
+    return date.toISOString().slice(0, 10);
   }
 }

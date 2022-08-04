@@ -393,7 +393,24 @@
 
                       <div class="tab-pane" id="tab4">
                         <div class="tab-pane">
-                          <h4 class="tx-18 mb-3">Monedero</h4>
+                          <div class="main-content-label tx-15 mg-b-25">Monedero</div>
+                          <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <tbody>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Saldo actual</td>
+                                <td>{{ startup.idMonedero.saldo }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Tipo</td>
+                                <td>{{ startup.idMonedero.tipo }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Estado</td>
+                                <td>{{ startup.idMonedero.estado }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <!-- <h4 class="tx-18 mb-3">Monedero</h4>
                           <div class="m-t-30 informacion-tab">
                             <div class="p-t-10">
                               <h6 class="subtitulos-inscripciones">Saldo Actual</h6>
@@ -409,7 +426,7 @@
                               <h6 class="subtitulos-inscripciones">Estado</h6>
                               <p class="text-muted tx-12 m-b-0">{{ startup.idMonedero.estado }}</p>
                             </div>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
