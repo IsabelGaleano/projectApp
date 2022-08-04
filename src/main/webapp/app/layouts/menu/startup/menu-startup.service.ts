@@ -11,7 +11,7 @@ export class MenuStartupService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   getStartupLogin(correo: string | null): Observable<any> {
-    if (correo != null) {
+    if (correo !== null) {
       return this.http.get(this.rootURL.concat('/startups/findbyCorreo/').concat(correo));
     } else {
       return this.http.get(this.rootURL.concat('/startups/'));

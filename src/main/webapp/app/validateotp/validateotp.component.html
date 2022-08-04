@@ -5,7 +5,6 @@
       <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
         <div class="row wd-100p mx-auto text-center">
           <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-            <img height="139px" width="352px" src="../content/assets/img/Startup_safe_horizontal_turquesa.png" alt="logo" />
           </div>
         </div>
       </div>
@@ -38,9 +37,20 @@
                           <p *ngIf="!loading" class="mb-0">Comprobar</p>
                           <div *ngIf="loading" class="spinner-btn spinner-border text-light" role="status"></div>
                         </button>
-                        <button (click)="reSendCode()" class="btn btn-main-secundary btn-block">Reenviar Código</button>
-                        <p *ngIf="error" class="text-danger pt-3 text-center">{{ errorMessage }}</p>
-                        <p *ngIf="info" class="text-success pt-3 text-center">{{ infoMessage }}</p>
+                        <div class="main-signup-footer mt-5">
+                          <p>
+                            Puede usar este link para
+                            <button class="btn btn-link mt-0" (click)="reSendCode()">Reenviar Código</button>
+                          </p>
+
+                        <div>
+                          <div class="alert alert-success" *ngIf="info">
+                            <strong>Código reenviado!</strong> Revise su correo electrónico de nuevo.
+                          </div>
+
+                          <div class="alert alert-danger" *ngIf="error"><strong>Código incorrecto.</strong> Inténtelo de nuevo.</div>
+                        </div>
+                        </div>
                       </form>
                     </div>
                   </div>
