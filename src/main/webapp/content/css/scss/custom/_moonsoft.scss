@@ -46,3 +46,13 @@
   display: flex;
   align-items: center;
 }
+
+::-webkit-scrollbar {
+  height: 2rem; /* height of horizontal scrollbar ← You're missing this */
+  width: 2rem; /* width of vertical scrollbar */
+}
+::-webkit-scrollbar-thumb:horizontal {
+  height: 2.5rem;
+  //background: #000;
+  border-radius: 10px;
+}
