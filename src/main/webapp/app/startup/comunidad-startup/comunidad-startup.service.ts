@@ -34,4 +34,9 @@ export class ComunidadStartupService {
   getVotosPorStartup(startup: Startups): Observable<any> {
     return this.http.post(this.rootURL.concat('votosStartup'), startup);
   }
+
+  //categorias
+  getCategorias(): Observable<any> {
+    return this.http.get(this.rootURL.concat('categorias'));
+  }
 }

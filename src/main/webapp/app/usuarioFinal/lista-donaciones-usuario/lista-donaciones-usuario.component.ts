@@ -42,29 +42,34 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
     });
   }
   buscarPorNombreCorreo(): void {
-    this.donacionesPaquetes = [];
     const searchInput = document.getElementById('searchInput') as HTMLInputElement;
-    this.listaDonacionesUsuarioService
-      .getDonacionesPaquetesByNombreStartup(this.emailUsuario, searchInput.value)
-      .subscribe(donacionesPaquetes => {
-        if (donacionesPaquetes != null) {
-          donacionesPaquetes.forEach((donacion: any) => {
-            console.warn(donacion);
-            this.donacionesPaquetes.push(donacion);
-          });
-        }
-      });
-    this.listaDonacionesUsuarioService
-      .getDonacionesPaquetesByCorreoStartup(this.emailUsuario, searchInput.value)
-      .subscribe(donacionesPaquetes => {
-        if (donacionesPaquetes != null) {
-          donacionesPaquetes.forEach((donacion: any) => {
-            console.warn(donacion);
-            this.donacionesPaquetes.push(donacion);
-          });
-        }
-      });
-    this.changeDetection.detectChanges();
+    if (searchInput.value !== '' && searchInput.value.length > 1) {
+      this.donacionesPaquetes = [];
+      this.listaDonacionesUsuarioService
+        .getDonacionesPaquetesByNombreStartup(this.emailUsuario, searchInput.value)
+        .subscribe(donacionesPaquetes => {
+          if (donacionesPaquetes != null) {
+            donacionesPaquetes.forEach((donacion: any) => {
+              console.warn(donacion);
+              this.donacionesPaquetes.push(donacion);
+            });
+          }
+        });
+      this.donacionesPaquetes = [];
+      this.listaDonacionesUsuarioService
+        .getDonacionesPaquetesByCorreoStartup(this.emailUsuario, searchInput.value)
+        .subscribe(donacionesPaquetes => {
+          if (donacionesPaquetes != null) {
+            donacionesPaquetes.forEach((donacion: any) => {
+              console.warn(donacion);
+              this.donacionesPaquetes.push(donacion);
+            });
+          }
+        });
+      this.changeDetection.detectChanges();
+    } else {
+      this.reset();
+    }
   }
   reset(): void {
     this.listaDonacionesUsuarioService.getDonacionesPaquetesByCorreo(this.emailUsuario).subscribe(donacionesPaquetes => {

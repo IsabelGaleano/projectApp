@@ -31,3 +31,18 @@
     transform: rotateY(360deg);
   }
 }
+
+.logo__nav__usuario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*--Estilos regulares--*/
+
+//Perfil startup
+//Comentario
+.comentario__img {
+  display: flex;
+  align-items: center;
+}

@@ -1,8 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {
+  faSackDollar,
+  faBriefcaseMedical,
+  faBox,
+  faMicrochip,
+  faHouseFlag,
+  faDatabase,
+  faVrCardboard,
+  faTv,
+  faTruckPickup,
+  faMoneyBillTransfer,
+  faBowlFood,
+  faBrain,
+  faCloudDownload,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { ComunidadStartupService } from './comunidad-startup.service';
-
 @Component({
   selector: 'jhi-comunidad-startup',
   templateUrl: './comunidad-startup.component.html',
@@ -11,14 +26,50 @@ import { ComunidadStartupService } from './comunidad-startup.service';
 export class ComunidadStartupComponent implements OnInit {
   // startupsDesordenadas: Array<any> = [];
   startups: Array<any> = [];
-
+  startupsFiltered: Array<any> = [];
   startupsExistentes = false;
   cantidadSoftware = 0;
   cantidadCocina = 0;
   cantidadHogar = 0;
   cantidadModa = 0;
+  infoSearch = '';
+  categorias: Array<any> = [];
+  categoriasInfo: Array<any> = [];
 
-  constructor(private comunidadStartupService: ComunidadStartupService, private router: Router) {}
+  faSackDollarI = faSackDollar;
+  faBriefcaseMedicalI = faBriefcaseMedical;
+  faBoxI = faBox;
+  faMicrochipI = faMicrochip;
+  faHouseFlagI = faHouseFlag;
+  faDatabaseI = faDatabase;
+  faVrCardboardI = faVrCardboard;
+  faTvI = faTv;
+  faTruckPickupI = faTruckPickup;
+  faMoneyBillTransferI = faMoneyBillTransfer;
+  faBowlFoodI = faBowlFood;
+  faBrainI = faBrain;
+  faCloudDownloadI = faCloudDownload;
+
+  iconosCategorias: Array<any> = [];
+
+  constructor(private comunidadStartupService: ComunidadStartupService, private router: Router) {
+    this.iconosCategorias = [
+      this.faSackDollarI,
+      this.faBriefcaseMedicalI,
+      this,
+      this.faBoxI,
+      this.faMicrochipI,
+      this.faHouseFlagI,
+      this.faDatabaseI,
+      this.faVrCardboardI,
+      this.faTvI,
+      this.faTruckPickupI,
+      this.faMoneyBillTransferI,
+      this.faBowlFoodI,
+      this.faBrainI,
+      this.faCloudDownloadI,
+    ];
+  }
 
   ngOnInit(): void {
     this.comunidadStartupService.getAllStartups().subscribe((data: any) => {
@@ -33,6 +84,7 @@ export class ComunidadStartupComponent implements OnInit {
         this.comunidadStartupService.getVotosPorStartup(data[i]).subscribe(votos => {
           this.startups.push({ votos, start });
           this.bblSort();
+          this.startupsFiltered = this.startups;
         });
       }
 
@@ -41,20 +93,45 @@ export class ComunidadStartupComponent implements OnInit {
       }
     });
 
-    this.comunidadStartupService.getCantidadCategoria('Software').subscribe((cantidad: number) => {
-      this.cantidadSoftware = cantidad;
-    });
+    //Obtiene todas las categorías de la bd
+    this.comunidadStartupService.getCategorias().subscribe((categoriasService: any) => {
+      this.categorias = categoriasService;
 
-    this.comunidadStartupService.getCantidadCategoria('Cocina').subscribe((cantidad: number) => {
-      this.cantidadCocina = cantidad;
-    });
-
-    this.comunidadStartupService.getCantidadCategoria('Hogar').subscribe((cantidad: number) => {
-      this.cantidadHogar = cantidad;
-    });
-
-    this.comunidadStartupService.getCantidadCategoria('Moda').subscribe((cantidad: number) => {
-      this.cantidadModa = cantidad;
+      categoriasService.forEach((categoria, index) => {
+        this.comunidadStartupService.getCantidadCategoria(categoria.categoria).subscribe((cantidad: number) => {
+          let icono = this.faSackDollarI;
+          if (categoria.categoria === 'Finanzas') {
+            icono = this.faSackDollarI;
+          } else if (categoria.categoria === 'Salud') {
+            icono = this.faBriefcaseMedicalI;
+          } else if (categoria.categoria === 'Cadena de suministros') {
+            icono = this.faBoxI;
+          } else if (categoria.categoria === 'Inteligencia artificial') {
+            icono = this.faMicrochipI;
+          } else if (categoria.categoria === 'Bienes raíces') {
+            icono = this.faHouseFlagI;
+          } else if (categoria.categoria === 'Big Data') {
+            icono = this.faDatabaseI;
+          } else if (categoria.categoria === 'Realidad virtual') {
+            icono = this.faVrCardboardI;
+          } else if (categoria.categoria === 'Entretenimiento') {
+            icono = this.faTvI;
+          } else if (categoria.categoria === 'Servicios de entrega') {
+            icono = this.faTruckPickupI;
+          } else if (categoria.categoria === 'Ecommerce') {
+            icono = this.faMoneyBillTransferI;
+          } else if (categoria.categoria === 'Alimentos') {
+            icono = this.faBowlFoodI;
+          } else if (categoria.categoria === 'Psicología') {
+            icono = this.faBrainI;
+          } else if (categoria.categoria === 'Software') {
+            icono = this.faCloudDownloadI;
+          }
+          const infoCategoria = { cantidadCategoria: cantidad, iconoCategoria: icono };
+          this.categoriasInfo.push({ categoria, infoCategoria });
+        });
+      });
+      console.warn(this.categoriasInfo);
     });
   }
 
@@ -68,6 +145,30 @@ export class ComunidadStartupComponent implements OnInit {
     localStorage.setItem('nombreCategoria', nombreCategoria);
 
     this.router.navigate(['/startups-por-categoria']);
+  }
+
+  //Filtra listado de startups por montoMeta mayor o igual al ingresado
+  //Filtra por nombre corto, nombre largo, sitio web, panorama mercado y fecha creacion
+  filtrarStartups(event: any): void {
+    this.infoSearch = event.target.value;
+    const numberRegex = /^\d+$/;
+    if (numberRegex.test(this.infoSearch)) {
+      this.startupsFiltered = this.startups.filter(startup => {
+        if (!startup.start.montoMeta) {
+          return;
+        }
+        return startup.start.montoMeta >= this.infoSearch;
+      });
+    } else {
+      this.startupsFiltered = this.startups.filter(
+        startup =>
+          startup.start.nombreCorto?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.nombreLargo?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.linkSitioWeb?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.panoramaMercado?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+          startup.start.fechaCreacion?.toLowerCase().includes(this.infoSearch.toLowerCase())
+      );
+    }
   }
 
   bblSort(): void {

@@ -23,31 +23,43 @@
                   </div>
                 </div>
                 <hr class="mg-y-30" />
-                <label class="main-content-label tx-13 mg-b-20">Información social</label>
-                <div class="main-profile-social-list">
+                <label class="main-content-label tx-15 mg-b-20">Información social</label>
+                <div class="main-profile-social-list main-profile-contact-list">
                   <div class="media">
                     <div class="media-icon bg-primary-transparent text-primary">
-                      <i class="icon ion-md-link"></i>
+                      <fa-icon [icon]="faEnvelope"></fa-icon>
                     </div>
-                    <div class="media-body"><span>Correo</span> <a href="" id="correoHeader"></a></div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Correo electrónico</h5>
+                      <p class="mb-0 tx-14" id="correoHeader"></p>
+                    </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
-                      <i class="icon ion-md-phone-portrait"></i>
+                      <fa-icon [icon]="faPhone"></fa-icon>
                     </div>
-                    <div class="media-body"><span>Teléfono</span> <a href="" id="telefonoHeader"></a></div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Teléfono</h5>
+                      <p class="mb-0 tx-14" id="telefonoHeader"></p>
+                    </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
-                      <i class="icon ion-md-locate"></i>
+                      <fa-icon [icon]="faLink"></fa-icon>
                     </div>
-                    <div class="media-body"><span>Sitio web</span> <a href="" id="enlaceHeader"></a></div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Sitio web</h5>
+                      <a href="" class="mb-0 tx-18" id="enlaceHeader"></a>
+                    </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-danger-transparent text-danger">
-                      <i class="icon ion-md-contacts"></i>
+                      <fa-icon [icon]="faCalendarDays"></fa-icon>
                     </div>
-                    <div class="media-body"><span>Fecha de creación</span> <a href="" id="fechaCreacionHeader"></a></div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Fecha de creación</h5>
+                      <p class="mb-0 tx-14" id="fechaCreacionHeader"></p>
+                    </div>
                   </div>
                 </div>
                 <hr class="mg-y-30" />
@@ -58,24 +70,24 @@
         </div>
         <div class="card mg-b-20">
           <div class="card-body">
-            <div class="main-content-label tx-13 mg-b-25">Información de sitio</div>
+            <div class="main-content-label tx-15 mg-b-25">Información de sitio</div>
             <div class="main-profile-contact-list">
               <div class="media">
                 <div class="media-icon bg-primary-transparent text-primary">
-                  <i class="icon ion-md-phone-portrait"></i>
+                  <fa-icon [icon]="faUserCheck"></fa-icon>
                 </div>
                 <div class="media-body">
-                  <span>Estado de cuenta</span>
-                  <div id="estadoHeader"></div>
+                  <h5 class="mb-1 tx-15">Estado de cuenta</h5>
+                  <p class="mb-0 tx-14" id="estadoHeader"></p>
                 </div>
               </div>
               <div class="media">
                 <div class="media-icon bg-success-transparent text-success">
-                  <i class="icon ion-logo-slack"></i>
+                  <fa-icon [icon]="faWallet"></fa-icon>
                 </div>
                 <div class="media-body">
-                  <span>Monedero</span>
-                  <div id="estadoMonederoHeader"></div>
+                  <h5 class="mb-1 tx-15">Monedero</h5>
+                  <p class="mb-0 tx-14" id="estadoMonederoHeader"></p>
                 </div>
               </div>
             </div>
@@ -311,71 +323,71 @@
                       </div>
                       <div class="tab-pane" id="tab3">
                         <div class="tab-pane">
-                          <h4 class="tx-18 mb-3">Inscripción</h4>
-                          <div class="m-t-30">
-                            <div class="p-t-10">
-                              <p><b>Nombre</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="nombreInscripcion"></p>
-                            </div>
-                            <hr />
-                            <div class="p-t-10">
-                              <p><b>Descripción</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="descripcionInscripcion"></p>
-                            </div>
-                            <hr />
-                            <div class="p-t-10">
-                              <p><b>Monto</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="montoInscripcion"></p>
-                            </div>
-                            <hr />
-                            <div class="p-t-10">
-                              <p><b>Tipo</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="tipoInscripcion"></p>
-                            </div>
-                            <hr />
-                            <div class="p-t-10">
-                              <p><b>Fecha inicial</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="fechaInicialInscripcion"></p>
-                            </div>
-                            <hr />
-                            <div class="p-t-10">
-                              <p><b>Fecha de vencimiento</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="fechaFinalInscripcion"></p>
-                            </div>
-                            <hr />
-                            <div class="p-t-10">
-                              <p><b>Beneficios</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="beneficiosInscripcion"></p>
-                            </div>
-                            <hr />
-                            <div class="p-t-10">
-                              <p><b>Estado</b></p>
-                              <p class="text-muted tx-12 m-b-0" id="estadoInscripcion"></p>
-                            </div>
+                          <div class="main-content-label tx-15 mg-b-25">Inscripción</div>
+                          <div class="table-responsive country-table">
+                            <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                              <tbody>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Nombre</td>
+                                  <td id="nombreInscripcion"></td>
+                                </tr>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Descripción</td>
+                                  <td id="descripcionInscripcion"></td>
+                                </tr>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Monto</td>
+                                  <td id="montoInscripcion"></td>
+                                </tr>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Tipo</td>
+                                  <td id="tipoInscripcion"></td>
+                                </tr>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Fecha inicial</td>
+                                  <td id="fechaInicialInscripcion"></td>
+                                </tr>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Fecha de vencimiento</td>
+                                  <td id="fechaFinalInscripcion"></td>
+                                </tr>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Beneficios</td>
+                                  <ul class="mb-1 list-group">
+                                    <li *ngFor="let item of arrayBeneficiosI; let i = index">{{ item }}</li>
+                                  </ul>
+                                </tr>
+                                <tr>
+                                  <td class="tx-right tx-medium tx-inverse">Estado</td>
+                                  <td id="estadoInscripcion"></td>
+                                </tr>
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </div>
                       <div class="tab-pane" id="tab4">
-                        <h4 class="tx-18 mb-3">Monedero</h4>
-                        <div class="p-t-10">
-                          <p><b>Saldo actual</b></p>
-                          <p class="text-muted tx-12 m-b-0" id="saldoMonedero"></p>
-                        </div>
-                        <hr />
-                        <div class="p-t-10">
-                          <p><b>Tipo</b></p>
-                          <p class="text-muted tx-12 m-b-0" id="tipoMonedero"></p>
-                        </div>
-                        <hr />
-                        <div class="p-t-10">
-                          <p><b>Estado</b></p>
-                          <p class="text-muted tx-12 m-b-0" id="estadoMonedero"></p>
-                        </div>
-                        <hr />
+                        <div class="main-content-label tx-15 mg-b-25">Monedero</div>
+                        <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                          <tbody>
+                            <tr>
+                              <td class="tx-right tx-medium tx-inverse">Saldo actual</td>
+                              <td id="saldoMonedero"></td>
+                            </tr>
+                            <tr>
+                              <td class="tx-right tx-medium tx-inverse">Tipo</td>
+                              <td id="tipoMonedero"></td>
+                            </tr>
+                            <tr>
+                              <td class="tx-right tx-medium tx-inverse">Estado</td>
+                              <td id="estadoMonedero"></td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                       <div class="tab-pane" id="tab5">
                         <form class="form-horizontal">
-                          <h4 class="tx-18 mb-3">Actualizar contraseña</h4>
+                          <div class="main-content-label tx-15 mg-b-25">Actualizar contraseña</div>
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-3">

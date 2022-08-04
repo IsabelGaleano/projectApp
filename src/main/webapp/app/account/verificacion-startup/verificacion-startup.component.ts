@@ -21,6 +21,7 @@ export class VerificacionStartupComponent implements AfterViewInit {
   success = false;
   codigoReenviado = false;
   codigoIncorrecto = false;
+  loading = false;
 
   registerForm = this.fb.group({
     login: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
@@ -45,6 +46,7 @@ export class VerificacionStartupComponent implements AfterViewInit {
     this.error = false;
     this.errorEmailExists = false;
     this.errorUserExists = false;
+    this.loading = true;
 
     const login = this.registerForm.get(['login'])!.value;
 
@@ -54,9 +56,12 @@ export class VerificacionStartupComponent implements AfterViewInit {
         this.success = true;
         window.setTimeout(function () {
           router.navigate(['login']);
-        }, 5000);
+        }, 4000);
       } else {
         this.codigoIncorrecto = true;
+        setTimeout(() => {
+          this.codigoIncorrecto = false;
+        }, 3000);
       }
     });
   }
@@ -67,9 +72,8 @@ export class VerificacionStartupComponent implements AfterViewInit {
     this.verificacionService.reenviarCodigo(sessionStorage.getItem('startupPendiente')).subscribe((result: any) => {
       console.warn(result);
       this.codigoReenviado = true;
-      this.success = true;
-      window.setTimeout(function () {
-        location.reload();
+      setTimeout(() => {
+        this.codigoReenviado = false;
       }, 3000);
     });
   }

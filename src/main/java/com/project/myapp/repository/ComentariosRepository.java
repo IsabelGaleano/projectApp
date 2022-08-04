@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Comentarios;
+import com.project.myapp.domain.Votos;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -41,4 +42,10 @@ public interface ComentariosRepository extends JpaRepository<Comentarios, Long> 
         "select comentarios from Comentarios comentarios left join fetch comentarios.idStartup left join fetch comentarios.idUsuario where comentarios.id =:id"
     )
     Optional<Comentarios> findOneWithToOneRelationships(@Param("id") Long id);
+
+    @Query("SELECT C FROM Comentarios C WHERE C.idStartup.id = :idStartup")
+    List<Comentarios> findComentariosByIdStartup(@Param("idStartup") Long idStartup);
+
+    @Query("SELECT C FROM Comentarios C WHERE C.idStartup.id = :idStartup and C.idUsuario.id = :idUsuario")
+    Optional<Comentarios> findComentariosByIdStartupAndIdUsuario(@Param("idStartup") Long idStartup, @Param("idUsuario") Long idUsuario);
 }

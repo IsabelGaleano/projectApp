@@ -14,7 +14,7 @@ import { RegisterService } from './register.service';
 export class RegisterComponent implements AfterViewInit {
   @ViewChild('login', { static: false })
   login?: ElementRef;
-
+  loading = false;
   doNotMatch = false;
   error = false;
   errorEmailExists = false;
