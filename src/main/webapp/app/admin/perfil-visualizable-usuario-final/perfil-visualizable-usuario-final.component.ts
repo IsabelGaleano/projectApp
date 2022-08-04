@@ -2,7 +2,17 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 // import { Usuarios } from 'app/entities/usuarios/usuarios.model';
 import { Loader } from '@googlemaps/js-api-loader';
-
+import {
+  faEdit,
+  faEnvelope,
+  faPhone,
+  faLink,
+  faCalendarDays,
+  faWallet,
+  faUserCheck,
+  faIdCard,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { AppService } from '../lista-usuarios/lista-usuarios.service';
 
 @Component({
@@ -15,6 +25,14 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
   correoSession?: string;
   // map: google.maps.Map | undefined;
   mapDos: google.maps.Map | undefined;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
+  faUser = faUser;
 
   constructor(private appService: AppService, private datePipe: DatePipe) {}
 
@@ -34,27 +52,27 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
         }
 
         if (!this.usuarioFinal.primerApellido || this.usuarioFinal.primerApellido === ' ') {
-          this.usuarioFinal.primerApellido = 'No existe un primer apellido reigstrado';
+          this.usuarioFinal.primerApellido = 'No existe un primer apellido registrado';
         }
 
         if (!this.usuarioFinal.segundoApellido || this.usuarioFinal.segundoApellido === ' ') {
-          this.usuarioFinal.segundoApellido = 'No existe un segundo apellido reigstrado';
+          this.usuarioFinal.segundoApellido = 'No existe un segundo apellido registrado';
         }
 
         if (!this.usuarioFinal.correoElectronico || this.usuarioFinal.correoElectronico === ' ') {
-          this.usuarioFinal.correoElectronico = 'No existe un correo electrónico reigstrado';
+          this.usuarioFinal.correoElectronico = 'No existe un correo electrónico registrado';
         }
 
         if (!this.usuarioFinal.genero || this.usuarioFinal.genero === ' ') {
-          this.usuarioFinal.genero = 'No existe un género reigstrado';
+          this.usuarioFinal.genero = 'No existe un género registrado';
         }
 
         if (!this.usuarioFinal.telefono || this.usuarioFinal.telefono === ' ') {
-          this.usuarioFinal.telefono = 'No existe un teléfono reigstrado';
+          this.usuarioFinal.telefono = 'No existe un teléfono registrado';
         }
 
         if (!this.usuarioFinal.fechaNacimiento || this.usuarioFinal.fechaNacimiento === ' ') {
-          this.usuarioFinal.fechaNacimiento = 'No existe una fecha de nacimiento reigstrada';
+          this.usuarioFinal.fechaNacimiento = 'No existe una fecha de nacimiento registrada';
         } else {
           this.usuarioFinal.fechaNacimiento = this.datePipe.transform(this.usuarioFinal.fechaNacimiento, 'yyyy-MM-dd');
         }
@@ -68,19 +86,19 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
         }
 
         if (!this.usuarioFinal.imagenURL || this.usuarioFinal.imagenURL === ' ') {
-          this.usuarioFinal.imagenURL = 'No existe una imágen reigstrada';
+          this.usuarioFinal.imagenURL = 'No existe una imagen registrada';
         }
 
         if (!this.usuarioFinal.tipoUsuarioFinal || this.usuarioFinal.tipoUsuarioFinal === ' ') {
-          this.usuarioFinal.tipoUsuarioFinal = 'No existe un tipo de usuario final reigstrado';
+          this.usuarioFinal.tipoUsuarioFinal = 'No existe un tipo de usuario final registrado';
         }
 
         if (!this.usuarioFinal.contrasennia || this.usuarioFinal.contrasennia === ' ') {
-          this.usuarioFinal.contrasennia = 'No existe una contrasennia reigstrada';
+          this.usuarioFinal.contrasennia = 'No existe una contraseña registrada';
         }
 
         if (!this.usuarioFinal.estado || this.usuarioFinal.estado === ' ') {
-          this.usuarioFinal.estado = 'No existe un estado reigstrado';
+          this.usuarioFinal.estado = 'No existe un estado registrado';
         }
 
         if (!this.usuarioFinal.idMonedero) {
