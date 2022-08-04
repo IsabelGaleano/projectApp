@@ -14,7 +14,10 @@
             <div class="ps-0">
               <div class="main-profile-overview">
                 <div class="main-img-user profile-user">
-                  <img alt="" src="{{ usuarioFinal.imagenURL }}" /><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                  <img alt="Profile img" src="{{ usuarioFinal.imagenURL }}" /><a
+                    class="fas fa-camera profile-edit"
+                    href="JavaScript:void(0);"
+                  ></a>
                 </div>
                 <div class="d-flex justify-content-between mg-b-20">
                   <div>
@@ -23,41 +26,50 @@
                   </div>
                 </div>
                 <hr class="mg-y-30" />
-                <label class="main-content-label tx-13 mg-b-20">Información social</label>
-                <div class="main-profile-social-list">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="main-profile-name tx-20 mg-b-20">Información social</label>
+                  </div>
+                </div>
+                <div class="main-profile-social-list main-profile-contact-list">
                   <div class="media">
                     <div class="media-icon bg-primary-transparent text-primary">
-                      <i class="icon ion-md-link"></i>
+                      <fa-icon [icon]="faEnvelope"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Correo</span> <a href="">{{ usuarioFinal.correoElectronico }}</a>
+                      <span>Correo</span>
+                      <div id="correoSidebar">{{ usuarioFinal.correoElectronico }}</div>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
-                      <i class="icon ion-md-phone-portrait"></i>
+                      <fa-icon [icon]="faPhone"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Teléfono</span> <a href="">{{ usuarioFinal.telefono }}</a>
+                      <span>Teléfono</span>
+                      <div id="telefonoSidebar">{{ usuarioFinal.telefono }}</div>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
-                      <i class="icon ion-md-locate"></i>
+                      <fa-icon [icon]="faIdCard"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Cédula</span> <a href="">{{ usuarioFinal.cedula }}</a>
+                      <span>Cédula</span>
+                      <div id="cedulaSidebar">{{ usuarioFinal.cedula }}</div>
                     </div>
                   </div>
                   <div class="media">
                     <div class="media-icon bg-danger-transparent text-danger">
-                      <i class="icon ion-md-contacts"></i>
+                      <fa-icon [icon]="faUser"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Tipo de usuario</span> <a href="">{{ usuarioFinal.tipoUsuarioFinal }}</a>
+                      <span>Tipo de usuario</span>
+                      <div id="tipoUsuarioSidebar">{{ usuarioFinal.tipoUsuarioFinal }}</div>
                     </div>
                   </div>
                 </div>
+
                 <hr class="mg-y-30" />
               </div>
               <!-- main-profile-overview -->
@@ -66,39 +78,34 @@
         </div>
         <div class="card mg-b-20">
           <div class="card-body">
-            <div class="main-content-label tx-13 mg-b-25">Información de sitio</div>
-            <div class="main-profile-contact-list">
-              <div class="media">
-                <div class="media-icon bg-primary-transparent text-primary">
-                  <i class="icon ion-md-phone-portrait"></i>
-                </div>
-                <div class="media-body">
-                  <span>Estado de cuenta</span>
-                  <div>{{ usuarioFinal.estado }}</div>
-                </div>
-              </div>
-              <div class="media">
-                <div class="media-icon bg-success-transparent text-success">
-                  <i class="icon ion-logo-slack"></i>
-                </div>
-                <div class="media-body">
-                  <span>Monedero</span>
-                  <div>{{ usuarioFinal.idMonedero.estado }}</div>
-                </div>
-              </div>
-              <!-- <div class="media">
-                <div class="media-icon bg-info-transparent text-info">
-                  <i class="icon ion-md-locate"></i>
-                </div>
-                <div class="media-body">
-                  <span>Ubicación actual</span>
-                  <br />
-                  <div>{{ usuario.latitudDireccion }} {{ usuario.longitudDireccion }}</div>
-                  <div>
-                    <div id="map" class="mapa-uno"></div>
+            <div class="ps-0">
+              <div class="main-profile-overview">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="main-profile-name tx-20 mg-b-20">Información de sitio</label>
                   </div>
                 </div>
-              </div> -->
+                <div class="main-profile-social-list main-profile-contact-list">
+                  <div class="media">
+                    <div class="media-icon bg-primary-transparent text-primary">
+                      <fa-icon [icon]="faUserCheck"></fa-icon>
+                    </div>
+                    <div class="media-body">
+                      <span>Estado de cuenta</span>
+                      <div id="estadoSidebar">{{ usuarioFinal.estado }}</div>
+                    </div>
+                  </div>
+                  <div class="media">
+                    <div class="media-icon bg-success-transparent text-success">
+                      <fa-icon [icon]="faWallet"></fa-icon>
+                    </div>
+                    <div class="media-body">
+                      <span>Monedero</span>
+                      <div id="monederoEstadoSidebar">{{ usuarioFinal.idMonedero.estado }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- main-profile-contact-list -->
           </div>
