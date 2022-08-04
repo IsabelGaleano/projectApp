@@ -131,14 +131,34 @@
                       <h5 class="fw-normal mb-4">Digite el código enviado a su correo.</h5>
                       <div>
                         <div>
-                          <div class="col-md-8">
-                            <div class="alert alert-success" *ngIf="success">
-                              <strong>Registro finalizado!</strong> Será redirigido a iniciar sesión. Gracias por escoger StartupSafe.
+                          <div>
+                            <div class="main-signup-header mt-5">
+                              <div class="alert alert-success" *ngIf="success">
+                                <strong>Cuenta verificada!</strong> Ya puede iniciar sesión.
+                              </div>
+                              <div class="alert alert-success" *ngIf="codigoReenviado">
+                                <strong>Código reenviado</strong> Por favor revise su correo electrónico.
+                              </div>
+                              <div class="alert alert-danger" id="codigoIncorrectoMSG" *ngIf="codigoIncorrecto">
+                                <strong>Código incorrecto!</strong> Por favor ingreselo de nuevo.
+                              </div>
+                              <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+                                <strong>Registration failed!</strong> Please try again later.
+                              </div>
+
+                              <div class="alert alert-danger" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
+                                <strong>Login name already registered!</strong> Please choose another one.
+                              </div>
+
+                              <div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+                                <strong>Email is already in use!</strong> Please choose another one.
+                              </div>
+
+                              <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+                                The password and its confirmation do not match!
+                              </div>
                             </div>
                           </div>
-                        </div>
-
-                        <div>
                           <form name="form" role="form" (ngSubmit)="verificarCodigo()" [formGroup]="registerForm" *ngIf="!success">
                             <div class="form-group">
                               <label class="form-label" for="codigo">Código</label>
@@ -190,20 +210,13 @@
                                 Register
                               </button>
                             </div>
-                            <div class="main-signup-footer mt-5">
-                              <p>
-                                Puede usar este link para
-                                <button class="btn btn-link" (click)="reenviarCodigo()">Reenviar su código</button>
-                              </p>
-                              <div>
-                                <div class="alert alert-success" *ngIf="codigoReenviado">
-                                  <strong>Código reenviado!</strong> Revise su correo electrónico de nuevo.
-                                </div>
-
-                                <div class="alert alert-danger" *ngIf="error"><strong>Código incorrecto.</strong> Inténtelo de nuevo.</div>
-                              </div>
-                            </div>
                           </form>
+                          <div class="main-signup-footer mt-5">
+                            <p>
+                              Puede usar este link para
+                              <button class="btn btn-link" (click)="reenviarCodigo()">Reenviar su código</button>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
