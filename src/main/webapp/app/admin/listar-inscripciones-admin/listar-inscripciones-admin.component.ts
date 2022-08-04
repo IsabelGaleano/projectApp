@@ -19,6 +19,10 @@ export class ListarInscripcionesAdminComponent implements OnInit {
       console.log(data);
       if (data != null) {
         data.forEach((inscripcion: any) => {
+          inscripcion.beneficios = inscripcion.beneficios.split(/\s*\-\s*/g); // eslint-disable-line
+          inscripcion.beneficios = inscripcion.beneficios.filter(e => e.length > 0);
+          /* eslint-disable no-console */
+          console.log(inscripcion.beneficios); // eslint-disable-line
           this.inscripciones.push(inscripcion);
         });
       }

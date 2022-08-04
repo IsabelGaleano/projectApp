@@ -16,12 +16,9 @@
               <table class="table table-hover mb-0 text-md-nowrap">
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
                     <th>Monto</th>
                     <th>Tipo</th>
                     <th>Fecha inicial</th>
-                    <th>Beneficios</th>
                     <th>Startup</th>
                     <th>Estado</th>
                     <th class="table-header-centered">Activar</th>
@@ -30,24 +27,10 @@
                 </thead>
                 <tbody *ngFor="let inscripcion of inscripciones; index as i">
                   <tr>
-                    <td>{{ inscripcion.nombre }}</td>
-                    <td>{{ inscripcion.descripcion }}</td>
                     <td>{{ inscripcion.monto }}</td>
                     <td>{{ inscripcion.tipo }}</td>
                     <td>{{ inscripcion.fechaInicial.slice(0, 10) }}</td>
-                    <td
-                      style="
-                        width: 360px;
-                        display: table;
-                        white-space: pre-wrap;
-                        white-space: -moz-pre-wrap;
-                        white-space: -pre-wrap;
-                        white-space: -o-pre-wrap;
-                        word-wrap: break-word;
-                      "
-                    >
-                      {{ inscripcion.beneficios }}
-                    </td>
+
                     <td>{{ inscripcion.idStartup.correoElectronico }}</td>
                     <td>{{ inscripcion.estado }}</td>
 

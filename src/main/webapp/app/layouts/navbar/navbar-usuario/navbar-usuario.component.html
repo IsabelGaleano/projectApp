@@ -9,7 +9,7 @@
     <div class="main-header-left">
       <div class="main-sidebar-header active">
         <a class="nav-logo desktop-logo logo-light active logo__nav__usuario" href="index.html">
-          <svg width="150" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
+          <svg width="150" height="75" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
             <rect width="125" height="75" fill="#F5F5F5" />
             <g id="Startup_candado_capas">
               <rect width="200" height="75" fill="white" />
@@ -393,21 +393,28 @@
               <div class="dropdown-menu" ngbDropdownMenu>
                 <div class="main-header-profile bg-primary p-3">
                   <div class="d-flex wd-100p">
-                    <div class="main-img-user"><img alt="" src="../assets/img/faces/6.jpg" class="" /></div>
+                    <div class="main-img-user">
+                      <img alt="Profile img" src="{{ usuario.imagenURL }}" class="" />
+                    </div>
                     <div class="ms-3 my-auto">
-                      <h6>Petey Cruiser</h6>
-                      <span>Premium Member</span>
+                      <h6>{{ account!.authorities[0] === 'ROLE_USER' ? usuario.nombre : usuario.nombreCorto }}</h6>
                     </div>
                   </div>
                 </div>
                 <a class="dropdown-item" href=""
-                  ><i class="bx bx-user-circle"> <fa-icon [icon]="faUserCircle"></fa-icon> </i>Perfil</a
+                  ><i class="bx bx-user-circle">
+                    <fa-icon [icon]="faUserCircle"></fa-icon> </i
+                  >Perfil</a
                 >
                 <a class="dropdown-item" href=""
-                  ><i class="bx bxs-inbox"> <fa-icon [icon]="faBell"></fa-icon> </i>Notificaciones</a
+                  ><i class="bx bxs-inbox">
+                    <fa-icon [icon]="faBell"></fa-icon> </i
+                  >Notificaciones</a
                 >
                 <a class="dropdown-item" href=""
-                  ><i class="bx bx-envelope"> <fa-icon [icon]="faMessage"></fa-icon> </i>Mensajes</a
+                  ><i class="bx bx-envelope">
+                    <fa-icon [icon]="faMessage"></fa-icon> </i
+                  >Mensajes</a
                 >
                 <a class="dropdown-item" id="cerrarSesion" (click)="logout()"
                   ><i class="bx bx-log-out">
