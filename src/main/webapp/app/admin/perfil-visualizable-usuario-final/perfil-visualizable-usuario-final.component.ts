@@ -112,12 +112,17 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
         if (!this.usuarioFinal.idMonedero) {
           const monedero = {
             id: 0,
-            tipo: 'STARTUP',
+            tipo: 'Usuario',
             saldo: 0.0,
             estado: 'Sin estado de monedero registrado',
           };
 
           this.usuarioFinal.idMonedero = monedero;
+        } else {
+          this.usuarioFinal.idMonedero.tipo = this.usuarioFinal.idMonedero.tipo.toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          this.usuarioFinal.idMonedero.tipo =
+            this.usuarioFinal.idMonedero.tipo.charAt(0).toUpperCase() + this.usuarioFinal.idMonedero.tipo.slice(1);
         }
 
         if (!this.usuarioFinal.idRol) {
