@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 // import { Usuarios } from 'app/entities/usuarios/usuarios.model';
