@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -130,7 +131,7 @@ export class PerfilAdminComponent implements OnInit {
           // this.formInfoBasica.controls['cedula'].setValue(this.usuario.cedula);
           // this.formInfoBasica.controls['correoElectronico'].setValue(this.usuario.correoElectronico);
           this.formInfoBasica.controls['telefono'].setValue(this.usuario.telefono);
-          this.formInfoBasica.controls['fechaNacimiento'].setValue(this.usuario.fechaNacimiento);
+          this.formInfoBasica.controls['fechaNacimiento'].setValue(this.formatDate(new Date(this.usuario.fechaNacimiento)));
 
           this.fechaFormateada = this.datePipe.transform(this.usuario.fechaNacimiento, 'yyyy-MM-dd');
 
@@ -249,5 +250,9 @@ export class PerfilAdminComponent implements OnInit {
         this.imagenActualizada = false;
       }
     );
+  }
+
+  formatDate(date: Date) {
+    return date.toISOString().slice(0, 10);
   }
 }
