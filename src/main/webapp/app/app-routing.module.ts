@@ -21,6 +21,7 @@ import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago
 import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
 import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones-usuario/lista-donaciones-usuario.component';
+import { ReunionesZoomTestComponent } from './reuniones/reuniones-zoom-test/reuniones-zoom-test.component';
 
 @NgModule({
   imports: [
@@ -108,6 +109,13 @@ import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones
             authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
           },
           component: PagoFinalPaquetesComponent,
+        },
+        {
+          path: 'reuniones-zoom-test',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: ReunionesZoomTestComponent,
         },
         navbarRoute,
         ...errorRoute,
