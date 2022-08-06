@@ -2,10 +2,14 @@ package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.DonacionesPaquetes;
 import com.project.myapp.domain.Rastreador;
+import com.project.myapp.domain.Usuarios;
+import com.project.myapp.repository.DonacionesPaquetesRepository;
 import com.project.myapp.repository.RastreadorRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -36,9 +40,11 @@ public class RastreadorResource {
     private String applicationName;
 
     private final RastreadorRepository rastreadorRepository;
+    private final DonacionesPaquetesRepository donacionesPaquetesRepository;
 
-    public RastreadorResource(RastreadorRepository rastreadorRepository) {
+    public RastreadorResource(RastreadorRepository rastreadorRepository, DonacionesPaquetesRepository donacionesPaquetesRepository) {
         this.rastreadorRepository = rastreadorRepository;
+        this.donacionesPaquetesRepository = donacionesPaquetesRepository;
     }
 
     /**
@@ -196,5 +202,40 @@ public class RastreadorResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/rastreadors/actualizarRastreador/{id}/{latitud}/{longitud}")
+    public void actualizarRatreador(@PathVariable Long id, @PathVariable String latitud, @PathVariable String longitud) {
+        Optional<DonacionesPaquetes> donacion = donacionesPaquetesRepository.findById(id);
+        List<Rastreador> rastreadors = rastreadorRepository.findAllByIdDonacionPaquete(donacion.get());
+        List<Rastreador> rastreadorsActualizacion = new ArrayList<>();
+        for (Rastreador rastreador : rastreadors) {
+            if (rastreador.getDescripcion().equals("Actualizacion")) {
+                rastreadorsActualizacion.add(rastreador);
+            }
+        }
+        ZonedDateTime date = ZonedDateTime.now();
+        Rastreador temp = new Rastreador();
+        if (rastreadorsActualizacion.size() != 0) {
+            for (Rastreador rastreadorT : rastreadorsActualizacion) {
+                rastreadorT.setEstado("Inactivo");
+                rastreadorRepository.save(rastreadorT);
+            }
+            temp.setDescripcion("Actualizacion");
+            temp.setLatitud(latitud);
+            temp.setLongitud(longitud);
+            temp.fecha(date);
+            temp.estado("Activo");
+            temp.setIdDonacionPaquete(donacion.get());
+            rastreadorRepository.save(temp);
+        } else {
+            temp.setDescripcion("Actualizacion");
+            temp.setLatitud(latitud);
+            temp.setLongitud(longitud);
+            temp.fecha(date);
+            temp.estado("Activo");
+            temp.setIdDonacionPaquete(donacion.get());
+            rastreadorRepository.save(temp);
+        }
     }
 }

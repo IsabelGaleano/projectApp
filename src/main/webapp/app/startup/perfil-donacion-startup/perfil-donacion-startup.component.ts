@@ -22,6 +22,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
   successFinal = false;
   map: google.maps.Map | undefined;
   mapEnvio: google.maps.Map | undefined;
+  mapActualizar: google.maps.Map | undefined;
   ubicaciones: any;
   distanceMatrix: any;
   ubicacionInicialRastreador: any;
@@ -90,6 +91,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
     }
     this.cargarMapInicioEnvio();
     this.cargarRastreador();
+    this.cargarMapActualizar();
   }
 
   iniciarEnvio(): void {
@@ -215,118 +217,229 @@ export class PerfilDonacionStartupComponent implements OnInit {
   }
 
   cargarRastreador(): void {
-    // initialize services
-    const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
-    const loader = new Loader({
-      apiKey: key,
-    });
+    this.perfilService.getUbicaciones(this.donacionPaquete).subscribe((result: any) => {
+      if (result) {
+        this.ubicaciones = result;
+        // initialize services
+        const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+        const loader = new Loader({
+          apiKey: key,
+        });
 
-    loader.load().then(() => {
-      let location = {
-        lat: 9.93333,
-        lng: -84.08333,
-      };
-      this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
-        center: location,
-        zoom: 15,
-      });
-
-      for (let i = 0; i < this.ubicaciones.length; i++) {
-        const latitudValue: number = +this.ubicaciones[i].latitud;
-        const longitudValue: number = +this.ubicaciones[i].longitud;
-
-        if (this.ubicaciones[i].descripcion === 'StartupInicio') {
-          this.ubicacionInicialRastreador = {
-            lat: latitudValue,
-            lng: longitudValue,
+        loader.load().then(() => {
+          let location = {
+            lat: 9.93333,
+            lng: -84.08333,
           };
-        }
 
-        if (this.ubicaciones[i].descripcion === 'UsuarioEntrega') {
-          this.ubicacionFinalRastreador = {
-            lat: latitudValue,
-            lng: longitudValue,
-          };
-        }
-
-        if (this.ubicaciones[i].descripcion === 'Actualizacion') {
-          if (this.ubicaciones[i].estado === 'Activo') {
-            this.ubicacionActualRastreador = {
-              lat: latitudValue,
-              lng: longitudValue,
-            };
-            this.existUbicacionActual = true;
+          for (let i = 0; i < this.ubicaciones.length; i++) {
+            const latitudValue: number = +this.ubicaciones[i].latitud;
+            const longitudValue: number = +this.ubicaciones[i].longitud;
+            this.existUbicacionActual = false;
+            if (this.ubicaciones[i].descripcion === 'Actualizacion') {
+              if (this.ubicaciones[i].estado === 'Activo') {
+                this.ubicacionActualRastreador = {
+                  lat: latitudValue,
+                  lng: longitudValue,
+                };
+                this.existUbicacionActual = true;
+              }
+            }
           }
-        }
+
+          for (let i = 0; i < this.ubicaciones.length; i++) {
+            const latitudValue: number = +this.ubicaciones[i].latitud;
+            const longitudValue: number = +this.ubicaciones[i].longitud;
+
+            if (this.existUbicacionActual === false) {
+              if (this.ubicaciones[i].descripcion === 'StartupInicio') {
+                this.ubicacionActualRastreador = {
+                  lat: latitudValue,
+                  lng: longitudValue,
+                };
+              }
+            }
+
+            if (this.ubicaciones[i].descripcion === 'UsuarioEntrega') {
+              this.ubicacionFinalRastreador = {
+                lat: latitudValue,
+                lng: longitudValue,
+              };
+            }
+          }
+
+          this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
+            center: this.ubicacionActualRastreador,
+            zoom: 15,
+          });
+
+          console.warn(this.ubicacionActualRastreador);
+
+          var markerActual = new google.maps.Marker({
+            position: this.ubicacionActualRastreador,
+            title: 'Hello World!',
+          });
+
+          var markerFinal = new google.maps.Marker({
+            position: this.ubicacionFinalRastreador,
+            title: 'Hello World!',
+          });
+
+          markerActual.setMap(this.map);
+          markerFinal.setMap(this.map);
+
+          const flightPlanCoordinates = [this.ubicacionActualRastreador, this.ubicacionFinalRastreador];
+
+          const flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+          });
+
+          flightPath.setMap(this.map);
+
+          const geocoder = new google.maps.Geocoder();
+          const service = new google.maps.DistanceMatrixService();
+
+          const origin1 = this.ubicacionActualRastreador;
+          const destinationB = this.ubicacionFinalRastreador;
+          const request = {
+            origins: [origin1],
+            destinations: [destinationB],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+          };
+
+          service.getDistanceMatrix(request).then(response => {
+            let strOrigin = response.originAddresses[0];
+            const arrayOrigin = strOrigin.split(',');
+
+            let strDestination = response.destinationAddresses[0];
+            const arrayDestination = strDestination.split(',');
+
+            this.distanceMatrix = response;
+            this.destinationAddresses = arrayDestination[1].concat(arrayDestination[2]);
+            this.originAddresses = arrayOrigin[1].concat(arrayOrigin[2]);
+            this.distancia = response.rows[0].elements[0].distance.text;
+            this.duracion = response.rows[0].elements[0].duration.text;
+          });
+        });
       }
+    });
+  }
 
-      const markerInicial = new google.maps.Marker({
-        position: this.ubicacionInicialRastreador,
-        title: 'Hello World!',
-      });
+  cargarMapActualizar(): void {
+    this.perfilService.getUbicaciones(this.donacionPaquete).subscribe((result: any) => {
+      if (result) {
+        this.ubicaciones = result;
+        // initialize services
+        const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+        const loader = new Loader({
+          apiKey: key,
+        });
+        const latitudDireccionForm = <HTMLInputElement>document.getElementById('latitudA');
+        const longitudDireccionForm = <HTMLInputElement>document.getElementById('longitudA');
 
-      console.warn(this.ubicacionActualRastreador);
+        loader.load().then(() => {
+          let location = {
+            lat: 9.93333,
+            lng: -84.08333,
+          };
 
-      var markerActual = new google.maps.Marker({
-        position: this.ubicacionActualRastreador,
-        title: 'Hello World!',
-      });
+          for (let i = 0; i < this.ubicaciones.length; i++) {
+            const latitudValue: number = +this.ubicaciones[i].latitud;
+            const longitudValue: number = +this.ubicaciones[i].longitud;
+            this.existUbicacionActual = false;
+            if (this.ubicaciones[i].descripcion === 'Actualizacion') {
+              if (this.ubicaciones[i].estado === 'Activo') {
+                this.ubicacionActualRastreador = {
+                  lat: latitudValue,
+                  lng: longitudValue,
+                };
+                this.existUbicacionActual = true;
+              }
+            }
+          }
 
-      var markerFinal = new google.maps.Marker({
-        position: this.ubicacionFinalRastreador,
-        title: 'Hello World!',
-      });
+          for (let i = 0; i < this.ubicaciones.length; i++) {
+            const latitudValue: number = +this.ubicaciones[i].latitud;
+            const longitudValue: number = +this.ubicaciones[i].longitud;
 
-      markerInicial.setMap(this.map);
-      markerActual.setMap(this.map);
-      markerFinal.setMap(this.map);
+            if (this.existUbicacionActual === false) {
+              if (this.ubicaciones[i].descripcion === 'StartupInicio') {
+                this.ubicacionActualRastreador = {
+                  lat: latitudValue,
+                  lng: longitudValue,
+                };
+              }
+            }
 
-      const flightPlanCoordinates = [this.ubicacionInicialRastreador];
+            if (this.ubicaciones[i].descripcion === 'UsuarioEntrega') {
+              this.ubicacionFinalRastreador = {
+                lat: latitudValue,
+                lng: longitudValue,
+              };
+            }
+          }
+          this.mapActualizar = new google.maps.Map(<HTMLInputElement>document.getElementById('mapActualizar'), {
+            center: this.ubicacionActualRastreador,
+            zoom: 15,
+          });
 
-      if (this.existUbicacionActual) {
-        flightPlanCoordinates.push(this.ubicacionActualRastreador);
-        flightPlanCoordinates.push(this.ubicacionFinalRastreador);
-      } else {
-        flightPlanCoordinates.push(this.ubicacionFinalRastreador);
+          console.warn(this.ubicacionActualRastreador);
+
+          var markerActual = new google.maps.Marker({
+            position: this.ubicacionActualRastreador,
+            title: 'Hello World!',
+            draggable: true,
+          });
+
+          var markerFinal = new google.maps.Marker({
+            position: this.ubicacionFinalRastreador,
+            title: 'Hello World!',
+          });
+
+          markerActual.setMap(this.mapActualizar);
+          markerFinal.setMap(this.mapActualizar);
+
+          const flightPlanCoordinates = [this.ubicacionActualRastreador, this.ubicacionFinalRastreador];
+
+          const flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+          });
+
+          flightPath.setMap(this.mapActualizar);
+
+          google.maps.event.addListener(
+            markerActual,
+            'dragend',
+            function (evt: { latLng: { lat: () => { (): any; new (): any; toString: { (): string; new (): any } }; lng: () => string } }) {
+              latitudDireccionForm.value = evt.latLng.lat().toString();
+
+              longitudDireccionForm.value = evt.latLng.lng();
+            }
+          );
+        });
       }
+    });
+  }
 
-      const flightPath = new google.maps.Polyline({
-        path: flightPlanCoordinates,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-      });
+  actualizarRastreador(): void {
+    console.warn('prueba');
+    const latitud = <HTMLInputElement>document.getElementById('latitudA');
+    const longitud = <HTMLInputElement>document.getElementById('longitudA');
 
-      flightPath.setMap(this.map);
-
-      const geocoder = new google.maps.Geocoder();
-      const service = new google.maps.DistanceMatrixService();
-
-      const origin1 = this.ubicacionInicialRastreador;
-      const destinationB = this.ubicacionFinalRastreador;
-      const request = {
-        origins: [origin1],
-        destinations: [destinationB],
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false,
-      };
-
-      service.getDistanceMatrix(request).then(response => {
-        let strOrigin = response.originAddresses[0];
-        const arrayOrigin = strOrigin.split(',');
-
-        let strDestination = response.destinationAddresses[0];
-        const arrayDestination = strDestination.split(',');
-
-        this.distanceMatrix = response;
-        this.destinationAddresses = arrayDestination[1].concat(arrayDestination[2]);
-        this.originAddresses = arrayOrigin[1].concat(arrayOrigin[2]);
-        this.distancia = response.rows[0].elements[0].distance.text;
-        this.duracion = response.rows[0].elements[0].duration.text;
-      });
+    this.perfilService.actualizarRastreador(this.donacionPaquete.id, latitud.value, longitud.value).subscribe((result: any) => {
+      this.cargarMapActualizar();
+      this.cargarRastreador();
     });
   }
 

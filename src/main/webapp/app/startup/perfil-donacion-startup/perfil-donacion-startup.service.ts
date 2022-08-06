@@ -41,4 +41,14 @@ export class PerfilDonacionStartupPService {
   getUbicaciones(donacion: Record<string, unknown>): Observable<any> {
     return this.http.post(this.rootURL.concat('/rastreadors/findByDonacionPaquete'), donacion);
   }
+
+  actualizarRastreador(id: any, latitud: string, longitud: string): Observable<any> {
+    if (id != null) {
+      return this.http.get(
+        this.rootURL.concat('/rastreadors/actualizarRastreador/').concat(id).concat('/').concat(latitud).concat('/').concat(longitud)
+      );
+    } else {
+      return this.http.get(this.rootURL.concat('/rastreadors/'));
+    }
+  }
 }

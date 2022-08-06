@@ -299,7 +299,7 @@
                       </div>
                       <div class="tab-pane" id="tab3">
                         <div class="tab-pane">
-                          <h4 class="tx-18 mb-3">Inscripción</h4>
+                          <h4 class="tx-18 mb-3">Rastreador</h4>
                           <div class="col-md-9">
                             <div id="map" style="width: 50vw; height: 50vh"></div>
                           </div>
@@ -326,22 +326,40 @@
                         </div>
                       </div>
                       <div class="tab-pane" id="tab4">
-                        <h4 class="tx-18 mb-3">Monedero</h4>
-                        <div class="p-t-10">
-                          <p><b>Saldo actual</b></p>
-                          <p class="text-muted tx-12 m-b-0" id="saldoMonedero"></p>
+                        <h4 class="tx-18 mb-3">Actualizar ubicación</h4>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-9">
+                              <div id="mapActualizar" style="width: 50vw; height: 50vh"></div>
+                            </div>
+                          </div>
                         </div>
-                        <hr />
-                        <div class="p-t-10">
-                          <p><b>Tipo</b></p>
-                          <p class="text-muted tx-12 m-b-0" id="tipoMonedero"></p>
+                        <p></p>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-3">
+                              <label class="form-label">Latitud</label>
+                            </div>
+                            <div class="col-md-9">
+                              <input class="form-control" name="example-textarea-input" rows="2" id="latitudA" />
+                            </div>
+                          </div>
                         </div>
-                        <hr />
-                        <div class="p-t-10">
-                          <p><b>Estado</b></p>
-                          <p class="text-muted tx-12 m-b-0" id="estadoMonedero"></p>
+                        <p></p>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-3">
+                              <label class="form-label">Longitud</label>
+                            </div>
+                            <div class="col-md-9">
+                              <input class="form-control" name="example-textarea-input" rows="2" id="longitudA" />
+                            </div>
+                          </div>
                         </div>
-                        <hr />
+                        <hr class="mg-y-30" />
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-main-primary btn-block" (click)="actualizarRastreador()">Actualizar</button>
+                        </div>
                       </div>
                       <div class="tab-pane" id="tab5">
                         <div class="card box-shadow-0">
