@@ -110,11 +110,21 @@ export class PerfilAdminComponent implements OnInit {
         this.account = account;
         this.adminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
           this.usuario = data;
+
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.charAt(0).toUpperCase() + this.usuario.idMonedero.tipo.slice(1);
+
           this.adminService.getMovimientosByIdMonedero(data.idMonedero.id).subscribe((dataMovimientos: any) => {
             dataMovimientos.forEach((movimiento: any) => {
+              movimiento.tipo = movimiento.tipo.toLowerCase();
+              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+              movimiento.tipo = movimiento.tipo.charAt(0).toUpperCase() + movimiento.tipo.slice(1);
+
               this.movimientos.push(movimiento);
             });
           });
+
           this.formInfoBasica.controls['nombre'].setValue(this.usuario.nombre);
           this.formInfoBasica.controls['primerApellido'].setValue(this.usuario.primerApellido);
           this.formInfoBasica.controls['segundoApellido'].setValue(this.usuario.segundoApellido);
