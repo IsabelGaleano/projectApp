@@ -14,12 +14,13 @@ import { VerificacionCodigoUsuarioFinalService } from './verificacion-codigo-usu
 export class VerificacionCodigoUsuarioFinalComponent implements OnInit {
   usuarioPendiente = null;
   doNotMatch = false;
-  error = false;
   errorEmailExists = false;
   errorUserExists = false;
   success = false;
+  error = false;
   fail = false;
   codigoReenviado = false;
+  codigoIncorrecto = false;
   loading = false;
   registerForm = this.fb.group({
     login: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
@@ -37,31 +38,33 @@ export class VerificacionCodigoUsuarioFinalComponent implements OnInit {
   verificarCodigo(): void {
     const router = this.router;
     this.doNotMatch = false;
-    this.error = false;
     this.errorEmailExists = false;
     this.errorUserExists = false;
-
+    let esCodigo = false;
     const codigoVerificacionDigitado = this.registerForm.get(['login'])!.value;
     this.verificacionCodigoUsuarioService.getUsersByMail(sessionStorage.getItem('usuarioFinalPendiente')).subscribe((dataUsuario: any) => {
       this.verificacionCodigoUsuarioService.getCodesById(dataUsuario.id).subscribe((dataCodigo: any) => {
         for (let i = 0; i < Object.keys(dataCodigo).length; i++) {
           if (dataCodigo[i].codigo === codigoVerificacionDigitado && dataCodigo[i].estado === 'Activo') {
-            console.warn('Es el código');
             dataUsuario.estado = 'Activo';
             dataCodigo[i].estado = 'Inactivo';
-            this.verificacionCodigoUsuarioService.updateUsers(dataUsuario.id, dataUsuario).subscribe((dataUsuarioActualizado: any) => {
-              console.warn(dataUsuarioActualizado);
-            });
-            this.verificacionCodigoUsuarioService.updateCodes(dataCodigo[i].id, dataCodigo[i]).subscribe((dataCodigoActualizado: any) => {
-              console.warn(dataCodigoActualizado);
-              this.success = true;
-              window.setTimeout(function () {
-                router.navigate(['login']);
-              }, 3000);
-            });
+            this.verificacionCodigoUsuarioService.updateUsers(dataUsuario.id, dataUsuario);
+            this.verificacionCodigoUsuarioService.updateCodes(dataCodigo[i].id, dataCodigo[i]);
+            esCodigo = true;
           } else {
-            this.error = true;
+            esCodigo = false;
           }
+        }
+        if (esCodigo) {
+          this.success = true;
+          window.setTimeout(function () {
+            router.navigate(['login']);
+          }, 4000);
+        } else {
+          this.codigoIncorrecto = true;
+          setTimeout(() => {
+            this.codigoIncorrecto = false;
+          }, 3000);
         }
       });
     });
@@ -72,14 +75,11 @@ export class VerificacionCodigoUsuarioFinalComponent implements OnInit {
         for (let i = 0; i < Object.keys(dataCodigo).length; i++) {
           if (dataCodigo[i].estado === 'Activo') {
             dataCodigo[i].estado = 'Inactivo';
-            this.verificacionCodigoUsuarioService.updateCodes(dataCodigo[i].id, dataCodigo[i]).subscribe((dataCodigoActualizado: any) => {
-              console.warn(dataCodigoActualizado);
-            });
+            this.verificacionCodigoUsuarioService.updateCodes(dataCodigo[i].id, dataCodigo[i]);
           }
         }
       });
       this.verificacionCodigoUsuarioService.reenviarCodes(dataUsuario.id).subscribe((dataCodigoReenvidado: any) => {
-        console.warn(dataCodigoReenvidado);
         this.codigoReenviado = true;
         setTimeout(() => {
           this.codigoReenviado = false;

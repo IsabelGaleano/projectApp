@@ -23,6 +23,7 @@ export class PerfilVisualizableStartupComponent implements OnInit {
   faWallet = faWallet;
   faUserCheck = faUserCheck;
   faIdCard = faIdCard;
+  arrayBeneficiosI: any;
 
   constructor(private perfilVisualizableStartupService: PerfilVisualizableStartupService, private datePipe: DatePipe) {}
 
@@ -111,12 +112,16 @@ export class PerfilVisualizableStartupComponent implements OnInit {
       if (!this.startup.idMonedero) {
         const monedero = {
           id: 0,
-          tipo: 'STARTUP',
+          tipo: 'Startup',
           saldo: 0.0,
           estado: 'Sin estado de monedero registrado',
         };
 
         this.startup.idMonedero = monedero;
+      } else {
+        this.startup.idMonedero.tipo = this.startup.idMonedero.tipo.toLowerCase();
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        this.startup.idMonedero.tipo = this.startup.idMonedero.tipo.charAt(0).toUpperCase() + this.startup.idMonedero.tipo.slice(1);
       }
 
       if (!this.startup.idCategoria) {
@@ -167,6 +172,8 @@ export class PerfilVisualizableStartupComponent implements OnInit {
 
             if (!this.inscripcion.beneficios) {
               this.inscripcion.beneficios = 'No existen beneficios de inscripción registrados';
+            } else {
+              this.arrayBeneficiosI = inscripciones.beneficios.split('-');
             }
 
             if (!this.inscripcion.estado) {

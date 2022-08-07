@@ -28,7 +28,7 @@
                 <hr class="mg-y-30" />
                 <div class="row">
                   <div class="col-sm-6">
-                    <label class="main-profile-name tx-20 mg-b-20">Información social</label>
+                    <label class="main-content-label tx-15 mg-b-20">Información social</label>
                   </div>
                 </div>
                 <div class="main-profile-social-list main-profile-contact-list">
@@ -37,8 +37,8 @@
                       <fa-icon [icon]="faEnvelope"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Correo</span>
-                      <div id="correoSidebar">{{ usuarioFinal.correoElectronico }}</div>
+                      <h5 class="mb-1 tx-15">Correo electrónico</h5>
+                      <p class="mb-0 tx-14">{{ usuarioFinal.correoElectronico }}</p>
                     </div>
                   </div>
                   <div class="media">
@@ -46,8 +46,8 @@
                       <fa-icon [icon]="faPhone"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Teléfono</span>
-                      <div id="telefonoSidebar">{{ usuarioFinal.telefono }}</div>
+                      <h5 class="mb-1 tx-15">Teléfono</h5>
+                      <p class="mb-0 tx-14">{{ usuarioFinal.telefono }}</p>
                     </div>
                   </div>
                   <div class="media">
@@ -55,8 +55,8 @@
                       <fa-icon [icon]="faIdCard"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Cédula</span>
-                      <div id="cedulaSidebar">{{ usuarioFinal.cedula }}</div>
+                      <h5 class="mb-1 tx-15">Cédula</h5>
+                      <p class="mb-0 tx-14">{{ usuarioFinal.cedula }}</p>
                     </div>
                   </div>
                   <div class="media">
@@ -64,8 +64,8 @@
                       <fa-icon [icon]="faUser"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Tipo de usuario</span>
-                      <div id="tipoUsuarioSidebar">{{ usuarioFinal.tipoUsuarioFinal }}</div>
+                      <h5 class="mb-1 tx-15">Tipo de usuario</h5>
+                      <p class="mb-0 tx-14">{{ usuarioFinal.tipoUsuarioFinal }}</p>
                     </div>
                   </div>
                 </div>
@@ -82,7 +82,7 @@
               <div class="main-profile-overview">
                 <div class="row">
                   <div class="col-sm-6">
-                    <label class="main-profile-name tx-20 mg-b-20">Información de sitio</label>
+                    <label class="main-content-label tx-15 mg-b-25">Información de sitio</label>
                   </div>
                 </div>
                 <div class="main-profile-social-list main-profile-contact-list">
@@ -91,8 +91,8 @@
                       <fa-icon [icon]="faUserCheck"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Estado de cuenta</span>
-                      <div id="estadoSidebar">{{ usuarioFinal.estado }}</div>
+                      <h5 class="mb-1 tx-15">Estado de cuenta</h5>
+                      <p class="mb-0 tx-14">{{ usuarioFinal.estado }}</p>
                     </div>
                   </div>
                   <div class="media">
@@ -100,8 +100,8 @@
                       <fa-icon [icon]="faWallet"></fa-icon>
                     </div>
                     <div class="media-body">
-                      <span>Monedero</span>
-                      <div id="monederoEstadoSidebar">{{ usuarioFinal.idMonedero.estado }}</div>
+                      <h5 class="mb-1 tx-15">Monedero</h5>
+                      <p class="mb-0 tx-14">{{ usuarioFinal.idMonedero.estado }}</p>
                     </div>
                   </div>
                 </div>
@@ -128,7 +128,7 @@
                       <!-- Tabs -->
                       <ul class="nav panel-tabs main-nav-line">
                         <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Perfil</a></li>
-                        <!-- <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Contraseña</a></li> -->
+                        <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Monedero</a></li>
                       </ul>
                     </div>
                   </div>
@@ -303,6 +303,60 @@
                             </div>
                           </div>
                         </form>
+                      </div>
+
+                      <div class="tab-pane" id="tab2">
+                        <div class="row">
+                          <div class="col-xl-12 col-md-12">
+                            <div>
+                              <div>
+                                <div id="monedero-monedero">
+                                  <div class="main-content-label tx-15 mg-b-25">Monedero</div>
+                                  <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                                    <tbody>
+                                      <tr>
+                                        <td class="tx-right tx-medium tx-inverse">Saldo actual</td>
+                                        <td>{{ usuarioFinal.idMonedero.saldo }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="tx-right tx-medium tx-inverse">Tipo</td>
+                                        <td>{{ usuarioFinal.idMonedero.tipo }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="tx-right tx-medium tx-inverse">Estado</td>
+                                        <td>{{ usuarioFinal.idMonedero.estado }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+
+                                <div id="monedero-movimientos">
+                                  <div class="main-content-label tx-15 mg-b-25">Movimientos</div>
+                                  <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                                    <tbody *ngFor="let movimiento of movimientos; index as i">
+                                      <tr>
+                                        <td class="tx-right tx-medium tx-inverse">Id</td>
+                                        <td>{{ movimiento.id }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="tx-right tx-medium tx-inverse">Tipo</td>
+                                        <td>{{ movimiento.tipo }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="tx-right tx-medium tx-inverse">Monto</td>
+                                        <td>{{ movimiento.monto }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="tx-right tx-medium tx-inverse">Descripción</td>
+                                        <td>{{ movimiento.descripcion }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

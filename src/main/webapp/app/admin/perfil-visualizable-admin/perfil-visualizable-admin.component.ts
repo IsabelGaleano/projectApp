@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { faEdit, faEnvelope, faPhone, faLink, faCalendarDays, faWallet, faUserCheck, faIdCard } from '@fortawesome/free-solid-svg-icons';
 
 import { ListaAdministradoresService } from '../lista-administradores/lista-administradores.service';
 @Component({
@@ -10,6 +11,14 @@ import { ListaAdministradoresService } from '../lista-administradores/lista-admi
 export class PerfilVisualizableAdminComponent implements OnInit {
   usuario: any;
   correoSession?: string;
+  faEdit = faEdit;
+  faEnvelope = faEnvelope;
+  faPhone = faPhone;
+  faLink = faLink;
+  faCalendarDays = faCalendarDays;
+  faWallet = faWallet;
+  faUserCheck = faUserCheck;
+  faIdCard = faIdCard;
 
   constructor(private appService: ListaAdministradoresService, private datePipe: DatePipe) {}
 
@@ -81,12 +90,16 @@ export class PerfilVisualizableAdminComponent implements OnInit {
         if (!this.usuario.idMonedero) {
           const monedero = {
             id: 0,
-            tipo: 'STARTUP',
+            tipo: 'Admin',
             saldo: 0.0,
             estado: 'Sin estado de monedero registrado',
           };
 
           this.usuario.idMonedero = monedero;
+        } else {
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.charAt(0).toUpperCase() + this.usuario.idMonedero.tipo.slice(1);
         }
 
         if (!this.usuario.idRol) {
