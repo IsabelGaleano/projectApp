@@ -135,7 +135,7 @@
                               </tr>
                               <tr>
                                 <td class="tx-right tx-medium tx-inverse">Monto</td>
-                                <td>{{ paquete.monto }}</td>
+                                <td>${{ paquete.monto }}</td>
                               </tr>
                               <tr>
                                 <td class="tx-right tx-medium tx-inverse">Dimensiones</td>
@@ -143,7 +143,7 @@
                               </tr>
                               <tr>
                                 <td class="tx-right tx-medium tx-inverse">Monto de envío</td>
-                                <td>{{ donacionPaquete.montoEnvio }}</td>
+                                <td>${{ donacionPaquete.montoEnvio }}</td>
                               </tr>
                               <tr>
                                 <td class="tx-right tx-medium tx-inverse">Monto de envío</td>
@@ -151,7 +151,7 @@
                               </tr>
                               <tr>
                                 <td class="tx-right tx-medium tx-inverse">Monto total</td>
-                                <td>{{ donacionPaquete.montoTotal }}</td>
+                                <td>${{ donacionPaquete.montoTotal }}</td>
                               </tr>
                               <tr>
                                 <td class="tx-right tx-medium tx-inverse">Estado</td>
@@ -162,7 +162,41 @@
                         </div>
                       </div>
                       <div class="tab-pane" id="tab2">
-                        <h6 class="card-title tx-14 mb-4">Información de envío</h6>
+                        <h6 class="card-title tx-14 mb-4">Información inicial de envío</h6>
+                        <div class="table-responsive country-table">
+                          <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <tbody>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Fecha inicial</td>
+                                <td id="fechaInicial"></td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Fecha posible de entrega</td>
+                                <td id="fechaEntrega"></td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Días posibles de retraso</td>
+                                <td id="diasRetraso"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <p class="mb-4"></p>
+                        <h6 class="card-title tx-14 mb-4">Información final de envío</h6>
+                        <div class="table-responsive country-table">
+                          <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <tbody>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Fecha final de entrega</td>
+                                <td id="fechaFinalEntrega"></td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Días de retraso</td>
+                                <td id="diasRetrasoFinal"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                       <div class="tab-pane" id="tab3">
                         <h6 class="card-title tx-14 mb-4">Rastreador</h6>

@@ -24,6 +24,7 @@ export class PerfilDonacionUsuarioComponent implements OnInit {
   originAddresses: any;
   distancia: any;
   duracion: any;
+  tabInicial: any = '';
 
   constructor(private router: Router, private perfilService: PerfilDonacionUsuarioService, private fb: FormBuilder) {
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaqueteUsuario);
@@ -48,6 +49,18 @@ export class PerfilDonacionUsuarioComponent implements OnInit {
     const fechatemp = new Date(this.donacionPaquete.fechaDonacion);
     console.warn(fechatemp.toLocaleString());
     this.dateDonacion = fechatemp.toLocaleString();
+
+    if (this.donacionPaquete.fechaInicialEnvio != null) {
+      this.cargarInfoInicial();
+    } else {
+      this.cargarInfoInicialNula();
+    }
+
+    if (this.donacionPaquete.fechaEntrega != null) {
+      this.cargarInfoFinal();
+    } else {
+      this.cargarInfoFinalNula();
+    }
   }
 
   cargarRastreador(): void {
@@ -102,7 +115,7 @@ export class PerfilDonacionUsuarioComponent implements OnInit {
             }
           }
 
-          this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
+          const map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
             center: this.ubicacionActualRastreador,
             zoom: 15,
           });
@@ -119,8 +132,8 @@ export class PerfilDonacionUsuarioComponent implements OnInit {
             title: 'Hello World!',
           });
 
-          markerActual.setMap(this.map);
-          markerFinal.setMap(this.map);
+          markerActual.setMap(map);
+          markerFinal.setMap(map);
 
           const flightPlanCoordinates = [this.ubicacionActualRastreador, this.ubicacionFinalRastreador];
 
@@ -132,7 +145,7 @@ export class PerfilDonacionUsuarioComponent implements OnInit {
             strokeWeight: 2,
           });
 
-          flightPath.setMap(this.map);
+          flightPath.setMap(map);
 
           const geocoder = new google.maps.Geocoder();
           const service = new google.maps.DistanceMatrixService();
@@ -160,12 +173,66 @@ export class PerfilDonacionUsuarioComponent implements OnInit {
             this.originAddresses = arrayOrigin[1].concat(arrayOrigin[2]);
             this.distancia = response.rows[0].elements[0].distance.text;
             this.duracion = response.rows[0].elements[0].duration.text;
+
+            const contentString = `<h5 class="mb-1 tx-15">${this.distancia} de distancia</h5> 
+                                    <h5 class="mb-1 tx-15">${this.duracion} de duración</h5>`;
+
+            const infowindow = new google.maps.InfoWindow({
+              content: contentString,
+            });
+
+            markerActual.addListener('click', () => {
+              infowindow.open({
+                anchor: markerActual,
+                map,
+                shouldFocus: false,
+              });
+            });
           });
         });
       }
     });
   }
 
+  cargarInfoInicial(): void {
+    const fechaInicial = document.getElementById('fechaInicial') as HTMLInputElement;
+    const fechaEntrega = document.getElementById('fechaEntrega') as HTMLInputElement;
+    const diasRetraso = document.getElementById('diasRetraso') as HTMLInputElement;
+    const dateInicial = new Date(this.donacionPaquete.fechaInicialEnvio);
+    const dateEntrega = new Date(this.donacionPaquete.fechaPosibleEntrega);
+    dateInicial.setDate(dateInicial.getDate() + 1);
+    dateEntrega.setDate(dateEntrega.getDate() + 1);
+    fechaInicial.insertAdjacentText('beforeend', dateInicial.toLocaleString());
+    fechaEntrega.insertAdjacentText('beforeend', dateEntrega.toLocaleString());
+    diasRetraso.insertAdjacentText('beforeend', this.donacionPaquete.diasRetraso);
+  }
+
+  cargarInfoInicialNula(): void {
+    const data = 'Dato no registrado';
+    const fechaInicial = document.getElementById('fechaInicial') as HTMLInputElement;
+    const fechaEntrega = document.getElementById('fechaEntrega') as HTMLInputElement;
+    const diasRetraso = document.getElementById('diasRetraso') as HTMLInputElement;
+    fechaInicial.insertAdjacentText('beforeend', data);
+    fechaEntrega.insertAdjacentText('beforeend', data);
+    diasRetraso.insertAdjacentText('beforeend', data);
+  }
+
+  cargarInfoFinal(): void {
+    const fechaFinal = document.getElementById('fechaFinalEntrega') as HTMLInputElement;
+    const diasRetrasoFinal = document.getElementById('diasRetrasoFinal') as HTMLInputElement;
+    const dateFinal = new Date(this.donacionPaquete.fechaEntrega);
+    dateFinal.setDate(dateFinal.getDate() + 1);
+    fechaFinal.insertAdjacentText('beforeend', dateFinal.toLocaleString());
+    diasRetrasoFinal.insertAdjacentText('beforeend', this.donacionPaquete.diasRetraso);
+  }
+
+  cargarInfoFinalNula(): void {
+    const data = 'Dato no registrado';
+    const fechaFinal = document.getElementById('fechaFinalEntrega') as HTMLInputElement;
+    const diasRetrasoFinal = document.getElementById('diasRetrasoFinal') as HTMLInputElement;
+    fechaFinal.insertAdjacentText('beforeend', data);
+    diasRetrasoFinal.insertAdjacentText('beforeend', data);
+  }
   desencriptar(s: string): string {
     const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
     let strDescodificado = '';

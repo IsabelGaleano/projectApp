@@ -49,6 +49,14 @@ export class PerfilDonacionStartupComponent implements OnInit {
 
   constructor(private router: Router, private perfilService: PerfilDonacionStartupPService, private fb: FormBuilder) {
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaqueteStartup);
+    if (this.donacionPaquete.diasRetraso != null) {
+      this.isEnabled = true;
+      this.cargarInFoInicialEnvio();
+    }
+    if (this.donacionPaquete.fechaEntrega != null) {
+      this.isEnabledFinal = true;
+      this.cargarInFoFinalEntrega();
+    }
 
     console.warn(this.donacionPaquete);
 
@@ -83,14 +91,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
     const fechatemp = new Date(this.donacionPaquete.fechaDonacion);
     console.warn(fechatemp.toLocaleString());
     this.dateDonacion = fechatemp.toLocaleString();
-    if (this.donacionPaquete.diasRetraso != null) {
-      this.isEnabled = true;
-      this.cargarInFoInicialEnvio();
-    }
-    if (this.donacionPaquete.fechaEntrega != null) {
-      this.isEnabledFinal = true;
-      this.cargarInFoFinalEntrega();
-    }
   }
 
   iniciarEnvio(): void {
@@ -123,6 +123,8 @@ export class PerfilDonacionStartupComponent implements OnInit {
             console.warn(dataRastreador);
             this.isEnabled = true;
             this.cargarInFoInicialEnvio();
+            this.cargarRastreador();
+            this.cargarMapActualizar();
           }
         });
       }
@@ -142,6 +144,9 @@ export class PerfilDonacionStartupComponent implements OnInit {
         console.warn(result);
         this.isEnabledFinal = true;
         this.cargarInFoFinalEntrega();
+        this.cargarMapInicioEnvio();
+        this.cargarMapActualizar();
+        this.cargarRastreador();
       }
     });
   }
@@ -267,7 +272,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
             }
           }
 
-          this.map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
+          const map = new google.maps.Map(<HTMLInputElement>document.getElementById('map'), {
             center: this.ubicacionActualRastreador,
             zoom: 15,
           });
@@ -284,8 +289,8 @@ export class PerfilDonacionStartupComponent implements OnInit {
             title: 'Hello World!',
           });
 
-          markerActual.setMap(this.map);
-          markerFinal.setMap(this.map);
+          markerActual.setMap(map);
+          markerFinal.setMap(map);
 
           const flightPlanCoordinates = [this.ubicacionActualRastreador, this.ubicacionFinalRastreador];
 
@@ -297,7 +302,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
             strokeWeight: 2,
           });
 
-          flightPath.setMap(this.map);
+          flightPath.setMap(map);
 
           const geocoder = new google.maps.Geocoder();
           const service = new google.maps.DistanceMatrixService();
@@ -325,6 +330,36 @@ export class PerfilDonacionStartupComponent implements OnInit {
             this.originAddresses = arrayOrigin[1].concat(arrayOrigin[2]);
             this.distancia = response.rows[0].elements[0].distance.text;
             this.duracion = response.rows[0].elements[0].duration.text;
+
+            const contentString = `<h5 class="mb-1 tx-15">Ubicación inicial: ${this.originAddresses}</h5> 
+                                    <h5 class="mb-1 tx-15">${this.distancia} de distancia</h5> 
+                                    <h5 class="mb-1 tx-15">${this.duracion} de duración</h5>`;
+
+            const contentStringF = `<h5 class="mb-1 tx-15">Ubicación final: ${this.destinationAddresses}</h5>`;
+
+            const infowindow = new google.maps.InfoWindow({
+              content: contentString,
+            });
+
+            const infowindowF = new google.maps.InfoWindow({
+              content: contentStringF,
+            });
+
+            markerActual.addListener('click', () => {
+              infowindow.open({
+                anchor: markerActual,
+                map,
+                shouldFocus: false,
+              });
+            });
+
+            markerFinal.addListener('click', () => {
+              infowindowF.open({
+                anchor: markerFinal,
+                map,
+                shouldFocus: false,
+              });
+            });
           });
         });
       }
@@ -439,6 +474,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
     this.perfilService.actualizarRastreador(this.donacionPaquete.id, latitud.value, longitud.value).subscribe((result: any) => {
       this.cargarMapActualizar();
       this.cargarRastreador();
+      this.cargarMapInicioEnvio();
     });
   }
 
