@@ -49,7 +49,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
 
   constructor(private router: Router, private perfilService: PerfilDonacionStartupPService, private fb: FormBuilder) {
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaqueteStartup);
-    //setInterval(this.mandarMensaje, 1000);
 
     console.warn(this.donacionPaquete);
 
@@ -84,7 +83,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
     const fechatemp = new Date(this.donacionPaquete.fechaDonacion);
     console.warn(fechatemp.toLocaleString());
     this.dateDonacion = fechatemp.toLocaleString();
-    console.warn(this.ubicaciones);
     if (this.donacionPaquete.diasRetraso != null) {
       this.isEnabled = true;
       this.cargarInFoInicialEnvio();
@@ -93,10 +91,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
       this.isEnabledFinal = true;
       this.cargarInFoFinalEntrega();
     }
-  }
-
-  mandarMensaje(): void {
-    alert('Ha pasado 1 segundo.');
   }
 
   iniciarEnvio(): void {
