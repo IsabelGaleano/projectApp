@@ -49,6 +49,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
 
   constructor(private router: Router, private perfilService: PerfilDonacionStartupPService, private fb: FormBuilder) {
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaqueteStartup);
+    //setInterval(this.mandarMensaje, 1000);
 
     console.warn(this.donacionPaquete);
 
@@ -73,6 +74,9 @@ export class PerfilDonacionStartupComponent implements OnInit {
     this.perfilService.getUbicaciones(this.donacionPaquete).subscribe((resultUbicaciones: any) => {
       if (resultUbicaciones) {
         this.ubicaciones = resultUbicaciones;
+        this.cargarMapInicioEnvio();
+        this.cargarRastreador();
+        this.cargarMapActualizar();
       }
     });
   }
@@ -89,9 +93,10 @@ export class PerfilDonacionStartupComponent implements OnInit {
       this.isEnabledFinal = true;
       this.cargarInFoFinalEntrega();
     }
-    this.cargarMapInicioEnvio();
-    this.cargarRastreador();
-    this.cargarMapActualizar();
+  }
+
+  mandarMensaje(): void {
+    alert('Ha pasado 1 segundo.');
   }
 
   iniciarEnvio(): void {
