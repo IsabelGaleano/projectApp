@@ -1,0 +1,34 @@
+#info-fecha:hover {
+  cursor: pointer;
+}
+
+.lbl-subir-imagen {
+  display: contents !important;
+  color: #0162e8 !important;
+}
+
+.lbl-subir-imagen:hover {
+  cursor: pointer;
+}
+
+#selecccionarImagen {
+  display: none;
+}
+
+.correo-monedero dd {
+  font-size: 1rem !important;
+}
+.correo-monedero dt {
+  font-size: 1rem !important;
+}
+
+.correo-movimientos dd {
+  font-size: 1rem !important;
+}
+.correo-movimientos dt {
+  font-size: 1rem !important;
+}
+
+#monedero-movimientos {
+  margin-top: 3%;
+}

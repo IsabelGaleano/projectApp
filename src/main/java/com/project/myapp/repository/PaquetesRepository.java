@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Paquetes;
+import com.project.myapp.domain.Startups;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,8 @@ public interface PaquetesRepository extends JpaRepository<Paquetes, Long> {
     default Page<Paquetes> findAllWithEagerRelationships(Pageable pageable) {
         return this.findAllWithToOneRelationships(pageable);
     }
+
+    public List<Paquetes> findAllByIdStartup(Startups startups);
 
     @Query(
         value = "select distinct paquetes from Paquetes paquetes left join fetch paquetes.idStartup",

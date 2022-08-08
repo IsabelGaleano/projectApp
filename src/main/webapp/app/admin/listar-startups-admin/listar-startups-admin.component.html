@@ -1,0 +1,83 @@
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <div class="row row-sm">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <!-- <div class="btn-group mx-2 mt-2 mb-2" role="group" aria-label="First group"> -->
+            <div class="d-flex justify-content-between">
+              <h4 style="display: inline" class="card-title mg-b-0">Lista de startups</h4>
+              <i class="mdi mdi-dots-horizontal text-gray"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 text-md-nowrap">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <!-- <th>Teléfono</th>
+                    <th>Descripción corta</th>
+                    <th>Beneficios</th> -->
+                    <!-- <th>Monto meta</th> -->
+                    <!-- <th>Sitio web</th>-->
+                    <!-- <th>Fecha de Creación</th> -->
+                    <th>Estado</th>
+                    <th class="table-header-centered">Activar</th>
+                    <th class="table-header-centered">Desactivar</th>
+                    <th class="table-header-centered">Perfil</th>
+                    <th class="table-header-centered">Perfil Comercial</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let startup of startups; index as i">
+                  <tr>
+                    <td>{{ startup.nombreCorto }}</td>
+                    <td>{{ startup.correoElectronico }}</td>
+                    <!-- <td>{{ startup.telefono }}</td> -->
+                    <!-- <td>{{ startup.descripcionCorta }}</td> -->
+                    <!-- <td>{{ startup.beneficios }}</td> -->
+                    <!-- <td>{{ startup.montoMeta }}</td> -->
+                    <!-- <td>{{ startup.linkSitioWeb }}</td> -->
+                    <!-- <td>{{ startup.fechaCreacion }}</td> -->
+                    <td>{{ startup.estado }}</td>
+
+                    <td>
+                      <button
+                        class="btn btn-success btn-block"
+                        (click)="activarStartup($event)"
+                        value="{{ startup.id }},{{ startup.estado }}"
+                      >
+                        Activar
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        class="btn btn-danger btn-block"
+                        (click)="desactivarStartup($event)"
+                        value="{{ startup.id }},{{ startup.estado }}"
+                      >
+                        Desactivar
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary btn-block" (click)="redireccionarPerfilVisualizableStartup(startup.correoElectronico)">
+                        Ver Perfil
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-info btn-block" (click)="redireccionarPerfilComercialStartup(startup.correoElectronico)">
+                        Ver Perfil Comercial
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="page overflow-hidden">
+  <div class="main-container container-fluid">
+    <div class="row no-gutter">
+      <!-- The image half -->
+      <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
+        <div class="row wd-100p mx-auto text-center">
+          <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
+          </div>
+        </div>
+      </div>
+      <!-- The content half -->
+      <div class="col-md-6 col-lg-6 col-xl-5 bg-white py-4">
+        <div class="login d-flex align-items-center py-2">
+          <!-- Demo content-->
+          <div class="container p-0">
+            <div class="row">
+              <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
+                <div class="mb-5 d-flex"></div>
+                <div class="main-card-signin d-md-flex">
+                  <div class="wd-100p">
+                    <div class="main-signin-header">
+                      <h2>Validar código de recuperación</h2>
+                      <form #codeform="ngForm" action="#">
+                        <div class="form-group">
+                          <label>Código</label>
+                          <input
+                            required
+                            [(ngModel)]="code"
+                            #validateOTP="ngModel"
+                            name="validateOTP"
+                            class="form-control"
+                            placeholder="Ingrese el código"
+                            type="text"
+                          />
+                        </div>
+                        <button [disabled]="codeform.invalid" (click)="validate()" class="btn btn-main-primary btn-block">
+                          <p *ngIf="!loading" class="mb-0">Comprobar</p>
+                          <div *ngIf="loading" class="spinner-btn spinner-border text-light" role="status"></div>
+                        </button>
+                        <div class="main-signup-footer mt-5">
+                          <p>
+                            Puede usar este link para
+                            <button class="btn btn-link mt-0" (click)="reSendCode()">Reenviar Código</button>
+                          </p>
+
+                        <div>
+                          <div class="alert alert-success" *ngIf="info">
+                            <strong>Código reenviado!</strong> Revise su correo electrónico de nuevo.
+                          </div>
+
+                          <div class="alert alert-danger" *ngIf="error"><strong>Código incorrecto.</strong> Inténtelo de nuevo.</div>
+                        </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End -->
+        </div>
+      </div>
+      <!-- End -->
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/config/error.constants';
 import { RegisterStartupService } from './register-startup.service';
@@ -18,6 +19,7 @@ export class RegisterStartupComponent implements AfterViewInit {
   errorEmailExists = false;
   errorUserExists = false;
   success = false;
+  loading = false;
 
   registerForm = this.fb.group({
     login: [
@@ -34,7 +36,12 @@ export class RegisterStartupComponent implements AfterViewInit {
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
 
-  constructor(private translateService: TranslateService, private registerService: RegisterStartupService, private fb: FormBuilder) {}
+  constructor(
+    private translateService: TranslateService,
+    private registerService: RegisterStartupService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngAfterViewInit(): void {
     if (this.login) {
@@ -43,6 +50,8 @@ export class RegisterStartupComponent implements AfterViewInit {
   }
 
   register(): void {
+    this.loading = true;
+    const router = this.router;
     this.doNotMatch = false;
     this.error = false;
     this.errorEmailExists = false;
@@ -54,9 +63,11 @@ export class RegisterStartupComponent implements AfterViewInit {
     } else {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
+      sessionStorage.setItem('startupPendiente', email);
       this.registerService
         .save({ login, email, password, langKey: this.translateService.currentLang })
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+        .subscribe({ next: () => (this.success = false), error: response => this.processError(response) });
+      router.navigate(['account/verificacion-startup']);
     }
   }
 

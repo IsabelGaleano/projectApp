@@ -1,5 +1,6 @@
 package com.project.myapp.repository;
 
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Votos;
 import java.util.List;
 import java.util.Optional;
@@ -37,4 +38,13 @@ public interface VotosRepository extends JpaRepository<Votos, Long> {
 
     @Query("select votos from Votos votos left join fetch votos.idStartup left join fetch votos.idUsuario where votos.id =:id")
     Optional<Votos> findOneWithToOneRelationships(@Param("id") Long id);
+
+    @Query("SELECT COUNT(V.id) FROM Votos V WHERE V.idStartup = ?1")
+    int getVotosByStartup(Startups startup);
+
+    @Query("SELECT COUNT(V.id) FROM Votos V WHERE V.idStartup.id = :id")
+    int findAllByIdStartup(@Param("id") Long id);
+
+    @Query("SELECT V FROM Votos V WHERE V.idStartup.id = :idStartup and V.idUsuario.id = :idUsuario")
+    Optional<Votos> findAllByIdStartupAndIdUsuario(@Param("idStartup") Long idStartup, @Param("idUsuario") Long idUsuario);
 }

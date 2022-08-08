@@ -1,0 +1,109 @@
+<!-- <style>
+  .main-content {
+    max-width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+  }
+
+  .startup-cards {
+    width: 100%;
+  }
+
+  .card-img-top {
+    max-width: 357px;
+    max-height: 237px;
+  }
+
+  .card-categoria {
+    height: auto;
+  }
+
+  .card-categoria:hover {
+    cursor: pointer;
+  }
+
+  .img-lista {
+    height: 100%;
+  }
+</style> -->
+
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+      <div class="startup-cards">
+        <h2>Categorías de Startups</h2>
+        <br />
+        <div class="card-body pb-0">
+          <div class="input-group mb-2">
+            <input type="text" class="form-control rounded-3 br-te-0 br-be-0" placeholder="Buscar..." (input)="filtrarStartups($event)" />
+          </div>
+        </div>
+        <div class="categorias--filter__cnt container-fluid py-2">
+          <div class="row d-flex flex-row flex-nowrap categorias__cards__cnt overflow-auto">
+            <div class="col-md-6 col-xl-3" *ngFor="let categoria of categoriasInfo; let i = index">
+              <div class="card card-categoria">
+                <a (click)="redireccionarACategoria(categoria.categoria.categoria)">
+                  <div class="card-body">
+                    <div class="tx-16 mb-1">
+                      <fa-icon [icon]="categoria.infoCategoria.iconoCategoria"></fa-icon>
+                      {{ categoria.categoria.categoria }}
+                      <div class="float-end tx-13 text-muted mt-1">
+                        Cantidad de startups: {{ categoria.infoCategoria.cantidadCategoria }}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <h2>Lista de Startups por más Votos</h2>
+        <br />
+        <div class="row">
+          <ng-container *ngIf="startupsExistentes; else noExistentes">
+            <div class="col-12 col-sm-6 col-lg-6 col-xl-3" *ngFor="let startup of startupsFiltered; index as i">
+              <div class="card card-primary">
+                <img class="card-img-top img-lista" src="{{ startup.start.imagenURL }}" alt="Card image cap" />
+                <div class="card-header pb-0">
+                  <h5 class="card-title mb-0 pb-0">{{ startup.start.nombreCorto }}</h5>
+                </div>
+                <div class="card-body text-primary descripcion-corta">
+                  <span><b>Descripción: </b>{{ startup.start.descripcionCorta }}</span>
+                </div>
+                <div class="card-footer" style="text-align: center">
+                  <button
+                    (click)="redireccionarAPerfilStartup(startup.start.correoElectronico)"
+                    class="btn btn-primary waves-effect waves-light"
+                  >
+                    Visitar Startup
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noExistentes>
+            <div class="msg-no-startups">
+              <h1>No existen startups activas en este momento</h1>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <!-- breadcrumb -->
+
+    <!-- row -->
+    <div class="row"></div>
+    <!-- row closed -->
+  </div>
+  <!-- Container closed -->
+</div>
+<!-- main-content closed -->

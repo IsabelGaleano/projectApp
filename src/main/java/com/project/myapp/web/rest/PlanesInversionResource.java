@@ -1,7 +1,9 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.PlanesInversion;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.repository.PlanesInversionRepository;
+import com.project.myapp.repository.StartupsRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,8 +38,11 @@ public class PlanesInversionResource {
 
     private final PlanesInversionRepository planesInversionRepository;
 
-    public PlanesInversionResource(PlanesInversionRepository planesInversionRepository) {
+    private final StartupsRepository startupsRepository;
+
+    public PlanesInversionResource(PlanesInversionRepository planesInversionRepository, StartupsRepository startupsRepository) {
         this.planesInversionRepository = planesInversionRepository;
+        this.startupsRepository = startupsRepository;
     }
 
     /**
@@ -53,6 +58,29 @@ public class PlanesInversionResource {
         log.debug("REST request to save PlanesInversion : {}", planesInversion);
         if (planesInversion.getId() != null) {
             throw new BadRequestAlertException("A new planesInversion cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        PlanesInversion result = planesInversionRepository.save(planesInversion);
+        return ResponseEntity
+            .created(new URI("/api/planes-inversions/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/planes-inversions-registro/{correo}/{porcentajeEmpresarial}")
+    public ResponseEntity<PlanesInversion> registrarPlanesInversion(
+        @PathVariable String correo,
+        @PathVariable double porcentajeEmpresarial,
+        @RequestBody PlanesInversion planesInversion
+    ) throws URISyntaxException {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        if (startup.isPresent()) {
+            planesInversion.setPorcentajeEmpresarial(porcentajeEmpresarial);
+            planesInversion.setIdStartup(startup.get());
+            planesInversion.setEstado("Activo");
+            log.debug("REST request to save PlanesInversion : {}", planesInversion);
+            if (planesInversion.getId() != null) {
+                throw new BadRequestAlertException("A new planesInversion cannot already have an ID", ENTITY_NAME, "idexists");
+            }
         }
         PlanesInversion result = planesInversionRepository.save(planesInversion);
         return ResponseEntity
@@ -88,6 +116,38 @@ public class PlanesInversionResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        PlanesInversion result = planesInversionRepository.save(planesInversion);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, planesInversion.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/update-planes-inversions/{correo}/{id}/{porcentajeEmpresarial}")
+    public ResponseEntity<PlanesInversion> actualizarPlanesInversion(
+        @PathVariable String correo,
+        @PathVariable Long id,
+        @PathVariable double porcentajeEmpresarial,
+        @Valid @RequestBody PlanesInversion planesInversion
+    ) throws URISyntaxException {
+        log.debug("REST request to update PlanesInversion : {}, {}", id, planesInversion);
+        if (planesInversion.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, planesInversion.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!planesInversionRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        if (startup.isPresent()) {
+            planesInversion.setPorcentajeEmpresarial(porcentajeEmpresarial);
+            planesInversion.setIdStartup(startup.get());
+            planesInversion.setEstado("Activo");
+            log.debug("REST request to save PlanesInversion : {}", planesInversion);
+        }
         PlanesInversion result = planesInversionRepository.save(planesInversion);
         return ResponseEntity
             .ok()
@@ -178,6 +238,12 @@ public class PlanesInversionResource {
         log.debug("REST request to get PlanesInversion : {}", id);
         Optional<PlanesInversion> planesInversion = planesInversionRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(planesInversion);
+    }
+
+    @GetMapping("/planes-inversionsByCorreo/{correo}")
+    public List<PlanesInversion> getPlanesInversionByIdStartup(@PathVariable String correo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        return planesInversionRepository.findPlanesInversionByIdStartup(startup);
     }
 
     /**

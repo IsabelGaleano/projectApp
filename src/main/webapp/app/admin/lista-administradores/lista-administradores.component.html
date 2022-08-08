@@ -1,0 +1,91 @@
+<!-- <style>
+  .table-header-centered {
+    text-align: center;
+  }
+
+  #agregar-admins-button:hover {
+    color: white;
+  }
+</style> -->
+
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <div class="row row-sm">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <!-- <div class="btn-group mx-2 mt-2 mb-2" role="group" aria-label="First group"> -->
+            <div class="d-flex justify-content-between">
+              <h4 class="titulo-lista card-title mg-b-0">Lista de Usuarios</h4>
+              <i class="mdi mdi-dots-horizontal text-gray"></i>
+              <a href="/admin/registro-admin">
+                <button id="agregar-admins-button" type="button" class="btn btn-outline-primary mx-2 button-icon mb-1">
+                  <i class="fa fa-plus me-2"></i>
+                  Agregar Administradores
+                </button>
+              </a>
+            </div>
+            <!-- <div class="col-sm-6 col-md-3 mg-t-10">
+              <h4 style="display: inline;" class="card-title mg-b-0">Lista de Usuarios</h4>
+              <button class="btn btn-outline-info">Info</button>
+              
+            </div> -->
+
+            <!-- <p class="tx-12 tx-gray-500 mb-2">Example of Valex Hoverable Rows Table.. <a
+                                  href="">Learn more</a></p> -->
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 text-md-nowrap">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th class="table-header-centered">Activar</th>
+                    <th class="table-header-centered">Desactivar</th>
+                    <th class="table-header-centered">Perfil</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let usuario of usuarios; index as i">
+                  <tr>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</td>
+                    <td>{{ usuario.correoElectronico }}</td>
+                    <td>{{ usuario.telefono }}</td>
+                    <td>{{ usuario.estado }}</td>
+
+                    <td>
+                      <button
+                        class="btn btn-success btn-block"
+                        (click)="activarUsuario($event)"
+                        value="{{ usuario.id }},{{ usuario.estado }}"
+                      >
+                        Activar
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        class="btn btn-danger btn-block"
+                        (click)="desactivarUsuario($event)"
+                        value="{{ usuario.id }},{{ usuario.estado }}"
+                      >
+                        Desactivar
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary btn-block" (click)="verPerfil(usuario.correoElectronico)">Ver Perfil</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

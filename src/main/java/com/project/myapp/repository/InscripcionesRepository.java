@@ -1,8 +1,10 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Inscripciones;
+import com.project.myapp.domain.Startups;
 import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -22,6 +24,8 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
         return this.findAllWithToOneRelationships();
     }
 
+    Optional<Inscripciones> findByIdStartup(Startups startups);
+
     default Page<Inscripciones> findAllWithEagerRelationships(Pageable pageable) {
         return this.findAllWithToOneRelationships(pageable);
     }
@@ -37,4 +41,9 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
 
     @Query("select inscripciones from Inscripciones inscripciones left join fetch inscripciones.idStartup where inscripciones.id =:id")
     Optional<Inscripciones> findOneWithToOneRelationships(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Inscripciones C SET C.estado = ?2 WHERE C.id = ?1")
+    void updateInscripcionesEstado(Long id, String estado);
 }

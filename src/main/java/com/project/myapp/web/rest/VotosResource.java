@@ -1,5 +1,6 @@
 package com.project.myapp.web.rest;
 
+import com.project.myapp.domain.Startups;
 import com.project.myapp.domain.Votos;
 import com.project.myapp.repository.VotosRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
@@ -168,6 +169,20 @@ public class VotosResource {
         return ResponseUtil.wrapOrNotFound(votos);
     }
 
+    //Cantidad de votos por startup
+    @GetMapping("/votos/startup/{id}")
+    public int getVotosByStartup(@PathVariable Long id) {
+        log.debug("REST request to get Votos by id Startup: {}", id);
+        return votosRepository.findAllByIdStartup(id);
+    }
+
+    //Voto por usuario y startup
+    @GetMapping("/votos/startupAndUsuario/{idStartup}/{idUsuario}")
+    public Optional<Votos> getVotoByUsuarioAndId(@PathVariable Long idStartup, @PathVariable Long idUsuario) {
+        log.debug("REST request to get voto by id Startup and id usuario: {}", idStartup);
+        return votosRepository.findAllByIdStartupAndIdUsuario(idStartup, idUsuario);
+    }
+
     /**
      * {@code DELETE  /votos/:id} : delete the "id" votos.
      *
@@ -182,5 +197,11 @@ public class VotosResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/votosStartup")
+    public int getAllVotosByStartupId(@RequestBody Startups startup) {
+        log.debug("REST request to get all Votos");
+        return votosRepository.getVotosByStartup(startup);
     }
 }

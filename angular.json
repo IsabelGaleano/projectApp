@@ -33,13 +33,13 @@
               "src/main/webapp/content",
               "src/main/webapp/favicon.ico",
               "src/main/webapp/manifest.webapp",
-              "src/main/webapp/robots.txt"
+              "src/main/webapp/robots.txt",
+              "src/main/webapp/content/assets/svg/*"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/main/webapp/content/assetsLanding/css/quick-website.css",
               "src/main/webapp/content/assetsLanding/css/all.min.css",
-              "src/main/webapp/content/css/style.css",
               "src/main/webapp/content/css/animate.css",
               "src/main/webapp/content/css/loading.css",
               "src/main/webapp/content/css/scss/style.scss"
@@ -51,7 +51,10 @@
               "src/main/webapp/content/assetsLanding/libs/feather.min.js",
               "src/main/webapp/content/assetsLanding/libs/svg-injector.min.js",
               "src/main/webapp/content/assetsLanding/js/quick-website.js"
-            ]
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/main/webapp/content/css/scss"]
+            }
           },
           "configurations": {
             "production": {

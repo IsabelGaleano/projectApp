@@ -1,0 +1,157 @@
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between"></div>
+    <!-- breadcrumb -->
+    <h2 class="mt-3 text-center">Registro de planes de inversión</h2>
+    <div class="mt-4 row justify-content-center">
+      <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+        <div>
+          <div class="card box-shadow-0">
+            <div class="card-header">
+              <p class="mb-2">Ingrese la información del paquete que desea registrar.</p>
+            </div>
+            <div class="card-body pt-0">
+              <div>
+                <form name="form" role="form" (ngSubmit)="registrarPlanInversion()" [formGroup]="registerForm" *ngIf="!success">
+                  <div class="form-group">
+                    <label class="form-label" for="codigo">Nombre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombre"
+                      name="nombre"
+                      placeholder="Nombre"
+                      formControlName="nombre"
+                      data-cy="username"
+                      #nombre
+                    />
+                    <div
+                      *ngIf="
+                        registerForm.get('nombre')!.invalid && (registerForm.get('nombre')!.dirty || registerForm.get('nombre')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="registerForm.get('nombre')?.errors?.required"> Nombre requerido. </small>
+
+                      <small class="form-text text-danger" *ngIf="registerForm.get('nombre')?.errors?.minlength">
+                        Tamaño del nombre debe ser mayor a 3 dígitos.
+                      </small>
+                      <small class="form-text text-danger" *ngIf="registerForm.get('nombre')?.errors?.maxlength">
+                        Tamaño del nombre debe ser menor a 100 dígitos.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="codigo">Monto</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="monto"
+                      name="monto"
+                      placeholder="Monto"
+                      formControlName="monto"
+                      data-cy="username"
+                      #monto
+                    />
+                    <div
+                      *ngIf="registerForm.get('monto')!.invalid && (registerForm.get('monto')!.dirty || registerForm.get('monto')!.touched)"
+                    >
+                      <small class="form-text text-danger" *ngIf="registerForm.get('monto')?.errors?.required"> Monto requerido. </small>
+
+                      <small class="form-text text-danger" *ngIf="registerForm.get('monto')?.errors?.minlength">
+                        Tamaño del monto debe ser mayor a 4 dígitos.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="codigo">Descripción</label>
+                    <textarea
+                      id="descripcion"
+                      class="form-control"
+                      cols="20"
+                      rows="3"
+                      formControlName="descripcion"
+                      #descripcion
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        registerForm.get('descripcion')!.invalid &&
+                        (registerForm.get('descripcion')!.dirty || registerForm.get('descripcion')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.required">
+                        Descripción requerida.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.minlength">
+                        Tamaño de la descripción debe ser mayor a 10 dígitos.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="registerForm.get('descripcion')?.errors?.maxlength">
+                        Tamaño de la descripción debe ser menor a 300 dígitos.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="codigo">Beneficios del plan</label>
+                    <textarea id="beneficios" class="form-control" cols="10" rows="3" formControlName="beneficios" #beneficios></textarea>
+                    <div
+                      *ngIf="
+                        registerForm.get('beneficios')!.invalid &&
+                        (registerForm.get('beneficios')!.dirty || registerForm.get('beneficios')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="registerForm.get('beneficios')?.errors?.required">
+                        Beneficios requeridos.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="registerForm.get('beneficios')?.errors?.minlength">
+                        Los beneficios deben tener 10 dígitos o más.
+                      </small>
+
+                      <small class="form-text text-danger" *ngIf="registerForm.get('beneficios')?.errors?.maxlength">
+                        Los beneficios deben tener 300 dígitos o menos.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="porcentajeEmpresarial">Porcentaje empresarial</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="porcentajeEmpresarial"
+                      name="porcentajeEmpresarial"
+                      formControlName="porcentajeEmpresarial"
+                      data-cy="username"
+                      #porcentajeEmpresarial
+                    />
+                    <div
+                      *ngIf="
+                        registerForm.get('porcentajeEmpresarial')!.invalid &&
+                        (registerForm.get('porcentajeEmpresarial')!.dirty || registerForm.get('porcentajeEmpresarial')!.touched)
+                      "
+                    >
+                      <small class="form-text text-danger" *ngIf="registerForm.get('porcentajeEmpresarial')?.errors?.required">
+                        Porcentaje empresarial requerido.
+                      </small>
+                      <small class="form-text text-danger" *ngIf="registerForm.get('porcentajeEmpresarial')?.errors?.pattern">
+                        Tamaño del porcentaje empresarial debe ser menor a 3 dígitos.
+                      </small>
+                    </div>
+                  </div>
+                  <p></p>
+                  <div class="form-group">
+                    <button type="submit" [disabled]="registerForm.invalid" class="btn btn-main-primary btn-block" data-cy="submit">
+                      Registrar plan
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

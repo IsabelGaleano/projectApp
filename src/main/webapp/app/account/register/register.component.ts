@@ -14,7 +14,7 @@ import { RegisterService } from './register.service';
 export class RegisterComponent implements AfterViewInit {
   @ViewChild('login', { static: false })
   login?: ElementRef;
-
+  loading = false;
   doNotMatch = false;
   error = false;
   errorEmailExists = false;
@@ -31,7 +31,7 @@ export class RegisterComponent implements AfterViewInit {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     ],
-    email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
+    email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(191), Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
@@ -62,8 +62,15 @@ export class RegisterComponent implements AfterViewInit {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
       sessionStorage.setItem('usuarioFinalPendiente', email);
+      const rdioTipoUsuario = document.getElementsByName('rdio') as NodeListOf<HTMLInputElement>;
+      let tipoUsuario = ' ';
+      for (let i = 0; i < rdioTipoUsuario.length; i++) {
+        if (rdioTipoUsuario[i].checked) {
+          tipoUsuario = rdioTipoUsuario[i].value;
+        }
+      }
       this.registerService
-        .save({ login, email, password, langKey: this.translateService.currentLang })
+        .save({ login, email, password, langKey: this.translateService.currentLang }, tipoUsuario.toString())
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
       this.router.navigate(['account/verificacion-codigo-usuario-final']);
     }

@@ -1,0 +1,88 @@
+<style>
+  .table-header-centered {
+    text-align: center;
+  }
+</style>
+
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <div>
+      <div>
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="d-flex justify-content-between">
+              <h4 class="card-title mg-b-0">Lista de donaciones realizadas</h4>
+              <i class="mdi mdi-dots-horizontal text-gray"></i>
+            </div>
+            <div class="d-flex my-xl-auto right-content">
+              <div class="pe-1 mb-xl-0">
+                <label>
+                  <input
+                    (input)="buscarPorNombreCorreo()"
+                    id="searchInput"
+                    type="text"
+                    class="form-control form-control"
+                    placeholder="Buscar por startup..."
+                    aria-controls="basic-datatable"
+                  />
+                </label>
+              </div>
+            </div>
+            <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0 text-md-nowrap">
+                    <thead>
+                      <tr>
+                        <th>Descripción</th>
+                        <th>Monto total</th>
+                        <th>Fecha de entrega</th>
+                        <th>Startup</th>
+                        <th>Usuario</th>
+                        <th>Paquete</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let donacion of donacionesPaquetes">
+                      <tr>
+                        <td>{{ donacion.descripcion }}</td>
+                        <td>{{ donacion.montoTotal }}</td>
+                        <td>
+                          {{ donacion.fechaEntrega }}
+                        </td>
+                        <td>
+                          <strong>Nombre:</strong> {{ donacion.idStartup.nombreCorto }}
+                          <hr />
+                          <strong>Correo: </strong>
+                          {{ donacion.idStartup.correoElectronico }}
+                        </td>
+                        <td>
+                          <strong>Nombre:</strong>
+                          {{ donacion.idUsuario.nombre }}
+                          <hr />
+                          <strong>Correo: </strong>
+                          {{ donacion.idUsuario.correoElectronico }}
+                        </td>
+                        <td>
+                          <strong>Id: </strong>
+                          {{ donacion.idPaquete.id }}
+                          <hr />
+                          <strong>Nombre: </strong>
+                          {{ donacion.idPaquete.nombre }}
+                        </td>
+                        <td>
+                          {{ donacion.estado }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

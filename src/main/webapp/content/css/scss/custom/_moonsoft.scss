@@ -1,0 +1,58 @@
+.logo_svg {
+  height: 30rem;
+  width: 30rem;
+}
+
+.lock-opening-animation {
+  transform: rotateY(0deg);
+  animation: lock-movement 0.8s alternate infinite;
+  transform-origin: left;
+  transform-box: fill-box;
+}
+.lock-dollar-sign {
+  //animation: lock-dollar-rotate 1.5s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes lock-movement {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes lock-dollar-rotate {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.logo__nav__usuario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*--Estilos regulares--*/
+
+//Perfil startup
+//Comentario
+.comentario__img {
+  display: flex;
+  align-items: center;
+}
+
+::-webkit-scrollbar {
+  height: 2rem; /* height of horizontal scrollbar ← You're missing this */
+  width: 2rem; /* width of vertical scrollbar */
+}
+::-webkit-scrollbar-thumb:horizontal {
+  height: 2.5rem;
+  //background: #000;
+  border-radius: 10px;
+}

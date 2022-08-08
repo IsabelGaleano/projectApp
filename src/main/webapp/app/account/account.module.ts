@@ -12,6 +12,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { accountState } from './account.route';
 import { VerificacionCodigoUsuarioFinalComponent } from './verificacion-codigo-usuario-final/verificacion-codigo-usuario-final.component';
 import { RegisterStartupComponent } from './register-startup/register-startup.component';
+import { VerificacionStartupComponent } from './verificacion-startup/verificacion-startup.component';
+import { VerificacionStartupRoute } from './verificacion-startup/verificacion-startup.route';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(accountState)],
@@ -25,6 +27,8 @@ import { RegisterStartupComponent } from './register-startup/register-startup.co
     SettingsComponent,
     VerificacionCodigoUsuarioFinalComponent,
     RegisterStartupComponent,
+    VerificacionStartupComponent,
   ],
+  exports: [PasswordStrengthBarComponent],
 })
 export class AccountModule {}
