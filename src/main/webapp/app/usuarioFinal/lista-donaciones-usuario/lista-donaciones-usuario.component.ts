@@ -81,4 +81,15 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
     });
     this.changeDetection.detectChanges();
   }
+
+  verPerfilDonacion(event: any): void {
+    const router = this.router;
+    console.warn(event.target.value);
+    this.listaDonacionesUsuarioService.getDonacionPaquete(event.target.value).subscribe((resultD: any) => {
+      if (resultD) {
+        sessionStorage.setItem('donacionPaqueteUsuario', JSON.stringify(resultD));
+        this.router.navigate(['usuario-final/perfil-donacion-usuario']);
+      }
+    });
+  }
 }

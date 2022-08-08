@@ -90,12 +90,16 @@ export class PerfilVisualizableAdminComponent implements OnInit {
         if (!this.usuario.idMonedero) {
           const monedero = {
             id: 0,
-            tipo: 'STARTUP',
+            tipo: 'Admin',
             saldo: 0.0,
             estado: 'Sin estado de monedero registrado',
           };
 
           this.usuario.idMonedero = monedero;
+        } else {
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          this.usuario.idMonedero.tipo = this.usuario.idMonedero.tipo.charAt(0).toUpperCase() + this.usuario.idMonedero.tipo.slice(1);
         }
 
         if (!this.usuario.idRol) {

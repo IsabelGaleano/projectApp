@@ -102,7 +102,7 @@ public class AccountResource {
             "https://res.cloudinary.com/moonsoft/image/upload/v1658635377/profile_qfn6i1.png",
             " ",
             " ",
-            "Pendiente",
+            "Activo",
             monederoCreado,
             new RolesUsuarios(3L)
         );
