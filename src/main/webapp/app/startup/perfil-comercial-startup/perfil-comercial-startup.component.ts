@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -314,7 +315,7 @@ export class PerfilComercialStartupComponent implements OnInit {
   solicitarReunion(): void {
     console.warn('Reunión solicitada');
 
-    const fechaReunion = this.formAgendarReunion.get('fechaReunion')?.value;
+    let fechaReunion = this.formAgendarReunion.get('fechaReunion')?.value;
     const descripcionReunion = this.formAgendarReunion.get('descripcionReunion')?.value;
 
     console.warn('fecha: ', fechaReunion, ', descripción: ', descripcionReunion);
@@ -322,10 +323,13 @@ export class PerfilComercialStartupComponent implements OnInit {
     const startup = this.startup;
     startup.fechaCreacion = new Date(startup.fechaCreacion);
 
+    fechaReunion = new Date(fechaReunion);
+    fechaReunion = this.subtractTimeFromDate(fechaReunion, 6);
+
     const reunion = {
       url: 'ninguno',
       descripcion: descripcionReunion,
-      fechaSolicitada: new Date(fechaReunion),
+      fechaSolicitada: fechaReunion,
       horaReunion: new Date(),
       estado: 'Solicitado',
       idStartup: startup,
@@ -335,5 +339,13 @@ export class PerfilComercialStartupComponent implements OnInit {
     this.perfilComercialStartupService.solicitarReunion(reunion).subscribe((data: any) => {
       console.warn('Reunion: ', data);
     });
+  }
+
+  subtractTimeFromDate(objDate, intHours): Date {
+    let numberOfMlSeconds = objDate.getTime();
+    let addMlSeconds = intHours * 60 * 60 * 1000;
+    let newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
+
+    return newDateObj;
   }
 }
