@@ -1,13 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
+import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Account } from 'app/core/auth/account.model';
 import { PerfilComercialStartupService } from './perfil-comercial-startup.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'jhi-perfil-comercial-startup',
   templateUrl: './perfil-comercial-startup.component.html',
@@ -32,6 +34,12 @@ export class PerfilComercialStartupComponent implements OnInit {
   votoUsuario!: any;
   comentarios!: any;
   comentarioHaciaStartup!: any;
+  mostrarFormReunion = false;
+
+  formAgendarReunion = new FormGroup({
+    fechaReunion: new FormControl(),
+    descripcionReunion: new FormControl(),
+  });
 
   constructor(
     private perfilComercialStartupService: PerfilComercialStartupService,
@@ -291,5 +299,41 @@ export class PerfilComercialStartupComponent implements OnInit {
         this.comentarios.push(comentario);
       });
     }
+  }
+
+  abrirFormReunion(): void {
+    this.mostrarFormReunion = true;
+    document.getElementById('formAgendarReunion')!.style.display = 'block';
+  }
+
+  cerrarFormReunion(): void {
+    this.mostrarFormReunion = false;
+    document.getElementById('formAgendarReunion')!.style.display = 'none';
+  }
+
+  solicitarReunion(): void {
+    console.warn('Reunión solicitada');
+
+    const fechaReunion = this.formAgendarReunion.get('fechaReunion')?.value;
+    const descripcionReunion = this.formAgendarReunion.get('descripcionReunion')?.value;
+
+    console.warn('fecha: ', fechaReunion, ', descripción: ', descripcionReunion);
+
+    const startup = this.startup;
+    startup.fechaCreacion = new Date(startup.fechaCreacion);
+
+    const reunion = {
+      url: 'ninguno',
+      descripcion: descripcionReunion,
+      fechaSolicitada: new Date(fechaReunion),
+      horaReunion: new Date(),
+      estado: 'Solicitado',
+      idStartup: startup,
+      idUsuario: this.usuarioSesion,
+    };
+
+    this.perfilComercialStartupService.solicitarReunion(reunion).subscribe((data: any) => {
+      console.warn('Reunion: ', data);
+    });
   }
 }
