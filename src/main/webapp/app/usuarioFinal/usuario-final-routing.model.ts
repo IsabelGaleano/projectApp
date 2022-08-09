@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { PerfilUsuarioFinalComponent } from './perfil/perfil-usuario-final.component';
 import { ListaDonacionesUsuarioComponent } from './lista-donaciones-usuario/lista-donaciones-usuario.component';
 import { CommonModule } from '@angular/common';
+import { PerfilDonacionUsuarioComponent } from './perfil-donacion-usuario/perfil-donacion-usuario.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,13 @@ import { CommonModule } from '@angular/common';
         component: ListaDonacionesUsuarioComponent,
         data: {
           pageTitle: 'lista.donaciones.usuario.title',
+        },
+      },
+      {
+        path: 'perfil-donacion-usuario',
+        component: PerfilDonacionUsuarioComponent,
+        data: {
+          pageTitle: 'perfil.donacion.usuario.title',
         },
       },
     ]),

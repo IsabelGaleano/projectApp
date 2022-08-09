@@ -29,4 +29,26 @@ export class PerfilDonacionStartupPService {
   getPaquete(id: string | any): Observable<any> {
     return this.http.get(this.rootURL.concat('/paquetes/').concat(id));
   }
+
+  actualizarDonacion(id: string | any, donacion: Record<string, unknown>): Observable<any> {
+    return this.http.put(this.rootURL.concat('/donaciones-paquetes/', id), donacion);
+  }
+
+  registrarUbicación(rastreador: Record<string, unknown>): Observable<any> {
+    return this.http.post(this.rootURL.concat('/rastreadors/'), rastreador);
+  }
+
+  getUbicaciones(donacion: Record<string, unknown>): Observable<any> {
+    return this.http.post(this.rootURL.concat('/rastreadors/findByDonacionPaquete'), donacion);
+  }
+
+  actualizarRastreador(id: any, latitud: string, longitud: string): Observable<any> {
+    if (id != null) {
+      return this.http.get(
+        this.rootURL.concat('/rastreadors/actualizarRastreador/').concat(id).concat('/').concat(latitud).concat('/').concat(longitud)
+      );
+    } else {
+      return this.http.get(this.rootURL.concat('/rastreadors/'));
+    }
+  }
 }

@@ -1,0 +1,242 @@
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+      <div class="col-lg-4">
+        <div class="card mg-b-10">
+          <div class="card-body">
+            <div class="ps-0">
+              <div class="main-profile-overview">
+                <label class="main-content-label tx-13 mg-b-20">Información general</label>
+                <div class="main-profile-social-list">
+                  <div class="media">
+                    <div class="media-icon bg-success-transparent text-primary">
+                      <i class="icon ion-md-link"></i>
+                    </div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Donación</h5>
+                      <p class="mb-0 tx-14">#{{ donacionPaquete.id }}</p>
+                    </div>
+                  </div>
+                  <div class="media">
+                    <div class="media-icon bg-success-transparent text-success">
+                      <i class="icon ion-md-phone-portrait"></i>
+                    </div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Descripción</h5>
+                      <p class="mb-0 tx-14">{{ donacionPaquete.descripcion }}</p>
+                    </div>
+                  </div>
+                  <div class="media">
+                    <div class="media-icon bg-info-transparent text-info">
+                      <i class="icon ion-md-locate"></i>
+                    </div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Fecha de la donación</h5>
+                      <p class="mb-0 tx-14">{{ dateDonacion }}</p>
+                    </div>
+                  </div>
+                  <div class="media">
+                    <div class="media-icon bg-danger-transparent text-danger">
+                      <i class="icon ion-md-contacts"></i>
+                    </div>
+                    <div class="media-body">
+                      <h5 class="mb-1 tx-15">Monto de la donación</h5>
+                      <p class="mb-0 tx-14">${{ paquete.monto }}</p>
+                    </div>
+                  </div>
+                </div>
+                <hr class="mg-y-30" />
+              </div>
+              <!-- main-profile-overview -->
+            </div>
+          </div>
+        </div>
+        <div class="card mg-b-20">
+          <div class="card-body">
+            <div class="main-content-label tx-13 mg-b-25">Información del Startup</div>
+            <div class="main-profile-contact-list">
+              <div class="media">
+                <div class="media-icon bg-success-transparent text-primary">
+                  <i class="icon ion-md-phone-portrait"></i>
+                </div>
+                <div class="media-body">
+                  <h5 class="mb-1 tx-15">Nombre del Startup</h5>
+                  <p class="mb-0 tx-14">{{ startup.nombreCorto }}</p>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-icon bg-success-transparent text-success">
+                  <i class="icon ion-logo-slack"></i>
+                </div>
+                <div class="media-body">
+                  <h5 class="mb-1 tx-15">Descripción</h5>
+                  <p class="mb-0 tx-14">{{ startup.descripcionCorta }}</p>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-icon bg-success-transparent text-success">
+                  <i class="icon ion-logo-slack"></i>
+                </div>
+                <div class="media-body">
+                  <h5 class="mb-1 tx-15">Correo electrónico</h5>
+                  <p class="mb-0 tx-14">{{ startup.correoElectronico }}</p>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-icon bg-success-transparent text-success">
+                  <i class="icon ion-logo-slack"></i>
+                </div>
+                <div class="media-body">
+                  <h5 class="mb-1 tx-15">Teléfono</h5>
+                  <p class="mb-0 tx-14">{{ startup.telefono }}</p>
+                </div>
+              </div>
+            </div>
+            <!-- main-profile-contact-list -->
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-6">
+        <div class="card" id="basic-alert">
+          <div class="card-body">
+            <div>
+              <h6 class="card-title mb-1">Información de la donación</h6>
+              <p class="text-muted card-sub-title">Ingrese a cada pestaña para revisar su información</p>
+            </div>
+            <div class="text-wrap">
+              <div class="example">
+                <div class="panel panel-primary tabs-style-1">
+                  <div class="tab-menu-heading">
+                    <div class="tabs-menu1">
+                      <!-- Tabs -->
+                      <ul class="nav panel-tabs main-nav-line">
+                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Información General</a></li>
+                        <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Información envío</a></li>
+                        <li class="nav-item"><a href="#tab3" class="nav-link" data-bs-toggle="tab">Rastreador</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab1">
+                        <h6 class="card-title tx-14 mb-4">Información general</h6>
+                        <div class="table-responsive country-table">
+                          <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <tbody>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Nombre del paquete</td>
+                                <td>{{ paquete.nombre }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Descripción</td>
+                                <td>{{ paquete.descripcion }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Monto</td>
+                                <td>${{ paquete.monto }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Dimensiones</td>
+                                <td>{{ paquete.dimensiones }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Monto de envío</td>
+                                <td>${{ donacionPaquete.montoEnvio }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Monto de envío</td>
+                                <td>{{ dateDonacion }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Monto total</td>
+                                <td>${{ donacionPaquete.montoTotal }}</td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Estado</td>
+                                <td>{{ donacionPaquete.estado }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="tab2">
+                        <h6 class="card-title tx-14 mb-4">Información inicial de envío</h6>
+                        <div class="table-responsive country-table">
+                          <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <tbody>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Fecha inicial</td>
+                                <td id="fechaInicial"></td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Fecha posible de entrega</td>
+                                <td id="fechaEntrega"></td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Días posibles de retraso</td>
+                                <td id="diasRetraso"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <p class="mb-4"></p>
+                        <h6 class="card-title tx-14 mb-4">Información final de envío</h6>
+                        <div class="table-responsive country-table">
+                          <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <tbody>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Fecha final de entrega</td>
+                                <td id="fechaFinalEntrega"></td>
+                              </tr>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">Días de retraso</td>
+                                <td id="diasRetrasoFinal"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="tab3">
+                        <h6 class="card-title tx-14 mb-4">Rastreador</h6>
+                        <div class="col-md-9">
+                          <div id="map" style="width: 50vw; height: 50vh"></div>
+                        </div>
+                        <div class="mt-4 table-responsive country-table">
+                          <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <thead>
+                              <tr>
+                                <th class="wd-lg-25p">Ubicación inicial</th>
+                                <th class="wd-lg-25p tx-right">Ubicación destino</th>
+                                <th class="wd-lg-25p tx-right">Distancia</th>
+                                <th class="wd-lg-25p tx-right">Duración</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class="tx-right tx-medium tx-inverse">{{ originAddresses }}</td>
+                                <td class="tx-right tx-medium tx-inverse">{{ destinationAddresses }}</td>
+                                <td class="tx-right tx-medium tx-inverse">{{ distancia }}</td>
+                                <td class="tx-right tx-medium tx-inverse">{{ duracion }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- breadcrumb -->
+
+  <!-- row -->
+  <div class="row"></div>
+  <!-- row closed -->
+</div>
