@@ -15,7 +15,7 @@
                 <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Descripción</th>
+                    <th>Nombre Startup</th>
                     <th>Fecha Solicitada</th>
                     <th>Fecha de la Reunión</th>
                     <th>Estado</th>
@@ -27,12 +27,12 @@
                 <tbody *ngFor="let reunion of reuniones; index as i">
                   <tr>
                     <td>{{ reunion.id }}</td>
-                    <td>{{ reunion.descripcion }}</td>
+                    <td>{{ reunion.idStartup.nombreCorto }}</td>
                     <td>{{ reunion.fechaSolicitada }}</td>
                     <td>{{ reunion.fechaReunion }}</td>
                     <td>{{ reunion.estado }}</td>
 
-                    <td *ngIf="reunion.estado === 'Sugerido'; else aceptarDisabled">
+                    <td *ngIf="reunion.estado === 'Solicitado'; else aceptarDisabled">
                       <button class="btn btn-success btn-block" (click)="aceptarReunion($event)" value="{{ reunion.id }}">Aceptar</button>
                     </td>
                     <ng-template #aceptarDisabled>
@@ -41,7 +41,7 @@
                       </td>
                     </ng-template>
 
-                    <td *ngIf="reunion.estado === 'Sugerido'; else rechazarDisabled">
+                    <td *ngIf="reunion.estado === 'Solicitado'; else rechazarDisabled">
                       <button class="btn btn-danger btn-block" (click)="rechazarReunion($event)" value="{{ reunion.id }}">Rechazar</button>
                     </td>
                     <ng-template #rechazarDisabled>

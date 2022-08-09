@@ -36,10 +36,11 @@ export class PerfilComercialStartupComponent implements OnInit {
   comentarios!: any;
   comentarioHaciaStartup!: any;
   mostrarFormReunion = false;
+  success = false;
 
   formAgendarReunion = new FormGroup({
-    fechaReunion: new FormControl(),
-    descripcionReunion: new FormControl(),
+    fechaReunion: new FormControl('', [Validators.required]),
+    descripcionReunion: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(300)]),
   });
 
   constructor(
@@ -327,7 +328,7 @@ export class PerfilComercialStartupComponent implements OnInit {
     fechaReunion = this.subtractTimeFromDate(fechaReunion, 6);
 
     const reunion = {
-      url: 'ninguno',
+      url: null,
       descripcion: descripcionReunion,
       fechaSolicitada: fechaReunion,
       horaReunion: new Date(),
@@ -336,8 +337,9 @@ export class PerfilComercialStartupComponent implements OnInit {
       idUsuario: this.usuarioSesion,
     };
 
-    this.perfilComercialStartupService.solicitarReunion(reunion).subscribe((data: any) => {
-      console.warn('Reunion: ', data);
+    this.perfilComercialStartupService.solicitarReunion(reunion).subscribe(() => {
+      this.success = true;
+      console.warn(this.success);
     });
   }
 

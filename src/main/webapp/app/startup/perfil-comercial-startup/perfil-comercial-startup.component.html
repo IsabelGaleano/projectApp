@@ -91,7 +91,7 @@
               <div class="ms-auto mb-2 d-flex mt-3">
                 <a href="javascript:void(0);" class="me-3 mb-2 d-flex"
                   ><span class="fe fe-calendar text-muted me-2 tx-17"></span>
-                  <div class="mt-0 mt-0 text-dark">{{ startup.fechaCreacion.substring(0, 10) }}</div>
+                  <div class="mt-0 mt-0 text-dark">{{ startup.fechaCreacion }}</div>
                 </a>
                 <a class="me-0 d-flex a-comentarios" (click)="scroll(seccionComentarios)"
                   ><span class="fe fe-message-square text-muted me-2 tx-17"></span>
@@ -188,6 +188,12 @@
                                   Agendar reunión con la startup
                                 </button>
                               </div>
+                              .
+
+                              <div class="alert alert-success reunionSolicitada" *ngIf="success">
+                                <strong>Reunión solicitada con éxito!</strong> La reunión se encuentra en revisión de la startup, en caso de
+                                que la startup desee cambiar la fecha de la reunión usted podrá visualizarla en el apartado de reuniones
+                              </div>
 
                               <form
                                 id="formReunion"
@@ -204,6 +210,19 @@
                                     </div>
                                     <div class="col-md-9">
                                       <input type="datetime-local" class="form-control" formControlName="fechaReunion" placeholder="" />
+                                      <div
+                                        *ngIf="
+                                          formAgendarReunion.get('fechaReunion')!.invalid &&
+                                          (formAgendarReunion.get('fechaReunion')!.dirty || formAgendarReunion.get('fechaReunion')!.touched)
+                                        "
+                                      >
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('fechaReunion')?.errors?.required"
+                                        >
+                                          La fecha es requerida.
+                                        </small>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -222,11 +241,45 @@
                                         maxlength="300"
                                         rows="4"
                                       ></textarea>
+                                      <div
+                                        *ngIf="
+                                          formAgendarReunion.get('descripcionReunion')!.invalid &&
+                                          (formAgendarReunion.get('descripcionReunion')!.dirty ||
+                                            formAgendarReunion.get('descripcionReunion')!.touched)
+                                        "
+                                      >
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('descripcionReunion')?.errors?.required"
+                                        >
+                                          La descripción es requerida.
+                                        </small>
+
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('descripcionReunion')?.errors?.minlength"
+                                        >
+                                          La descripción debe ser mayor a 1 caracter.
+                                        </small>
+
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('descripcionReunion')?.errors?.maxlength"
+                                        >
+                                          La descripción no puede ser mas larga de 300 caracteres.
+                                        </small>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                                 <div id="botonesFormReunion">
-                                  <button type="submit" class="btn btn-primary waves-effect waves-light">Solicitar reunión</button>
+                                  <button
+                                    type="submit"
+                                    [disabled]="formAgendarReunion.invalid"
+                                    class="btn btn-primary waves-effect waves-light"
+                                  >
+                                    Solicitar reunión
+                                  </button>
                                   <button type="button" (click)="cerrarFormReunion()" class="btn btn-danger waves-effect waves-light">
                                     Cancelar
                                   </button>

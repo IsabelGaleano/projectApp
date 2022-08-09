@@ -32,6 +32,10 @@ export class ListaReunionesComponent implements OnInit {
                     reuniones[i].estado = 'Solicitado';
                   }
 
+                  if (!reuniones[i].fechaReunion) {
+                    reuniones[i].fechaReunion = 'No acordada';
+                  }
+
                   this.reuniones.push(reuniones[i]);
                 }
               }

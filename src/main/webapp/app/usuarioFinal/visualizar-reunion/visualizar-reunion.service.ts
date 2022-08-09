@@ -14,4 +14,9 @@ export class VisualizarReunionService {
   obtenerReunion(idReunion: string): Observable<any> {
     return this.http.get(this.rootURL.concat('reuniones/').concat(idReunion));
   }
+
+  //Actualizar reunion
+  actualizarReunion(idReunion: string, reunion): Observable<any> {
+    return this.http.put(this.rootURL.concat('reuniones/').concat(idReunion), reunion);
+  }
 }

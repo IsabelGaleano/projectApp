@@ -1,5 +1,7 @@
 <div class="main-content app-content">
-  <div class="main-container container-fluid">
+  <div class="main-container container-fluid contenedor">
+    <h2>Información de la reunión</h2>
+
     <div *ngIf="noEditable; else editable" class="row">
       <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
         <div class="card box-shadow-0">
@@ -11,25 +13,36 @@
               <div class="">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Id</label>
-                  <input type="text" [readonly] class="form-control" placeholder="{{ reunion.id }}" />
+                  <input type="text" readonly class="form-control" placeholder="{{ reunion.id }}" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Startup de la reunión</label>
+                  <input type="text" readonly class="form-control" placeholder="{{ reunion.idStartup.nombreCorto }}" />
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Fecha de solicitud</label>
-                  <input type="text" class="form-control" placeholder="{{ reunion.fechaSolicitud }}" />
+                  <input type="text" readonly class="form-control" placeholder="{{ reunion.fechaSolicitada }}" />
                 </div>
-                <div class="checkbox">
-                  <div class="form-checkbox custom-control">
-                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1" />
-                    <label for="checkbox-1" class="custom-control-label mt-1">Check me Out</label>
-                  </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Descripción de la reunión</label>
+                  <input type="text" readonly class="form-control" placeholder="{{ reunion.descripcion }}" />
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary mt-3 mb-0">Submit</button>
+              <div *ngIf="urlReunion; else sinUrlReunion">
+                <button (click)="redireccionarHaciaReunion()" class="btn btn-primary mt-3 mb-0">Redireccionar a la reunión</button>
+              </div>
+              <ng-template #sinUrlReunion>
+                <h5>
+                  La startup deberá de ingresar el link de la reunión, una vez realice esta acción se le mostrará una opción para unirse a
+                  la reunión.
+                </h5>
+              </ng-template>
             </form>
           </div>
         </div>
       </div>
     </div>
+
     <ng-template #editable>
       <div class="row">
         <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
@@ -38,24 +51,30 @@
               <h4 class="card-title mb-1">Editar reunión</h4>
             </div>
             <div class="card-body pt-0">
-              <form>
+              <form (ngSubmit)="actualizarReunion()" [formGroup]="formReunion">
                 <div class="">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+                    <label for="exampleInputPassword1">Startup de la reunión</label>
+                    <input type="text" readonly class="form-control" placeholder="{{ reunion.idStartup.nombreCorto }}" />
+                  </div>
+                  <p><b>Fecha solicitada actual:</b> {{ reunion.fechaSolicitada }}</p>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Nueva fecha de solicitud</label>
+                    <input
+                      formControlName="fechaSolicitada"
+                      type="datetime-local"
+                      class="form-control"
+                      placeholder="{{ reunion.fechaSolicitada }}"
+                    />
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-                  </div>
-                  <div class="checkbox">
-                    <div class="form-checkbox custom-control">
-                      <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1" />
-                      <label for="checkbox-1" class="custom-control-label mt-1">Check me Out</label>
-                    </div>
+                    <label for="exampleInputPassword1">Descripción de la reunión</label>
+                    <textarea formControlName="descripcion" rows="4" type="text" value="{{ reunion.descripcion }}" class="form-control">{{
+                      reunion.descripcion
+                    }}</textarea>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3 mb-0">Submit</button>
+                <button type="submit" class="btn btn-primary mt-3 mb-0">Actualizar información</button>
               </form>
             </div>
           </div>
