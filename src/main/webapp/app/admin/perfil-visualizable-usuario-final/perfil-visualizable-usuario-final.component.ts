@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 // import { Usuarios } from 'app/entities/usuarios/usuarios.model';
@@ -14,6 +15,8 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { AppService } from '../lista-usuarios/lista-usuarios.service';
+
+import { PerfilVisualizableUsuarioFinalService } from './perfil-visualizable-usuario-final.service';
 
 @Component({
   selector: 'jhi-perfil-visualizable-usuario-final',
@@ -34,7 +37,13 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
   faIdCard = faIdCard;
   faUser = faUser;
 
-  constructor(private appService: AppService, private datePipe: DatePipe) {}
+  movimientos: any[] = [];
+
+  constructor(
+    private appService: AppService,
+    private datePipe: DatePipe,
+    private perfilVisualizableUsuarioFinalService: PerfilVisualizableUsuarioFinalService
+  ) {}
 
   ngOnInit(): void {
     this.correoSession = localStorage.getItem('correoSession') as string;
@@ -104,12 +113,17 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
         if (!this.usuarioFinal.idMonedero) {
           const monedero = {
             id: 0,
-            tipo: 'STARTUP',
+            tipo: 'Usuario',
             saldo: 0.0,
             estado: 'Sin estado de monedero registrado',
           };
 
           this.usuarioFinal.idMonedero = monedero;
+        } else {
+          this.usuarioFinal.idMonedero.tipo = this.usuarioFinal.idMonedero.tipo.toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          this.usuarioFinal.idMonedero.tipo =
+            this.usuarioFinal.idMonedero.tipo.charAt(0).toUpperCase() + this.usuarioFinal.idMonedero.tipo.slice(1);
         }
 
         if (!this.usuarioFinal.idRol) {
@@ -120,6 +134,14 @@ export class PerfilVisualizableUsuarioFinalComponent implements OnInit {
 
           this.usuarioFinal.idRol = rol;
         }
+
+        this.perfilVisualizableUsuarioFinalService
+          .getMovimientosByIdMonedero(this.usuarioFinal.idMonedero.id)
+          .subscribe((dataMovimientos: any) => {
+            dataMovimientos.forEach((movimiento: any) => {
+              this.movimientos.push(movimiento);
+            });
+          });
 
         const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
         const loader = new Loader({
