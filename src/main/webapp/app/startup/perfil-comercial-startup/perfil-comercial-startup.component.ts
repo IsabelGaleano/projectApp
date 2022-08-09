@@ -331,7 +331,7 @@ export class PerfilComercialStartupComponent implements OnInit {
       descripcion: descripcionReunion,
       fechaSolicitada: fechaReunion,
       horaReunion: new Date(),
-      estado: 'Solicitado',
+      estado: 'SolicitadoI',
       idStartup: startup,
       idUsuario: this.usuarioSesion,
     };

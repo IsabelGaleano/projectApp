@@ -224,4 +224,21 @@ public class ReunionesResource {
         } catch (NoSuchAlgorithmException e) {} catch (InvalidKeyException e) {}
         return "";
     }
+
+    @GetMapping("/reunionesByIdUsuario/{idUsuario}")
+    public List<Reuniones> getReunionesByIdUsuario(@PathVariable String idUsuario) {
+        log.debug("REST request to get Reuniones : {}", idUsuario);
+
+        return reunionesRepository.GetByUsuarioId(Long.parseLong(idUsuario));
+    }
+
+    @PutMapping("/aceptarReunion/{idReunion}")
+    public void aceptarReunion(@PathVariable String idReunion, @RequestBody String estado) {
+        reunionesRepository.aceptarReunion(Long.parseLong(idReunion), estado);
+    }
+
+    @PutMapping("/actualizarReuniones/{idReunion}")
+    public void actualziarEstadoReunion(@PathVariable String idReunion, @RequestBody String estado) {
+        reunionesRepository.actualizarEstadoReunion(Long.parseLong(idReunion), estado);
+    }
 }

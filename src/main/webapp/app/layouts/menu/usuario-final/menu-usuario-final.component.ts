@@ -28,6 +28,7 @@ export class MenuUsuarioComponent implements OnInit {
   entitiesNavbarItems: any[] = [];
   user = false;
   usuario: any;
+  tipoInversionista = false;
 
   constructor(
     private loginService: LoginService,
@@ -59,6 +60,10 @@ export class MenuUsuarioComponent implements OnInit {
       this.account = account;
       this.menuAdminService.getUsuariosByCorreoElectronico(account!.email).subscribe((data: any) => {
         this.usuario = data;
+
+        if (data.tipoUsuarioFinal === 'Inversionista') {
+          this.tipoInversionista = true;
+        }
       });
     });
   }

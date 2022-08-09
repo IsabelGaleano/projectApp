@@ -67,6 +67,8 @@ import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
 import { PerfilDonacionStartupComponent } from './startup/perfil-donacion-startup/perfil-donacion-startup.component';
 import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-usuario/perfil-donacion-usuario.component';
+import { ListaReunionesComponent } from './usuarioFinal/lista-reuniones/lista-reuniones.component';
+import { VisualizarReunionComponent } from './usuarioFinal/visualizar-reunion/visualizar-reunion.component';
 
 @NgModule({
   imports: [
@@ -137,6 +139,8 @@ import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-u
     PagoFinalPaquetesComponent,
     PerfilDonacionStartupComponent,
     PerfilDonacionUsuarioComponent,
+    ListaReunionesComponent,
+    VisualizarReunionComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

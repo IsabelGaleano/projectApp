@@ -1,0 +1,66 @@
+<div class="main-content app-content">
+  <div class="main-container container-fluid">
+    <div *ngIf="noEditable; else editable" class="row">
+      <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+        <div class="card box-shadow-0">
+          <div class="card-header">
+            <h4 class="card-title mb-1">Datos de la reunión</h4>
+          </div>
+          <div class="card-body pt-0">
+            <form>
+              <div class="">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Id</label>
+                  <input type="text" [readonly] class="form-control" placeholder="{{ reunion.id }}" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Fecha de solicitud</label>
+                  <input type="text" class="form-control" placeholder="{{ reunion.fechaSolicitud }}" />
+                </div>
+                <div class="checkbox">
+                  <div class="form-checkbox custom-control">
+                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1" />
+                    <label for="checkbox-1" class="custom-control-label mt-1">Check me Out</label>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3 mb-0">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #editable>
+      <div class="row">
+        <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+          <div class="card box-shadow-0">
+            <div class="card-header">
+              <h4 class="card-title mb-1">Editar reunión</h4>
+            </div>
+            <div class="card-body pt-0">
+              <form>
+                <div class="">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                  </div>
+                  <div class="checkbox">
+                    <div class="form-checkbox custom-control">
+                      <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1" />
+                      <label for="checkbox-1" class="custom-control-label mt-1">Check me Out</label>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 mb-0">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
