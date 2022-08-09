@@ -44,6 +44,9 @@ public interface ReunionesRepository extends JpaRepository<Reuniones, Long> {
     @Query("SELECT R FROM Reuniones R WHERE R.idUsuario.id = ?1")
     List<Reuniones> GetByUsuarioId(Long idUsuario);
 
+    @Query("SELECT R FROM Reuniones R WHERE R.idStartup.id = ?1")
+    List<Reuniones> GetByStartupId(Long idStartup);
+
     @Transactional
     @Modifying
     @Query("UPDATE Reuniones R SET R.estado = ?2 WHERE R.id = ?1")
@@ -53,4 +56,9 @@ public interface ReunionesRepository extends JpaRepository<Reuniones, Long> {
     @Modifying
     @Query("UPDATE Reuniones R SET R.estado = ?2, R.fechaReunion = R.fechaSolicitada WHERE R.id = ?1")
     void aceptarReunion(Long idReunion, String estado);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Reuniones R SET R.url = ?2, R.fechaReunion = R.fechaSolicitada WHERE R.id = ?1")
+    void actualizarUrlReunion(Long idReunion, String url);
 }

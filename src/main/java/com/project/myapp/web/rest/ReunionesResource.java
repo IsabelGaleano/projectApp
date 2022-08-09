@@ -232,13 +232,25 @@ public class ReunionesResource {
         return reunionesRepository.GetByUsuarioId(Long.parseLong(idUsuario));
     }
 
+    @GetMapping("/reunionesByIdStartup/{idStartup}")
+    public List<Reuniones> getReunionesByIdStartup(@PathVariable String idStartup) {
+        log.debug("REST request to get Reuniones : {}", idStartup);
+
+        return reunionesRepository.GetByStartupId(Long.parseLong(idStartup));
+    }
+
     @PutMapping("/aceptarReunion/{idReunion}")
     public void aceptarReunion(@PathVariable String idReunion, @RequestBody String estado) {
         reunionesRepository.aceptarReunion(Long.parseLong(idReunion), estado);
     }
 
     @PutMapping("/actualizarReuniones/{idReunion}")
-    public void actualziarEstadoReunion(@PathVariable String idReunion, @RequestBody String estado) {
+    public void actualizarEstadoReunion(@PathVariable String idReunion, @RequestBody String estado) {
         reunionesRepository.actualizarEstadoReunion(Long.parseLong(idReunion), estado);
+    }
+
+    @PutMapping("/actualizarUrlReunion/{idReunion}")
+    public void actualizarUrlReunion(@PathVariable String idReunion, @RequestBody String url) {
+        reunionesRepository.actualizarUrlReunion(Long.parseLong(idReunion), url);
     }
 }

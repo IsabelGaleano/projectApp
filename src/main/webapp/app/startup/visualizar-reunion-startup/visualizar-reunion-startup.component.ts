@@ -3,29 +3,34 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { VisualizarReunionService } from './visualizar-reunion.service';
+import { VisualizarReunionStartupService } from './visualizar-reunion-startup.service';
 
 @Component({
-  selector: 'jhi-visualizar-reunion',
-  templateUrl: './visualizar-reunion.component.html',
-  styleUrls: ['./visualizar-reunion.component.scss'],
+  selector: 'jhi-visualizar-reunion-startup',
+  templateUrl: './visualizar-reunion-startup.component.html',
+  styleUrls: ['./visualizar-reunion-startup.component.scss'],
 })
-export class VisualizarReunionComponent implements OnInit {
+export class VisualizarReunionStartupComponent implements OnInit {
   reunion: any;
   noEditable = true;
   urlReunion = false;
+  urlGuardado = false;
+
+  formURL = new FormGroup({
+    URL: new FormControl(),
+  });
 
   formReunion = new FormGroup({
     fechaSolicitada: new FormControl(),
     descripcion: new FormControl(),
   });
 
-  constructor(private visualizarReunionService: VisualizarReunionService, private router: Router) {}
+  constructor(private visualizarReunionStartupService: VisualizarReunionStartupService) {}
 
   ngOnInit(): void {
     const idReunion = localStorage.getItem('idReunionStorage') as string;
 
-    this.visualizarReunionService.obtenerReunion(idReunion).subscribe((reunion: any) => {
+    this.visualizarReunionStartupService.obtenerReunion(idReunion).subscribe((reunion: any) => {
       this.reunion = reunion;
 
       this.reunion.fechaSolicitada = this.reunion.fechaSolicitada as string;
@@ -43,6 +48,12 @@ export class VisualizarReunionComponent implements OnInit {
       }
 
       console.warn(this.reunion);
+
+      if (this.reunion.url) {
+        this.formURL.controls['URL'].setValue(this.reunion.url);
+      } else {
+        this.formURL.controls['URL'].setValue('No se ha asignado un URL para esta reunión');
+      }
     });
 
     console.warn(idReunion);
@@ -60,9 +71,9 @@ export class VisualizarReunionComponent implements OnInit {
 
     this.reunion.fechaSolicitada = this.subtractTimeFromDate(new Date(fechaSolicitada), 6);
     this.reunion.descripcion = descripcion;
-    this.reunion.estado = 'SolicitadoI';
+    this.reunion.estado = 'SolicitadoS';
 
-    this.visualizarReunionService.actualizarReunion(this.reunion.id, this.reunion).subscribe((data: any) => {
+    this.visualizarReunionStartupService.actualizarReunion(this.reunion.id, this.reunion).subscribe((data: any) => {
       console.warn(data);
     });
   }
@@ -73,5 +84,13 @@ export class VisualizarReunionComponent implements OnInit {
     let newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
 
     return newDateObj;
+  }
+
+  agregarURL(): void {
+    const url = this.formURL.get(['URL'])!.value;
+
+    this.visualizarReunionStartupService.agregarURLReunion(this.reunion.id, url).subscribe(() => {
+      this.urlGuardado = true;
+    });
   }
 }

@@ -69,6 +69,8 @@ import { PerfilDonacionStartupComponent } from './startup/perfil-donacion-startu
 import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-usuario/perfil-donacion-usuario.component';
 import { ListaReunionesComponent } from './usuarioFinal/lista-reuniones/lista-reuniones.component';
 import { VisualizarReunionComponent } from './usuarioFinal/visualizar-reunion/visualizar-reunion.component';
+import { ListaReunionesStartupComponent } from './startup/lista-reuniones-startup/lista-reuniones-startup.component';
+import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-startup/visualizar-reunion-startup.component';
 
 @NgModule({
   imports: [
@@ -141,6 +143,8 @@ import { VisualizarReunionComponent } from './usuarioFinal/visualizar-reunion/vi
     PerfilDonacionUsuarioComponent,
     ListaReunionesComponent,
     VisualizarReunionComponent,
+    ListaReunionesStartupComponent,
+    VisualizarReunionStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
