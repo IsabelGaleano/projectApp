@@ -51,8 +51,6 @@ export class VisualizarReunionStartupComponent implements OnInit {
 
       if (this.reunion.url) {
         this.formURL.controls['URL'].setValue(this.reunion.url);
-      } else {
-        this.formURL.controls['URL'].setValue('No se ha asignado un URL para esta reunión');
       }
     });
 
