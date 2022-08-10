@@ -1,5 +1,6 @@
 package com.project.myapp.sendgrid;
 
+import com.project.myapp.domain.InfoRastreador;
 import com.project.myapp.encriptar.Encriptar;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -61,6 +62,23 @@ public class SendEmail {
         personalization.addDynamicTemplateData("montoEnvio", montoEnvio);
         personalization.addDynamicTemplateData("montoImpuesto", montoImpuesto);
         personalization.addDynamicTemplateData("total", total);
+        personalization.addTo(new Email(correo));
+        mail.addPersonalization(personalization);
+        sendInternal(mail);
+    }
+
+    public void correoNotificacionesRastreador(InfoRastreador infoRastreador, String correo) {
+        String templateId = "d-463c1420b6b24acc9ab4b16947961597";
+        Mail mail = new Mail();
+        mail.setFrom(new Email("dcoto37@gmail.com", "StartupSafe"));
+        mail.setTemplateId(templateId);
+        Personalization personalization = new Personalization();
+        infoRastreador.getUbicacion().trim();
+        personalization.addDynamicTemplateData("titulo", infoRastreador.getTitulo().toString());
+        personalization.addDynamicTemplateData("descripcion", infoRastreador.getDescripcion().toString());
+        personalization.addDynamicTemplateData("ubicacion", infoRastreador.getUbicacion().toString());
+        personalization.addDynamicTemplateData("distancia", infoRastreador.getDistancia().toString());
+        personalization.addDynamicTemplateData("duracion", infoRastreador.getDuracion().toString());
         personalization.addTo(new Email(correo));
         mail.addPersonalization(personalization);
         sendInternal(mail);
