@@ -10,9 +10,13 @@ import { BrowserModule } from '@angular/platform-browser';
 })
 export class ListarStartupsAdminComponent implements OnInit {
   startups: any[] = [];
+  busqueda: string;
+  startupsTmp: any[] = [];
   // show:boolean;
 
-  constructor(private listadoService: ListarStartupsAdminService, private router: Router) {}
+  constructor(private listadoService: ListarStartupsAdminService, private router: Router) {
+    this.busqueda = '';
+  }
 
   ngOnInit(): void {
     /* eslint-disable no-console */
@@ -23,6 +27,7 @@ export class ListarStartupsAdminComponent implements OnInit {
           this.startups.push(startup);
         });
       }
+      this.startupsTmp = this.startups;
     });
   }
 
@@ -60,5 +65,36 @@ export class ListarStartupsAdminComponent implements OnInit {
     localStorage.setItem('correoStartupVisualizable', correoStartup);
 
     this.router.navigate(['/admin/perfil-visualizable-startup']);
+  }
+
+  searchByName(): void {
+    try {
+      this.listadoService.findByNombre(this.busqueda).subscribe(
+
+        (response: any) => {
+
+          if (response) {
+
+            this.startups = response;
+
+          } else {
+            this.startups = [];
+          }
+
+        },
+        (err: any) => {
+
+          this.startups = [];
+        }
+      );
+    } catch (e) {
+      console.error('hola', e);
+    }
+  }
+
+  clearSearch() : void {
+    if (!this.busqueda) {
+      this.startups = this.startupsTmp;
+    }
   }
 }
