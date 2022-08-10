@@ -104,6 +104,7 @@
     "sockjs-client": "1.5.0",
     "tslib": "2.3.1",
     "webstomp-client": "1.2.6",
+    "xlsx": "^0.18.5",
     "zone.js": "0.11.4"
   },
   "devDependencies": {
