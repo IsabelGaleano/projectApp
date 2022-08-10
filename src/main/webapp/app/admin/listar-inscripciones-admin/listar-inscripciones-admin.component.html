@@ -9,6 +9,11 @@
             <div class="d-flex justify-content-between">
               <h4 style="display: inline" class="card-title mg-b-0">Lista de inscripciones</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
+              <div class="d-flex my-xl-auto right-content">
+                <input (keyup)="clearSearch()" class="form-control mg-b-0" placeholder="Buscar" type="search"  [(ngModel)]="busqueda"
+                       #search="ngModel"
+                       name="search" (keyup)="searchByName()"> <button [disabled]="!busqueda" class="btn"  (click)="searchByName()"><i class="fas fa-search d-none d-md-block" ></i></button>
+              </div>
             </div>
           </div>
           <div class="card-body">

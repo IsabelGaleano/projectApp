@@ -5,6 +5,8 @@ import com.project.myapp.domain.Startups;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+
+import com.project.myapp.domain.Usuarios;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -46,4 +48,7 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
     @Modifying
     @Query("UPDATE Inscripciones C SET C.estado = ?2 WHERE C.id = ?1")
     void updateInscripcionesEstado(Long id, String estado);
+
+    @Query(value = "SELECT C FROM Inscripciones C WHERE C.nombre LIKE %?1%")
+    List<Inscripciones> findText(String nombre);
 }
