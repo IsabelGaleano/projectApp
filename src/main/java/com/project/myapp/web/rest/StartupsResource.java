@@ -323,4 +323,12 @@ public class StartupsResource {
         log.debug("REST request to get all Categorias");
         return startupsRepository.startupsPorCategoria(categoria);
     }
+
+    @GetMapping("/startups/findStartupsByNombreOrCorreo/{nombre}")
+    public List<Startups> getStartupsByNombreOrCorreo(@PathVariable String nombre) {
+        log.debug("REST request to get Startups : {}", nombre);
+        String formattedData = nombre.replace("%20", "");
+        List<Startups> startups = startupsRepository.findText(formattedData);
+        return startups;
+    }
 }

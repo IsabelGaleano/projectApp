@@ -105,7 +105,18 @@ export class ListaUsuariosComponent implements OnInit {
 
           if (response) {
 
-            this.usuarios = response;
+            this.usuarios = [];
+          response.forEach((usuario: any) => {
+              this.appService.getUsersByEmail(usuario.correoElectronico).subscribe((roles: any) => {
+                roles.forEach((rol: any) => {
+                  // console.warn(ro)
+                  if (rol.name === 'ROLE_USER' && roles.length === 1) {
+                    // if (rol.name === 'ROLE_USER') {
+                    this.usuarios.push(usuario);
+                  }
+                });
+              });
+            });
 
           } else {
             this.usuarios = [];

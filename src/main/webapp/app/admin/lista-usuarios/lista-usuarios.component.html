@@ -18,11 +18,10 @@
               <div class="d-flex my-xl-auto right-content">
                 <input (keyup)="clearSearch()" class="form-control mg-b-0" placeholder="Buscar" type="search"  [(ngModel)]="busqueda"
                        #search="ngModel"
-                       name="search"> <button [disabled]="!busqueda" class="btn"  (click)="searchByName()"><i class="fas fa-search d-none d-md-block" ></i></button>
+                       name="search" (keyup)="searchByName()"> <button [disabled]="!busqueda" class="btn"  (click)="searchByName()"><i class="fas fa-search d-none d-md-block" ></i></button>
               </div>
             </div>
           <div class="card-body">
-
             <div *ngIf="usuarios.length > 0" class="table-responsive">
               <table class="table table-hover mb-0 text-md-nowrap">
                 <thead>
@@ -76,4 +75,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>
