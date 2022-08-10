@@ -232,6 +232,33 @@ public class NotificacionesResource {
         System.out.println(infoRastreador);
     }
 
+    @PostMapping("/notificaciones/inicioEnvioPaquete")
+    public void notificacionRastreadorEnvioInicio(@Valid @RequestBody InfoRastreador infoRastreador) {
+        SendEmail sendEmail = new SendEmail();
+        Optional<Usuarios> usuarios = usuariosRepository.findById(infoRastreador.getIdUsuario());
+        Optional<Startups> startups = startupsRepository.findById(infoRastreador.getIdStartup());
+        Optional<DonacionesPaquetes> donacion = donacionesPaquetesRepository.findById(infoRastreador.getIdDonacionPaquete());
+        sendEmail.correoNotificacionesInicioRastreador(infoRastreador, usuarios.get().getCorreoElectronico());
+        ZonedDateTime date = ZonedDateTime.now();
+        Notificaciones notificaciones = new Notificaciones();
+        notificaciones.setTipo("Envio inicializado");
+        notificaciones.setDescripcion(
+            "El envio de su paquete " +
+            donacion.get().getIdPaquete().getNombre() +
+            " del startup " +
+            startups.get().getNombreCorto() +
+            " ha iniciado"
+        );
+        notificaciones.setFecha(date);
+        notificaciones.setTipoRemitente("Startup");
+        notificaciones.setTipoReceptor("Usuario");
+        notificaciones.setEstado("Activo");
+        notificaciones.setIdStartup(startups.get());
+        notificaciones.setIdUsuario(usuarios.get());
+        notificacionesRepository.save(notificaciones);
+        System.out.println(infoRastreador);
+    }
+
     @PostMapping("/notificaciones/finEnvioPaquete")
     public void notificacionRastreadorEnvio(@Valid @RequestBody InfoRastreador infoRastreador) {
         SendEmail sendEmail = new SendEmail();

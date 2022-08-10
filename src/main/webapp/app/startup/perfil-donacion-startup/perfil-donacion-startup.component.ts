@@ -125,6 +125,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
             this.cargarRastreador();
             this.cargarInFoInicialEnvio();
             this.cargarMapActualizar();
+            this.enviarNotificacionInicial();
           }
         });
       }
@@ -515,6 +516,26 @@ export class PerfilDonacionStartupComponent implements OnInit {
     };
 
     this.perfilService.postNotificacionFinEnvio(infoRastreador).subscribe((result: any) => {
+      console.warn('Notificación enviada');
+    });
+  }
+
+  enviarNotificacionInicial(): void {
+    let data = 'El envío de su paquete '
+      .concat(this.paquete.nombre)
+      .concat(' del startup ')
+      .concat(this.startup.nombreCorto)
+      .concat(' ha iniciado, para más información dirígase a startupsafe.co');
+
+    const infoRastreador = {
+      titulo: 'El envío de su paquete ha iniciado',
+      descripcion: data,
+      idStartup: this.donacionPaquete.idStartup.id,
+      idUsuario: this.donacionPaquete.idUsuario.id,
+      idDonacionPaquete: this.donacionPaquete.id,
+    };
+
+    this.perfilService.postNotificacionInicioEnvio(infoRastreador).subscribe((result: any) => {
       console.warn('Notificación enviada');
     });
   }

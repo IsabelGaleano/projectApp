@@ -50,6 +50,10 @@ export class PerfilDonacionStartupPService {
     return this.http.post(this.rootURL.concat('/notificaciones/finEnvioPaquete'), infoRastreador);
   }
 
+  postNotificacionInicioEnvio(infoRastreador: Record<string, unknown> | any): Observable<any> {
+    return this.http.post(this.rootURL.concat('/notificaciones/inicioEnvioPaquete'), infoRastreador);
+  }
+
   actualizarRastreador(id: any, latitud: string, longitud: string): Observable<any> {
     if (id != null) {
       return this.http.get(

@@ -83,4 +83,17 @@ public class SendEmail {
         mail.addPersonalization(personalization);
         sendInternal(mail);
     }
+
+    public void correoNotificacionesInicioRastreador(InfoRastreador infoRastreador, String correo) {
+        String templateId = "d-d44f8137908346d0a4606768ea9d3785";
+        Mail mail = new Mail();
+        mail.setFrom(new Email("dcoto37@gmail.com", "StartupSafe"));
+        mail.setTemplateId(templateId);
+        Personalization personalization = new Personalization();
+        personalization.addDynamicTemplateData("titulo", infoRastreador.getTitulo().toString());
+        personalization.addDynamicTemplateData("descripcion", infoRastreador.getDescripcion().toString());
+        personalization.addTo(new Email(correo));
+        mail.addPersonalization(personalization);
+        sendInternal(mail);
+    }
 }

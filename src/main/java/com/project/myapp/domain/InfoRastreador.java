@@ -55,6 +55,14 @@ public class InfoRastreador {
         this.idDonacionPaquete = idDonacionPaquete;
     }
 
+    public InfoRastreador(String titulo, String descripcion, Long idStartup, Long idUsuario, Long idDonacionPaquete) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.idStartup = idStartup;
+        this.idUsuario = idUsuario;
+        this.idDonacionPaquete = idDonacionPaquete;
+    }
+
     public String getTitulo() {
         return titulo;
     }
