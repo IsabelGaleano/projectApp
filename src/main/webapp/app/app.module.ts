@@ -11,6 +11,8 @@ import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
+import { GoogleChartsModule } from 'angular-google-charts';
+
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
 import { SharedModule } from 'app/shared/shared.module';
@@ -67,6 +69,7 @@ import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
 import { PerfilDonacionStartupComponent } from './startup/perfil-donacion-startup/perfil-donacion-startup.component';
 import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-usuario/perfil-donacion-usuario.component';
+import { BotComponent } from './bot/bot.component';
 
 @NgModule({
   imports: [
@@ -84,6 +87,7 @@ import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-u
     ReactiveFormsModule,
     CommonModule,
     AccountModule,
+    GoogleChartsModule,
   ],
   providers: [
     Title,
@@ -137,6 +141,7 @@ import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-u
     PagoFinalPaquetesComponent,
     PerfilDonacionStartupComponent,
     PerfilDonacionUsuarioComponent,
+    BotComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

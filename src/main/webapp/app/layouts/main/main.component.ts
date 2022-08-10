@@ -30,14 +30,7 @@ export class MainComponent implements OnInit {
     // try to log in automatically
     this.accountService.identity().subscribe();
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.updateTitle();
-      }
-    });
-
     this.translateService.onLangChange.subscribe((langChangeEvent: LangChangeEvent) => {
-      this.updateTitle();
       dayjs.locale(langChangeEvent.lang);
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
     });
@@ -50,21 +43,5 @@ export class MainComponent implements OnInit {
         this.user = false;
       }
     });
-  }
-
-  private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
-    const title: string = routeSnapshot.data['pageTitle'] ?? '';
-    if (routeSnapshot.firstChild) {
-      return this.getPageTitle(routeSnapshot.firstChild) || title;
-    }
-    return title;
-  }
-
-  private updateTitle(): void {
-    let pageTitle = this.getPageTitle(this.router.routerState.snapshot.root);
-    if (!pageTitle) {
-      pageTitle = 'global.title';
-    }
-    this.translateService.get(pageTitle).subscribe(title => this.titleService.setTitle(title));
   }
 }

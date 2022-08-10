@@ -56,3 +56,145 @@
   //background: #000;
   border-radius: 10px;
 }
+
+//Bot styles
+.bot {
+  &__root {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background-color: #8b8c89;
+    border: 0.05rem solid #0162e8;
+  }
+  &__logo {
+    width: 65%;
+    height: 65%;
+    //border-radius: 50%;
+  }
+  &__toggle-btn {
+    border-radius: 50%;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+  &__card {
+    width: 65%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border: 0;
+    border-radius: 0.5rem;
+    margin: 2% 0;
+    background: #3983c1;
+    background: -webkit-linear-gradient(top left, #3983c1, #0162e8);
+    background: -moz-linear-gradient(top left, #3983c1, #0162e8);
+    background: linear-gradient(to bottom right, #3983c1, #0162e8);
+    &:hover {
+      opacity: 0.9;
+    }
+    &__cnt {
+      &-icon {
+        width: 15%;
+      }
+      &-text {
+        display: flex;
+        justify-content: center;
+        width: 85%;
+      }
+    }
+    &__icon {
+      font-size: 1.25rem;
+    }
+    &__text {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+  }
+
+  &__content {
+    position: fixed;
+    width: 25rem;
+    height: 30rem;
+    border-radius: 0.5rem;
+    bottom: 5.5rem;
+    right: 15px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    &__close {
+      &-btn {
+        background-color: #0162e8;
+        border: 0;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+      }
+      &-icon {
+        color: #fff;
+        font-size: 1.25rem;
+      }
+    }
+    &__icon {
+      color: #0162e8;
+      font-size: 1.5rem;
+      &-cnt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        z-index: 2;
+        top: -1.5rem;
+        left: 11rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 0.0625rem solid #0162e8;
+      }
+    }
+    &__toggle {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+      height: 15%;
+      background-color: #0162e8;
+      border-radius: 0.5rem;
+      &-info {
+        color: #fff;
+        font-size: 1.15rem;
+      }
+    }
+    &__info {
+      width: 100%;
+      height: 75%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      &-cards {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    &__search {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &-inp {
+      }
+    }
+  }
+}
+//[ngClass]="{'lock-opening-animation': loading === true}"
