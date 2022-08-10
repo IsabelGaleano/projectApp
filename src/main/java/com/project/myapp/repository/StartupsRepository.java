@@ -4,6 +4,8 @@ import com.project.myapp.domain.Startups;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+
+import com.project.myapp.domain.Usuarios;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -34,4 +36,7 @@ public interface StartupsRepository extends JpaRepository<Startups, Long> {
 
     @Query("SELECT S FROM Startups S LEFT JOIN Categorias C ON S.idCategoria = C.id WHERE C.categoria = ?1 AND S.estado = 'Activo'")
     List startupsPorCategoria(String categoria);
+
+    @Query(value = "SELECT S FROM Startups S WHERE S.nombreCorto LIKE %?1% OR S.correoElectronico LIKE %?1%")
+    List<Startups> findText(String nombre);
 }
