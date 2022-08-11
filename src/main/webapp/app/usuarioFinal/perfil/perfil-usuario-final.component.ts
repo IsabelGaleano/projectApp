@@ -24,7 +24,6 @@ import {
 import { data } from 'autoprefixer';
 import { Loader } from '@googlemaps/js-api-loader';
 import { FormBuilder, Validators } from '@angular/forms';
-/* tslint:disable:component-selector */
 @Component({
   selector: 'jhi-perfil-usuario-final',
   templateUrl: './perfil-usuario-final.component.html',
