@@ -294,87 +294,31 @@
               <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="notifications-menu">
                 <div class="menu-header-content bg-primary text-start">
                   <div class="d-flex">
-                    <h6 class="dropdown-title mb-1 tx-15 text-white fw-semibold">Notifications</h6>
+                    <h6 class="dropdown-title mb-1 tx-15 text-white fw-semibold">Notificaciones</h6>
                     <span class="badge rounded-pill bg-warning ms-auto my-auto float-end">Mark All Read</span>
                   </div>
-                  <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12">You have 4 unread Notifications</p>
+                  <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12">Tiene notificaciones pendientes</p>
                 </div>
-                <div class="main-notification-list Notification-scroll">
-                  <a class="d-flex p-3 border-bottom" href="javascript:void(0);">
-                    <div class="notifyimg bg-pink">
-                      <i class="la la-file-alt text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                      <h5 class="notification-label mb-1">New files available</h5>
-                      <div class="notification-subtext">10 hour ago</div>
-                    </div>
-                    <div class="ms-auto">
-                      <i class="las la-angle-right text-end text-muted"></i>
-                    </div>
-                  </a>
-                  <a class="d-flex p-3 border-bottom" href="javascript:void(0);">
-                    <div class="notifyimg bg-purple">
-                      <i class="la la-gem text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                      <h5 class="notification-label mb-1">Updates Available</h5>
-                      <div class="notification-subtext">2 days ago</div>
-                    </div>
-                    <div class="ms-auto">
-                      <i class="las la-angle-right text-end text-muted"></i>
-                    </div>
-                  </a>
-                  <a class="d-flex p-3 border-bottom" href="javascript:void(0);">
-                    <div class="notifyimg bg-success">
-                      <i class="la la-shopping-basket text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                      <h5 class="notification-label mb-1">New Order Received</h5>
-                      <div class="notification-subtext">1 hour ago</div>
-                    </div>
-                    <div class="ms-auto">
-                      <i class="las la-angle-right text-end text-muted"></i>
-                    </div>
-                  </a>
-                  <a class="d-flex p-3 border-bottom" href="javascript:void(0);">
-                    <div class="notifyimg bg-warning">
-                      <i class="la la-envelope-open text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                      <h5 class="notification-label mb-1">New review received</h5>
-                      <div class="notification-subtext">1 day ago</div>
-                    </div>
-                    <div class="ms-auto">
-                      <i class="las la-angle-right text-end text-muted"></i>
-                    </div>
-                  </a>
-                  <a class="d-flex p-3 border-bottom" href="javascript:void(0);">
-                    <div class="notifyimg bg-danger">
-                      <i class="la la-user-check text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                      <h5 class="notification-label mb-1">22 verified registrations</h5>
-                      <div class="notification-subtext">2 hour ago</div>
-                    </div>
-                    <div class="ms-auto">
-                      <i class="las la-angle-right text-end text-muted"></i>
-                    </div>
-                  </a>
+                <div class="main-notification-list Notification-scroll" *ngFor="let notificacion of notificaciones; index as i">
                   <a class="d-flex p-3 border-bottom" href="javascript:void(0);">
                     <div class="notifyimg bg-primary">
                       <i class="la la-check-circle text-white"></i>
                     </div>
                     <div class="ms-3">
-                      <h5 class="notification-label mb-1">Project has been approved</h5>
-                      <div class="notification-subtext">4 hour ago</div>
+                      <h5 class="notification-label mb-1">{{ notificacion.descripcion }}</h5>
+                      <div class="notification-subtext">{{ notificacion.fecha }}</div>
                     </div>
                     <div class="ms-auto">
                       <i class="las la-angle-right text-end text-muted"></i>
                     </div>
                   </a>
                 </div>
+                <div *ngIf="notificaciones.length == 0" class="text-center">
+                  <h5>No tiene notificaciones</h5>
+                </div>
+
                 <div class="dropdown-footer">
-                  <a href="">VIEW ALL</a>
+                  <a href="">Ver todas</a>
                 </div>
               </div>
             </li>
@@ -402,19 +346,13 @@
                   </div>
                 </div>
                 <a class="dropdown-item" href=""
-                  ><i class="bx bx-user-circle">
-                    <fa-icon [icon]="faUserCircle"></fa-icon> </i
-                  >Perfil</a
+                  ><i class="bx bx-user-circle"> <fa-icon [icon]="faUserCircle"></fa-icon> </i>Perfil</a
                 >
                 <a class="dropdown-item" href=""
-                  ><i class="bx bxs-inbox">
-                    <fa-icon [icon]="faBell"></fa-icon> </i
-                  >Notificaciones</a
+                  ><i class="bx bxs-inbox"> <fa-icon [icon]="faBell"></fa-icon> </i>Notificaciones</a
                 >
                 <a class="dropdown-item" href=""
-                  ><i class="bx bx-envelope">
-                    <fa-icon [icon]="faMessage"></fa-icon> </i
-                  >Mensajes</a
+                  ><i class="bx bx-envelope"> <fa-icon [icon]="faMessage"></fa-icon> </i>Mensajes</a
                 >
                 <a class="dropdown-item" id="cerrarSesion" (click)="logout()"
                   ><i class="bx bx-log-out">
