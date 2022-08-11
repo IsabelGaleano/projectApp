@@ -20,4 +20,8 @@ export class MenuAdminService {
   getNotificacionesUsuario(correo: string | any): Observable<any> {
     return this.http.get(this.rootURL.concat('/notificaciones/notificacionesUsuario/').concat(correo));
   }
+
+  getNotificacionesStartup(correo: string | any): Observable<any> {
+    return this.http.get(this.rootURL.concat('/notificaciones/notificacionesStartup/').concat(correo));
+  }
 }

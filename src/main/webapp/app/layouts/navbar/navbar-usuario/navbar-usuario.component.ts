@@ -77,12 +77,19 @@ export class NavbarUsuarioComponent implements OnInit {
                 reversed[i].fecha = fechatemp.toLocaleString();
                 this.notificaciones.push(reversed[i]);
               }
-              //this.notificaciones = result;
             });
           });
         } else if (account.authorities[0] === 'ROLE_STARTUP') {
           this.menuStartupService.getStartupLogin(account.email).subscribe((data: any) => {
             this.usuario = data;
+            this.menuAdminService.getNotificacionesStartup(account.email).subscribe((resultS: any) => {
+              const reversedS = resultS.reverse();
+              for (let i = 0; i < 4; i++) {
+                const fechat = new Date(reversedS[i].fecha);
+                reversedS[i].fecha = fechat.toLocaleString();
+                this.notificaciones.push(reversedS[i]);
+              }
+            });
           });
         }
       }

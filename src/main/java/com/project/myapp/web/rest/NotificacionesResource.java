@@ -197,6 +197,19 @@ public class NotificacionesResource {
         return notificacionesT;
     }
 
+    @GetMapping("/notificaciones/notificacionesStartup/{correo}")
+    public List<Notificaciones> getNotificacionesStartups(@PathVariable String correo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<Notificaciones> notificaciones = notificacionesRepository.findAllByIdStartup(startup.get());
+        List<Notificaciones> notificacionesT = new ArrayList<>();
+        for (Notificaciones notificacion : notificaciones) {
+            if (notificacion.getTipoReceptor().equals("Startup")) {
+                notificacionesT.add(notificacion);
+            }
+        }
+        return notificacionesT;
+    }
+
     /**
      * {@code GET  /notificaciones/:id} : get the "id" notificaciones.
      *
