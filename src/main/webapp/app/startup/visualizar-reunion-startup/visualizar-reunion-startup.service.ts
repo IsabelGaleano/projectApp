@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class VisualizarReunionStartupService {
+  rootURL = '/api/';
+
+  constructor(private http: HttpClient) {}
+
+  //Obtener reunion por id
+  obtenerReunion(idReunion: string): Observable<any> {
+    return this.http.get(this.rootURL.concat('reuniones/').concat(idReunion));
+  }
+
+  //Actualizar reunion
+  actualizarReunion(idReunion: string, reunion): Observable<any> {
+    return this.http.put(this.rootURL.concat('reuniones/').concat(idReunion), reunion);
+  }
+
+  //Agregar un URL para la reunión
+  agregarURLReunion(idReunion, urlReunion): Observable<any> {
+    return this.http.put(this.rootURL.concat('actualizarUrlReunion/').concat(idReunion), urlReunion);
+  }
+}

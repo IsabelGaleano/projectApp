@@ -1,6 +1,8 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Notificaciones;
+import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,10 @@ public interface NotificacionesRepository extends JpaRepository<Notificaciones, 
     default List<Notificaciones> findAllWithEagerRelationships() {
         return this.findAllWithToOneRelationships();
     }
+
+    public List<Notificaciones> findAllByIdUsuario(Usuarios idusuario);
+
+    public List<Notificaciones> findAllByIdStartup(Startups idStartup);
 
     default Page<Notificaciones> findAllWithEagerRelationships(Pageable pageable) {
         return this.findAllWithToOneRelationships(pageable);

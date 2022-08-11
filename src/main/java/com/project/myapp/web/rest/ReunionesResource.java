@@ -5,11 +5,18 @@ import com.project.myapp.repository.ReunionesRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+//Zoom
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -193,5 +200,57 @@ public class ReunionesResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/generateSignature/{apiKey}/{apiSecret}/{meetingNumber}")
+    public String createSignature(
+        @PathVariable String apiKey,
+        @PathVariable String apiSecret,
+        @PathVariable String meetingNumber,
+        @RequestBody int role
+    ) throws URISyntaxException {
+        try {
+            Mac hasher = Mac.getInstance("HmacSHA256");
+            String ts = Long.toString(System.currentTimeMillis() - 30000);
+            String msg = String.format("%s%s%s%d", apiKey, meetingNumber, ts, role);
+            hasher.init(new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256"));
+            String message = Base64.getEncoder().encodeToString(msg.getBytes());
+            byte[] hash = hasher.doFinal(message.getBytes());
+            String hashBase64Str = DatatypeConverter.printBase64Binary(hash);
+            String tmpString = String.format("%s.%s.%s.%d.%s", apiKey, meetingNumber, ts, role, hashBase64Str);
+            String encodedString = Base64.getEncoder().encodeToString(tmpString.getBytes());
+            // return encodedString.replaceAll("\=+$", "");
+            return encodedString.replaceAll("\\=+$", "");
+        } catch (NoSuchAlgorithmException e) {} catch (InvalidKeyException e) {}
+        return "";
+    }
+
+    @GetMapping("/reunionesByIdUsuario/{idUsuario}")
+    public List<Reuniones> getReunionesByIdUsuario(@PathVariable String idUsuario) {
+        log.debug("REST request to get Reuniones : {}", idUsuario);
+
+        return reunionesRepository.GetByUsuarioId(Long.parseLong(idUsuario));
+    }
+
+    @GetMapping("/reunionesByIdStartup/{idStartup}")
+    public List<Reuniones> getReunionesByIdStartup(@PathVariable String idStartup) {
+        log.debug("REST request to get Reuniones : {}", idStartup);
+
+        return reunionesRepository.GetByStartupId(Long.parseLong(idStartup));
+    }
+
+    @PutMapping("/aceptarReunion/{idReunion}")
+    public void aceptarReunion(@PathVariable String idReunion, @RequestBody String estado) {
+        reunionesRepository.aceptarReunion(Long.parseLong(idReunion), estado);
+    }
+
+    @PutMapping("/actualizarReuniones/{idReunion}")
+    public void actualizarEstadoReunion(@PathVariable String idReunion, @RequestBody String estado) {
+        reunionesRepository.actualizarEstadoReunion(Long.parseLong(idReunion), estado);
+    }
+
+    @PutMapping("/actualizarUrlReunion/{idReunion}")
+    public void actualizarUrlReunion(@PathVariable String idReunion, @RequestBody String url) {
+        reunionesRepository.actualizarUrlReunion(Long.parseLong(idReunion), url);
     }
 }
