@@ -1,13 +1,16 @@
+/* eslint-disable prefer-const */
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
+import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Account } from 'app/core/auth/account.model';
 import { PerfilComercialStartupService } from './perfil-comercial-startup.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'jhi-perfil-comercial-startup',
   templateUrl: './perfil-comercial-startup.component.html',
@@ -32,6 +35,13 @@ export class PerfilComercialStartupComponent implements OnInit {
   votoUsuario!: any;
   comentarios!: any;
   comentarioHaciaStartup!: any;
+  mostrarFormReunion = false;
+  success = false;
+
+  formAgendarReunion = new FormGroup({
+    fechaReunion: new FormControl('', [Validators.required]),
+    descripcionReunion: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(300)]),
+  });
 
   constructor(
     private perfilComercialStartupService: PerfilComercialStartupService,
@@ -291,5 +301,53 @@ export class PerfilComercialStartupComponent implements OnInit {
         this.comentarios.push(comentario);
       });
     }
+  }
+
+  abrirFormReunion(): void {
+    this.mostrarFormReunion = true;
+    document.getElementById('formAgendarReunion')!.style.display = 'block';
+  }
+
+  cerrarFormReunion(): void {
+    this.mostrarFormReunion = false;
+    document.getElementById('formAgendarReunion')!.style.display = 'none';
+  }
+
+  solicitarReunion(): void {
+    console.warn('Reunión solicitada');
+
+    let fechaReunion = this.formAgendarReunion.get('fechaReunion')?.value;
+    const descripcionReunion = this.formAgendarReunion.get('descripcionReunion')?.value;
+
+    console.warn('fecha: ', fechaReunion, ', descripción: ', descripcionReunion);
+
+    const startup = this.startup;
+    startup.fechaCreacion = new Date(startup.fechaCreacion);
+
+    fechaReunion = new Date(fechaReunion);
+    fechaReunion = this.subtractTimeFromDate(fechaReunion, 6);
+
+    const reunion = {
+      url: null,
+      descripcion: descripcionReunion,
+      fechaSolicitada: fechaReunion,
+      horaReunion: new Date(),
+      estado: 'SolicitadoI',
+      idStartup: startup,
+      idUsuario: this.usuarioSesion,
+    };
+
+    this.perfilComercialStartupService.solicitarReunion(reunion).subscribe(() => {
+      this.success = true;
+      console.warn(this.success);
+    });
+  }
+
+  subtractTimeFromDate(objDate, intHours): Date {
+    let numberOfMlSeconds = objDate.getTime();
+    let addMlSeconds = intHours * 60 * 60 * 1000;
+    let newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
+
+    return newDateObj;
   }
 }
