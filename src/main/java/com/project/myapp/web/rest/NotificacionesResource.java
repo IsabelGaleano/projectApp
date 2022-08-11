@@ -10,6 +10,7 @@ import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -181,6 +182,19 @@ public class NotificacionesResource {
     public List<Notificaciones> getAllNotificaciones(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Notificaciones");
         return notificacionesRepository.findAllWithEagerRelationships();
+    }
+
+    @GetMapping("/notificaciones/notificacionesUsuario/{correo}")
+    public List<Notificaciones> getNotificacionesUsuarios(@PathVariable String correo) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        List<Notificaciones> notificaciones = notificacionesRepository.findAllByIdUsuario(usuario.get());
+        List<Notificaciones> notificacionesT = new ArrayList<>();
+        for (Notificaciones notificacion : notificaciones) {
+            if (notificacion.getTipoReceptor().equals("Usuario")) {
+                notificacionesT.add(notificacion);
+            }
+        }
+        return notificacionesT;
     }
 
     /**
