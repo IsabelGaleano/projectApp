@@ -67,6 +67,7 @@ import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
 import { PerfilDonacionStartupComponent } from './startup/perfil-donacion-startup/perfil-donacion-startup.component';
 import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-usuario/perfil-donacion-usuario.component';
+import { ListarReportesComponent } from './admin/listar-reportes/listar-reportes.component';
 import { ListaReunionesComponent } from './usuarioFinal/lista-reuniones/lista-reuniones.component';
 import { VisualizarReunionComponent } from './usuarioFinal/visualizar-reunion/visualizar-reunion.component';
 import { ListaReunionesStartupComponent } from './startup/lista-reuniones-startup/lista-reuniones-startup.component';
@@ -141,6 +142,7 @@ import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-
     PagoFinalPaquetesComponent,
     PerfilDonacionStartupComponent,
     PerfilDonacionUsuarioComponent,
+    ListarReportesComponent,
     ListaReunionesComponent,
     VisualizarReunionComponent,
     ListaReunionesStartupComponent,

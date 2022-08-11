@@ -9,7 +9,7 @@ import { RegistroAdminComponent } from './registro-admin/registro-admin.componen
 import { ListarStartupsAdminComponent } from './listar-startups-admin/listar-startups-admin.component';
 import { ListarInscripcionesAdminComponent } from './listar-inscripciones-admin/listar-inscripciones-admin.component';
 import { PerfilVisualizableStartupComponent } from './perfil-visualizable-startup/perfil-visualizable-startup.component';
-
+import { ListarReportesComponent } from './listar-reportes/listar-reportes.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -74,6 +74,13 @@ import { PerfilVisualizableStartupComponent } from './perfil-visualizable-startu
         component: PerfilVisualizableStartupComponent,
         data: {
           pageTitle: 'perfil-visualizable-admin.home.title',
+        },
+      },
+      {
+        path: 'listar-reportes',
+        component: ListarReportesComponent,
+        data: {
+          pageTitle: 'listar-reportes.home.title',
         },
       },
       {
