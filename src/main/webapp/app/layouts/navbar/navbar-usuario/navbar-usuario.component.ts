@@ -34,6 +34,7 @@ export class NavbarUsuarioComponent implements OnInit {
   faBell = faBell;
   faMessage = faMessage;
   usuario!: any;
+  notificaciones: any[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -68,10 +69,27 @@ export class NavbarUsuarioComponent implements OnInit {
         if (account.authorities[0] === 'ROLE_USER') {
           this.menuAdminService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
             this.usuario = data;
+            //Get notificaciones
+            this.menuAdminService.getNotificacionesUsuario(account.email).subscribe((result: any) => {
+              const reversed = result.reverse();
+              for (let i = 0; i < 4; i++) {
+                const fechatemp = new Date(reversed[i].fecha);
+                reversed[i].fecha = fechatemp.toLocaleString();
+                this.notificaciones.push(reversed[i]);
+              }
+            });
           });
         } else if (account.authorities[0] === 'ROLE_STARTUP') {
           this.menuStartupService.getStartupLogin(account.email).subscribe((data: any) => {
             this.usuario = data;
+            this.menuAdminService.getNotificacionesStartup(account.email).subscribe((resultS: any) => {
+              const reversedS = resultS.reverse();
+              for (let i = 0; i < 4; i++) {
+                const fechat = new Date(reversedS[i].fecha);
+                reversedS[i].fecha = fechat.toLocaleString();
+                this.notificaciones.push(reversedS[i]);
+              }
+            });
           });
         }
       }
