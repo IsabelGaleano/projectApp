@@ -122,9 +122,10 @@ export class PerfilDonacionStartupComponent implements OnInit {
           if (dataRastreador) {
             console.warn(dataRastreador);
             this.isEnabled = true;
-            this.cargarInFoInicialEnvio();
             this.cargarRastreador();
+            this.cargarInFoInicialEnvio();
             this.cargarMapActualizar();
+            this.enviarNotificacionInicial();
           }
         });
       }
@@ -144,9 +145,10 @@ export class PerfilDonacionStartupComponent implements OnInit {
         console.warn(result);
         this.isEnabledFinal = true;
         this.cargarInFoFinalEntrega();
+        this.cargarRastreador();
         this.cargarMapInicioEnvio();
         this.cargarMapActualizar();
-        this.cargarRastreador();
+        this.enviarNotificacionFinal();
       }
     });
   }
@@ -472,9 +474,69 @@ export class PerfilDonacionStartupComponent implements OnInit {
     const longitud = <HTMLInputElement>document.getElementById('longitudA');
 
     this.perfilService.actualizarRastreador(this.donacionPaquete.id, latitud.value, longitud.value).subscribe((result: any) => {
-      this.cargarMapActualizar();
       this.cargarRastreador();
+      this.cargarMapActualizar();
       this.cargarMapInicioEnvio();
+      this.enviarNotificacionActualizar();
+    });
+  }
+
+  enviarNotificacionActualizar(): void {
+    const infoRastreador = {
+      titulo: 'Actualización de su paquete',
+      descripcion: 'La ubicación de su paquete se ha actualizado, para más información dirígase a startupsafe.co',
+      ubicacion: this.originAddresses,
+      duracion: this.duracion,
+      distancia: this.distancia,
+      idStartup: this.donacionPaquete.idStartup.id,
+      idUsuario: this.donacionPaquete.idUsuario.id,
+    };
+
+    this.perfilService.postNotificacionActualizacion(infoRastreador).subscribe((result: any) => {
+      console.warn('Notificación enviada');
+    });
+  }
+
+  enviarNotificacionFinal(): void {
+    let data = 'El envío de su paquete '
+      .concat(this.paquete.nombre)
+      .concat(' del startup ')
+      .concat(this.startup.nombreCorto)
+      .concat(' ha finalizado, para más información dirígase a startupsafe.co');
+
+    const infoRastreador = {
+      titulo: 'El envío de su paquete ha finalizado',
+      descripcion: data,
+      ubicacion: this.destinationAddresses,
+      duracion: this.duracion,
+      distancia: this.distancia,
+      idStartup: this.donacionPaquete.idStartup.id,
+      idUsuario: this.donacionPaquete.idUsuario.id,
+      idDonacionPaquete: this.donacionPaquete.id,
+    };
+
+    this.perfilService.postNotificacionFinEnvio(infoRastreador).subscribe((result: any) => {
+      console.warn('Notificación enviada');
+    });
+  }
+
+  enviarNotificacionInicial(): void {
+    let data = 'El envío de su paquete '
+      .concat(this.paquete.nombre)
+      .concat(' del startup ')
+      .concat(this.startup.nombreCorto)
+      .concat(' ha iniciado, para más información dirígase a startupsafe.co');
+
+    const infoRastreador = {
+      titulo: 'El envío de su paquete ha iniciado',
+      descripcion: data,
+      idStartup: this.donacionPaquete.idStartup.id,
+      idUsuario: this.donacionPaquete.idUsuario.id,
+      idDonacionPaquete: this.donacionPaquete.id,
+    };
+
+    this.perfilService.postNotificacionInicioEnvio(infoRastreador).subscribe((result: any) => {
+      console.warn('Notificación enviada');
     });
   }
 
