@@ -280,4 +280,16 @@ public class InscripcionesResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/inscripciones/inscripciones-anuales")
+    public int getCantidadInscripcionesAnuales() {
+        log.debug("REST request to get cantidad inscripciones anuales");
+        return inscripcionesRepository.countInscripcionesByTipoContainingAnual();
+    }
+
+    @GetMapping("/inscripciones/inscripciones-mensuales")
+    public int getCantidadInscripcionesMensuales() {
+        log.debug("REST request to get cantidad inscripciones mensuales");
+        return inscripcionesRepository.countInscripcionesByTipoContainingMensual();
+    }
 }

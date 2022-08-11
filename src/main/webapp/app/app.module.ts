@@ -11,7 +11,8 @@ import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
-import { GoogleChartsModule } from 'angular-google-charts';
+import { ChartModule } from 'primeng/chart';
+//import { NgChartsModule } from 'ng2-charts';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -87,7 +88,8 @@ import { BotComponent } from './bot/bot.component';
     ReactiveFormsModule,
     CommonModule,
     AccountModule,
-    GoogleChartsModule,
+    ChartModule,
+    //NgChartsModule,
   ],
   providers: [
     Title,

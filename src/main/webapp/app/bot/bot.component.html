@@ -41,7 +41,15 @@
 </div>
 <div class="bot__content" *ngIf="opened === true">
   <div class="bot__content__toggle">
-    <button class="bot__content__close-btn" (click)="closeBot()">
+    <button
+      class="bot__content__goback-btn"
+      (click)="goBack()"
+      aria-label="Go back on the bot button"
+      *ngIf="showFirstContentInfo === false"
+    >
+      <fa-icon [icon]="faArrowLeft" class="bot__content__close-icon"></fa-icon>
+    </button>
+    <button class="bot__content__close-btn" (click)="closeBot()" aria-label="Close bot button">
       <fa-icon [icon]="faCircleXmark" class="bot__content__close-icon"></fa-icon>
     </button>
     <div class="bot__content__icon-cnt">
@@ -49,10 +57,10 @@
     </div>
     <p class="bot__content__toggle-info">Info bot</p>
   </div>
-  <div class="bot__content__info" *ngIf="showFirstContentInfo === true">
+  <div class="bot__content__info">
     <!-- Primeras cards con opciones -->
-    <div class="bot__content__info-cards">
-      <button class="bot__card" aria-label="Card del bot para mejores startups">
+    <div class="bot__content__info-cards" *ngIf="showFirstContentInfo === true">
+      <button class="bot__card bg-primary" aria-label="Card del bot para mejores startups" (click)="mejoresStartups()">
         <div class="bot__card__cnt-icon">
           <fa-icon [icon]="faMedal" class="bot__card__icon"></fa-icon>
         </div>
@@ -60,7 +68,7 @@
           <p class="bot__card__text">Mejores startups</p>
         </div>
       </button>
-      <button class="bot__card" aria-label="Card del bot para estadísticas de startups" (click)="estadisticasStartups()">
+      <button class="bot__card bg-purple" aria-label="Card del bot para estadísticas de startups" (click)="estadisticasStartups()">
         <div class="bot__card__cnt-icon">
           <fa-icon [icon]="faChartColumn" class="bot__card__icon"></fa-icon>
         </div>
@@ -68,7 +76,7 @@
           <p class="bot__card__text">Estadísticas de startups</p>
         </div>
       </button>
-      <button class="bot__card" aria-label="Card del bot para ubicación de paquetes">
+      <button class="bot__card bg-success" aria-label="Card del bot para ubicación de paquetes">
         <div class="bot__card__cnt-icon">
           <fa-icon [icon]="faLocationDot" class="bot__card__icon"></fa-icon>
         </div>
@@ -79,7 +87,78 @@
     </div>
 
     <!-- Cards con opciones de gráficos -->
+    <div class="bot__content__info-cards" *ngIf="showCardsCharts === true">
+      <button class="bot__card bg-purple-gradient" aria-label="Card del bot para mejores startups" (click)="startupsCategorias()">
+        <div class="bot__card__cnt-icon">
+          <fa-icon [icon]="faChartPie" class="bot__card__icon"></fa-icon>
+        </div>
+        <div class="bot__card__cnt-text">
+          <p class="bot__card__text">Startups según categorías</p>
+        </div>
+      </button>
+      <button
+        class="bot__card bg-purple-gradient"
+        aria-label="Card del bot para estadísticas de startups"
+        (click)="startupsInscripciones()"
+      >
+        <div class="bot__card__cnt-icon">
+          <fa-icon [icon]="faChartSimple" class="bot__card__icon"></fa-icon>
+        </div>
+        <div class="bot__card__cnt-text">
+          <p class="bot__card__text">Inscripciones por startups</p>
+        </div>
+      </button>
+      <button class="bot__card bg-purple-gradient" aria-label="Card del bot para ubicación de paquetes">
+        <div class="bot__card__cnt-icon">
+          <fa-icon [icon]="faChartLine" class="bot__card__icon"></fa-icon>
+        </div>
+        <div class="bot__card__cnt-text">
+          <p class="bot__card__text">Por determinar</p>
+        </div>
+      </button>
+    </div>
+
+    <!-- Gráfico polar que muestra cantidad de startups por categoría -->
+    <div class="bot__content__info-chart" *ngIf="showCategoriasChart === true">
+      <p-chart type="polarArea" [data]="data"></p-chart>
+
+      <!--<canvas baseChart [data]="salesData" [type]="'polarArea'" [title]="'Startups por categoría'"> </canvas>-->
+    </div>
+
+    <!-- Gráfico de barras que muestra cantidad de inscripciones anuales y mensuales -->
+    <div class="bot__content__info-chart" *ngIf="showInscripcionesChart === true">
+      <p-chart type="bar" [data]="dataInscripciones" width="20rem" height="20rem"></p-chart>
+    </div>
+
+    <!-- Listado con mejores startups con cars -->
+    <div class="bot__content__info-startups" *ngIf="showBestStartups === true">
+      <button
+        class="bot__card-startup mt-1"
+        aria-label="Card de startup del bot"
+        *ngFor="let startup of startups.slice(0, 3); let i = index"
+        (click)="redireccionarAPerfilStartup(startup.e.correoElectronico)"
+      >
+        <div class="bot__card-startup__cnt bot__card-startup__cnt-up bg-primary">
+          <p class="bot__card-startup__text--l">{{ i + 1 }}. {{ startup.e.nombreCorto }}</p>
+          <p class="bot__card-startup__text--s">{{ startup.e.idCategoria.categoria }}</p>
+        </div>
+        <div class="bot__card-startup__img-cnt">
+          <img src="{{ startup.e.imagenURL }}" alt="Imagen startup en carta del bot" class="bot__card-startup__img" />
+        </div>
+        <div class="bot__card-startup__cnt bot__card-startup__cnt-down">
+          <div class="bot__card-startup__cnt-sub border-end">
+            <h5 class="description-header">Votos</h5>
+            <p class="bot__card-startup__text--s">{{ startup.votos }}</p>
+          </div>
+          <div class="bot__card-startup__cnt-sub">
+            <h5 class="description-header">Monto meta</h5>
+            <p class="bot__card-startup__text--s">${{ startup.e.montoMeta }}</p>
+          </div>
+        </div>
+      </button>
+    </div>
   </div>
+
   <div class="bot__content__search">
     <div class="col-lg-12">
       <div class="input-group mb-3">

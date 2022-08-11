@@ -23,4 +23,10 @@ export class ListarInscripcionesAdminService {
     ruta = ruta.concat(id);
     return this.http.put(ruta, estado);
   }
+  getInscripcionesMensuales(): any {
+    return this.http.get('/api/inscripciones/inscripciones-mensuales');
+  }
+  getInscripcionesAnuales(): any {
+    return this.http.get('/api/inscripciones/inscripciones-anuales');
+  }
 }

@@ -46,4 +46,10 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
     @Modifying
     @Query("UPDATE Inscripciones C SET C.estado = ?2 WHERE C.id = ?1")
     void updateInscripcionesEstado(Long id, String estado);
+
+    @Query("SELECT COUNT(I.tipo) FROM Inscripciones I WHERE I.tipo = 'Mensual' ")
+    int countInscripcionesByTipoContainingMensual();
+
+    @Query("SELECT COUNT(I.tipo) FROM Inscripciones I WHERE I.tipo = 'Anual' ")
+    int countInscripcionesByTipoContainingAnual();
 }
