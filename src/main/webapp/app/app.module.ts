@@ -67,7 +67,7 @@ import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
 import { PerfilDonacionStartupComponent } from './startup/perfil-donacion-startup/perfil-donacion-startup.component';
 import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-usuario/perfil-donacion-usuario.component';
-
+import { ListarReportesComponent } from './admin/listar-reportes/listar-reportes.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -137,6 +137,7 @@ import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-u
     PagoFinalPaquetesComponent,
     PerfilDonacionStartupComponent,
     PerfilDonacionUsuarioComponent,
+    ListarReportesComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
