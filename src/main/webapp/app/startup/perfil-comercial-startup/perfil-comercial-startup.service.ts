@@ -68,4 +68,9 @@ export class PerfilComercialStartupService {
   guardarComentario(comentario: any): Observable<any> {
     return this.http.post(this.rootURL.concat('comentarios/'), comentario);
   }
+
+  //Crear reunión
+  solicitarReunion(reunion: any): Observable<any> {
+    return this.http.post(this.rootURL.concat('reuniones'), reunion);
+  }
 }

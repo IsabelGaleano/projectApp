@@ -13,6 +13,8 @@ import { RegistroEnvioPaquetesComponent } from './registro-envio-paquetes/regist
 import { PagoPaqueteStartupComponent } from './pago-paquete-startup/pago-paquete-startup.component';
 import { PagoFinalPaquetesComponent } from './pago-final-paquetes/pago-final-paquetes.component';
 import { PerfilDonacionStartupComponent } from './perfil-donacion-startup/perfil-donacion-startup.component';
+import { ListaReunionesStartupComponent } from './lista-reuniones-startup/lista-reuniones-startup.component';
+import { VisualizarReunionStartupComponent } from './visualizar-reunion-startup/visualizar-reunion-startup.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -105,6 +107,20 @@ import { PerfilDonacionStartupComponent } from './perfil-donacion-startup/perfil
         component: PerfilDonacionStartupComponent,
         data: {
           pageTitle: 'perfil.donacion.startup.title',
+        },
+      },
+      {
+        path: 'lista-reuniones-startup',
+        component: ListaReunionesStartupComponent,
+        data: {
+          pageTitle: 'lista.reuniones.startup.title',
+        },
+      },
+      {
+        path: 'visualizar-reunion-startup',
+        component: VisualizarReunionStartupComponent,
+        data: {
+          pageTitle: 'visualizar.reunion.startup.title',
         },
       },
     ]),
