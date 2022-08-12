@@ -81,42 +81,4 @@ export class ListarReportesComponent implements OnInit {
 
     XLSX.writeFile(wb, 'test.xlsx');
   }
-
-  sendMail(): void {
-    const doc = new jsPDF();
-    doc.setFontSize(22);
-    doc.text('Reporte total de ganancias', 60, 20);
-    doc.setFontSize(12);
-    doc.text('Correo: ', 67, 30);
-    doc.text(this.usuario.correoElectronico, 82, 30);
-    doc.text('Fecha de reporte: ', 78, 40);
-    doc.text(new Date().toLocaleDateString(), 112, 40);
-    autoTable(doc, {
-      startY: 50,
-      html: '#htmlData',
-    });
-
-    console.warn(doc);
-  }
-  salvarCloudinary(): void {
-    const doc = new jsPDF();
-    doc.setFontSize(22);
-    doc.text('Reporte total de ganancias', 60, 20);
-    doc.setFontSize(12);
-    doc.text('Correo: ', 67, 30);
-    doc.text(this.usuario.correoElectronico, 82, 30);
-    doc.text('Fecha de reporte: ', 78, 40);
-    doc.text(new Date().toLocaleDateString(), 112, 40);
-    autoTable(doc, {
-      startY: 50,
-      html: '#htmlData',
-    });
-    const fileFormData = new FormData();
-    const blobPDF = new Blob([doc.output()], { type: 'application/pdf' });
-    fileFormData.append('file', blobPDF);
-    fileFormData.append('upload_preset', 'eqakakzu');
-    this.listarReportesAdminService.subirArchivo(doc).subscribe((cloudinaryData: any) => {
-      console.warn(cloudinaryData.url);
-    });
-  }
 }
