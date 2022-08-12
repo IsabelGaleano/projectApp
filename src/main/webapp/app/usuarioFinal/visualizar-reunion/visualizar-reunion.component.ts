@@ -14,6 +14,8 @@ export class VisualizarReunionComponent implements OnInit {
   reunion: any;
   noEditable = true;
   urlReunion = false;
+  aceptada = false;
+  reunionActualizada = false;
 
   formReunion = new FormGroup({
     fechaSolicitada: new FormControl(),
@@ -30,7 +32,7 @@ export class VisualizarReunionComponent implements OnInit {
 
       this.reunion.fechaSolicitada = this.reunion.fechaSolicitada as string;
 
-      if (this.reunion.estado === 'Activo' || this.reunion.estado === 'Inactivo') {
+      if (this.reunion.estado === 'Aceptada' || this.reunion.estado === 'Rechazada') {
         this.noEditable = true;
 
         if (this.reunion.url) {
@@ -38,8 +40,18 @@ export class VisualizarReunionComponent implements OnInit {
         } else {
           this.urlReunion = false;
         }
+
+        if (this.reunion.estado === 'Aceptada') {
+          this.aceptada = true;
+        } else {
+          this.aceptada = false;
+        }
       } else {
         this.noEditable = false;
+
+        if (this.reunion.estado === 'SolicitadoS') {
+          this.reunion.estado = 'Solicitado';
+        }
       }
 
       console.warn(this.reunion);
@@ -62,9 +74,24 @@ export class VisualizarReunionComponent implements OnInit {
     this.reunion.descripcion = descripcion;
     this.reunion.estado = 'SolicitadoI';
 
-    this.visualizarReunionService.actualizarReunion(this.reunion.id, this.reunion).subscribe((data: any) => {
-      console.warn(data);
-    });
+    this.visualizarReunionService.actualizarReunion(this.reunion.id, this.reunion).subscribe(
+      () => {
+        let reunionActualizada = 'reunionActualizada';
+        localStorage.setItem('reunionActualizada', reunionActualizada);
+      },
+      err => {
+        console.error(err);
+      },
+      () => {
+        window.history.back();
+      }
+    );
+
+    // this.visualizarReunionService.actualizarReunion(this.reunion.id, this.reunion).subscribe({
+    //   next() {
+    //     window.history.back();
+    //   }
+    // });
   }
 
   subtractTimeFromDate(objDate, intHours): Date {
