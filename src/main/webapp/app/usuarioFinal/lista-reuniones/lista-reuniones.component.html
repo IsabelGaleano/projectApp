@@ -3,9 +3,13 @@
     <div class="row row-sm">
       <div class="col-xl-12">
         <div class="card">
+          <div class="alert alert-success" *ngIf="reunionActualizada">
+            <strong>Reunión actualizada con éxito!</strong> Puede esperar mientras la startup evalúa la nueva información.
+            <br />
+          </div>
           <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
-              <h4 class="card-title mg-b-0">Lista de Usuarios</h4>
+              <h4 class="card-title mg-b-0">Lista de Reuniones</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
             </div>
           </div>
