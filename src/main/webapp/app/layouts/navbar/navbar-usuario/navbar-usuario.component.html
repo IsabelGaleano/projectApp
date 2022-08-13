@@ -295,7 +295,6 @@
                 <div class="menu-header-content bg-primary text-start">
                   <div class="d-flex">
                     <h6 class="dropdown-title mb-1 tx-15 text-white fw-semibold">Notificaciones</h6>
-                    <span class="badge rounded-pill bg-warning ms-auto my-auto float-end">Mark All Read</span>
                   </div>
                   <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12">Tiene notificaciones pendientes</p>
                 </div>
@@ -314,11 +313,12 @@
                   </a>
                 </div>
                 <div *ngIf="notificaciones.length == 0" class="text-center">
-                  <h5>No tiene notificaciones</h5>
+                  <p></p>
+                  <h6>No tiene notificaciones</h6>
                 </div>
 
                 <div class="dropdown-footer">
-                  <a href="">Ver todas</a>
+                  <a href="notificaciones-usuarios">Ver todas</a>
                 </div>
               </div>
             </li>
