@@ -3,6 +3,7 @@ package com.project.myapp.web.rest;
 import com.project.myapp.domain.Inscripciones;
 import com.project.myapp.domain.Monederos;
 import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import com.project.myapp.repository.InscripcionesRepository;
 import com.project.myapp.repository.MonederosRepository;
 import com.project.myapp.repository.StartupsRepository;
@@ -279,5 +280,13 @@ public class InscripcionesResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/inscripciones/findInscripcionesByNombre/{nombre}")
+    public List<Inscripciones> getInscripcionesByNombre(@PathVariable String nombre) {
+        log.debug("REST request to get Usuarios : {}", nombre);
+        String formattedData = nombre.replace("%20", "");
+        List<Inscripciones> inscripciones = inscripcionesRepository.findText(formattedData);
+        return inscripciones;
     }
 }
