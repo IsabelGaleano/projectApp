@@ -13,6 +13,7 @@
                   <div class="media">
                     <div class="media-icon bg-primary-transparent text-primary">
                       <!-- <fa-icon [icon]="faEnvelope"></fa-icon> -->
+                      <i class="fa fa-child"></i>
                     </div>
                     <div class="media-body">
                       <h5 class="mb-1 tx-15">Información sobre el inversionista</h5>
@@ -23,6 +24,7 @@
                   <div class="media">
                     <div class="media-icon bg-success-transparent text-success">
                       <!-- <fa-icon [icon]="faPhone"></fa-icon> -->
+                      <i class="fa fa-calendar"></i>
                     </div>
                     <div class="media-body">
                       <h5 class="mb-1 tx-15">Fecha de la reunión</h5>
@@ -32,6 +34,7 @@
                   <div class="media">
                     <div class="media-icon bg-info-transparent text-info">
                       <!-- <fa-icon [icon]="faIdCard"></fa-icon> -->
+                      <i class="fa fa-list-alt"></i>
                     </div>
                     <div class="media-body">
                       <h5 class="mb-1 tx-15">Descripción</h5>
@@ -39,8 +42,9 @@
                     </div>
                   </div>
                   <div class="media">
-                    <div class="media-icon bg-info-transparent text-info">
+                    <div class="media-icon bg-danger-transparent text-danger">
                       <!-- <fa-icon [icon]="faIdCard"></fa-icon> -->
+                      <i class="fa fa-info-circle"></i>
                     </div>
                     <div class="media-body">
                       <h5 class="mb-1 tx-15">Estado</h5>
@@ -95,8 +99,13 @@
                                   </div>
                                   <br />
                                   <div class="form-group">
-                                    <label for="exampleInputPassword1">Startup de la reunión</label>
-                                    <input type="text" readonly class="form-control" placeholder="{{ reunion.idStartup.nombreCorto }}" />
+                                    <label for="exampleInputPassword1">Inversionista de la reunión</label>
+                                    <input
+                                      type="text"
+                                      readonly
+                                      class="form-control"
+                                      placeholder="{{ reunion.idUsuario.correoElectronico }}"
+                                    />
                                   </div>
                                   <br />
                                   <div class="form-group">
@@ -126,8 +135,13 @@
                                 <form (ngSubmit)="actualizarReunion()" [formGroup]="formReunion">
                                   <div class="">
                                     <div class="form-group">
-                                      <label for="exampleInputPassword1">Startup de la reunión</label>
-                                      <input type="text" readonly class="form-control" placeholder="{{ reunion.idStartup.nombreCorto }}" />
+                                      <label for="exampleInputPassword1">Inversionista de la reunión</label>
+                                      <input
+                                        type="text"
+                                        readonly
+                                        class="form-control"
+                                        placeholder="{{ reunion.idUsuario.correoElectronico }}"
+                                      />
                                     </div>
                                     <br />
                                     <div>
