@@ -10,6 +10,9 @@ import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -72,6 +75,13 @@ import { ListaReunionesComponent } from './usuarioFinal/lista-reuniones/lista-re
 import { VisualizarReunionComponent } from './usuarioFinal/visualizar-reunion/visualizar-reunion.component';
 import { ListaReunionesStartupComponent } from './startup/lista-reuniones-startup/lista-reuniones-startup.component';
 import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-startup/visualizar-reunion-startup.component';
+import { CalendarioInversionistaComponent } from './usuarioFinal/calendario-inversionista/calendario-inversionista.component';
+
+FullCalendarModule.registerPlugins([
+  // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   imports: [
@@ -89,6 +99,7 @@ import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-
     ReactiveFormsModule,
     CommonModule,
     AccountModule,
+    FullCalendarModule,
   ],
   providers: [
     Title,
@@ -147,6 +158,7 @@ import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-
     VisualizarReunionComponent,
     ListaReunionesStartupComponent,
     VisualizarReunionStartupComponent,
+    CalendarioInversionistaComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
