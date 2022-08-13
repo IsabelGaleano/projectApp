@@ -15,6 +15,7 @@ import { PagoFinalPaquetesComponent } from './pago-final-paquetes/pago-final-paq
 import { PerfilDonacionStartupComponent } from './perfil-donacion-startup/perfil-donacion-startup.component';
 import { ListaReunionesStartupComponent } from './lista-reuniones-startup/lista-reuniones-startup.component';
 import { VisualizarReunionStartupComponent } from './visualizar-reunion-startup/visualizar-reunion-startup.component';
+import { ListarReportesStartupComponent } from './listar-reportes-startup/listar-reportes-startup.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -121,6 +122,13 @@ import { VisualizarReunionStartupComponent } from './visualizar-reunion-startup/
         component: VisualizarReunionStartupComponent,
         data: {
           pageTitle: 'visualizar.reunion.startup.title',
+        },
+      },
+      {
+        path: 'listar-reportes-startup',
+        component: ListarReportesStartupComponent,
+        data: {
+          pageTitle: 'listar.reportes.startup.title',
         },
       },
     ]),
