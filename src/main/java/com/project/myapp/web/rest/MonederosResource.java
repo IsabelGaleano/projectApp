@@ -1,12 +1,7 @@
 package com.project.myapp.web.rest;
 
-import com.project.myapp.domain.Codigos;
-import com.project.myapp.domain.Monederos;
-import com.project.myapp.domain.Movimientos;
-import com.project.myapp.domain.Startups;
-import com.project.myapp.repository.MonederosRepository;
-import com.project.myapp.repository.MovimientosRepository;
-import com.project.myapp.repository.StartupsRepository;
+import com.project.myapp.domain.*;
+import com.project.myapp.repository.*;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import java.net.URI;
@@ -44,15 +39,24 @@ public class MonederosResource {
     private final MonederosRepository monederosRepository;
     private final StartupsRepository startupsRepository;
     private final MovimientosRepository movimientosRepository;
+    private final UsuariosRepository usuariosRepository;
+    private final DonacionesPaquetesRepository donacionesPaquetesRepository;
+    private final PaquetesRepository paquetesRepository;
 
     public MonederosResource(
         MonederosRepository monederosRepository,
         StartupsRepository startupsRepository,
-        MovimientosRepository movimientosRepository
+        MovimientosRepository movimientosRepository,
+        UsuariosRepository usuariosRepository,
+        DonacionesPaquetesRepository donacionesPaquetesRepository,
+        PaquetesRepository paquetesRepository
     ) {
         this.monederosRepository = monederosRepository;
         this.startupsRepository = startupsRepository;
         this.movimientosRepository = movimientosRepository;
+        this.usuariosRepository = usuariosRepository;
+        this.donacionesPaquetesRepository = donacionesPaquetesRepository;
+        this.paquetesRepository = paquetesRepository;
     }
 
     /**
@@ -221,14 +225,87 @@ public class MonederosResource {
             movimientos.setTipo("ADMIN");
 
             if (tipo.equals("Mensual")) {
-                movimientos.descripcion("Se agregó el pago de una inscripción " + tipo + " con un monto de: " + montoMensual);
+                movimientos.descripcion("Se agregó el pago de una inscripción " + tipo + " con un monto de: $" + montoMensual);
             }
             if (tipo.equals("Anual")) {
-                movimientos.descripcion("Se agregó el pago de una inscripción " + tipo + " con un monto de: " + montoAnual);
+                movimientos.descripcion("Se agregó el pago de una inscripción " + tipo + " con un monto de: $" + montoAnual);
             }
             movimientos.estado("Activo");
             movimientos.setIdMonedero(monedero);
             movimientosRepository.save(movimientos);
         }
+    }
+
+    @GetMapping("/monederos/agregarMovimientosPaquetes/{idPaquete}")
+    public void agregarMovimientosCompra(@PathVariable Long idPaquete) {
+        log.debug("REST request to get Monederos : {}", idPaquete);
+        List<Monederos> monederosAdmin = monederosRepository.findAllByTipo("ADMIN");
+        Optional<DonacionesPaquetes> donacion = donacionesPaquetesRepository.findById(idPaquete);
+        Optional<Usuarios> usuarios = usuariosRepository.findByCorreoElectronico(donacion.get().getIdUsuario().getCorreoElectronico());
+        Optional<Startups> startups = startupsRepository.findByCorreoElectronico(donacion.get().getIdStartup().getCorreoElectronico());
+        Optional<Paquetes> paquetes = paquetesRepository.findById(donacion.get().getIdPaquete().getId());
+        ZonedDateTime today = ZonedDateTime.now();
+        for (Monederos monedero : monederosAdmin) {
+            monedero.setSaldo(monedero.getSaldo() + donacion.get().getMontoImpuesto());
+            monederosRepository.save(monedero);
+            //Agregar movimiento admin
+            Movimientos movimientos = new Movimientos();
+            movimientos.setFecha(today);
+            movimientos.setMonto(donacion.get().getMontoImpuesto());
+            movimientos.setTipo("ADMIN");
+            movimientos.descripcion(
+                "Se agregó el impuesto por la compra de un paquete con un monto de: $" + donacion.get().getMontoImpuesto()
+            );
+            movimientos.estado("Activo");
+            movimientos.setIdMonedero(monedero);
+            movimientosRepository.save(movimientos);
+        }
+
+        //Monederos
+        Optional<Monederos> monederoUsuario = monederosRepository.findById(usuarios.get().getIdMonedero().getId());
+        Optional<Monederos> monederoStartup = monederosRepository.findById(startups.get().getIdMonedero().getId());
+        //Monedero usuario
+        monederoUsuario.get().setSaldo(monederoUsuario.get().getSaldo() + donacion.get().getMontoTotal());
+        monederosRepository.save(monederoUsuario.get());
+
+        //Monedero startup
+        monederoStartup.get().setSaldo(monederoStartup.get().getSaldo() + paquetes.get().getMonto() + donacion.get().getMontoEnvio());
+        monederosRepository.save(monederoStartup.get());
+
+        //Movimiento usuario
+        Movimientos movimientosUsuario = new Movimientos();
+        movimientosUsuario.setFecha(today);
+        movimientosUsuario.setMonto(donacion.get().getMontoTotal());
+        movimientosUsuario.setTipo("USUARIO");
+        movimientosUsuario.descripcion(
+            "Se agregó el pago de la donación del paquete " +
+            paquetes.get().getNombre() +
+            " del startup " +
+            startups.get().getNombreCorto() +
+            " con un monto de: $" +
+            donacion.get().getMontoTotal()
+        );
+        movimientosUsuario.estado("Activo");
+        movimientosUsuario.setIdMonedero(monederoUsuario.get());
+        movimientosRepository.save(movimientosUsuario);
+
+        //Movimiento startup
+        Movimientos movimientosStartup = new Movimientos();
+        movimientosStartup.setFecha(today);
+        movimientosStartup.setMonto(paquetes.get().getMonto() + donacion.get().getMontoEnvio());
+        movimientosStartup.setTipo("STARTUP");
+        movimientosStartup.descripcion(
+            "Se agregó una donación realizada por el usuario " +
+            usuarios.get().getNombre() +
+            " " +
+            usuarios.get().getPrimerApellido() +
+            " con cédula " +
+            usuarios.get().getCedula() +
+            " y el monto de la donación es de: $" +
+            movimientosStartup.getMonto()
+        );
+        movimientosStartup.estado("Activo");
+        movimientosStartup.setIdMonedero(monederoStartup.get());
+        movimientosRepository.save(movimientosStartup);
     }
 }
