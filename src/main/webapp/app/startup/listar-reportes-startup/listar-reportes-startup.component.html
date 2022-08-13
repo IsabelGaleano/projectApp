@@ -7,7 +7,7 @@
           <div class="card-header pb-0">
             <!-- <div class="btn-group mx-2 mt-2 mb-2" role="group" aria-label="First group"> -->
             <div class="d-flex justify-content-between">
-              <h4 style="display: inline" class="card-title mg-b-0" id="admin">Reporte por ingresos:</h4>
+              <h4 style="display: inline" class="card-title mg-b-0" id="admin">Reporte mensual de ganancias de</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
             </div>
           </div>
@@ -34,6 +34,7 @@
                   </tr>
                 </tbody>
               </table>
+              <button class="btn btn-primary" (click)="cambioReportes()" id="cambioReporte">Cambiar a reporte total</button>
               <button class="btn btn-danger" (click)="openPDF()">Exportar a .PDF</button>
               <button class="btn btn-success" (click)="openExcel()">Exportar a .XSLX</button>
             </div>

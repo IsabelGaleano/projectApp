@@ -2,7 +2,11 @@
   <div class="main-container container-fluid">
       <div class="row row-sm">
         <div class="col-xl-12">
-          <div class="card">
+        <div class="card">
+            <div class="alert alert-success" *ngIf="reunionActualizada">
+                <strong>Reunión actualizada con éxito!</strong> Puede esperar mientras el inversionista evalúa la nueva información.
+                <br />
+            </div>
             <div class="card-header pb-0">
               <div class="d-flex justify-content-between">
                 <div>

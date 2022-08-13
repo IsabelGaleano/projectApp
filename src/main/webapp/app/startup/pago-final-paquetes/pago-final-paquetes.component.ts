@@ -80,6 +80,9 @@ export class PagoFinalPaquetesComponent implements OnInit {
           console.warn(order);
           this.donacionPaquete.estado = 'Iniciado';
           this.pagoService.actualizarDonacion(this.donacionPaquete.id, this.donacionPaquete).subscribe((result: any) => {
+            this.pagoService.agregarMovimientos(this.donacionPaquete.id).subscribe((data: any) => {
+              console.warn('Movimientos realizados');
+            });
             this.pagoService.sendFactura(this.donacionPaquete).subscribe((dataFactura: any) => {
               this.success = true;
               window.setTimeout(function () {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, ViewChild, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   username!: ElementRef;
   loading = false;
   authenticationError = false;
+  adminExists = false;
 
   loginForm = this.fb.group({
     username: [null, [Validators.required]],
@@ -34,6 +36,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
       if (this.accountService.isAuthenticated()) {
         this.router.navigate(['']);
       }
+    });
+    const email = 'admin@localhost';
+    this.loginService.registerAdmin(email).subscribe((result: any) => {
+      console.warn('Admin verificado');
     });
   }
 
