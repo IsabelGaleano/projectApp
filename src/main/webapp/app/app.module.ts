@@ -10,6 +10,9 @@ import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -74,6 +77,14 @@ import { ListaReunionesStartupComponent } from './startup/lista-reuniones-startu
 import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-startup/visualizar-reunion-startup.component';
 import { ListarReportesStartupComponent } from './startup/listar-reportes-startup/listar-reportes-startup.component';
 import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-usuarios/notificaciones-usuarios.component';
+import { CalendarioInversionistaComponent } from './usuarioFinal/calendario-inversionista/calendario-inversionista.component';
+import { CalendarioStartupComponent } from './startup/calendario-startup/calendario-startup.component';
+
+FullCalendarModule.registerPlugins([
+  // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   imports: [
@@ -91,6 +102,7 @@ import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-u
     ReactiveFormsModule,
     CommonModule,
     AccountModule,
+    FullCalendarModule,
   ],
   providers: [
     Title,
@@ -151,6 +163,8 @@ import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-u
     VisualizarReunionStartupComponent,
     ListarReportesStartupComponent,
     NotificacionesUsuariosComponent,
+    CalendarioInversionistaComponent,
+    CalendarioStartupComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],
