@@ -76,6 +76,7 @@ import { VisualizarReunionComponent } from './usuarioFinal/visualizar-reunion/vi
 import { ListaReunionesStartupComponent } from './startup/lista-reuniones-startup/lista-reuniones-startup.component';
 import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-startup/visualizar-reunion-startup.component';
 import { ListarReportesStartupComponent } from './startup/listar-reportes-startup/listar-reportes-startup.component';
+import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-usuarios/notificaciones-usuarios.component';
 import { CalendarioInversionistaComponent } from './usuarioFinal/calendario-inversionista/calendario-inversionista.component';
 import { CalendarioStartupComponent } from './startup/calendario-startup/calendario-startup.component';
 
@@ -161,6 +162,7 @@ FullCalendarModule.registerPlugins([
     ListaReunionesStartupComponent,
     VisualizarReunionStartupComponent,
     ListarReportesStartupComponent,
+    NotificacionesUsuariosComponent,
     CalendarioInversionistaComponent,
     CalendarioStartupComponent,
   ],
