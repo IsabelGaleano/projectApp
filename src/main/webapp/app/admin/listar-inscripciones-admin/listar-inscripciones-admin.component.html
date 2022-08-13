@@ -22,6 +22,7 @@
                 <thead>
                   <tr>
                     <th>Monto</th>
+                    <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Fecha inicial</th>
                     <th>Startup</th>
@@ -33,6 +34,7 @@
                 <tbody *ngFor="let inscripcion of inscripciones; index as i">
                   <tr>
                     <td>{{ inscripcion.monto }}</td>
+                    <td>{{ inscripcion.nombre }}</td>
                     <td>{{ inscripcion.tipo }}</td>
                     <td>{{ inscripcion.fechaInicial.slice(0, 10) }}</td>
 
@@ -61,6 +63,7 @@
                 </tbody>
               </table>
             </div>
+            <div *ngIf="inscripciones.length == 0" class="text-center"><h4 class="font-weight-bold">No se encontraron resultados</h4></div>
           </div>
         </div>
       </div>

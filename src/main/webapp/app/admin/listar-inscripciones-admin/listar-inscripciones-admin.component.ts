@@ -60,24 +60,19 @@ export class ListarInscripcionesAdminComponent implements OnInit {
 
   searchByName(): void {
     try {
-      this.listadoService.findByNombre(this.busqueda).subscribe(
-
-        (response: any) => {
-
-          if (response) {
-
-            this.inscripciones = response;
-
-          } else {
-            this.inscripciones = [];
+      if(!this.busqueda) {
+        this.inscripciones = this.inscripcionesTmp;
+      } else {
+        this.listadoService.findByNombre(this.busqueda).subscribe(
+          (response: any) => {
+            if (response) {
+              this.inscripciones = response;
+            } else {
+              this.inscripciones = [];
+            }
           }
-
-        },
-        (err: any) => {
-
-          this.inscripciones = [];
-        }
-      );
+        );
+      }
     } catch (e) {
       console.error('hola', e);
     }
