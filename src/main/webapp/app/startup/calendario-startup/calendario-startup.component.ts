@@ -7,15 +7,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
 import { Router } from '@angular/router';
 
-import { CalendarioInversionistaService } from './calendario-inversionista.service';
 import { AccountService } from 'app/core/auth/account.service';
+import { CalendarioStartupService } from './calendario-startup.service';
 
 @Component({
-  selector: 'jhi-calendario-inversionista',
-  templateUrl: './calendario-inversionista.component.html',
-  styleUrls: ['./calendario-inversionista.component.scss'],
+  selector: 'jhi-calendario-startup',
+  templateUrl: './calendario-startup.component.html',
+  styleUrls: ['./calendario-startup.component.scss'],
 })
-export class CalendarioInversionistaComponent implements OnInit {
+export class CalendarioStartupComponent implements OnInit {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   user: any;
@@ -26,11 +26,7 @@ export class CalendarioInversionistaComponent implements OnInit {
   calendarOptions: CalendarOptions | undefined;
   calendarApi: any;
 
-  constructor(
-    private calendarioInversionistaService: CalendarioInversionistaService,
-    private accountService: AccountService,
-    private router: Router
-  ) {}
+  constructor(private calendarioStartupService: CalendarioStartupService, private accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {
     this.accountService.getAuthenticationState().subscribe(account => {
@@ -41,8 +37,8 @@ export class CalendarioInversionistaComponent implements OnInit {
       if (account !== null) {
         this.account = account;
 
-        this.calendarioInversionistaService.obtenerUsuarioPorEmail(this.account.email).subscribe((data: any) => {
-          this.calendarioInversionistaService.obtenerReunionesPorIdUsuario(data.id).subscribe((reuniones: any) => {
+        this.calendarioStartupService.obtenerStartupPorEmail(this.account.email).subscribe((data: any) => {
+          this.calendarioStartupService.obtenerReunionesPorIdStartup(data.id).subscribe((reuniones: any) => {
             this.reuniones = reuniones;
 
             this.reuniones.forEach(reunion => {
@@ -50,7 +46,7 @@ export class CalendarioInversionistaComponent implements OnInit {
               if (reunion.fechaReunion) {
                 let evento = {
                   id: reunion.id,
-                  title: reunion.idStartup.nombreCorto,
+                  title: reunion.idUsuario.correoElectronico,
                   date: reunion.fechaReunion.substring(0, 10),
                 };
 
@@ -89,7 +85,7 @@ export class CalendarioInversionistaComponent implements OnInit {
 
     localStorage.setItem('idReunionStorage', arg.event.id);
 
-    this.router.navigate(['/usuario-final/visualizar-reunion']);
+    this.router.navigate(['/startup/visualizar-reunion-startup']);
   }
 
   // toggleWeekends() {
