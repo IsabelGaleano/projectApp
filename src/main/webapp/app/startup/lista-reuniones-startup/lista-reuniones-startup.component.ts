@@ -13,12 +13,16 @@ export class ListaReunionesStartupComponent implements OnInit {
   account: any;
   reuniones: Array<any> = [];
   sinReuniones = true;
+  busqueda: string;
+  reunionesTmp: any[] = [];
 
   constructor(
     private listaReunionesService: ListaReunionesStartupService,
     private accountService: AccountService,
     private router: Router
-  ) {}
+  ) {
+    this.busqueda = '';
+  }
 
   ngOnInit(): void {
     this.accountService.getAuthenticationState().subscribe(account => {
@@ -45,6 +49,7 @@ export class ListaReunionesStartupComponent implements OnInit {
               }
             }
           });
+          this.reunionesTmp = this.reuniones;
         });
       }
     });
@@ -68,7 +73,30 @@ export class ListaReunionesStartupComponent implements OnInit {
 
   verReunion(idReunion): void {
     localStorage.setItem('idReunionStorage', idReunion);
-
     this.router.navigate(['/startup/visualizar-reunion-startup']);
+  }
+
+  searchByName(): void {
+    try {
+      if(!this.busqueda) {
+        this.reuniones = this.reunionesTmp;
+      } else {
+        this.listaReunionesService.findByNombre(this.busqueda).subscribe(
+          (response: any) => {
+            if (response) {
+              this.reuniones = response;
+            }
+          }
+        );
+      }
+    } catch (e) {
+      console.error('hola', e)
+    }
+  }
+
+  clearSearch() : void {
+    if (!this.busqueda) {
+      this.reuniones = this.reunionesTmp;
+    }
   }
 }

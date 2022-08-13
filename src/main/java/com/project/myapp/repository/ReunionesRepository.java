@@ -4,6 +4,8 @@ import com.project.myapp.domain.Reuniones;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+
+import com.project.myapp.domain.Startups;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -61,4 +63,7 @@ public interface ReunionesRepository extends JpaRepository<Reuniones, Long> {
     @Modifying
     @Query("UPDATE Reuniones R SET R.url = ?2, R.fechaReunion = R.fechaSolicitada WHERE R.id = ?1")
     void actualizarUrlReunion(Long idReunion, String url);
+
+    @Query(value = "SELECT R FROM Reuniones R INNER JOIN Usuarios U ON R.idUsuario = U.id WHERE U.nombre = ?1")
+    List<Reuniones> findText(String nombre);
 }
