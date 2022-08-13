@@ -60,25 +60,23 @@ export class ListarInscripcionesAdminComponent implements OnInit {
 
   searchByName(): void {
     try {
-      if(!this.busqueda) {
+      if (!this.busqueda) {
         this.inscripciones = this.inscripcionesTmp;
       } else {
-        this.listadoService.findByNombre(this.busqueda).subscribe(
-          (response: any) => {
-            if (response) {
-              this.inscripciones = response;
-            } else {
-              this.inscripciones = [];
-            }
+        this.listadoService.findByNombre(this.busqueda).subscribe((response: any) => {
+          if (response) {
+            this.inscripciones = response;
+          } else {
+            this.inscripciones = [];
           }
-        );
+        });
       }
     } catch (e) {
       console.error('hola', e);
     }
   }
 
-  clearSearch() : void {
+  clearSearch(): void {
     if (!this.busqueda) {
       this.inscripciones = this.inscripcionesTmp;
     }

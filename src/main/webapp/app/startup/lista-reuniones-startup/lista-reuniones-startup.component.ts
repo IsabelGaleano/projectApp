@@ -20,11 +20,7 @@ export class ListaReunionesStartupComponent implements OnInit {
   timeLeft = 5;
   interval;
 
-  constructor(
-    private listaReunionesService: ListaReunionesStartupService,
-    private accountService: AccountService,
-    private router: Router
-  ) {
+  constructor(private listaReunionesService: ListaReunionesStartupService, private accountService: AccountService, private router: Router) {
     this.busqueda = '';
   }
 
@@ -107,23 +103,21 @@ export class ListaReunionesStartupComponent implements OnInit {
 
   searchByName(): void {
     try {
-      if(!this.busqueda) {
+      if (!this.busqueda) {
         this.reuniones = this.reunionesTmp;
       } else {
-        this.listaReunionesService.findByNombre(this.busqueda).subscribe(
-          (response: any) => {
-            if (response) {
-              this.reuniones = response;
-            }
+        this.listaReunionesService.findByNombre(this.busqueda).subscribe((response: any) => {
+          if (response) {
+            this.reuniones = response;
           }
-        );
+        });
       }
     } catch (e) {
-      console.error('hola', e)
+      console.error('hola', e);
     }
   }
 
-  clearSearch() : void {
+  clearSearch(): void {
     if (!this.busqueda) {
       this.reuniones = this.reunionesTmp;
     }

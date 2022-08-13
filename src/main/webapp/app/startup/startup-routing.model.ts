@@ -16,6 +16,7 @@ import { PerfilDonacionStartupComponent } from './perfil-donacion-startup/perfil
 import { ListaReunionesStartupComponent } from './lista-reuniones-startup/lista-reuniones-startup.component';
 import { VisualizarReunionStartupComponent } from './visualizar-reunion-startup/visualizar-reunion-startup.component';
 import { ListarReportesStartupComponent } from './listar-reportes-startup/listar-reportes-startup.component';
+import { CalendarioStartupComponent } from './calendario-startup/calendario-startup.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -129,6 +130,13 @@ import { ListarReportesStartupComponent } from './listar-reportes-startup/listar
         component: ListarReportesStartupComponent,
         data: {
           pageTitle: 'listar.reportes.startup.title',
+        },
+      },
+      {
+        path: 'calendario-startup',
+        component: CalendarioStartupComponent,
+        data: {
+          pageTitle: 'calendario.startup.title',
         },
       },
     ]),

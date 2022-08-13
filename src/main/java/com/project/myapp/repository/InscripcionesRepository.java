@@ -2,11 +2,10 @@ package com.project.myapp.repository;
 
 import com.project.myapp.domain.Inscripciones;
 import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
-
-import com.project.myapp.domain.Usuarios;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -49,6 +48,8 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
     @Query("UPDATE Inscripciones C SET C.estado = ?2 WHERE C.id = ?1")
     void updateInscripcionesEstado(Long id, String estado);
 
-    @Query(value = "SELECT C FROM Inscripciones C INNER JOIN Startups S ON C.idStartup = S.id WHERE S.nombreLargo LIKE ?1 OR S.nombreCorto LIKE ?1 OR S.correoElectronico LIKE ?1 OR C.nombre LIKE ?1")
+    @Query(
+        value = "SELECT C FROM Inscripciones C INNER JOIN Startups S ON C.idStartup = S.id WHERE S.nombreLargo LIKE ?1 OR S.nombreCorto LIKE ?1 OR S.correoElectronico LIKE ?1 OR C.nombre LIKE ?1"
+    )
     List<Inscripciones> findText(String nombre);
 }

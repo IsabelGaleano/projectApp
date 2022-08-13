@@ -29,7 +29,7 @@ export class ListaReunionesStartupService {
     return this.http.put(this.rootURL.concat('actualizarReuniones/').concat(idReunion), estado);
   }
 
-  findByNombre(nombre: string):  Observable<any> {
+  findByNombre(nombre: string): Observable<any> {
     let ruta = '/api/reuniones/findReunionByUserName/';
     ruta = ruta + nombre;
     return this.http.get(ruta);

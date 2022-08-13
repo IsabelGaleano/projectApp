@@ -24,7 +24,7 @@ export class ListarInscripcionesAdminService {
     return this.http.put(ruta, estado);
   }
 
-  findByNombre(nombre: string):  Observable<any> {
+  findByNombre(nombre: string): Observable<any> {
     let ruta = '/api/inscripciones/findInscripcionesByNombre/';
     ruta = ruta + nombre;
     return this.http.get(ruta);

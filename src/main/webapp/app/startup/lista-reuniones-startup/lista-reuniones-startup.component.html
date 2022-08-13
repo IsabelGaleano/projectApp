@@ -1,35 +1,41 @@
 <div class="main-content app-content">
   <div class="main-container container-fluid">
-      <div class="row row-sm">
-        <div class="col-xl-12">
+    <div class="row row-sm">
+      <div class="col-xl-12">
         <div class="card">
-            <div class="alert alert-success" *ngIf="reunionActualizada">
-                <strong>Reunión actualizada con éxito!</strong> Puede esperar mientras el inversionista evalúa la nueva información.
+          <div class="alert alert-success" *ngIf="reunionActualizada">
+            <strong>Reunión actualizada con éxito!</strong> Puede esperar mientras el inversionista evalúa la nueva información.
+            <br />
+          </div>
+          <div class="card-header pb-0">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4 class="card-title mg-b-0">Lista de Reuniones</h4>
+                <i class="mdi mdi-dots-horizontal text-gray"></i>
                 <br />
-            </div>
-            <div class="card-header pb-0">
-              <div class="d-flex justify-content-between">
-                <div>
-                  <h4 class="card-title mg-b-0">Lista de Reuniones</h4>
-                  <i class="mdi mdi-dots-horizontal text-gray"></i>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <input
-                         class="form-control mg-b-0"
-                         placeholder="Buscar"
-                         type="search"
-                         [(ngModel)]="busqueda"
-                         #search="ngModel"
-                         name="search"  (keyup)="searchByName()">
+                <a href="startup/calendario-startup"
+                  ><button class="btn-calendario btn btn-primary btn-block">Calendario de reuniones</button></a
+                >
+              </div>
 
-                  <button [disabled]="!busqueda" class="btn"><i class="fas fa-search d-none d-md-block" ></i>
-                  </button>
-                </div>
+              <div class="barra-busqueda d-flex justify-content-between">
+                <input
+                  class="form-control mg-b-0"
+                  placeholder="Buscar"
+                  type="search"
+                  [(ngModel)]="busqueda"
+                  #search="ngModel"
+                  name="search"
+                  (keyup)="searchByName()"
+                />
+
+                <button [disabled]="!busqueda" class="btn"><i class="fas fa-search d-none d-md-block"></i></button>
               </div>
             </div>
-            <div class="card-body">
-              <div *ngIf="reuniones.length > 0" class="table-responsive">
-                <div class="table-responsive">
+          </div>
+          <div class="card-body">
+            <div *ngIf="reuniones.length > 0" class="table-responsive">
+              <div class="table-responsive">
                 <table class="table table-hover mb-0 text-md-nowrap">
                   <thead>
                     <tr>
@@ -61,7 +67,9 @@
                       </ng-template>
 
                       <td *ngIf="reunion.estado === 'Solicitado'; else rechazarDisabled">
-                        <button class="btn btn-danger btn-block" (click)="rechazarReunion($event)" value="{{ reunion.id }}">Rechazar</button>
+                        <button class="btn btn-danger btn-block" (click)="rechazarReunion($event)" value="{{ reunion.id }}">
+                          Rechazar
+                        </button>
                       </td>
                       <ng-template #rechazarDisabled>
                         <td>
@@ -77,7 +85,7 @@
                 </table>
               </div>
             </div>
-          <div *ngIf="reuniones.length == 0" class="text-center"><h4 class="font-weight-bold">No se encontraron resultados</h4></div>
+            <div *ngIf="reuniones.length == 0" class="text-center"><h4 class="font-weight-bold">No se encontraron resultados</h4></div>
           </div>
         </div>
       </div>
