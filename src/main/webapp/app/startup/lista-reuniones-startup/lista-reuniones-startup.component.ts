@@ -13,6 +13,10 @@ export class ListaReunionesStartupComponent implements OnInit {
   account: any;
   reuniones: Array<any> = [];
   sinReuniones = true;
+  reunionActualizada = false;
+
+  timeLeft = 5;
+  interval;
 
   constructor(
     private listaReunionesService: ListaReunionesStartupService,
@@ -46,6 +50,13 @@ export class ListaReunionesStartupComponent implements OnInit {
             }
           });
         });
+
+        const reunionActualizada = localStorage.getItem('reunionActualizada');
+
+        if (reunionActualizada) {
+          this.reunionActualizada = true;
+          this.startTimer();
+        }
       }
     });
   }
@@ -53,7 +64,7 @@ export class ListaReunionesStartupComponent implements OnInit {
   aceptarReunion(event: Event): void {
     const value: string = (event.target as HTMLInputElement).value.toString();
 
-    this.listaReunionesService.aceptarReunion(value, 'Activo').subscribe(() => window.location.reload());
+    this.listaReunionesService.aceptarReunion(value, 'Aceptada').subscribe(() => window.location.reload());
 
     console.warn(value, ' id?? Aceptar');
   }
@@ -61,7 +72,7 @@ export class ListaReunionesStartupComponent implements OnInit {
   rechazarReunion(event: Event): void {
     const value: string = (event.target as HTMLInputElement).value.toString();
 
-    this.listaReunionesService.actualizarEstadoReunion(value, 'Inactivo').subscribe(() => window.location.reload());
+    this.listaReunionesService.actualizarEstadoReunion(value, 'Rechazada').subscribe(() => window.location.reload());
 
     console.warn(value, ' id?? Rechazar');
   }
@@ -70,5 +81,23 @@ export class ListaReunionesStartupComponent implements OnInit {
     localStorage.setItem('idReunionStorage', idReunion);
 
     this.router.navigate(['/startup/visualizar-reunion-startup']);
+  }
+
+  startTimer(): void {
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        console.warn(this.timeLeft);
+      } else {
+        this.pauseTimer();
+      }
+    }, 1000);
+  }
+
+  pauseTimer(): void {
+    clearInterval(this.interval);
+
+    this.reunionActualizada = false;
+    localStorage.removeItem('reunionActualizada');
   }
 }
