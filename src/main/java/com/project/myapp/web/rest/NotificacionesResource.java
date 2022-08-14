@@ -1,10 +1,16 @@
 package com.project.myapp.web.rest;
 
-import com.project.myapp.domain.Notificaciones;
+import com.project.myapp.domain.*;
+import com.project.myapp.repository.DonacionesPaquetesRepository;
 import com.project.myapp.repository.NotificacionesRepository;
+import com.project.myapp.repository.StartupsRepository;
+import com.project.myapp.repository.UsuariosRepository;
+import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,9 +41,20 @@ public class NotificacionesResource {
     private String applicationName;
 
     private final NotificacionesRepository notificacionesRepository;
+    private final UsuariosRepository usuariosRepository;
+    private final StartupsRepository startupsRepository;
+    private final DonacionesPaquetesRepository donacionesPaquetesRepository;
 
-    public NotificacionesResource(NotificacionesRepository notificacionesRepository) {
+    public NotificacionesResource(
+        NotificacionesRepository notificacionesRepository,
+        UsuariosRepository usuariosRepository,
+        StartupsRepository startupsRepository,
+        DonacionesPaquetesRepository donacionesPaquetesRepository
+    ) {
         this.notificacionesRepository = notificacionesRepository;
+        this.usuariosRepository = usuariosRepository;
+        this.startupsRepository = startupsRepository;
+        this.donacionesPaquetesRepository = donacionesPaquetesRepository;
     }
 
     /**
@@ -167,6 +184,32 @@ public class NotificacionesResource {
         return notificacionesRepository.findAllWithEagerRelationships();
     }
 
+    @GetMapping("/notificaciones/notificacionesUsuario/{correo}")
+    public List<Notificaciones> getNotificacionesUsuarios(@PathVariable String correo) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        List<Notificaciones> notificaciones = notificacionesRepository.findAllByIdUsuario(usuario.get());
+        List<Notificaciones> notificacionesT = new ArrayList<>();
+        for (Notificaciones notificacion : notificaciones) {
+            if (notificacion.getTipoReceptor().equals("Usuario")) {
+                notificacionesT.add(notificacion);
+            }
+        }
+        return notificacionesT;
+    }
+
+    @GetMapping("/notificaciones/notificacionesStartup/{correo}")
+    public List<Notificaciones> getNotificacionesStartups(@PathVariable String correo) {
+        Optional<Startups> startup = startupsRepository.findByCorreoElectronico(correo);
+        List<Notificaciones> notificaciones = notificacionesRepository.findAllByIdStartup(startup.get());
+        List<Notificaciones> notificacionesT = new ArrayList<>();
+        for (Notificaciones notificacion : notificaciones) {
+            if (notificacion.getTipoReceptor().equals("Startup")) {
+                notificacionesT.add(notificacion);
+            }
+        }
+        return notificacionesT;
+    }
+
     /**
      * {@code GET  /notificaciones/:id} : get the "id" notificaciones.
      *
@@ -194,5 +237,79 @@ public class NotificacionesResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/notificaciones/actualizarRastreador")
+    public void notificacionRastreador(@Valid @RequestBody InfoRastreador infoRastreador) {
+        SendEmail sendEmail = new SendEmail();
+        Optional<Usuarios> usuarios = usuariosRepository.findById(infoRastreador.getIdUsuario());
+        Optional<Startups> startups = startupsRepository.findById(infoRastreador.getIdStartup());
+        sendEmail.correoNotificacionesRastreador(infoRastreador, usuarios.get().getCorreoElectronico());
+        ZonedDateTime date = ZonedDateTime.now();
+        Notificaciones notificaciones = new Notificaciones();
+        notificaciones.setTipo("Rastreador actualizado");
+        notificaciones.setDescripcion("La ubicación de su paquete se ha actualizado: " + infoRastreador.getUbicacion().trim());
+        notificaciones.setFecha(date);
+        notificaciones.setTipoRemitente("Startup");
+        notificaciones.setTipoReceptor("Usuario");
+        notificaciones.setEstado("Activo");
+        notificaciones.setIdStartup(startups.get());
+        notificaciones.setIdUsuario(usuarios.get());
+        notificacionesRepository.save(notificaciones);
+        System.out.println(infoRastreador);
+    }
+
+    @PostMapping("/notificaciones/inicioEnvioPaquete")
+    public void notificacionRastreadorEnvioInicio(@Valid @RequestBody InfoRastreador infoRastreador) {
+        SendEmail sendEmail = new SendEmail();
+        Optional<Usuarios> usuarios = usuariosRepository.findById(infoRastreador.getIdUsuario());
+        Optional<Startups> startups = startupsRepository.findById(infoRastreador.getIdStartup());
+        Optional<DonacionesPaquetes> donacion = donacionesPaquetesRepository.findById(infoRastreador.getIdDonacionPaquete());
+        sendEmail.correoNotificacionesInicioRastreador(infoRastreador, usuarios.get().getCorreoElectronico());
+        ZonedDateTime date = ZonedDateTime.now();
+        Notificaciones notificaciones = new Notificaciones();
+        notificaciones.setTipo("Envio inicializado");
+        notificaciones.setDescripcion(
+            "El envio de su paquete " +
+            donacion.get().getIdPaquete().getNombre() +
+            " del startup " +
+            startups.get().getNombreCorto() +
+            " ha iniciado"
+        );
+        notificaciones.setFecha(date);
+        notificaciones.setTipoRemitente("Startup");
+        notificaciones.setTipoReceptor("Usuario");
+        notificaciones.setEstado("Activo");
+        notificaciones.setIdStartup(startups.get());
+        notificaciones.setIdUsuario(usuarios.get());
+        notificacionesRepository.save(notificaciones);
+        System.out.println(infoRastreador);
+    }
+
+    @PostMapping("/notificaciones/finEnvioPaquete")
+    public void notificacionRastreadorEnvio(@Valid @RequestBody InfoRastreador infoRastreador) {
+        SendEmail sendEmail = new SendEmail();
+        Optional<Usuarios> usuarios = usuariosRepository.findById(infoRastreador.getIdUsuario());
+        Optional<Startups> startups = startupsRepository.findById(infoRastreador.getIdStartup());
+        Optional<DonacionesPaquetes> donacion = donacionesPaquetesRepository.findById(infoRastreador.getIdDonacionPaquete());
+        sendEmail.correoNotificacionesRastreador(infoRastreador, usuarios.get().getCorreoElectronico());
+        ZonedDateTime date = ZonedDateTime.now();
+        Notificaciones notificaciones = new Notificaciones();
+        notificaciones.setTipo("Envio finalizado");
+        notificaciones.setDescripcion(
+            "El envio de su paquete " +
+            donacion.get().getIdPaquete().getNombre() +
+            " del startup " +
+            startups.get().getNombreCorto() +
+            " ha finalizado"
+        );
+        notificaciones.setFecha(date);
+        notificaciones.setTipoRemitente("Startup");
+        notificaciones.setTipoReceptor("Usuario");
+        notificaciones.setEstado("Activo");
+        notificaciones.setIdStartup(startups.get());
+        notificaciones.setIdUsuario(usuarios.get());
+        notificacionesRepository.save(notificaciones);
+        System.out.println(infoRastreador);
     }
 }

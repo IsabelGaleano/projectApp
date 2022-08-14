@@ -3,6 +3,12 @@ import { RouterModule } from '@angular/router';
 import { PerfilUsuarioFinalComponent } from './perfil/perfil-usuario-final.component';
 import { ListaDonacionesUsuarioComponent } from './lista-donaciones-usuario/lista-donaciones-usuario.component';
 import { CommonModule } from '@angular/common';
+import { PerfilDonacionUsuarioComponent } from './perfil-donacion-usuario/perfil-donacion-usuario.component';
+import { ListaReunionesComponent } from './lista-reuniones/lista-reuniones.component';
+import { VisualizarReunionComponent } from './visualizar-reunion/visualizar-reunion.component';
+import { NotificacionesUsuariosComponent } from './notificaciones-usuarios/notificaciones-usuarios.component';
+import { CalendarioInversionistaComponent } from './calendario-inversionista/calendario-inversionista.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +25,41 @@ import { CommonModule } from '@angular/common';
         component: ListaDonacionesUsuarioComponent,
         data: {
           pageTitle: 'lista.donaciones.usuario.title',
+        },
+      },
+      {
+        path: 'perfil-donacion-usuario',
+        component: PerfilDonacionUsuarioComponent,
+        data: {
+          pageTitle: 'perfil.donacion.usuario.title',
+        },
+      },
+      {
+        path: 'lista-reuniones-usuario',
+        component: ListaReunionesComponent,
+        data: {
+          pageTitle: 'lista.reuniones.usuario.title',
+        },
+      },
+      {
+        path: 'visualizar-reunion',
+        component: VisualizarReunionComponent,
+        data: {
+          pageTitle: 'visualizar.reunion.title',
+        },
+      },
+      {
+        path: 'notificaciones-usuarios',
+        component: NotificacionesUsuariosComponent,
+        data: {
+          pageTitle: 'notificaciones.usuarios.title',
+        },
+      },
+      {
+        path: 'calendario-inversionista',
+        component: CalendarioInversionistaComponent,
+        data: {
+          pageTitle: 'calendario.inversionista.title',
         },
       },
     ]),

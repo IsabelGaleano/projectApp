@@ -28,4 +28,12 @@ export class LoginService {
       return this.http.get(this.rootURL.concat('/startups'));
     }
   }
+
+  registerAdmin(correo: string | any): Observable<any> {
+    return this.http.get(this.rootURL.concat('/registerAdmin/').concat(correo));
+  }
+
+  getUsuarioByCorreo(correo: string | any): Observable<any> {
+    return this.http.get(this.rootURL.concat('/usuariosCorreoElectronico/').concat(correo));
+  }
 }
