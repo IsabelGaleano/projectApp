@@ -244,6 +244,7 @@
   .fc-toolbar-title {
     font-size: 1.48em;
     margin: 0;
+    text-transform: capitalize;
   }
 }
 
@@ -403,7 +404,7 @@
 
   .fc-col-header-cell-cushion {
     display: inline-block;
-
+    text-transform: capitalize;
     padding: 2px 4px;
   }
 
@@ -556,6 +557,8 @@ a.fc-event {
     flex-grow: 1;
     flex-shrink: 1;
     min-width: 0;
+    padding: 4%;
+    cursor: pointer;
   }
 
   .fc-event-title {
@@ -928,6 +931,8 @@ a.fc-event {
     flex-grow: 1;
     flex-shrink: 1;
     min-height: 0;
+    padding: 4%;
+    cursor: pointer;
   }
 
   .fc-event-title {
@@ -1444,6 +1449,7 @@ a.fc-event {
       font-size: 20px;
       top: 10px;
       display: contents;
+      text-transform: capitalize;
     }
   }
 
@@ -1454,9 +1460,11 @@ a.fc-event {
   .fc .fc-col-header-cell-cushion {
     display: inline-block;
     padding: 2px 0px;
+    text-transform: capitalize;
   }
   .fc th .fc-scrollgrid-sync-inner .fc-col-header-cell-cushion {
     display: block;
+    text-transform: capitalize;
   }
   #calendar2.fc .fc-view-harness {
     height: 250px !important;
@@ -1467,6 +1475,7 @@ a.fc-event {
   .fc .fc-toolbar-title {
     font-size: 16px;
     display: contents;
+    text-transform: capitalize;
   }
 }
 
