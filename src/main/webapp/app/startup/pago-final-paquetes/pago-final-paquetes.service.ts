@@ -22,6 +22,10 @@ export class PagoFinalPaqueteService {
     }
   }
 
+  agregarMovimientos(idPaquete: string | any): Observable<any> {
+    return this.http.get(this.rootURL.concat('/monederos/agregarMovimientosPaquetes/').concat(idPaquete));
+  }
+
   sendFactura(donacion: Record<string, unknown>): Observable<any> {
     return this.http.post(this.rootURL.concat('/donaciones-paquetesFactura'), donacion);
   }

@@ -1,0 +1,46 @@
+<div class="main-content app-content">
+  <!-- container -->
+  <div class="main-container container-fluid">
+    <div class="row row-sm">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <!-- <div class="btn-group mx-2 mt-2 mb-2" role="group" aria-label="First group"> -->
+            <div class="d-flex justify-content-between">
+              <h4 style="display: inline" class="card-title mg-b-0" id="admin">Reporte mensual de ganancias de</h4>
+              <i class="mdi mdi-dots-horizontal text-gray"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 text-md-nowrap" id="htmlData">
+                <thead>
+                  <tr>
+                    <th>Fecha de pago</th>
+                    <th>Monto</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let movimiento of movimientos">
+                    <td>{{ movimiento.fecha }}</td>
+                    <td>{{ movimiento.monto }}</td>
+                    <td>{{ movimiento.descripcion }}</td>
+                    <td>{{ movimiento.estado }}</td>
+                  </tr>
+                  <tr>
+                    <th id="total">Total de ganancia</th>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-primary" (click)="cambioReportes()" id="cambioReporte">Cambiar a reporte total</button>
+              <button class="btn btn-danger" (click)="openPDF()">Exportar a .PDF</button>
+              <button class="btn btn-success" (click)="openExcel()">Exportar a .XSLX</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

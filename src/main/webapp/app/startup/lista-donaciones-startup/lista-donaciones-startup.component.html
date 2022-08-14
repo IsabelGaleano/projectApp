@@ -12,10 +12,8 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
-              <h4 class="card-title mg-b-0">Lista de donaciones realizadas</h4>
+              <h4 class="card-title mg-b-0">Lista de donaciones recibidas</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
-            </div>
-            <div class="d-flex my-xl-auto right-content">
               <div class="pe-1 mb-xl-0">
                 <label>
                   <input
@@ -23,19 +21,18 @@
                     id="searchInput"
                     type="text"
                     class="form-control form-control"
-                    placeholder="Buscar por startup..."
+                    placeholder="Buscar..."
                     aria-controls="basic-datatable"
                   />
                 </label>
-              </div>
-              <div class="col-md-3"></div>
-              <div class="col-md-3"></div>
-              <div class="pe-1 mb-xl-0">
-                <span>Filtrar: </span>
-                <select (change)="onChange($event)" class="form-control form-select">
-                  <option value="Usuario">Cliente</option>
-                  <option value="Inversionista">Inversionista</option>
-                </select>
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                <label>
+                  <select (change)="onChange($event)" class="form-control form-select">
+                    <option value="Usuario">Cliente</option>
+                    <option value="Inversionista">Inversionista</option>
+                    <option value="Todos">Todos</option>
+                  </select>
+                </label>
               </div>
             </div>
             <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
@@ -56,27 +53,16 @@
                     <tbody *ngFor="let donacion of donacionesPaquetes">
                       <tr>
                         <td>{{ donacion.descripcion }}</td>
-                        <td>{{ donacion.montoTotal }}</td>
+                        <td>${{ donacion.montoTotal }}</td>
                         <td>
-                          {{ donacion.fechaDonacion }}
+                          {{ donacion.fechaEntrega }}
                         </td>
-                        <td>
-                          <strong>Nombre:</strong> {{ donacion.idStartup.nombreCorto }}
-                          <hr />
-                          <strong>Correo: </strong>
-                          {{ donacion.idStartup.correoElectronico }}
-                        </td>
+                        <td><strong>Nombre:</strong> {{ donacion.idStartup.nombreCorto }}</td>
                         <td>
                           <strong>Nombre:</strong>
                           {{ donacion.idUsuario.nombre }}
-                          <hr />
-                          <strong>Correo: </strong>
-                          {{ donacion.idUsuario.correoElectronico }}
                         </td>
                         <td>
-                          <strong>Id: </strong>
-                          {{ donacion.idPaquete.id }}
-                          <hr />
                           <strong>Nombre: </strong>
                           {{ donacion.idPaquete.nombre }}
                         </td>
@@ -84,12 +70,8 @@
                           {{ donacion.estado }}
                         </td>
                         <td>
-                          <button
-                            class="btn btn-primary waves-effect waves-light btn-comprar-paquete"
-                            (click)="verPerfilDonacion($event)"
-                            value="{{ donacion.id }}"
-                          >
-                            Ver
+                          <button class="btn btn-link btn-block" (click)="verPerfilDonacion($event)" value="{{ donacion.id }}">
+                            Ver donación
                           </button>
                         </td>
                       </tr>
