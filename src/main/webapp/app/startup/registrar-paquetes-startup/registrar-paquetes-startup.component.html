@@ -58,7 +58,15 @@
 
               <div class="form-group">
                 <label class="form-label" for="monto">Monto</label>
-                <input type="number" class="form-control" id="monto" name="monto" formControlName="monto" data-cy="monto" />
+                <input
+                  type="number"
+                  class="form-control"
+                  id="monto"
+                  name="monto"
+                  formControlName="monto"
+                  data-cy="monto"
+                  placeholder="$10.00"
+                />
                 <div *ngIf="registerForm.get('monto')!.invalid && (registerForm.get('monto')!.dirty || registerForm.get('monto')!.touched)">
                   <small class="form-text text-danger" *ngIf="registerForm.get('monto')?.errors?.required"> El monto es requerido. </small>
                 </div>
@@ -105,6 +113,7 @@
                   name="dimensiones"
                   formControlName="dimensiones"
                   data-cy="dimensiones"
+                  placeholder="40x20"
                 />
                 <div
                   *ngIf="

@@ -28,6 +28,7 @@ export class ListarInscripcionesAdminComponent implements OnInit {
           inscripcion.beneficios = inscripcion.beneficios.filter(e => e.length > 0);
           /* eslint-disable no-console */
           console.log(inscripcion.beneficios); // eslint-disable-line
+          inscripcion.monto = this.currency(inscripcion.monto);
           this.inscripciones.push(inscripcion);
         });
       }
@@ -85,21 +86,27 @@ export class ListarInscripcionesAdminComponent implements OnInit {
 
   onChange(newValue): void {
     console.warn(newValue.target.value);
-    const filterList : any =  [];
-      if(newValue.target.value === 'Todos'){
-        this.inscripciones = this.inscripcionesTmp;
-      }else{
-        this.inscripciones.forEach((inscripcion: any) => {
+    const filterList: any = [];
+    if (newValue.target.value === 'Todos') {
+      this.inscripciones = this.inscripcionesTmp;
+    } else {
+      this.inscripciones.forEach((inscripcion: any) => {
+        if (inscripcion.tipo === newValue.target.value) {
+          filterList.push(inscripcion);
+        }
+      });
 
-           if(inscripcion.tipo === newValue.target.value){
-              filterList.push(inscripcion);
-           }
+      this.inscripciones = filterList;
+    }
+  }
 
-        });
+  currency(number): any {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
 
-        this.inscripciones = filterList;
-      }
-
-
+    return formatter.format(number);
   }
 }
