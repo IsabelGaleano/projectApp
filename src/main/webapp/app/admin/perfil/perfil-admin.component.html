@@ -250,12 +250,6 @@
                               </div>
                               <div class="col-md-9">
                                 <input type="date" class="form-control" formControlName="fechaNacimiento" />
-                                <!-- <div class="input-group">
-                                  <div class="input-group-text">
-                                    Date:
-                                  </div> -->
-                                <!-- <input class="form-control" id="dateMask" formControlName="fechaNacimiento" placeholder="{{ usuario.fechaNacimiento }}" type="text"> -->
-                                <!-- </div> -->
                               </div>
                             </div>
                           </div>
@@ -268,137 +262,41 @@
                           <div class="col-xl-12 col-md-12">
                             <div>
                               <div>
-                                <!-- Shopping Cart-->
-                                <!-- <div class="product-details table-responsive text-nowrap">
-                                  <th class="text-start">Monedero</th>
-                                  <table class="table table-bordered table-hover mb-0 text-nowrap">
-                                    <thead>
-                                      <tr>
-                                        <th class="text-start">Información</th>
-                                        <th class="w-150">Tipo</th>
-                                        <th>Saldo</th>
-                                        <th>Estado</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody class="custom-cls-no-br">
-                                      <tr>
-                                        <td>
-                                          <div class="media">
-                                            <div class="media-body">
-                                              <div class="card-item-desc mt-0">
-                                                <h6 class="text-lg text-medium">
-                                                  {{ usuario.idMonedero.id }}
-                                                </h6>
-                                                <dl class="card-item-desc-1 correo-monedero">
-                                                  <dt>Correo:</dt>
-                                                  <dd>{{ usuario.correoElectronico }}</dd>
-                                                </dl>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </td>
-                                        <td class="text-center text-lg text-medium">
-                                          {{ usuario.idMonedero.tipo }}
-                                        </td>
-                                        <td class="text-center text-lg text-medium">
-                                          {{ usuario.idMonedero.saldo }}
-                                        </td>
-                                        <td class="">{{ usuario.idMonedero.estado }}</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div> -->
                                 <div id="monedero-monedero">
-                                  <div class="main-content-label tx-15 mg-b-25">Monedero</div>
-                                  <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
-                                    <tbody>
-                                      <tr>
-                                        <td class="tx-right tx-medium tx-inverse">Saldo actual</td>
-                                        <td>{{ usuario.idMonedero.saldo }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="tx-right tx-medium tx-inverse">Tipo</td>
-                                        <td>{{ usuario.idMonedero.tipo }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="tx-right tx-medium tx-inverse">Estado</td>
-                                        <td>{{ usuario.idMonedero.estado }}</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
+                                  <div class="col-sm-6">
+                                    <div class="card card-primary">
+                                      <div class="card-header pb-0">
+                                        <h5 class="card-title mb-0 pb-0">Monedero</h5>
+                                      </div>
+                                      <div class="card-body text-primary">
+                                        <table class="table mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                                          <tbody>
+                                            <tr>
+                                              <td class="tx-right tx-medium tx-inverse">Saldo actual</td>
+                                              <td>{{ usuario.idMonedero.saldo }}</td>
+                                            </tr>
+                                            <tr>
+                                              <td class="tx-right tx-medium tx-inverse">Tipo</td>
+                                              <td>{{ usuario.idMonedero.tipo }}</td>
+                                            </tr>
+                                            <tr>
+                                              <td class="tx-right tx-medium tx-inverse">Estado</td>
+                                              <td>{{ usuario.idMonedero.estado }}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="card-footer">Saldo total: {{ usuario.idMonedero.saldo }}</div>
+                                    </div>
+                                  </div>
                                 </div>
 
                                 <div id="monedero-movimientos">
                                   <div class="main-content-label tx-15 mg-b-25">Movimientos</div>
-                                  <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
-                                    <tbody *ngFor="let movimiento of movimientos; index as i">
-                                      <tr>
-                                        <td class="tx-right tx-medium tx-inverse">Id</td>
-                                        <td>{{ movimiento.id }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="tx-right tx-medium tx-inverse">Tipo</td>
-                                        <td>{{ movimiento.tipo }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="tx-right tx-medium tx-inverse">Monto</td>
-                                        <td>{{ movimiento.monto }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="tx-right tx-medium tx-inverse">Descripción</td>
-                                        <td>{{ movimiento.descripcion }}</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
+                                  <label class="form-label"
+                                    >Ingrese <a href="admin/listar-reportes">aquí </a> para ver su reporte de movimientos</label
+                                  >
                                 </div>
-                                <!-- <div class="shopping-cart-footer border-top-0">
-                                  <div class="column text-lg">
-                                    Total: <span class="tx-20 fw-bold ms-2">{{ usuario.idMonedero.saldo }}</span>
-                                  </div>
-                                </div>
-                                <div class="product-details table-responsive text-nowrap">
-                                  <th class="text-start">Movimientos</th>
-                                  <table class="table table-bordered table-hover mb-0 text-nowrap">
-                                    <thead>
-                                      <tr>
-                                        <th class="text-start">Información</th>
-                                        <th class="w-150">Tipo</th>
-                                        <th>Monto</th>
-                                        <th>Descripción</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody class="custom-cls-no-br" *ngFor="let movimiento of movimientos; index as i">
-                                      <tr>
-                                        <td>
-                                          <div class="media">
-                                            <div class="media-body">
-                                              <div class="card-item-desc mt-0">
-                                                <h6 class="text-lg text-medium">
-                                                  {{ movimiento.id }}
-                                                </h6>
-                                                <dl class="card-item-desc-1">
-                                                  <dt>Fecha:</dt>
-                                                  <dd>{{ movimiento.fecha }}</dd>
-                                                </dl>
-                                                <dl class="card-item-desc-1 correo-movimientos">
-                                                  <dt>Correo:</dt>
-                                                  <dd>{{ usuario.correoElectronico }}</dd>
-                                                </dl>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </td>
-                                        <td class="text-center text-lg text-medium">
-                                          {{ movimiento.tipo }}
-                                        </td>
-                                        <td class="text-center text-lg text-medium">
-                                          {{ movimiento.monto }}
-                                        </td>
-                                        <td class="">{{ movimiento.descripcion }}</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div> -->
                               </div>
                             </div>
                           </div>

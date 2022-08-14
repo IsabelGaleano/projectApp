@@ -14,8 +14,6 @@
             <div class="d-flex justify-content-between">
               <h4 class="card-title mg-b-0">Lista de donaciones realizadas</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
-            </div>
-            <div class="d-flex my-xl-auto right-content">
               <div class="pe-1 mb-xl-0">
                 <label>
                   <input
@@ -23,7 +21,7 @@
                     id="searchInput"
                     type="text"
                     class="form-control form-control"
-                    placeholder="Buscar por startup..."
+                    placeholder="Buscar..."
                     aria-controls="basic-datatable"
                   />
                 </label>
@@ -47,27 +45,16 @@
                     <tbody *ngFor="let donacion of donacionesPaquetes">
                       <tr>
                         <td>{{ donacion.descripcion }}</td>
-                        <td>{{ donacion.montoTotal }}</td>
+                        <td>${{ donacion.montoTotal }}</td>
                         <td>
                           {{ donacion.fechaEntrega }}
                         </td>
-                        <td>
-                          <strong>Nombre:</strong> {{ donacion.idStartup.nombreCorto }}
-                          <hr />
-                          <strong>Correo: </strong>
-                          {{ donacion.idStartup.correoElectronico }}
-                        </td>
+                        <td><strong>Nombre:</strong> {{ donacion.idStartup.nombreCorto }}</td>
                         <td>
                           <strong>Nombre:</strong>
                           {{ donacion.idUsuario.nombre }}
-                          <hr />
-                          <strong>Correo: </strong>
-                          {{ donacion.idUsuario.correoElectronico }}
                         </td>
                         <td>
-                          <strong>Id: </strong>
-                          {{ donacion.idPaquete.id }}
-                          <hr />
                           <strong>Nombre: </strong>
                           {{ donacion.idPaquete.nombre }}
                         </td>
