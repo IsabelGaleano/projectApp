@@ -36,7 +36,9 @@ export class RegistrarPaquetesStartupComponent implements AfterViewInit {
     private paquetesServices: RegistrarPaqueteStartupService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) {
+    console.warn(this.currency(10000));
+  }
 
   previousState(): void {
     window.history.back();
@@ -72,5 +74,14 @@ export class RegistrarPaquetesStartupComponent implements AfterViewInit {
           });
       }
     });
+  }
+  currency(number): any {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
+
+    return formatter.format(number);
   }
 }
