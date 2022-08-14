@@ -69,24 +69,23 @@ export class ListarStartupsAdminComponent implements OnInit {
 
   searchByName(): void {
     try {
-      this.listadoService.findByNombre(this.busqueda).subscribe(
+      if (!this.busqueda) {
+        this.startups = this.startupsTmp;
+      } else {
+        this.listadoService.findByNombre(this.busqueda).subscribe(
+          (response: any) => {
 
-        (response: any) => {
+            if (response) {
 
-          if (response) {
+              this.startups = response;
 
-            this.startups = response;
+            } else {
+              this.startups = [];
+            }
 
-          } else {
-            this.startups = [];
           }
-
-        },
-        (err: any) => {
-
-          this.startups = [];
-        }
-      );
+        );
+      }
     } catch (e) {
       console.error('hola', e);
     }

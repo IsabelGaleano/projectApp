@@ -1,6 +1,7 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Reuniones;
+import com.project.myapp.domain.Startups;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -61,4 +62,10 @@ public interface ReunionesRepository extends JpaRepository<Reuniones, Long> {
     @Modifying
     @Query("UPDATE Reuniones R SET R.url = ?2, R.fechaReunion = R.fechaSolicitada WHERE R.id = ?1")
     void actualizarUrlReunion(Long idReunion, String url);
+
+    @Query(value = "SELECT R FROM Reuniones R INNER JOIN Usuarios U ON R.idUsuario = U.id WHERE U.nombre LIKE %?1%")
+    List<Reuniones> findText(String nombre);
+
+    @Query(value = "SELECT R FROM Reuniones R INNER JOIN Startups S ON R.idStartup = S.id WHERE S.nombreCorto LIKE %?1% OR S.nombreLargo LIKE %?1%")
+    List<Reuniones> findByStartup(String nombre);
 }

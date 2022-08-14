@@ -6,12 +6,17 @@ import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'jhi-listar-inscripciones-admin',
   templateUrl: './listar-inscripciones-admin.component.html',
+  styleUrls: ['./listar-inscripciones-admin.component.scss'],
 })
 export class ListarInscripcionesAdminComponent implements OnInit {
   inscripciones: any[] = [];
+  busqueda: string;
+  inscripcionesTmp: any[] = [];
   // show:boolean;
 
-  constructor(private listadoService: ListarInscripcionesAdminService, private router: Router) {}
+  constructor(private listadoService: ListarInscripcionesAdminService, private router: Router) {
+    this.busqueda = '';
+  }
 
   ngOnInit(): void {
     this.listadoService.ListarInscripcionesAdmin().subscribe((data: any) => {
@@ -26,6 +31,7 @@ export class ListarInscripcionesAdminComponent implements OnInit {
           this.inscripciones.push(inscripcion);
         });
       }
+      this.inscripcionesTmp = this.inscripciones;
     });
   }
 
@@ -51,5 +57,49 @@ export class ListarInscripcionesAdminComponent implements OnInit {
         window.location.reload();
       });
     }
+  }
+
+  searchByName(): void {
+    try {
+      if (!this.busqueda) {
+        this.inscripciones = this.inscripcionesTmp;
+      } else {
+        this.listadoService.findByNombre(this.busqueda).subscribe((response: any) => {
+          if (response) {
+            this.inscripciones = response;
+          } else {
+            this.inscripciones = [];
+          }
+        });
+      }
+    } catch (e) {
+      console.error('hola', e);
+    }
+  }
+
+  clearSearch(): void {
+    if (!this.busqueda) {
+      this.inscripciones = this.inscripcionesTmp;
+    }
+  }
+
+  onChange(newValue): void {
+    console.warn(newValue.target.value);
+    const filterList : any =  [];
+      if(newValue.target.value === 'Todos'){
+        this.inscripciones = this.inscripcionesTmp;
+      }else{
+        this.inscripciones.forEach((inscripcion: any) => {
+
+           if(inscripcion.tipo === newValue.target.value){
+              filterList.push(inscripcion);
+           }
+
+        });
+
+        this.inscripciones = filterList;
+      }
+
+
   }
 }

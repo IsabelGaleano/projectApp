@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { PerfilDonacionUsuarioComponent } from './perfil-donacion-usuario/perfil-donacion-usuario.component';
 import { ListaReunionesComponent } from './lista-reuniones/lista-reuniones.component';
 import { VisualizarReunionComponent } from './visualizar-reunion/visualizar-reunion.component';
+import { NotificacionesUsuariosComponent } from './notificaciones-usuarios/notificaciones-usuarios.component';
+import { CalendarioInversionistaComponent } from './calendario-inversionista/calendario-inversionista.component';
 
 @NgModule({
   imports: [
@@ -44,6 +46,20 @@ import { VisualizarReunionComponent } from './visualizar-reunion/visualizar-reun
         component: VisualizarReunionComponent,
         data: {
           pageTitle: 'visualizar.reunion.title',
+        },
+      },
+      {
+        path: 'notificaciones-usuarios',
+        component: NotificacionesUsuariosComponent,
+        data: {
+          pageTitle: 'notificaciones.usuarios.title',
+        },
+      },
+      {
+        path: 'calendario-inversionista',
+        component: CalendarioInversionistaComponent,
+        data: {
+          pageTitle: 'calendario.inversionista.title',
         },
       },
     ]),

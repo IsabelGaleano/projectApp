@@ -29,4 +29,9 @@ export class ListaReunionesService {
   actualizarEstadoReunion(idReunion: string, estado: string): Observable<any> {
     return this.http.put(this.rootURL.concat('actualizarReuniones/').concat(idReunion), estado);
   }
+  findByNombre(nombre: string): Observable<any> {
+    let ruta = '/api/reuniones/findReunionByStartup/';
+    ruta = ruta + nombre;
+    return this.http.get(ruta);
+  }
 }

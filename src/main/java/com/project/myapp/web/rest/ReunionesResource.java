@@ -1,6 +1,7 @@
 package com.project.myapp.web.rest;
 
 import com.project.myapp.domain.Reuniones;
+import com.project.myapp.domain.Startups;
 import com.project.myapp.repository.ReunionesRepository;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -253,4 +254,21 @@ public class ReunionesResource {
     public void actualizarUrlReunion(@PathVariable String idReunion, @RequestBody String url) {
         reunionesRepository.actualizarUrlReunion(Long.parseLong(idReunion), url);
     }
+
+    @GetMapping("/reuniones/findReunionByUserName/{nombre}")
+    public List<Reuniones> getMeetingByNombre(@PathVariable String nombre) {
+        log.debug("REST request to get Reuniones : {}", nombre);
+        String formattedData = nombre.replace("%20", "");
+        List<Reuniones> reuniones = reunionesRepository.findText(formattedData);
+        return reuniones;
+    }
+
+    @GetMapping("/reuniones/findReunionByStartup/{nombre}")
+    public List<Reuniones> getMeetingByStartup(@PathVariable String nombre) {
+        log.debug("REST request to get Reuniones : {}", nombre);
+        String formattedData = nombre.replace("%20", "");
+        List<Reuniones> reuniones = reunionesRepository.findByStartup(formattedData);
+        return reuniones;
+    }
+
 }

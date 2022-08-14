@@ -21,6 +21,7 @@ import { PagoPaqueteStartupComponent } from './startup/pago-paquete-startup/pago
 import { RegistroEnvioPaquetesComponent } from './startup/registro-envio-paquetes/registro-envio-paquetes.component';
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
 import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones-usuario/lista-donaciones-usuario.component';
+import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-usuarios/notificaciones-usuarios.component';
 
 @NgModule({
   imports: [
@@ -108,6 +109,20 @@ import { ListaDonacionesUsuarioComponent } from './usuarioFinal/lista-donaciones
             authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
           },
           component: PagoFinalPaquetesComponent,
+        },
+        {
+          path: 'pago-final-paquetes',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: PagoFinalPaquetesComponent,
+        },
+        {
+          path: 'notificaciones-usuarios',
+          data: {
+            authorities: [Authority.STARTUP, Authority.ADMIN, Authority.USER],
+          },
+          component: NotificacionesUsuariosComponent,
         },
         navbarRoute,
         ...errorRoute,
