@@ -102,35 +102,34 @@ export class ListaAdministradoresComponent implements OnInit {
 
   searchByName(): void {
     try {
-      this.appService.findByNombre(this.busqueda).subscribe(
+      if (!this.busqueda) {
+        this.usuarios = this.usuariosTmp;
+      } else {
+        this.appService.findByNombre(this.busqueda).subscribe(
+          (response: any) => {
 
-        (response: any) => {
+            if (response) {
 
-          if (response) {
-
-            this.usuarios = [];
-            response.forEach((usuario: any) => {
-              this.appService.getUsersByEmail(usuario.correoElectronico).subscribe((roles: any) => {
-                roles.forEach((rol: any) => {
-                  // console.warn(ro)
-                  if (rol.name === 'ROLE_ADMIN' && roles.length === 2) {
-                    // if (rol.name === 'ROLE_USER') {
-                    this.usuarios.push(usuario);
-                  }
+              this.usuarios = [];
+              response.forEach((usuario: any) => {
+                this.appService.getUsersByEmail(usuario.correoElectronico).subscribe((roles: any) => {
+                  roles.forEach((rol: any) => {
+                    // console.warn(ro)
+                    if (rol.name === 'ROLE_ADMIN' && roles.length === 2) {
+                      // if (rol.name === 'ROLE_USER') {
+                      this.usuarios.push(usuario);
+                    }
+                  });
                 });
               });
-            });
 
-          } else {
-            this.usuarios = [];
+            } else {
+              this.usuarios = [];
+            }
+
           }
-
-        },
-        (err: any) => {
-
-          this.usuarios = [];
-        }
-      );
+        );
+      }
     } catch (e) {
       console.error('hola', e);
     }

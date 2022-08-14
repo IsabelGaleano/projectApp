@@ -14,11 +14,15 @@ export class ListaReunionesComponent implements OnInit {
   reuniones: Array<any> = [];
   sinReuniones = true;
   reunionActualizada = false;
+  busqueda: string;
+  reunionesTmp: any[] = [];
 
   timeLeft = 5;
   interval;
 
-  constructor(private listaReunionesService: ListaReunionesService, private accountService: AccountService, private router: Router) {}
+  constructor(private listaReunionesService: ListaReunionesService, private accountService: AccountService, private router: Router) {
+    this.busqueda = '';
+  }
 
   ngOnInit(): void {
     this.accountService.getAuthenticationState().subscribe(account => {
@@ -45,6 +49,7 @@ export class ListaReunionesComponent implements OnInit {
               }
             }
           });
+          this.reunionesTmp = this.reuniones;
         });
 
         const reunionActualizada = localStorage.getItem('reunionActualizada');
@@ -96,4 +101,42 @@ export class ListaReunionesComponent implements OnInit {
     this.reunionActualizada = false;
     localStorage.removeItem('reunionActualizada');
   }
+  searchByName(): void {
+    try {
+      if (!this.busqueda) {
+        this.reuniones = this.reunionesTmp;
+      } else {
+        this.listaReunionesService.findByNombre(this.busqueda).subscribe((reuniones: any) => {
+          if (!reuniones) {
+            this.sinReuniones = true;
+          } else {
+            this.reuniones = [];
+            this.sinReuniones = false;
+            for (let i = 0; i < reuniones.length; i++) {
+              if (reuniones[i].estado !== 'SolicitadoI') {
+                if (reuniones[i].estado === 'SolicitadoS') {
+                  reuniones[i].estado = 'Solicitado';
+                }
+
+                if (!reuniones[i].fechaReunion) {
+                  reuniones[i].fechaReunion = 'No acordada';
+                }
+
+                this.reuniones.push(reuniones[i]);
+              }
+            }
+          }
+        });
+      }
+    } catch (e) {
+      console.error('hola', e);
+    }
+  }
+
+  clearSearch(): void {
+    if (!this.busqueda) {
+      this.reuniones = this.reunionesTmp;
+    }
+  }
 }
+
