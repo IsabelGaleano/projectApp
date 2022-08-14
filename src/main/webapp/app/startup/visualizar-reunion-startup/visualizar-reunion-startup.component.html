@@ -17,8 +17,13 @@
                     </div>
                     <div class="media-body">
                       <h5 class="mb-1 tx-15">Información sobre el inversionista</h5>
-                      <p class="mb-0 tx-14"><b>Nombre: </b>{{ reunion.idUsuario.nombre }} {{ reunion.idUsuario.primerApellido }}</p>
-                      <p class="mb-0 tx-14"><b>Correo electrónico: </b>{{ reunion.idUsuario.correoElectronico }}</p>
+                      <p class="mb-0 tx-14">
+                        <b class="info-inversionista-adicional">Nombre: </b>{{ reunion.idUsuario.nombre }}
+                        {{ reunion.idUsuario.primerApellido }}
+                      </p>
+                      <p class="mb-0 tx-14">
+                        <b class="info-inversionista-adicional">Correo electrónico: </b>{{ reunion.idUsuario.correoElectronico }}
+                      </p>
                     </div>
                   </div>
                   <div class="media">
@@ -28,7 +33,7 @@
                     </div>
                     <div class="media-body">
                       <h5 class="mb-1 tx-15">Fecha de la reunión</h5>
-                      <p class="mb-0 tx-14">{{ reunion.fechaSolicitada }}</p>
+                      <p class="mb-0 tx-14">{{ fechaReunionFormateada }}</p>
                     </div>
                   </div>
                   <div class="media">
@@ -76,7 +81,7 @@
                       <ul class="nav panel-tabs main-nav-line">
                         <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Datos de la reunión</a></li>
                         <li *ngIf="aceptada" class="nav-item">
-                          <a href="#tab2" class="nav-link" data-bs-toggle="tab">Link de la reunión</a>
+                          <a href="#tab2" class="nav-link" data-bs-toggle="tab">Enlace de la reunión</a>
                         </li>
                       </ul>
                     </div>
@@ -110,7 +115,7 @@
                                   <br />
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Fecha de solicitud</label>
-                                    <input type="text" readonly class="form-control" placeholder="{{ reunion.fechaSolicitada }}" />
+                                    <input type="text" readonly class="form-control" placeholder="{{ fechaSolicitadaFormateada }}" />
                                   </div>
                                   <br />
                                   <div class="form-group">
@@ -147,7 +152,7 @@
                                     <div>
                                       <p>
                                         <b>Fecha solicitada actual:</b>
-                                        {{ reunion.fechaSolicitada }}
+                                        {{ fechaSolicitadaFormateada }}
                                       </p>
                                     </div>
                                     <div class="form-group">
@@ -156,7 +161,7 @@
                                         formControlName="fechaSolicitada"
                                         type="datetime-local"
                                         class="form-control"
-                                        placeholder="{{ reunion.fechaSolicitada }}"
+                                        placeholder="{{ fechaSolicitadaFormateada }}"
                                       />
                                     </div>
                                     <br />
@@ -195,7 +200,7 @@
                                   <h6>Ingrese el URL de la reunión para que el inversionista pueda conectarse!</h6>
                                   <p>
                                     En caso de no contar con una reunión, puede presionar el botón <b>"Crear reunión"</b> para crear una,
-                                    luego copie el URL del navegador y peguelo en el espacio de abajo
+                                    luego copie y pegue el URL del navegador en el espacio de abajo.
                                   </p>
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">URL de la reunión</label>
@@ -229,100 +234,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="main-content app-content">
-  <div class="main-container container-fluid contenedor">
-    <h2>Información de la reunión</h2>
-
-    <div *ngIf="noEditable; else editable" class="row">
-      <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
-        <div class="card box-shadow-0">
-          <div class="card-header">
-            <h4 class="card-title mb-1">Datos de la reunión</h4>
-          </div>
-          <div class="card-body pt-0">
-            <div>
-              <div class="">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Id</label>
-                  <input type="text" readonly class="form-control" placeholder="{{ reunion.id }}" />
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Startup de la reunión</label>
-                  <input type="text" readonly class="form-control" placeholder="{{ reunion.idStartup.nombreCorto }}" />
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Fecha de solicitud</label>
-                  <input type="text" readonly class="form-control" placeholder="{{ reunion.fechaSolicitada }}" />
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Descripción de la reunión</label>
-                  <input type="text" readonly class="form-control" placeholder="{{ reunion.descripcion }}" />
-                </div>
-              </div>
-
-              <div class="alert alert-success" *ngIf="urlGuardado">
-                <strong>URL guardado con éxito!</strong> Puede esperar mientras el inversionista se conecta a la reunión
-              </div>
-
-              <form (ngSubmit)="agregarURL()" [formGroup]="formURL">
-                <h6>Ingrese el URL de la reunión para que el inversionista pueda conectarse!</h6>
-                <p>
-                  En caso de no contar con una reunión, puede presionar el botón <b>"Crear reunión"</b> para crear una, luego copie el URL
-                  del navegador y peguelo en el espacio de abajo
-                </p>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">URL de la reunión</label>
-                  <input formControlName="URL" type="text" class="form-control" placeholder="{{ reunion.url }}" />
-                </div>
-                <button type="submit" class="btn btn-success mt-3 mb-0">Guardar URL</button>
-                <button class="btn btn-primary mt-3 mb-0 btn-crear-reunion">
-                  <a href="https://meet.google.com/new" target="_blank">Crear reunión</a>
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #editable>
-      <div class="row">
-        <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
-          <div class="card box-shadow-0">
-            <div class="card-header">
-              <h4 class="card-title mb-1">Editar reunión</h4>
-            </div>
-            <div class="card-body pt-0">
-              <form (ngSubmit)="actualizarReunion()" [formGroup]="formReunion">
-                <div class="">
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Inversionista de la reunión</label>
-                    <input type="text" readonly class="form-control" placeholder="{{ reunion.idUsuario.correoElectronico }}" />
-                  </div>
-                  <p><b>Fecha solicitada actual:</b> {{ reunion.fechaSolicitada }}</p>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Nueva fecha de solicitud</label>
-                    <input
-                      formControlName="fechaSolicitada"
-                      type="datetime-local"
-                      class="form-control"
-                      placeholder="{{ reunion.fechaSolicitada }}"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Descripción de la reunión</label>
-                    <textarea formControlName="descripcion" rows="4" type="text" value="{{ reunion.descripcion }}" class="form-control">{{
-                      reunion.descripcion
-                    }}</textarea>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3 mb-0">Actualizar información</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </div>
-</div> -->
