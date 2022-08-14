@@ -34,7 +34,10 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
         this.account = account;
         this.listaDonacionesUsuarioService.getDonacionesPaquetesByCorreo(account.email).subscribe(donacionesPaquetes => {
           donacionesPaquetes.forEach((plan: any) => {
-            console.warn(plan);
+            if (plan.fechaEntrega != null) {
+              const fecha = plan.fechaEntrega.split('T');
+              plan.fechaEntrega = fecha[0];
+            }
             this.donacionesPaquetes.push(plan);
           });
         });
@@ -50,18 +53,10 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
         .subscribe(donacionesPaquetes => {
           if (donacionesPaquetes != null) {
             donacionesPaquetes.forEach((donacion: any) => {
-              console.warn(donacion);
-              this.donacionesPaquetes.push(donacion);
-            });
-          }
-        });
-      this.donacionesPaquetes = [];
-      this.listaDonacionesUsuarioService
-        .getDonacionesPaquetesByCorreoStartup(this.emailUsuario, searchInput.value)
-        .subscribe(donacionesPaquetes => {
-          if (donacionesPaquetes != null) {
-            donacionesPaquetes.forEach((donacion: any) => {
-              console.warn(donacion);
+              if (donacion.fechaEntrega != null) {
+                const fecha = donacion.fechaEntrega.split('T');
+                donacion.fechaEntrega = fecha[0];
+              }
               this.donacionesPaquetes.push(donacion);
             });
           }
@@ -75,6 +70,10 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
     this.listaDonacionesUsuarioService.getDonacionesPaquetesByCorreo(this.emailUsuario).subscribe(donacionesPaquetes => {
       this.donacionesPaquetes = [];
       donacionesPaquetes.forEach((donacion: any) => {
+        if (donacion.fechaEntrega != null) {
+          const fecha = donacion.fechaEntrega.split('T');
+          donacion.fechaEntrega = fecha[0];
+        }
         console.warn(donacion);
         this.donacionesPaquetes.push(donacion);
       });
