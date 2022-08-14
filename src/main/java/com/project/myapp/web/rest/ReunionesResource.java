@@ -262,4 +262,13 @@ public class ReunionesResource {
         List<Reuniones> reuniones = reunionesRepository.findText(formattedData);
         return reuniones;
     }
+
+    @GetMapping("/reuniones/findReunionByStartup/{nombre}")
+    public List<Reuniones> getMeetingByStartup(@PathVariable String nombre) {
+        log.debug("REST request to get Reuniones : {}", nombre);
+        String formattedData = nombre.replace("%20", "");
+        List<Reuniones> reuniones = reunionesRepository.findByStartup(formattedData);
+        return reuniones;
+    }
+
 }

@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'jhi-listar-inscripciones-admin',
   templateUrl: './listar-inscripciones-admin.component.html',
+  styleUrls: ['./listar-inscripciones-admin.component.scss'],
 })
 export class ListarInscripcionesAdminComponent implements OnInit {
   inscripciones: any[] = [];
@@ -80,5 +81,25 @@ export class ListarInscripcionesAdminComponent implements OnInit {
     if (!this.busqueda) {
       this.inscripciones = this.inscripcionesTmp;
     }
+  }
+
+  onChange(newValue): void {
+    console.warn(newValue.target.value);
+    const filterList : any =  [];
+      if(newValue.target.value === 'Todos'){
+        this.inscripciones = this.inscripcionesTmp;
+      }else{
+        this.inscripciones.forEach((inscripcion: any) => {
+
+           if(inscripcion.tipo === newValue.target.value){
+              filterList.push(inscripcion);
+           }
+
+        });
+
+        this.inscripciones = filterList;
+      }
+
+
   }
 }
