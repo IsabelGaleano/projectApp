@@ -43,6 +43,7 @@ export class ListaPlanesInversionComponent implements OnInit {
         this.account = account;
         this.listaPlanesInversionService.getPlanesByCorreo(account.email).subscribe(planes => {
           planes.forEach((plan: any) => {
+            plan.monto = this.currency(plan.monto);
             this.planes.push(plan);
           });
         });
@@ -109,5 +110,15 @@ export class ListaPlanesInversionComponent implements OnInit {
   }
   registrarPlanInversion(): void {
     this.router.navigate(['/startup/registro-plan-inversion']);
+  }
+
+  currency(number): any {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
+
+    return formatter.format(number);
   }
 }

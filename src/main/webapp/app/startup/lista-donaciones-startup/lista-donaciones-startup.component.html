@@ -12,7 +12,7 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
-              <h4 class="card-title mg-b-0">Lista de donaciones realizadas</h4>
+              <h4 class="card-title mg-b-0">Lista de donaciones recibidas</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
               <div class="pe-1 mb-xl-0">
                 <label>
@@ -70,12 +70,8 @@
                           {{ donacion.estado }}
                         </td>
                         <td>
-                          <button
-                            class="btn btn-primary waves-effect waves-light btn-comprar-paquete"
-                            (click)="verPerfilDonacion($event)"
-                            value="{{ donacion.id }}"
-                          >
-                            Ver
+                          <button class="btn btn-link btn-block" (click)="verPerfilDonacion($event)" value="{{ donacion.id }}">
+                            Ver donación
                           </button>
                         </td>
                       </tr>

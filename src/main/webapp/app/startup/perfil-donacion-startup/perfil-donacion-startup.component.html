@@ -342,7 +342,13 @@
                               <label class="form-label">Latitud</label>
                             </div>
                             <div class="col-md-9">
-                              <input class="form-control" name="example-textarea-input" rows="2" id="latitudA" />
+                              <input
+                                class="form-control"
+                                name="example-textarea-input"
+                                rows="2"
+                                id="latitudA"
+                                [readonly]="isEnabledActualizar === true ? 'readonly' : null"
+                              />
                             </div>
                           </div>
                         </div>
@@ -353,13 +359,26 @@
                               <label class="form-label">Longitud</label>
                             </div>
                             <div class="col-md-9">
-                              <input class="form-control" name="example-textarea-input" rows="2" id="longitudA" />
+                              <input
+                                class="form-control"
+                                name="example-textarea-input"
+                                rows="2"
+                                id="longitudA"
+                                [readonly]="isEnabledActualizar === true ? 'readonly' : null"
+                              />
                             </div>
                           </div>
                         </div>
                         <hr class="mg-y-30" />
                         <div class="form-group">
-                          <button type="submit" class="btn btn-main-primary btn-block" (click)="actualizarRastreador()">Actualizar</button>
+                          <button
+                            type="submit"
+                            class="btn btn-main-primary btn-block"
+                            (click)="actualizarRastreador()"
+                            [disabled]="isEnabledActualizar === true ? 'disabled' : null"
+                          >
+                            Actualizar
+                          </button>
                         </div>
                       </div>
                       <div class="tab-pane" id="tab5">

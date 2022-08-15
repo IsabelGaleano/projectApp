@@ -62,12 +62,8 @@
                           {{ donacion.estado }}
                         </td>
                         <td>
-                          <button
-                            class="btn btn-primary waves-effect waves-light btn-comprar-paquete"
-                            (click)="verPerfilDonacion($event)"
-                            value="{{ donacion.id }}"
-                          >
-                            Ver
+                          <button class="btn btn-link btn-block" (click)="verPerfilDonacion($event)" value="{{ donacion.id }}">
+                            Ver donación
                           </button>
                         </td>
                       </tr>
