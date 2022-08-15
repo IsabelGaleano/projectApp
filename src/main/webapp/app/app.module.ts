@@ -10,6 +10,9 @@ import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
@@ -77,6 +80,12 @@ import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-u
 import { CalendarioInversionistaComponent } from './usuarioFinal/calendario-inversionista/calendario-inversionista.component';
 import { CalendarioStartupComponent } from './startup/calendario-startup/calendario-startup.component';
 
+FullCalendarModule.registerPlugins([
+  // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+]);
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -93,6 +102,7 @@ import { CalendarioStartupComponent } from './startup/calendario-startup/calenda
     ReactiveFormsModule,
     CommonModule,
     AccountModule,
+    FullCalendarModule,
   ],
   providers: [
     Title,
