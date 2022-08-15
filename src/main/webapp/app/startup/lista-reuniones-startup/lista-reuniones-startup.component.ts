@@ -116,9 +116,25 @@ export class ListaReunionesStartupComponent implements OnInit {
       if (!this.busqueda) {
         this.reuniones = this.reunionesTmp;
       } else {
-        this.listaReunionesService.findByNombre(this.busqueda).subscribe((response: any) => {
-          if (response) {
-            this.reuniones = response;
+        this.listaReunionesService.findByNombre(this.busqueda).subscribe((reuniones: any) => {
+          if (!reuniones) {
+            this.sinReuniones = true;
+          } else {
+            this.reuniones = [];
+            this.sinReuniones = false;
+            for (let i = 0; i < reuniones.length; i++) {
+              if (reuniones[i].estado !== 'SolicitadoS') {
+                if (reuniones[i].estado === 'SolicitadoI') {
+                  reuniones[i].estado = 'Solicitado';
+                }
+
+                if (!reuniones[i].fechaReunion) {
+                  reuniones[i].fechaReunion = 'No acordada';
+                }
+
+                this.reuniones.push(reuniones[i]);
+              }
+            }
           }
         });
       }

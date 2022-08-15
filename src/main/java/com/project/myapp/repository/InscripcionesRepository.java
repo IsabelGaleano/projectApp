@@ -49,7 +49,7 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
     void updateInscripcionesEstado(Long id, String estado);
 
     @Query(
-        value = "SELECT C FROM Inscripciones C INNER JOIN Startups S ON C.idStartup = S.id WHERE S.nombreLargo LIKE ?1 OR S.nombreCorto LIKE ?1 OR S.correoElectronico LIKE ?1 OR C.nombre LIKE ?1"
+        value = "SELECT C FROM Inscripciones C INNER JOIN Startups S ON C.idStartup = S.id WHERE S.nombreLargo LIKE %?1% OR S.nombreCorto LIKE %?1% OR S.correoElectronico LIKE %?1% OR C.nombre LIKE %?1%"
     )
     List<Inscripciones> findText(String nombre);
 }

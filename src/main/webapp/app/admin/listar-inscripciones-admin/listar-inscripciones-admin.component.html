@@ -9,9 +9,19 @@
             <div class="d-flex justify-content-between">
               <h4 style="display: inline" class="card-title mg-b-0">Lista de inscripciones</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
+
               <div class="d-flex my-xl-auto right-content">
+                <div class="pt-2">
+                  <span class="pr-3">Filtrar: </span>
+                </div>
+                <div class="pe-1 mb-xl-0">
+                  <select (change)="onChange($event)" class="form-control form-select w-select">
+                    <option value="Todos">Todos</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Anual">Anual</option>
+                  </select>
+                </div>
                 <input
-                  (keyup)="clearSearch()"
                   class="form-control mg-b-0"
                   placeholder="Buscar"
                   type="search"
@@ -20,7 +30,6 @@
                   name="search"
                   (keyup)="searchByName()"
                 />
-                <button [disabled]="!busqueda" class="btn" (click)="searchByName()"><i class="fas fa-search d-none d-md-block"></i></button>
               </div>
             </div>
           </div>

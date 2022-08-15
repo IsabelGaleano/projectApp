@@ -17,12 +17,18 @@
           <div class="card-header pb-0">
             <!-- <div class="btn-group mx-2 mt-2 mb-2" role="group" aria-label="First group"> -->
             <div class="d-flex justify-content-between">
-              <h4 class="titulo-lista card-title mg-b-0">Lista de Usuarios</h4>
+              <h4 class="titulo-lista card-title mg-b-0">Lista de Administradores</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
               <div class="d-flex my-xl-auto right-content">
-                <input (keyup)="clearSearch()" class="form-control mg-b-0" placeholder="Buscar" type="search"  [(ngModel)]="busqueda"
-                       #search="ngModel"
-                       name="search"  (keyup)="searchByName()"> <button [disabled]="!busqueda" class="btn" (click)="searchByName()"><i class="fas fa-search d-none d-md-block" ></i></button>
+                <input
+                  class="form-control mg-b-0"
+                  placeholder="Buscar"
+                  type="search"
+                  [(ngModel)]="busqueda"
+                  #search="ngModel"
+                  name="search"
+                  (keyup)="searchByName()"
+                />
               </div>
               <a href="/admin/registro-admin">
                 <button id="agregar-admins-button" type="button" class="btn btn-outline-primary mx-2 button-icon mb-1">
@@ -52,7 +58,6 @@
                     <th>Estado</th>
                     <th class="table-header-centered">Activar</th>
                     <th class="table-header-centered">Desactivar</th>
-                    <th class="table-header-centered">Perfil</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let usuario of usuarios; index as i">
@@ -82,7 +87,7 @@
                       </button>
                     </td>
                     <td>
-                      <button class="btn btn-primary btn-block" (click)="verPerfil(usuario.correoElectronico)">Ver Perfil</button>
+                      <button class="btn btn-link btn-block" (click)="verPerfil(usuario.correoElectronico)">Ver Perfil</button>
                     </td>
                   </tr>
                 </tbody>

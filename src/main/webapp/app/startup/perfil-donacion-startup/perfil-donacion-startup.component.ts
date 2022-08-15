@@ -19,6 +19,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
   success = false;
   isEnabled = false;
   isEnabledFinal = false;
+  isEnabledActualizar = false;
   successFinal = false;
   map: google.maps.Map | undefined;
   mapEnvio: google.maps.Map | undefined;
@@ -56,6 +57,10 @@ export class PerfilDonacionStartupComponent implements OnInit {
     if (this.donacionPaquete.fechaEntrega != null) {
       this.isEnabledFinal = true;
       this.cargarInFoFinalEntrega();
+    }
+
+    if (this.donacionPaquete.estado === 'Finalizado') {
+      this.isEnabledActualizar = true;
     }
 
     console.warn(this.donacionPaquete);
@@ -144,6 +149,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
       if (result) {
         console.warn(result);
         this.isEnabledFinal = true;
+        this.isEnabledActualizar = true;
         this.cargarInFoFinalEntrega();
         this.cargarRastreador();
         this.cargarMapInicioEnvio();

@@ -24,6 +24,9 @@ export class ListarStartupsAdminComponent implements OnInit {
     this.listadoService.ListarStartupsAdmin().subscribe((data: any) => {
       if (data != null) {
         data.forEach((startup: any) => {
+          if (startup.estado === 'PendienteInscripcion') {
+            startup.estado = 'Pendiente';
+          }
           this.startups.push(startup);
         });
       }
@@ -69,30 +72,23 @@ export class ListarStartupsAdminComponent implements OnInit {
 
   searchByName(): void {
     try {
-      this.listadoService.findByNombre(this.busqueda).subscribe(
-
-        (response: any) => {
-
+      if (!this.busqueda) {
+        this.startups = this.startupsTmp;
+      } else {
+        this.listadoService.findByNombre(this.busqueda).subscribe((response: any) => {
           if (response) {
-
             this.startups = response;
-
           } else {
             this.startups = [];
           }
-
-        },
-        (err: any) => {
-
-          this.startups = [];
-        }
-      );
+        });
+      }
     } catch (e) {
       console.error('hola', e);
     }
   }
 
-  clearSearch() : void {
+  clearSearch(): void {
     if (!this.busqueda) {
       this.startups = this.startupsTmp;
     }
