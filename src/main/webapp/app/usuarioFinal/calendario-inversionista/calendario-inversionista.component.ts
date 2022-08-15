@@ -1,10 +1,10 @@
+/* eslint-disable */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
 import { Router } from '@angular/router';
 
 import { CalendarioInversionistaService } from './calendario-inversionista.service';
@@ -16,7 +16,7 @@ import { AccountService } from 'app/core/auth/account.service';
   styleUrls: ['./calendario-inversionista.component.scss'],
 })
 export class CalendarioInversionistaComponent implements OnInit {
-  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
+  /**@ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   user: any;
   account: any;
@@ -24,7 +24,7 @@ export class CalendarioInversionistaComponent implements OnInit {
   // eventos: any[] = [];
   eventos: any[] = [];
   calendarOptions: CalendarOptions | undefined;
-  calendarApi: any;
+  calendarApi: any;**/
 
   constructor(
     private calendarioInversionistaService: CalendarioInversionistaService,
@@ -33,7 +33,7 @@ export class CalendarioInversionistaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.accountService.getAuthenticationState().subscribe(account => {
+    /**this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         this.user = true;
       }
@@ -77,7 +77,7 @@ export class CalendarioInversionistaComponent implements OnInit {
           });
         });
       }
-    });
+    });**/
   }
 
   // handleDateClick(arg) {
@@ -100,6 +100,6 @@ export class CalendarioInversionistaComponent implements OnInit {
     // this.calendarOptions.goToDate();
     // this.calendarOptions!.gotoDate()
     console.warn(fecha);
-    this.calendarApi.gotoDate(fecha);
+    //this.calendarApi.gotoDate(fecha);
   }
 }

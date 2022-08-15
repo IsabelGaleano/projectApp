@@ -1,10 +1,10 @@
+/* eslint-disable */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
 import { Router } from '@angular/router';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -16,7 +16,7 @@ import { CalendarioStartupService } from './calendario-startup.service';
   styleUrls: ['./calendario-startup.component.scss'],
 })
 export class CalendarioStartupComponent implements OnInit {
-  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
+  /**@ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   user: any;
   account: any;
@@ -24,12 +24,12 @@ export class CalendarioStartupComponent implements OnInit {
   // eventos: any[] = [];
   eventos: any[] = [];
   calendarOptions: CalendarOptions | undefined;
-  calendarApi: any;
+  calendarApi: any;**/
 
   constructor(private calendarioStartupService: CalendarioStartupService, private accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {
-    this.accountService.getAuthenticationState().subscribe(account => {
+    /**this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         this.user = true;
       }
@@ -73,7 +73,7 @@ export class CalendarioStartupComponent implements OnInit {
           });
         });
       }
-    });
+    });**/
   }
 
   // handleDateClick(arg) {
@@ -96,6 +96,6 @@ export class CalendarioStartupComponent implements OnInit {
     // this.calendarOptions.goToDate();
     // this.calendarOptions!.gotoDate()
     console.warn(fecha);
-    this.calendarApi.gotoDate(fecha);
+    //this.calendarApi.gotoDate(fecha);
   }
 }
