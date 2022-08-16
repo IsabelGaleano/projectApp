@@ -37,6 +37,7 @@ export class PerfilComercialStartupComponent implements OnInit {
   comentarioHaciaStartup!: any;
   mostrarFormReunion = false;
   success = false;
+  fechaCreacionFormateada: any;
 
   formAgendarReunion = new FormGroup({
     fechaReunion: new FormControl('', [Validators.required]),
@@ -123,7 +124,10 @@ export class PerfilComercialStartupComponent implements OnInit {
       if (!this.startup.fechaCreacion) {
         this.startup.fechaCreacion = new Date();
 
-        this.startup.fechaCreacion = this.datePipe.transform(this.startup.fechaCreacion, 'yyyy-MM-dd');
+        // this.startup.fechaCreacion = this.datePipe.transform(this.startup.fechaCreacion, 'yyyy-MM-dd');
+        this.fechaCreacionFormateada = this.datePipe.transform(this.startup.fechaCreacion, 'yyyy-MM-dd');
+      } else {
+        this.fechaCreacionFormateada = new Date(this.startup.fechaCreacion).toLocaleDateString();
       }
 
       if (!this.startup.latitudDireccion) {
