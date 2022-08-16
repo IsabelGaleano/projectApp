@@ -97,7 +97,7 @@ export class ListarReportesComponent implements OnInit {
   openPDFStartup(): void {
     const doc = new jsPDF();
     doc.setFontSize(22);
-    doc.text('Reporte de ganancias de startups', 40, 20);
+    doc.text('Reporte de ganancias por startup', 40, 20);
     doc.setFontSize(12);
     doc.text('Correo: ', 67, 30);
     doc.text(this.usuario.correoElectronico, 82, 30);
