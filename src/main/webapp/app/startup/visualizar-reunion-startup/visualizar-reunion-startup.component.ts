@@ -16,6 +16,8 @@ export class VisualizarReunionStartupComponent implements OnInit {
   urlReunion = false;
   urlGuardado = false;
   aceptada = true;
+  fechaSolicitadaFormateada: any;
+  fechaReunionFormateada: any;
 
   formURL = new FormGroup({
     URL: new FormControl(),
@@ -33,6 +35,16 @@ export class VisualizarReunionStartupComponent implements OnInit {
 
     this.visualizarReunionStartupService.obtenerReunion(idReunion).subscribe((reunion: any) => {
       this.reunion = reunion;
+
+      if (this.reunion.fechaSolicitada) {
+        this.fechaSolicitadaFormateada = new Date(this.reunion.fechaSolicitada).toLocaleString();
+      }
+
+      if (this.reunion.fechaReunion) {
+        this.fechaReunionFormateada = new Date(this.reunion.fechaReunion).toLocaleString();
+      } else {
+        this.fechaReunionFormateada = 'No asignada';
+      }
 
       this.reunion.fechaSolicitada = this.reunion.fechaSolicitada as string;
 

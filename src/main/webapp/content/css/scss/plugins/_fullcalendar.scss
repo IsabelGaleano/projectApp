@@ -133,6 +133,8 @@
     font-size: inherit;
     line-height: inherit;
 
+    background-color: #0162e8 !important;
+
     &:focus {
       outline: 1px dotted;
       outline: 5px auto -webkit-focus-ring-color;
@@ -1550,8 +1552,10 @@ a.fc-event {
 }
 .fc .fc-button-primary:hover {
   color: $white;
-  background-color: $primary-hover;
-  border-color: $primary-border;
+  // background-color: $primary-hover;
+  background-color: #468fea !important;
+  // border-color: $primary-border;
+  border-color: #468fea !important;
 }
 .fc .fc-button-primary:disabled {
   color: $white;
