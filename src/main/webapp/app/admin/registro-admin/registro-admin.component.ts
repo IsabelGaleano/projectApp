@@ -108,41 +108,6 @@ export class RegistroAdminComponent implements OnInit {
         },
         error: response => this.processError(response),
       });
-
-      // const monedero = new Monedero("ADMIN", 0, "Activo");
-
-      // this.registroAdminService.crearMonedero(monedero).subscribe((data:any) => {
-
-      //   const monederoCreado:any = {
-      //     "id": data.id,
-      //     "tipo": data.tipo,
-      //     "saldo": data.saldo,
-      //     "estado": data.estado,
-      //   };
-
-      //   console.warn(monederoCreado);
-
-      //   const admin = new RegistroAdmin(nombre, cedula, primerApellido, segundoApellido, correoElectronico, genero, telefono, new Date(fechaNacimiento), '9.933150371014037', '-84.06908475049622', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'Admin', contrasennia, "Activo", monederoCreado, 2)
-
-      //   this.registroAdminService.registrarAdmin(admin).subscribe((dataAdmin) => {
-      //     console.warn(dataAdmin);
-
-      //     const registro = new Registro(dataAdmin.cedula, dataAdmin.correoElectronico, dataAdmin.contrasennia, this.translateService.currentLang);
-
-      //     this.registroAdminService.save(registro).subscribe((jhiUser:any) => {
-      //       console.warn("JHI USER ", jhiUser);
-      //     });
-      //   });
-
-      //   // console.warn("USUARIO: ", admin);
-      // })
-
-      // console.warn(nombre, primerApellido, segundoApellido, cedula, fechaNacimiento, genero, correoElectronico, telefono, monedero);
-
-      // this.registerService
-      //   .save({ login, email, password, langKey: this.translateService.currentLang })
-      //   .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
-      // this.router.navigate(['account/verificacion-codigo-usuario-final']);
     }
   }
 

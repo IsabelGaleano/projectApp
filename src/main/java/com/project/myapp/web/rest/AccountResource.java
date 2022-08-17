@@ -365,4 +365,33 @@ public class AccountResource {
 
         usuariosRepository.save(usuarioCreado);
     }
+
+    @GetMapping("/registerAdmin/{correo}")
+    public void registerAdmin(@PathVariable String correo) {
+        Optional<Usuarios> usuario = usuariosRepository.findByCorreoElectronico(correo);
+        if (usuario.isEmpty()) {
+            Monederos monedero = new Monederos("ADMIN", 0.0, "Activo");
+            Monederos monederoCreado = monederosRepository.save(monedero);
+            ZonedDateTime date = ZonedDateTime.now();
+            Usuarios usuarioCreado = new Usuarios(
+                "Admin",
+                "101010",
+                "Administrator",
+                "Administrator",
+                "admin@localhost",
+                "0",
+                "84511935",
+                date,
+                " ",
+                " ",
+                "https://res.cloudinary.com/moonsoft/image/upload/v1659593171/Startup_Safe_azul_exyzen.png",
+                "Admin",
+                " ",
+                "Activo",
+                monederoCreado,
+                new RolesUsuarios(2L)
+            );
+            usuariosRepository.save(usuarioCreado);
+        }
+    }
 }

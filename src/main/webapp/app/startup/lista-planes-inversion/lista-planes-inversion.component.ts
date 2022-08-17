@@ -43,10 +43,34 @@ export class ListaPlanesInversionComponent implements OnInit {
         this.account = account;
         this.listaPlanesInversionService.getPlanesByCorreo(account.email).subscribe(planes => {
           planes.forEach((plan: any) => {
+            plan.monto = this.currency(plan.monto);
             this.planes.push(plan);
           });
         });
       }
+    });
+  }
+  cambiarEstado(plan: any): void {
+    console.warn(plan);
+    if (plan.estado !== 'Activo') {
+      plan.estado = 'Activo';
+      this.actualizarEstado(plan);
+    } else if (plan.estado !== 'Inactivo') {
+      plan.estado = 'Inactivo';
+      this.actualizarEstado(plan);
+    }
+  }
+  actualizarEstado(plan: any): void {
+    const planActualizado: PlanesInversion = new PlanesInversion(
+      plan.id,
+      plan.nombre,
+      plan.monto.replace('$', '') as unknown as number,
+      plan.descripcion,
+      plan.beneficios,
+      plan.estado
+    );
+    this.listaPlanesInversionService.updatePlan(this.emailUsuario, plan.id, plan.porcentajeEmpresarial, planActualizado).subscribe(data => {
+      // location.reload();
     });
   }
   obtenerIdPlan(plan: any): void {
@@ -72,6 +96,9 @@ export class ListaPlanesInversionComponent implements OnInit {
 
       const porcentajeEmpresarialForm = <HTMLInputElement>document.getElementById('porcentajeEmpresarial');
       porcentajeEmpresarialForm.value = data.porcentajeEmpresarial;
+
+      const estadoForm = <HTMLInputElement>document.getElementById('estado');
+      estadoForm.value = data.estado;
     });
   }
   actualizarPlanInversion(): void {
@@ -81,13 +108,15 @@ export class ListaPlanesInversionComponent implements OnInit {
     const descripcionForm = <HTMLInputElement>document.getElementById('descripcion');
     const beneficiosForm = <HTMLInputElement>document.getElementById('beneficios');
     const porcentajeEmpresarialForm = <HTMLInputElement>document.getElementById('porcentajeEmpresarial');
+    const estadoForm = <HTMLInputElement>document.getElementById('estado');
 
     const plan: PlanesInversion = new PlanesInversion(
       this.id,
       nombreForm.value,
       montoForm.value as unknown as number,
       descripcionForm.value,
-      beneficiosForm.value
+      beneficiosForm.value,
+      estadoForm.value
     );
 
     this.listaPlanesInversionService.updatePlan(this.emailUsuario, this.id, porcentajeEmpresarialForm.value, plan).subscribe(data => {
@@ -109,5 +138,15 @@ export class ListaPlanesInversionComponent implements OnInit {
   }
   registrarPlanInversion(): void {
     this.router.navigate(['/startup/registro-plan-inversion']);
+  }
+
+  currency(number): any {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
+
+    return formatter.format(number);
   }
 }

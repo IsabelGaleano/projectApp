@@ -1,0 +1,90 @@
+<div class="main-content app-content">
+  <div class="main-container container-fluid">
+    <div class="row row-sm">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="alert alert-success" *ngIf="reunionActualizada">
+            <strong>Reunión actualizada con éxito!</strong> Puede esperar mientras la startup evalúa la nueva información.
+            <br />
+          </div>
+          <div class="card-header pb-0">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4 class="card-title mg-b-0 mt-3">Lista de Reuniones</h4>
+                <!-- <a href="usuario-final/calendario-inversionista">Calendario</a> -->
+
+                <i class="mdi mdi-dots-horizontal text-gray"></i>
+                <br />
+                <a href="usuario-final/calendario-inversionista"
+                  ><button class="btn-calendario btn btn-primary btn-block">Calendario de reuniones</button></a
+                >
+              </div>
+
+              <div class="barra-busqueda d-flex justify-content-between">
+                <input
+                  class="form-control mg-b-0"
+                  placeholder="Buscar"
+                  type="search"
+                  [(ngModel)]="busqueda"
+                  #search="ngModel"
+                  name="search"
+                  (keyup)="searchByName()"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive" *ngIf="reuniones.length > 0">
+              <table class="table table-hover mb-0 text-md-nowrap">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre Startup</th>
+                    <th>Fecha Solicitada</th>
+                    <th>Fecha de la Reunión</th>
+                    <th>Estado</th>
+                    <th class="table-header-centered">Aceptar Fecha Solicitada</th>
+                    <th class="table-header-centered">Rechazar Reunión</th>
+                    <th class="table-header-centered">Ver reunión</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let reunion of reuniones; index as i">
+                  <tr>
+                    <td>{{ reunion.id }}</td>
+                    <td>{{ reunion.idStartup.nombreCorto }}</td>
+                    <td>{{ reunion.fechaSolicitada }}</td>
+                    <td>{{ reunion.fechaReunion }}</td>
+                    <td>{{ reunion.estado }}</td>
+
+                    <td *ngIf="reunion.estado === 'Solicitado'; else aceptarDisabled">
+                      <button class="btn btn-success btn-block" (click)="aceptarReunion($event)" value="{{ reunion.id }}">Aceptar</button>
+                    </td>
+                    <ng-template #aceptarDisabled>
+                      <td>
+                        <button class="btn btn-success btn-block disabled" value="{{ reunion.id }}">Aceptar</button>
+                      </td>
+                    </ng-template>
+
+                    <td *ngIf="reunion.estado === 'Solicitado'; else rechazarDisabled">
+                      <button class="btn btn-danger btn-block" (click)="rechazarReunion($event)" value="{{ reunion.id }}">Rechazar</button>
+                    </td>
+                    <ng-template #rechazarDisabled>
+                      <td>
+                        <button class="btn btn-danger btn-block disabled" value="{{ reunion.id }}">Rechazar</button>
+                      </td>
+                    </ng-template>
+
+                    <td>
+                      <button class="btn btn-primary btn-block" (click)="verReunion(reunion.id)">Ver Reunión</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="reuniones.length == 0" class="text-center"><h4 class="font-weight-bold">No se encontraron resultados</h4></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

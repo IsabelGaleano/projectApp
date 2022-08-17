@@ -67,4 +67,10 @@ export class ListaAdministradoresService {
     ruta = ruta.concat(email);
     return this.http.put(ruta, estado);
   }
+
+  findByNombre(nombre: string): Observable<any> {
+    let ruta = '/api/usuarios/findUsuariosByNombreOrApellido/';
+    ruta = ruta + nombre;
+    return this.http.get(ruta);
+  }
 }

@@ -10,6 +10,9 @@ import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 import { ChartModule } from 'primeng/chart';
 //import { NgChartsModule } from 'ng2-charts';
@@ -70,7 +73,22 @@ import { PerfilVisualizableStartupComponent } from './admin/perfil-visualizable-
 import { PagoFinalPaquetesComponent } from './startup/pago-final-paquetes/pago-final-paquetes.component';
 import { PerfilDonacionStartupComponent } from './startup/perfil-donacion-startup/perfil-donacion-startup.component';
 import { PerfilDonacionUsuarioComponent } from './usuarioFinal/perfil-donacion-usuario/perfil-donacion-usuario.component';
+import { ListarReportesComponent } from './admin/listar-reportes/listar-reportes.component';
+import { ListaReunionesComponent } from './usuarioFinal/lista-reuniones/lista-reuniones.component';
+import { VisualizarReunionComponent } from './usuarioFinal/visualizar-reunion/visualizar-reunion.component';
+import { ListaReunionesStartupComponent } from './startup/lista-reuniones-startup/lista-reuniones-startup.component';
+import { VisualizarReunionStartupComponent } from './startup/visualizar-reunion-startup/visualizar-reunion-startup.component';
+import { ListarReportesStartupComponent } from './startup/listar-reportes-startup/listar-reportes-startup.component';
+import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-usuarios/notificaciones-usuarios.component';
+import { CalendarioInversionistaComponent } from './usuarioFinal/calendario-inversionista/calendario-inversionista.component';
+import { CalendarioStartupComponent } from './startup/calendario-startup/calendario-startup.component';
 import { BotComponent } from './bot/bot.component';
+
+FullCalendarModule.registerPlugins([
+  // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   imports: [
@@ -88,8 +106,8 @@ import { BotComponent } from './bot/bot.component';
     ReactiveFormsModule,
     CommonModule,
     AccountModule,
+    FullCalendarModule,
     ChartModule,
-    //NgChartsModule,
   ],
   providers: [
     Title,
@@ -143,6 +161,15 @@ import { BotComponent } from './bot/bot.component';
     PagoFinalPaquetesComponent,
     PerfilDonacionStartupComponent,
     PerfilDonacionUsuarioComponent,
+    ListarReportesComponent,
+    ListaReunionesComponent,
+    VisualizarReunionComponent,
+    ListaReunionesStartupComponent,
+    VisualizarReunionStartupComponent,
+    ListarReportesStartupComponent,
+    NotificacionesUsuariosComponent,
+    CalendarioInversionistaComponent,
+    CalendarioStartupComponent,
     BotComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],

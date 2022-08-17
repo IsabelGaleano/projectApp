@@ -133,6 +133,8 @@
     font-size: inherit;
     line-height: inherit;
 
+    background-color: #0162e8 !important;
+
     &:focus {
       outline: 1px dotted;
       outline: 5px auto -webkit-focus-ring-color;
@@ -244,6 +246,7 @@
   .fc-toolbar-title {
     font-size: 1.48em;
     margin: 0;
+    text-transform: capitalize;
   }
 }
 
@@ -403,7 +406,7 @@
 
   .fc-col-header-cell-cushion {
     display: inline-block;
-
+    text-transform: capitalize;
     padding: 2px 4px;
   }
 
@@ -556,6 +559,8 @@ a.fc-event {
     flex-grow: 1;
     flex-shrink: 1;
     min-width: 0;
+    padding: 4%;
+    cursor: pointer;
   }
 
   .fc-event-title {
@@ -928,6 +933,8 @@ a.fc-event {
     flex-grow: 1;
     flex-shrink: 1;
     min-height: 0;
+    padding: 4%;
+    cursor: pointer;
   }
 
   .fc-event-title {
@@ -1444,6 +1451,7 @@ a.fc-event {
       font-size: 20px;
       top: 10px;
       display: contents;
+      text-transform: capitalize;
     }
   }
 
@@ -1454,9 +1462,11 @@ a.fc-event {
   .fc .fc-col-header-cell-cushion {
     display: inline-block;
     padding: 2px 0px;
+    text-transform: capitalize;
   }
   .fc th .fc-scrollgrid-sync-inner .fc-col-header-cell-cushion {
     display: block;
+    text-transform: capitalize;
   }
   #calendar2.fc .fc-view-harness {
     height: 250px !important;
@@ -1467,6 +1477,7 @@ a.fc-event {
   .fc .fc-toolbar-title {
     font-size: 16px;
     display: contents;
+    text-transform: capitalize;
   }
 }
 
@@ -1541,8 +1552,10 @@ a.fc-event {
 }
 .fc .fc-button-primary:hover {
   color: $white;
-  background-color: $primary-hover;
-  border-color: $primary-border;
+  // background-color: $primary-hover;
+  background-color: #468fea !important;
+  // border-color: $primary-border;
+  border-color: #468fea !important;
 }
 .fc .fc-button-primary:disabled {
   color: $white;

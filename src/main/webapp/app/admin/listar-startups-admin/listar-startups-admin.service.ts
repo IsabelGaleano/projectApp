@@ -21,4 +21,10 @@ export class ListarStartupsAdminService {
     ruta = ruta.concat(id);
     return this.http.put(ruta, estado);
   }
+
+  findByNombre(nombre: string): Observable<any> {
+    let ruta = '/api/startups/findStartupsByNombreOrCorreo/';
+    ruta = ruta + nombre;
+    return this.http.get(ruta);
+  }
 }

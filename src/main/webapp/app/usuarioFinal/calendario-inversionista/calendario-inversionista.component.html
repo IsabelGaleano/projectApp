@@ -1,0 +1,76 @@
+<div class="main-content app-content">
+  <div class="main-container container-fluid">
+    <div class="breadcrumb-header justify-content-between">
+      <div class="my-auto">
+        <div class="d-flex">
+          <h4 class="content-title mb-0 my-auto">Calendario</h4>
+          <span class="text-muted mt-1 tx-13 ms-2 mb-0">/ Reuniones</span>
+        </div>
+      </div>
+    </div>
+    <div class="pd-b-0 main-content-calendar pt-0">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-3">
+                  <div id="external-events">
+                    <h3>Lista de reuniones</h3>
+                    <p class="mensajes-informacion">Puede presionar la reunión de la lista para poder verla en el calendario</p>
+                    <p class="mensajes-informacion">
+                      También puede presionar la reunión del calendario para poder ver la información completa
+                    </p>
+                    <div
+                      *ngFor="let evento of eventos"
+                      class="evento-lista fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event bg-primary"
+                    >
+                      <div (click)="verFecha(evento.date)" class="fc-event-main">
+                        Startup: {{ evento.title }}
+                        <br />
+                        Fecha: {{ evento.date }}
+                      </div>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+                <div class="col-md-12 col-lg-9">
+                  <!-- <button (click)="toggleWeekends()">toggle weekends</button> -->
+                  <!-- <button type="button" title="This month" (click)="verFecha()" aria-pressed="false" class="fc-today-button fc-button fc-button-primary">Ver fecha</button> -->
+                  <!-- <full-calendar class="calendario-fullcalendar" [options]="calendarOptions"></full-calendar> -->
+                  <full-calendar class="calendario-fullcalendar" #calendar [options]="calendarOptions"></full-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="main-content app-content">
+    <div class="main-container container-fluid">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="my-auto">
+                <div class="d-flex">
+                    <h4 class="content-title mb-0 my-auto">Calendario</h4><span
+                        class="text-muted mt-1 tx-13 ms-2 mb-0">/ Inversionista</span>
+                </div>
+            </div>
+        </div>
+        <div class="pd-b-0  main-content-calendar pt-0">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <full-calendar class="calenario-fullcalendar" [options]="calendarOptions"></full-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

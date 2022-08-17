@@ -91,7 +91,8 @@
               <div class="ms-auto mb-2 d-flex mt-3">
                 <a href="javascript:void(0);" class="me-3 mb-2 d-flex"
                   ><span class="fe fe-calendar text-muted me-2 tx-17"></span>
-                  <div class="mt-0 mt-0 text-dark">{{ startup.fechaCreacion.substring(0, 10) }}</div>
+                  <div class="mt-0 mt-0 text-dark"><b>Fecha de creación:</b> {{ fechaCreacionFormateada }}</div>
+                  <!-- <div class="mt-0 mt-0 text-dark">Fecha de creación: {{ fechaCreacionFormateada }}</div> -->
                 </a>
                 <a class="me-0 d-flex a-comentarios" (click)="scroll(seccionComentarios)"
                   ><span class="fe fe-message-square text-muted me-2 tx-17"></span>
@@ -179,13 +180,108 @@
                             <br />
 
                             <div class="row row-xs wd-xl-80p div-comunicar-startup">
-                              <div class="col-sm-6 mg-t-10 mg-sm-t-0">
-                                <button class="btn btn-primary btn-block">Enviar mensaje a la startup</button>
+                              <div class="col-sm-6 mg-t-10 mg-md-t-0">
+                                <button (click)="abrirFormReunion()" class="btn btn-primary btn-block">
+                                  Agendar reunión con la startup
+                                </button>
+                              </div>
+                              .
+
+                              <div class="alert alert-success reunionSolicitada" *ngIf="success">
+                                <strong>Reunión solicitada con éxito!</strong> La reunión se encuentra en revisión de la startup, en caso de
+                                que la startup desee cambiar la fecha de la reunión usted podrá visualizarla en el apartado de reuniones.
                               </div>
 
-                              <div class="col-sm-6 mg-t-10 mg-md-t-0">
-                                <button class="btn btn-success btn-block">Agendar reunión con la startup</button>
-                              </div>
+                              <form
+                                id="formReunion"
+                                *ngIf="mostrarFormReunion"
+                                class="form-horizontal"
+                                (ngSubmit)="solicitarReunion()"
+                                [formGroup]="formAgendarReunion"
+                              >
+                                <h4 class="tx-18 mb-3">Formulario de solicitud de reunión</h4>
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <label class="form-label">Fecha de la reunión</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                      <input type="datetime-local" class="form-control" formControlName="fechaReunion" placeholder="" />
+                                      <div
+                                        *ngIf="
+                                          formAgendarReunion.get('fechaReunion')!.invalid &&
+                                          (formAgendarReunion.get('fechaReunion')!.dirty || formAgendarReunion.get('fechaReunion')!.touched)
+                                        "
+                                      >
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('fechaReunion')?.errors?.required"
+                                        >
+                                          La fecha es requerida.
+                                        </small>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <p></p>
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <label class="form-label">Descripción de la reunión</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                      <textarea
+                                        type="textarea"
+                                        class="form-control"
+                                        formControlName="descripcionReunion"
+                                        placeholder="Descripción de la reunión"
+                                        maxlength="300"
+                                        rows="4"
+                                      ></textarea>
+                                      <div
+                                        *ngIf="
+                                          formAgendarReunion.get('descripcionReunion')!.invalid &&
+                                          (formAgendarReunion.get('descripcionReunion')!.dirty ||
+                                            formAgendarReunion.get('descripcionReunion')!.touched)
+                                        "
+                                      >
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('descripcionReunion')?.errors?.required"
+                                        >
+                                          La descripción es requerida.
+                                        </small>
+
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('descripcionReunion')?.errors?.minlength"
+                                        >
+                                          La descripción debe ser mayor a 1 caracter.
+                                        </small>
+
+                                        <small
+                                          class="form-text text-danger"
+                                          *ngIf="formAgendarReunion.get('descripcionReunion')?.errors?.maxlength"
+                                        >
+                                          La descripción no puede ser mas larga de 300 caracteres.
+                                        </small>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div id="botonesFormReunion">
+                                  <button
+                                    type="submit"
+                                    [disabled]="formAgendarReunion.invalid"
+                                    class="btn btn-primary waves-effect waves-light"
+                                  >
+                                    Solicitar reunión
+                                  </button>
+                                  <button type="button" (click)="cerrarFormReunion()" class="btn btn-danger waves-effect waves-light">
+                                    Cancelar
+                                  </button>
+                                </div>
+                              </form>
                             </div>
                           </div>
 
@@ -216,28 +312,6 @@
                                 </tr>
                               </tbody>
                             </table>
-
-                            <!-- <div *ngFor="let planDeInversion of planesDeInversion">
-                              <div>
-                                <h4>{{ planDeInversion.nombre }}</h4>
-                                <div class="planes-de-inversion">
-                                  <h5>Monto</h5>
-                                  <span>${{ planDeInversion.monto }}</span>
-                                  <p></p>
-                                  <h5>Descripción</h5>
-                                  <span>
-                                    {{ planDeInversion.descripcion }}
-                                  </span>
-                                  <p></p>
-                                  <h5>Beneficios</h5>
-                                  <span>{{ planDeInversion.beneficios }}</span>
-                                  <p></p>
-                                  <h5>Porcentaje Empresarial</h5>
-                                  <span>{{ planDeInversion.porcentajeEmpresarial }}%</span>
-                                  <p></p>
-                                </div>
-                              </div>
-                            </div> -->
                           </div>
                         </div>
                       </div>

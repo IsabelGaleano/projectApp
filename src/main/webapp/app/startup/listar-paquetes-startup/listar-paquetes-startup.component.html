@@ -32,23 +32,19 @@
                     <th>Descripción</th>
                     <th>Dimensiones</th>
                     <th>Estado</th>
-                    <th class="table-header-centered">Activar</th>
-                    <th class="table-header-centered">Desactivar</th>
+                    <th class="table-header-centered"></th>
+                    <th class="table-header-centered"></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let paquete of paquetes; index as i">
                   <tr>
                     <td>{{ paquete.nombre }}</td>
-                    <td>{{ paquete.monto }}</td>
+                    <td>${{ paquete.monto }}</td>
                     <td>{{ paquete.descripcion }}</td>
                     <td>{{ paquete.dimensiones }}</td>
                     <td>{{ paquete.estado }}</td>
-
                     <td>
-                      <button class="btn btn-success btn-block" (click)="activar(paquete)">Activar</button>
-                    </td>
-                    <td>
-                      <button class="btn btn-danger btn-block" (click)="desactivar(paquete)">Desactivar</button>
+                      <button class="btn btn-secondary btn-block" (click)="cambiarEstado(paquete)">Cambiar estado</button>
                     </td>
                     <td>
                       <button type="button" (click)="showEditModal(paquete)" class="btn btn-primary btn-block" data-cy="entityEditButton">

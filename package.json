@@ -83,6 +83,9 @@
     "@fortawesome/angular-fontawesome": "^0.10.2",
     "@fortawesome/fontawesome-svg-core": "6.1.1",
     "@fortawesome/free-solid-svg-icons": "6.1.1",
+    "@fullcalendar/angular": "^5.11.2",
+    "@fullcalendar/daygrid": "^5.11.2",
+    "@fullcalendar/interaction": "^5.11.2",
     "@googlemaps/js-api-loader": "^1.14.3",
     "@ng-bootstrap/ng-bootstrap": "12.0.1",
     "@ngx-translate/core": "14.0.0",
@@ -94,6 +97,8 @@
     "dayjs": "1.11.0",
     "distance-matrix-api": "^1.0.0",
     "jquery": "^3.6.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
     "ng2-charts": "^3.1.2",
     "ngx-infinite-scroll": "13.0.1",
     "ngx-paypal": "^9.0.0",
@@ -104,6 +109,7 @@
     "sockjs-client": "1.5.0",
     "tslib": "2.3.1",
     "webstomp-client": "1.2.6",
+    "xlsx": "^0.18.5",
     "zone.js": "0.11.4"
   },
   "devDependencies": {

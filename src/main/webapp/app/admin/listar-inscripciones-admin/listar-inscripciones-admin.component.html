@@ -9,52 +9,69 @@
             <div class="d-flex justify-content-between">
               <h4 style="display: inline" class="card-title mg-b-0">Lista de inscripciones</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
+
+              <div class="d-flex my-xl-auto right-content">
+                <div class="pt-2">
+                  <span class="pr-3">Filtrar: </span>
+                </div>
+                <div class="pe-1 mb-xl-0">
+                  <select (change)="onChange($event)" class="form-control form-select w-select">
+                    <option value="Todos">Todos</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Anual">Anual</option>
+                  </select>
+                </div>
+                <input
+                  class="form-control mg-b-0"
+                  placeholder="Buscar"
+                  type="search"
+                  [(ngModel)]="busqueda"
+                  #search="ngModel"
+                  name="search"
+                  (keyup)="searchByName()"
+                />
+              </div>
             </div>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
+            <div *ngIf="inscripciones.length > 0" class="table-responsive">
               <table class="table table-hover mb-0 text-md-nowrap">
                 <thead>
                   <tr>
                     <th>Monto</th>
+                    <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Fecha inicial</th>
                     <th>Startup</th>
                     <th>Estado</th>
-                    <th class="table-header-centered">Activar</th>
-                    <th class="table-header-centered">Desactivar</th>
+                    <th class="table-header-centered"></th>
+                    <th class="table-header-centered"></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let inscripcion of inscripciones; index as i">
                   <tr>
                     <td>{{ inscripcion.monto }}</td>
+                    <td>{{ inscripcion.nombre }}</td>
                     <td>{{ inscripcion.tipo }}</td>
                     <td>{{ inscripcion.fechaInicial.slice(0, 10) }}</td>
 
                     <td>{{ inscripcion.idStartup.correoElectronico }}</td>
                     <td>{{ inscripcion.estado }}</td>
-
                     <td>
                       <button
-                        class="btn btn-success btn-block"
-                        (click)="activarInscripcion($event)"
+                        class="btn btn-secondary btn-block"
+                        (click)="cambiarEstado($event)"
                         value="{{ inscripcion.id }},{{ inscripcion.estado }}"
                       >
-                        Activar
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        class="btn btn-danger btn-block"
-                        (click)="desactivarInscripcion($event)"
-                        value="{{ inscripcion.id }},{{ inscripcion.estado }}"
-                      >
-                        Desactivar
+                        Cambiar estado
                       </button>
                     </td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div *ngIf="inscripciones.length == 0" class="text-center">
+              <h4 class="font-weight-bold">No se encontraron resultados</h4>
             </div>
           </div>
         </div>

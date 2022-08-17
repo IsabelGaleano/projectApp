@@ -35,7 +35,10 @@ export class ListaDonacionesStartupComponent implements OnInit {
         this.account = account;
         this.listaDonacionesStartupService.getDonacionesPaquetesByCorreo(account.email).subscribe(donacionesPaquetes => {
           donacionesPaquetes.forEach((plan: any) => {
-            console.warn(plan);
+            if (plan.fechaEntrega != null) {
+              const fecha = plan.fechaEntrega.split('T');
+              plan.fechaEntrega = fecha[0];
+            }
             this.donacionesPaquetes.push(plan);
           });
         });
@@ -51,18 +54,10 @@ export class ListaDonacionesStartupComponent implements OnInit {
         .subscribe(donacionesPaquetes => {
           if (donacionesPaquetes != null) {
             donacionesPaquetes.forEach((donacion: any) => {
-              console.warn(donacion);
-              this.donacionesPaquetes.push(donacion);
-            });
-          }
-        });
-      this.donacionesPaquetes = [];
-      this.listaDonacionesStartupService
-        .getDonacionesPaquetesByCorreoUsuario(this.emailUsuario, searchInput.value)
-        .subscribe(donacionesPaquetes => {
-          if (donacionesPaquetes != null) {
-            donacionesPaquetes.forEach((donacion: any) => {
-              console.warn(donacion);
+              if (donacion.fechaEntrega != null) {
+                const fecha = donacion.fechaEntrega.split('T');
+                donacion.fechaEntrega = fecha[0];
+              }
               this.donacionesPaquetes.push(donacion);
             });
           }
@@ -76,7 +71,10 @@ export class ListaDonacionesStartupComponent implements OnInit {
     this.listaDonacionesStartupService.getDonacionesPaquetesByCorreo(this.emailUsuario).subscribe(donacionesPaquetes => {
       this.donacionesPaquetes = [];
       donacionesPaquetes.forEach((donacion: any) => {
-        console.warn(donacion);
+        if (donacion.fechaEntrega != null) {
+          const fecha = donacion.fechaEntrega.split('T');
+          donacion.fechaEntrega = fecha[0];
+        }
         this.donacionesPaquetes.push(donacion);
       });
     });
@@ -84,16 +82,23 @@ export class ListaDonacionesStartupComponent implements OnInit {
   }
   onChange(newValue): void {
     console.warn(newValue.target.value);
-    this.listaDonacionesStartupService
-      .getDonacionesPaquetesByTipoUsuario(this.emailUsuario, newValue.target.value)
-      .subscribe(donacionesPaquetes => {
-        this.donacionesPaquetes = [];
-        donacionesPaquetes.forEach((donacion: any) => {
-          console.warn(donacion);
-          this.donacionesPaquetes.push(donacion);
+    if (newValue.target.value === 'Todos') {
+      this.reset();
+    } else {
+      this.listaDonacionesStartupService
+        .getDonacionesPaquetesByTipoUsuario(this.emailUsuario, newValue.target.value)
+        .subscribe(donacionesPaquetes => {
+          this.donacionesPaquetes = [];
+          donacionesPaquetes.forEach((donacion: any) => {
+            if (donacion.fechaEntrega != null) {
+              const fecha = donacion.fechaEntrega.split('T');
+              donacion.fechaEntrega = fecha[0];
+            }
+            this.donacionesPaquetes.push(donacion);
+          });
         });
-      });
-    this.changeDetection.detectChanges();
+      this.changeDetection.detectChanges();
+    }
   }
 
   verPerfilDonacion(event: any): void {
