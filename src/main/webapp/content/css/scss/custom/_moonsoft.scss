@@ -186,6 +186,48 @@
     }
   }
 
+  &__map {
+    width: 90%;
+    height: 90%;
+    position: relative;
+    &--alajuela {
+      fill: #9abca7;
+      color: #9abca7;
+    }
+    &--cartago {
+      fill: #42a5f5;
+      color: #42a5f5;
+    }
+    &--heredia {
+      fill: #7e57c2;
+      color: #7e57c2;
+    }
+    &--sanjose {
+      fill: #ffa726;
+      color: #ffa726;
+    }
+    &--limon {
+      fill: #f7b2ad;
+      color: #f7b2ad;
+    }
+    &--guanacaste {
+      fill: #26c6da;
+      color: #26c6da;
+    }
+    &--puntarenas {
+      fill: #efc88b;
+      color: #efc88b;
+    }
+    &__tooltip {
+      background: cornsilk;
+      border: 1px solid black;
+      position: absolute;
+      border-radius: 0.3rem;
+      padding: 0.6rem;
+      z-index: 2;
+    }
+  }
+
   &__content {
     position: fixed;
     width: 30rem;

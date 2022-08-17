@@ -4,6 +4,7 @@ import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { ComunidadStartupService } from '../startup/comunidad-startup/comunidad-startup.service';
 import { ListarInscripcionesAdminService } from '../admin/listar-inscripciones-admin/listar-inscripciones-admin.service';
+import { Loader } from '@googlemaps/js-api-loader';
 import { ChartData, ChartOptions } from 'chart.js';
 import {
   faCircleQuestion,
@@ -16,6 +17,7 @@ import {
   faChartPie,
   faChartSimple,
   faChartLine,
+  faMap,
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
@@ -36,11 +38,13 @@ export class BotComponent implements OnInit {
   faChartPie = faChartPie;
   faChartSimple = faChartSimple;
   faChartLine = faChartLine;
+  faMap = faMap;
 
   //Variable that shows the first cards for the bots if true
   showFirstContentInfo = true;
   showBestStartups = false;
   showCardsCharts = false;
+  showStartupsMapa = false;
   showInscripcionesChart = false;
   data = {};
   dataInscripciones = {};
@@ -62,12 +66,36 @@ export class BotComponent implements OnInit {
   ];
   chartBackgrounds: Array<any> = [];
   startups: Array<any> = [];
-  startupsFiltro: Array<any> = [];
   categoriasCount: Array<any> = [];
   categoriasLabels: Array<any> = [];
 
+  //Filtro
+  infoSearch = '';
+  startupsFiltered: Array<any> = [];
+  startupsWithoutFilter: Array<any> = [];
+  busquedaActiva = false;
+
+  //Mapa
+  provinciaOnHover = '';
+  tooltipMapText = '';
+  tooltipCounter = '';
+  provincia;
+  showTooltipState = false;
+  xPos: any;
+  yPos: any;
+  googleKey = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+  ubicacionesStartups: Array<any> = [];
+  alajuelaCounter = 0;
+  cartagoCounter = 0;
+  sanjoseCounter = 0;
+  puntarenasCounter = 0;
+  limonCounter = 0;
+  herediaCounter = 0;
+  guanacasteCounter = 0;
+
   //Inscripciones
   inscripciones: Array<any> = [];
+  startupsWithLocation: Array<any> = [];
 
   constructor(
     private accountService: AccountService,
@@ -107,11 +135,13 @@ export class BotComponent implements OnInit {
 
     //Startups y votos
     this.comunidadStartupService.getAllStartups().subscribe((data: any) => {
-      this.startupsFiltro = data;
+      this.startupsFiltered = data;
+      this.startupsWithoutFilter = data;
       data.forEach(e => {
         this.comunidadStartupService.getVotosPorStartup(e).subscribe(votos => {
           this.startups.push({ votos, e });
         });
+        this.obtenerDireccionStartup(e.latitudDireccion, e.longitudDireccion);
       });
     });
 
@@ -159,6 +189,8 @@ export class BotComponent implements OnInit {
     this.showBestStartups = false;
     this.showCategoriasChart = false;
     this.showInscripcionesChart = false;
+    this.busquedaActiva = false;
+    this.showStartupsMapa = false;
   }
 
   //Listado con cards de mejores startups
@@ -182,6 +214,114 @@ export class BotComponent implements OnInit {
     this.showCardsCharts = false;
     this.showInscripcionesChart = true;
   }
+  startupsMapa(): void {
+    this.showCardsCharts = false;
+    this.showStartupsMapa = true;
+  }
+
+  showTooltip(event: any, text: any): void {
+    this.showTooltipState = true;
+    this.provinciaOnHover = text;
+    //console.warn(event.pageY, event.pageX);
+    if (this.provinciaOnHover === 'Alajuela') {
+      this.tooltipMapText = 'Startups en Alajuela: ';
+      this.tooltipCounter = String(this.alajuelaCounter);
+    } else if (this.provinciaOnHover === 'Cartago') {
+      this.tooltipMapText = 'Startups en Cartago: ';
+      this.tooltipCounter = String(this.cartagoCounter);
+    } else if (this.provinciaOnHover === 'Heredia') {
+      this.tooltipMapText = 'Startups en Heredia: ';
+      this.tooltipCounter = String(this.herediaCounter);
+    } else if (this.provinciaOnHover === 'San José') {
+      this.tooltipMapText = 'Startups en San José: ';
+      this.tooltipCounter = String(this.sanjoseCounter);
+    } else if (this.provinciaOnHover === 'Guanacaste') {
+      this.tooltipMapText = 'Startups en Guanacaste: ';
+      this.tooltipCounter = String(this.guanacasteCounter);
+    } else if (this.provinciaOnHover === 'Puntarenas') {
+      this.tooltipMapText = 'Startups en Puntarenas: ';
+      this.tooltipCounter = String(this.puntarenasCounter);
+    } else if (this.provinciaOnHover === 'Limón') {
+      this.tooltipMapText = 'Startups en Limón: ';
+      this.tooltipCounter = String(this.limonCounter);
+    }
+  }
+
+  moveTooltip(event: any): void {
+    //console.warn(event.pageY, event.pageX);
+    this.xPos = Number(event.pageX) - 1058;
+    this.yPos = Number(event.pageY) - 335;
+  }
+
+  //Obtener direcciones con reverse geocoding
+  obtenerDireccionStartup(latitud, longitud): void {
+    const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+
+    const loader = new Loader({
+      apiKey: 'AIzaSyD5wAapXlXKREVw_DVLQ2a16td5gxo4rWo',
+    });
+    loader.load().then(() => {
+      const geoCoder = new google.maps.Geocoder();
+      const latlng = {
+        lat: parseFloat(latitud),
+        lng: parseFloat(longitud),
+      };
+
+      geoCoder
+        .geocode({ location: latlng })
+        .then(response => {
+          if (response.results[0]) {
+            this.ubicacionesStartups.push(response.results[0]);
+            if (
+              response.results[0].address_components[2].short_name.includes('Alajuela') ||
+              response.results[0].address_components[3].short_name.includes('Alajuela') ||
+              response.results[0].address_components[4]?.short_name?.includes('Alajuela')
+            ) {
+              this.alajuelaCounter = this.alajuelaCounter + 1;
+            } else if (
+              response.results[0].address_components[2].short_name.includes('Cartago') ||
+              response.results[0].address_components[3].short_name.includes('Cartago') ||
+              response.results[0].address_components[4]?.short_name?.includes('Cartago')
+            ) {
+              this.cartagoCounter = this.cartagoCounter + 1;
+            } else if (
+              response.results[0].address_components[2].short_name.includes('San José') ||
+              response.results[0].address_components[3].short_name.includes('San José') ||
+              response.results[0].address_components[4]?.short_name?.includes('San José')
+            ) {
+              this.sanjoseCounter = this.sanjoseCounter + 1;
+            } else if (
+              response.results[0].address_components[2].short_name.includes('Heredia') ||
+              response.results[0].address_components[3].short_name.includes('Heredia') ||
+              response.results[0].address_components[4]?.short_name?.includes('Heredia')
+            ) {
+              this.herediaCounter = this.herediaCounter + 1;
+            } else if (
+              response.results[0].address_components[2].short_name.includes('Guanacaste') ||
+              response.results[0].address_components[3].short_name.includes('Guanacaste') ||
+              response.results[0].address_components[4]?.short_name?.includes('Guanacaste')
+            ) {
+              this.guanacasteCounter = this.guanacasteCounter + 1;
+            } else if (
+              response.results[0].address_components[2].short_name.includes('Limón') ||
+              response.results[0].address_components[3].short_name.includes('Limón') ||
+              response.results[0].address_components[4]?.short_name?.includes('Limón')
+            ) {
+              this.limonCounter = this.limonCounter + 1;
+            } else if (
+              response.results[0].address_components[2].short_name.includes('Puntarenas') ||
+              response.results[0].address_components[3].short_name.includes('Puntarenas') ||
+              response.results[0].address_components[4]?.short_name?.includes('Puntarenas')
+            ) {
+              this.puntarenasCounter = this.puntarenasCounter + 1;
+            }
+          } else {
+            window.alert('No results found from geocoding');
+          }
+        })
+        .catch(e => console.warn('Geocoder failed due to: ', e));
+    });
+  }
 
   //Para listado de startups en cards
   redireccionarAPerfilStartup(correoStartup: string): void {
@@ -190,7 +330,67 @@ export class BotComponent implements OnInit {
     this.router.navigate(['/perfil-comercial-startup']);
   }
 
+  //Filtro de búsqueda para startups
+  busquedaBot(event: any): void {
+    this.infoSearch = event.target.value;
+
+    //Si la busqueda tiene un valor
+    if (event.target.value.length > 0) {
+      this.busquedaActiva = true;
+
+      this.showFirstContentInfo = false;
+      this.showCardsCharts = false;
+      this.showBestStartups = false;
+      this.showCategoriasChart = false;
+      this.showInscripcionesChart = false;
+      const numberRegex = /^\d+$/;
+      if (numberRegex.test(this.infoSearch)) {
+        this.startupsFiltered = this.startups.filter(startup => {
+          if (!startup.e.montoMeta) {
+            return;
+          }
+          return startup.e.montoMeta >= this.infoSearch;
+        });
+      } else {
+        this.startupsFiltered = this.startups.filter(
+          startup =>
+            startup.e.nombreCorto?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+            startup.e.nombreLargo?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+            startup.e.linkSitioWeb?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+            startup.e.panoramaMercado?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+            startup.e.fechaCreacion?.toLowerCase().includes(this.infoSearch.toLowerCase()) ||
+            startup.e.idCategoria.categoria?.toLowerCase().includes(this.infoSearch.toLowerCase())
+        );
+      }
+    } //Si la busqueda está vacía
+    else {
+      this.busquedaActiva = false;
+      this.showFirstContentInfo = true;
+    }
+  }
+
   scroll(el: HTMLElement): void {
     el.scrollIntoView();
+  }
+
+  desencriptar(s: string): string {
+    const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+    let strDescodificado = '';
+    let caracter;
+    for (let i = 0; i < s.length; i++) {
+      caracter = s.charAt(i);
+      const pos = abecedario.indexOf(caracter);
+      if (pos === -1) {
+        strDescodificado += caracter;
+      } else {
+        if (pos - 3 < 0) {
+          strDescodificado += abecedario.charAt(abecedario.length + (pos - 3));
+        } else {
+          strDescodificado += abecedario.charAt((pos - 3) % abecedario.length);
+        }
+      }
+    }
+
+    return strDescodificado;
   }
 }
