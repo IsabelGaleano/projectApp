@@ -34,9 +34,9 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
         this.account = account;
         this.listaDonacionesUsuarioService.getDonacionesPaquetesByCorreo(account.email).subscribe(donacionesPaquetes => {
           donacionesPaquetes.forEach((plan: any) => {
-            if (plan.fechaEntrega != null) {
-              const fecha = plan.fechaEntrega.split('T');
-              plan.fechaEntrega = fecha[0];
+            if (plan.fechaDonacion != null) {
+              const fecha = plan.fechaDonacion.split('T');
+              plan.fechaDonacion = fecha[0];
             }
             this.donacionesPaquetes.push(plan);
           });
@@ -53,9 +53,9 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
         .subscribe(donacionesPaquetes => {
           if (donacionesPaquetes != null) {
             donacionesPaquetes.forEach((donacion: any) => {
-              if (donacion.fechaEntrega != null) {
-                const fecha = donacion.fechaEntrega.split('T');
-                donacion.fechaEntrega = fecha[0];
+              if (donacion.fechaDonacion != null) {
+                const fecha = donacion.fechaDonacion.split('T');
+                donacion.fechaDonacion = fecha[0];
               }
               this.donacionesPaquetes.push(donacion);
             });
@@ -70,9 +70,10 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
     this.listaDonacionesUsuarioService.getDonacionesPaquetesByCorreo(this.emailUsuario).subscribe(donacionesPaquetes => {
       this.donacionesPaquetes = [];
       donacionesPaquetes.forEach((donacion: any) => {
-        if (donacion.fechaEntrega != null) {
-          const fecha = donacion.fechaEntrega.split('T');
-          donacion.fechaEntrega = fecha[0];
+        if (donacion.fechaDonacion != null) {
+          const fecha = donacion.fechaDonacion.toLocaleDateString();
+          fecha.split('T');
+          donacion.fechaDonacion = fecha[0];
         }
         console.warn(donacion);
         this.donacionesPaquetes.push(donacion);
