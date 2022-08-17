@@ -26,6 +26,9 @@ export class ListaPlanesInversionService {
       data
     );
   }
+  updateEstado(data: any): Observable<any> {
+    return this.http.put(this.rootURL.concat('/update-planes-inversions/', data.id), data);
+  }
   getStartupsByMail(correo: string): Observable<any> {
     return this.http.get(this.rootURL.concat('/startups/findbyCorreo/', correo.toString()));
   }

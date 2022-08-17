@@ -14,6 +14,7 @@ import { ListarReportesAdminService } from './listar-reportes.service';
 export class ListarReportesComponent implements OnInit {
   account!: Account;
   movimientos: any[] = [];
+  startups: any[] = [];
   user = false;
   usuario: any;
   error = false;
@@ -53,6 +54,18 @@ export class ListarReportesComponent implements OnInit {
             }
           });
         });
+        this.listarReportesAdminService.getStartups().subscribe((startups: any) => {
+          if (startups != null) {
+            console.warn(startups);
+            startups.forEach((startup: any) => {
+              if (startup.fechaCreacion != null) {
+                const fecha = startup.fechaCreacion.split('T');
+                startup.fechaCreacion = fecha[0];
+              }
+              this.startups.push(startup);
+            });
+          }
+        });
       }
     });
   }
@@ -79,6 +92,31 @@ export class ListarReportesComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    XLSX.writeFile(wb, 'test.xlsx');
+    XLSX.writeFile(wb, 'reportesAdministrador_'.concat(this.usuario.correoElectronico, '.xlsx'));
+  }
+  openPDFStartup(): void {
+    const doc = new jsPDF();
+    doc.setFontSize(22);
+    doc.text('Reporte de ganancias por startup', 40, 20);
+    doc.setFontSize(12);
+    doc.text('Correo: ', 67, 30);
+    doc.text(this.usuario.correoElectronico, 82, 30);
+    doc.text('Fecha de reporte: ', 78, 40);
+    doc.text(new Date().toLocaleDateString(), 112, 40);
+    autoTable(doc, {
+      startY: 50,
+      html: '#htmlDataStartup',
+    });
+    doc.save('reportesStartupAdministrador_'.concat(this.usuario.correoElectronico, '.pdf'));
+  }
+
+  openExcelStartup(): void {
+    const element = document.getElementById('htmlDataStartup');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, 'reportesStartupAdministrador_'.concat(this.usuario.correoElectronico, '.xlsx'));
   }
 }

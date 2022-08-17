@@ -40,8 +40,18 @@ export class ListaReunionesStartupComponent implements OnInit {
                     reuniones[i].estado = 'Solicitado';
                   }
 
-                  if (!reuniones[i].fechaReunion) {
+                  // if (!reuniones[i].fechaReunion) {
+                  //   reuniones[i].fechaReunion = 'No acordada';
+                  // }
+
+                  if (reuniones[i].fechaReunion) {
+                    reuniones[i].fechaReunion = new Date(reuniones[i].fechaReunion).toLocaleString();
+                  } else {
                     reuniones[i].fechaReunion = 'No acordada';
+                  }
+
+                  if (reuniones[i].fechaSolicitada) {
+                    reuniones[i].fechaSolicitada = new Date(reuniones[i].fechaSolicitada).toLocaleString();
                   }
 
                   this.reuniones.push(reuniones[i]);

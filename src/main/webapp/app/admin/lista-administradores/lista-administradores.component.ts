@@ -35,12 +35,9 @@ export class ListaAdministradoresComponent implements OnInit {
       this.usuariosTmp = this.usuarios;
     });
   }
-
-  activarUsuario(event: Event): void {
+  cambiarEstado(event: Event): void {
     const value: string = (event.target as HTMLInputElement).value.toString();
-
     const idXestado = value.split(',', 2);
-
     if (idXestado[1] === 'Inactivo') {
       this.appService.getUsersById(idXestado[0]).subscribe((data: any) => {
         data.estado = 'Activo';
@@ -52,15 +49,7 @@ export class ListaAdministradoresComponent implements OnInit {
         });
         // .then();
       });
-    }
-  }
-
-  desactivarUsuario(event: Event): void {
-    const value: string = (event.target as HTMLInputElement).value.toString();
-
-    const idXestado = value.split(',', 2);
-
-    if (idXestado[1] === 'Activo') {
+    } else if (idXestado[1] === 'Activo') {
       this.appService.getUsersById(idXestado[0]).subscribe((data: any) => {
         data.estado = 'Inactivo';
 
@@ -105,37 +94,31 @@ export class ListaAdministradoresComponent implements OnInit {
       if (!this.busqueda) {
         this.usuarios = this.usuariosTmp;
       } else {
-        this.appService.findByNombre(this.busqueda).subscribe(
-          (response: any) => {
-
-            if (response) {
-
-              this.usuarios = [];
-              response.forEach((usuario: any) => {
-                this.appService.getUsersByEmail(usuario.correoElectronico).subscribe((roles: any) => {
-                  roles.forEach((rol: any) => {
-                    // console.warn(ro)
-                    if (rol.name === 'ROLE_ADMIN' && roles.length === 2) {
-                      // if (rol.name === 'ROLE_USER') {
-                      this.usuarios.push(usuario);
-                    }
-                  });
+        this.appService.findByNombre(this.busqueda).subscribe((response: any) => {
+          if (response) {
+            this.usuarios = [];
+            response.forEach((usuario: any) => {
+              this.appService.getUsersByEmail(usuario.correoElectronico).subscribe((roles: any) => {
+                roles.forEach((rol: any) => {
+                  // console.warn(ro)
+                  if (rol.name === 'ROLE_ADMIN' && roles.length === 2) {
+                    // if (rol.name === 'ROLE_USER') {
+                    this.usuarios.push(usuario);
+                  }
                 });
               });
-
-            } else {
-              this.usuarios = [];
-            }
-
+            });
+          } else {
+            this.usuarios = [];
           }
-        );
+        });
       }
     } catch (e) {
       console.error('hola', e);
     }
   }
 
-  clearSearch() : void {
+  clearSearch(): void {
     if (!this.busqueda) {
       this.usuarios = this.usuariosTmp;
     }
