@@ -33,8 +33,7 @@ export class ListarStartupsAdminComponent implements OnInit {
       this.startupsTmp = this.startups;
     });
   }
-
-  activarStartup(event: Event): void {
+  cambiarEstado(event: Event): void {
     const value: string = (event.target as HTMLInputElement).value.toString();
 
     const idXestado = value.split(',', 2);
@@ -43,15 +42,7 @@ export class ListarStartupsAdminComponent implements OnInit {
       this.listadoService.updateStartupsEstado(idXestado[0], 'Activo').subscribe(() => {
         window.location.reload();
       });
-    }
-  }
-
-  desactivarStartup(event: Event): void {
-    const value: string = (event.target as HTMLInputElement).value.toString();
-
-    const idXestado = value.split(',', 2);
-
-    if (idXestado[1] === 'Activo') {
+    } else if (idXestado[1] === 'Activo') {
       this.listadoService.updateStartupsEstado(idXestado[0], 'Inactivo').subscribe(() => {
         window.location.reload();
       });

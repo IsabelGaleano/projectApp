@@ -7,28 +7,30 @@
             <strong>Reunión actualizada con éxito!</strong> Puede esperar mientras la startup evalúa la nueva información.
             <br />
           </div>
-          <div class="card-header pb-0 d-flex justify-content-between mb-3">
+          <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
-              <h4 class="card-title mg-b-0 mt-3">Lista de Reuniones</h4>
-              <!-- <a href="usuario-final/calendario-inversionista">Calendario</a> -->
+              <div>
+                <h4 class="card-title mg-b-0 mt-3">Lista de Reuniones</h4>
+                <!-- <a href="usuario-final/calendario-inversionista">Calendario</a> -->
 
-              <i class="mdi mdi-dots-horizontal text-gray"></i>
-              <div class="ml-3">
+                <i class="mdi mdi-dots-horizontal text-gray"></i>
+                <br />
                 <a href="usuario-final/calendario-inversionista"
-                  ><button class="btn btn-primary btn-block">Calendario de reuniones</button></a
+                  ><button class="btn-calendario btn btn-primary btn-block">Calendario de reuniones</button></a
                 >
               </div>
-            </div>
-            <div class="barra-busqueda d-flex justify-content-between">
-              <input
-                class="form-control mg-b-0"
-                placeholder="Buscar"
-                type="search"
-                [(ngModel)]="busqueda"
-                #search="ngModel"
-                name="search"
-                (keyup)="searchByName()"
-              />
+
+              <div class="barra-busqueda d-flex justify-content-between">
+                <input
+                  class="form-control mg-b-0"
+                  placeholder="Buscar"
+                  type="search"
+                  [(ngModel)]="busqueda"
+                  #search="ngModel"
+                  name="search"
+                  (keyup)="searchByName()"
+                />
+              </div>
             </div>
           </div>
           <div class="card-body">

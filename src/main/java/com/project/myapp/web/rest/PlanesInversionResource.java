@@ -145,7 +145,6 @@ public class PlanesInversionResource {
         if (startup.isPresent()) {
             planesInversion.setPorcentajeEmpresarial(porcentajeEmpresarial);
             planesInversion.setIdStartup(startup.get());
-            planesInversion.setEstado("Activo");
             log.debug("REST request to save PlanesInversion : {}", planesInversion);
         }
         PlanesInversion result = planesInversionRepository.save(planesInversion);

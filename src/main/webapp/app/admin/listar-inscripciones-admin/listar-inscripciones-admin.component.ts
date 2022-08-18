@@ -35,31 +35,19 @@ export class ListarInscripcionesAdminComponent implements OnInit {
       this.inscripcionesTmp = this.inscripciones;
     });
   }
-
-  activarInscripcion(event: Event): void {
+  cambiarEstado(event: Event): void {
     const value: string = (event.target as HTMLInputElement).value.toString();
-
     const idXestado = value.split(',', 2);
-
     if (idXestado[1] === 'Inactivo') {
       this.listadoService.updateInscripcionesEstado(idXestado[0], 'Activo').subscribe(() => {
         window.location.reload();
       });
-    }
-  }
-
-  desactivarInscripcion(event: Event): void {
-    const value: string = (event.target as HTMLInputElement).value.toString();
-
-    const idXestado = value.split(',', 2);
-
-    if (idXestado[1] === 'Activo') {
+    } else if (idXestado[1] === 'Activo') {
       this.listadoService.updateInscripcionesEstado(idXestado[0], 'Inactivo').subscribe(() => {
         window.location.reload();
       });
     }
   }
-
   searchByName(): void {
     try {
       if (!this.busqueda) {

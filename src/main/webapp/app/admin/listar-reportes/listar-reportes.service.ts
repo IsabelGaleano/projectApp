@@ -20,6 +20,10 @@ export class ListarReportesAdminService {
     ruta = ruta.concat(id.toString());
     return this.http.get(ruta);
   }
+  getStartups(): Observable<any> {
+    const ruta = '/api/startups/';
+    return this.http.get(ruta);
+  }
   subirArchivo(file: any): Observable<any> {
     return this.http.post('https://api.cloudinary.com/v1_1/moonsoft//:resource_type/upload', file);
   }

@@ -44,8 +44,8 @@
                     <th>Fecha inicial</th>
                     <th>Startup</th>
                     <th>Estado</th>
-                    <th class="table-header-centered">Activar</th>
-                    <th class="table-header-centered">Desactivar</th>
+                    <th class="table-header-centered"></th>
+                    <th class="table-header-centered"></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let inscripcion of inscripciones; index as i">
@@ -57,30 +57,22 @@
 
                     <td>{{ inscripcion.idStartup.correoElectronico }}</td>
                     <td>{{ inscripcion.estado }}</td>
-
                     <td>
                       <button
-                        class="btn btn-success btn-block"
-                        (click)="activarInscripcion($event)"
+                        class="btn btn-secondary btn-block"
+                        (click)="cambiarEstado($event)"
                         value="{{ inscripcion.id }},{{ inscripcion.estado }}"
                       >
-                        Activar
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        class="btn btn-danger btn-block"
-                        (click)="desactivarInscripcion($event)"
-                        value="{{ inscripcion.id }},{{ inscripcion.estado }}"
-                      >
-                        Desactivar
+                        Cambiar estado
                       </button>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div *ngIf="inscripciones.length == 0" class="text-center"><h4 class="font-weight-bold">No se encontraron resultados</h4></div>
+            <div *ngIf="inscripciones.length == 0" class="text-center">
+              <h4 class="font-weight-bold">No se encontraron resultados</h4>
+            </div>
           </div>
         </div>
       </div>

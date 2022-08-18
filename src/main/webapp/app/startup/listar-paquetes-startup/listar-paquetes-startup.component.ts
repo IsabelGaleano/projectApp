@@ -34,7 +34,6 @@ export class ListarPaquetesStartupComponent implements OnInit {
 
   ngOnInit(): void {
     this.listadoService.listarPaquetesStartups(sessionStorage.getItem('startupLogin')).subscribe((data: any) => {
-      // this.usuarios = data;
       if (data != null) {
         data.forEach((paquete: any) => {
           this.paquetes.push(paquete);
@@ -42,18 +41,16 @@ export class ListarPaquetesStartupComponent implements OnInit {
       }
     });
   }
-  activar(paquete: any): void {
+  cambiarEstado(paquete: any): void {
     if (paquete.estado !== 'Activo') {
       paquete.estado = 'Activo';
       this.actualizarEstado(paquete);
-    }
-  }
-  desactivar(paquete: any): void {
-    if (paquete.estado !== 'Inactivo') {
+    } else if (paquete.estado !== 'Inactivo') {
       paquete.estado = 'Inactivo';
       this.actualizarEstado(paquete);
     }
   }
+
   actualizarEstado(paquete: any): void {
     this.listadoService.updatePaquetesStartups(paquete, paquete.id).subscribe((data: any) => {
       location.reload();
