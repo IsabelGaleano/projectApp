@@ -52,7 +52,7 @@
                 <a (click)="redireccionarACategoria(categoria.categoria.categoria)">
                   <div class="card-body">
                     <div class="tx-16 mb-1">
-                      <fa-icon [icon]="categoria.infoCategoria.iconoCategoria"></fa-icon>
+                      <fa-icon [icon]="categoria.infoCategoria.iconoCategoria" [style.color]="categoria.infoCategoria.color"></fa-icon>
                       {{ categoria.categoria.categoria }}
                       <div class="float-end tx-13 text-muted mt-1">
                         Cantidad de startups: {{ categoria.infoCategoria.cantidadCategoria }}

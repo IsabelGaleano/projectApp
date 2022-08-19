@@ -49,6 +49,21 @@ export class ComunidadStartupComponent implements OnInit {
   faBowlFoodI = faBowlFood;
   faBrainI = faBrain;
   faCloudDownloadI = faCloudDownload;
+  backgrounds = [
+    '#42A5F5', //Bluish
+    '#66BB6A', //Greenish
+    '#FFA726', //Orange
+    '#26C6DA', //Tealish
+    '#7E57C2', //purple
+    '#CF5C36', //orange like brick
+    '#002559', //navy
+    '#EFC88B', //cremish yellow
+    '#F7B2AD', //redish pink
+    '#9ABCA7', //mintish green
+    '#F7F06D', //yellow
+    '#2F2235', //dark purple
+    '#8f8f8f', //grey
+  ];
 
   iconosCategorias: Array<any> = [];
 
@@ -127,7 +142,7 @@ export class ComunidadStartupComponent implements OnInit {
           } else if (categoria.categoria === 'Software') {
             icono = this.faCloudDownloadI;
           }
-          const infoCategoria = { cantidadCategoria: cantidad, iconoCategoria: icono };
+          const infoCategoria = { cantidadCategoria: cantidad, iconoCategoria: icono, color: this.backgrounds[index] };
           this.categoriasInfo.push({ categoria, infoCategoria });
         });
       });

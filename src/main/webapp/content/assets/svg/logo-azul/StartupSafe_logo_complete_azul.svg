@@ -1,5 +1,5 @@
 <svg width="200" height="100" viewBox="0 0 160 100" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                        xmlns="http://www.w3.org/2000/svg" id="logo-azul">
                         <rect width="200" height="100" fill="#F5F5F5" />
                         <g id="Startup_candado_capas">
                           <rect width="200" height="100" fill="white" />

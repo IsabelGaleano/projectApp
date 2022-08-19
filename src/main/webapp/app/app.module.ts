@@ -14,6 +14,9 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // must go before pl
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
+import { ChartModule } from 'primeng/chart';
+//import { NgChartsModule } from 'ng2-charts';
+
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
 import { SharedModule } from 'app/shared/shared.module';
@@ -79,6 +82,7 @@ import { ListarReportesStartupComponent } from './startup/listar-reportes-startu
 import { NotificacionesUsuariosComponent } from './usuarioFinal/notificaciones-usuarios/notificaciones-usuarios.component';
 import { CalendarioInversionistaComponent } from './usuarioFinal/calendario-inversionista/calendario-inversionista.component';
 import { CalendarioStartupComponent } from './startup/calendario-startup/calendario-startup.component';
+import { BotComponent } from './bot/bot.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -103,6 +107,7 @@ FullCalendarModule.registerPlugins([
     CommonModule,
     AccountModule,
     FullCalendarModule,
+    ChartModule,
   ],
   providers: [
     Title,
@@ -165,6 +170,7 @@ FullCalendarModule.registerPlugins([
     NotificacionesUsuariosComponent,
     CalendarioInversionistaComponent,
     CalendarioStartupComponent,
+    BotComponent,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [MainComponent],

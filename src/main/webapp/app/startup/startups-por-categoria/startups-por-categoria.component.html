@@ -38,9 +38,9 @@
         <br />
         <div class="row">
           <ng-container *ngIf="startupsExistentes; else noExistentes">
-            <div class="col-12 col-sm-6 col-lg-6 col-xl-3" *ngFor="let startup of startups; index as i">
+            <div class="col-12 col-sm-6 col-lg-6 col-xl-3 cart-startup" *ngFor="let startup of startups; index as i">
               <div class="card card-primary">
-                <img class="card-img-top" src="{{ startup.imagenURL }}" alt="Card image cap" />
+                <img class="card-img-top img-lista" src="{{ startup.imagenURL }}" alt="Card image cap" />
                 <div class="card-header pb-0">
                   <h5 class="card-title mb-0 pb-0">{{ startup.nombreCorto }}</h5>
                 </div>
