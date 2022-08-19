@@ -4,6 +4,15 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { PerfilDonacionUsuarioService } from './perfil-donacion-usuario.service';
+import {
+  faHandHoldingHeart,
+  faMessage,
+  faCalendarDay,
+  faDollarSign,
+  faEnvelope,
+  faFileSignature,
+  faPhone,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'jhi-perfil-donacion-usuario',
@@ -25,6 +34,13 @@ export class PerfilDonacionUsuarioComponent implements OnInit {
   distancia: any;
   duracion: any;
   tabInicial: any = '';
+  faHandHoldingHeart = faHandHoldingHeart;
+  faMessage = faMessage;
+  faCalendarDay = faCalendarDay;
+  faDollarSign = faDollarSign;
+  faEnvelope = faEnvelope;
+  faFileSignature = faFileSignature;
+  faPhone = faPhone;
 
   constructor(private router: Router, private perfilService: PerfilDonacionUsuarioService, private fb: FormBuilder) {
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaqueteUsuario);
