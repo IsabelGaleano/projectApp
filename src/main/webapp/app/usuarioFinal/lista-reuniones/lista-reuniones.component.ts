@@ -149,4 +149,3 @@ export class ListaReunionesComponent implements OnInit {
     }
   }
 }
-

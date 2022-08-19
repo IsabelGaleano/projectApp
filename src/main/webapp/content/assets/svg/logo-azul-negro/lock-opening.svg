@@ -1,7 +1,0 @@
-<svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="lock-opening">
-<path id="outside-ellipse" d="M17.8909 11.9474C17.8909 6.45359 14.2441 2 9.74545 2C5.24684 2 1.6 6.45359 1.6 11.9474" stroke="#0162E8" stroke-width="3"/>
-<path id="inside-ellipse" d="M14.8364 11.9474C14.8364 8.02324 12.5571 4.84211 9.74545 4.84211C6.93382 4.84211 4.65454 8.02324 4.65454 11.9474" stroke="#0162E8" stroke-width="3"/>
-<path id="middle-ellipse" d="M16.3636 11.9474C16.3636 7.23841 13.4006 3.42105 9.74545 3.42105C6.09033 3.42105 3.12727 7.23841 3.12727 11.9474" stroke="white" stroke-width="3"/>
-</g>
-</svg>

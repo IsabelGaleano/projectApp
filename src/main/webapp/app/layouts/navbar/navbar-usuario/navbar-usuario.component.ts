@@ -12,6 +12,7 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { MenuAdminService } from '../../menu/admin/menu-admin.service';
 import { MenuStartupService } from '../../menu/startup/menu-startup.service';
+
 /* tslint:disable:component-selector */
 @Component({
   selector: 'jhi-navbar-usuario',
