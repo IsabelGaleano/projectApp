@@ -29,4 +29,10 @@ export class ListarInscripcionesAdminService {
     ruta = ruta + nombre;
     return this.http.get(ruta);
   }
+  getInscripcionesMensuales(): any {
+    return this.http.get('/api/inscripciones/inscripciones-mensuales');
+  }
+  getInscripcionesAnuales(): any {
+    return this.http.get('/api/inscripciones/inscripciones-anuales');
+  }
 }
