@@ -4,6 +4,8 @@ import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { ComunidadStartupService } from '../startup/comunidad-startup/comunidad-startup.service';
 import { ListarInscripcionesAdminService } from '../admin/listar-inscripciones-admin/listar-inscripciones-admin.service';
+import { ListaReunionesService } from '../usuarioFinal/lista-reuniones/lista-reuniones.service';
+import { ListaReunionesStartupService } from '../startup/lista-reuniones-startup/lista-reuniones-startup.service';
 import { Loader } from '@googlemaps/js-api-loader';
 import { ChartData, ChartOptions } from 'chart.js';
 import {
@@ -18,6 +20,7 @@ import {
   faChartSimple,
   faChartLine,
   faMap,
+  faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
@@ -39,6 +42,7 @@ export class BotComponent implements OnInit {
   faChartSimple = faChartSimple;
   faChartLine = faChartLine;
   faMap = faMap;
+  faCalendarDays = faCalendarDays;
 
   //Variable that shows the first cards for the bots if true
   showFirstContentInfo = true;
@@ -92,21 +96,99 @@ export class BotComponent implements OnInit {
   limonCounter = 0;
   herediaCounter = 0;
   guanacasteCounter = 0;
+  geoCoder: google.maps.Geocoder = new google.maps.Geocoder();
 
   //Inscripciones
   inscripciones: Array<any> = [];
   startupsWithLocation: Array<any> = [];
+
+  //Reuniones
+  hayReuniones = true;
+  showReuniones = false;
+  reuniones: Array<any> = [];
+  sinReuniones = true;
 
   constructor(
     private accountService: AccountService,
     private datePipe: DatePipe,
     private router: Router,
     private comunidadStartupService: ComunidadStartupService,
-    private inscripcionesService: ListarInscripcionesAdminService
+    private inscripcionesService: ListarInscripcionesAdminService,
+    private listaReunionesServiceUser: ListaReunionesService,
+    private listaReunionesServiceStartup: ListaReunionesStartupService
   ) {
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         this.account = account;
+        if (account.authorities[0] === 'ROLE_USER') {
+          this.listaReunionesServiceUser.obtenerIdUsuarioPorEmail(this.account.email).subscribe((data: any) => {
+            this.listaReunionesServiceUser.obtenerReuniones(data.id).subscribe((reuniones: any) => {
+              if (!reuniones) {
+                this.sinReuniones = true;
+              } else {
+                this.sinReuniones = false;
+                for (let i = 0; i < reuniones.length; i++) {
+                  if (reuniones[i].estado !== 'SolicitadoI') {
+                    if (reuniones[i].estado === 'SolicitadoS') {
+                      reuniones[i].estado = 'Solicitado';
+                    }
+
+                    // if (!reuniones[i].fechaReunion) {
+                    //   reuniones[i].fechaReunion = 'No acordada';
+                    // }
+
+                    if (reuniones[i].fechaReunion) {
+                      reuniones[i].fechaReunion = new Date(reuniones[i].fechaReunion).toLocaleString();
+                    } else {
+                      reuniones[i].fechaReunion = 'No acordada';
+                    }
+
+                    if (reuniones[i].fechaSolicitada) {
+                      reuniones[i].fechaSolicitada = new Date(reuniones[i].fechaSolicitada).toLocaleString();
+                    }
+
+                    this.reuniones.push(reuniones[i]);
+                  }
+                }
+                console.warn(reuniones);
+              }
+            });
+          });
+        } else if (account.authorities[0] === 'ROLE_STARTUP') {
+          this.listaReunionesServiceStartup.obtenerIdStartupPorEmail(this.account.email).subscribe((data: any) => {
+            this.listaReunionesServiceStartup.obtenerReuniones(data.id).subscribe((reuniones: any) => {
+              if (!reuniones) {
+                this.sinReuniones = true;
+              } else {
+                this.sinReuniones = false;
+                for (let i = 0; i < reuniones.length; i++) {
+                  if (reuniones[i].estado !== 'SolicitadoS') {
+                    if (reuniones[i].estado === 'SolicitadoI') {
+                      reuniones[i].estado = 'Solicitado';
+                    }
+
+                    // if (!reuniones[i].fechaReunion) {
+                    //   reuniones[i].fechaReunion = 'No acordada';
+                    // }
+
+                    if (reuniones[i].fechaReunion) {
+                      reuniones[i].fechaReunion = new Date(reuniones[i].fechaReunion).toLocaleString();
+                    } else {
+                      reuniones[i].fechaReunion = 'No acordada';
+                    }
+
+                    if (reuniones[i].fechaSolicitada) {
+                      reuniones[i].fechaSolicitada = new Date(reuniones[i].fechaSolicitada).toLocaleString();
+                    }
+
+                    this.reuniones.push(reuniones[i]);
+                  }
+                }
+                console.warn(reuniones);
+              }
+            });
+          });
+        }
       }
     });
 
@@ -191,6 +273,7 @@ export class BotComponent implements OnInit {
     this.showInscripcionesChart = false;
     this.busquedaActiva = false;
     this.showStartupsMapa = false;
+    this.showReuniones = false;
   }
 
   //Listado con cards de mejores startups
@@ -217,6 +300,10 @@ export class BotComponent implements OnInit {
   startupsMapa(): void {
     this.showCardsCharts = false;
     this.showStartupsMapa = true;
+  }
+  activarReuniones(): void {
+    this.showFirstContentInfo = false;
+    this.showReuniones = true;
   }
 
   showTooltip(event: any, text: any): void {
@@ -249,78 +336,70 @@ export class BotComponent implements OnInit {
 
   moveTooltip(event: any): void {
     //console.warn(event.pageY, event.pageX);
-    this.xPos = Number(event.pageX) - 1058;
-    this.yPos = Number(event.pageY) - 335;
+    this.xPos = Number(event.pageX) - 1508;
+    this.yPos = Number(event.pageY) - 355;
   }
 
   //Obtener direcciones con reverse geocoding
   obtenerDireccionStartup(latitud, longitud): void {
-    const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
+    const latlng = {
+      lat: parseFloat(latitud),
+      lng: parseFloat(longitud),
+    };
 
-    const loader = new Loader({
-      apiKey: 'AIzaSyD5wAapXlXKREVw_DVLQ2a16td5gxo4rWo',
-    });
-    loader.load().then(() => {
-      const geoCoder = new google.maps.Geocoder();
-      const latlng = {
-        lat: parseFloat(latitud),
-        lng: parseFloat(longitud),
-      };
-
-      geoCoder
-        .geocode({ location: latlng })
-        .then(response => {
-          if (response.results[0]) {
-            this.ubicacionesStartups.push(response.results[0]);
-            if (
-              response.results[0].address_components[2].short_name.includes('Alajuela') ||
-              response.results[0].address_components[3].short_name.includes('Alajuela') ||
-              response.results[0].address_components[4]?.short_name?.includes('Alajuela')
-            ) {
-              this.alajuelaCounter = this.alajuelaCounter + 1;
-            } else if (
-              response.results[0].address_components[2].short_name.includes('Cartago') ||
-              response.results[0].address_components[3].short_name.includes('Cartago') ||
-              response.results[0].address_components[4]?.short_name?.includes('Cartago')
-            ) {
-              this.cartagoCounter = this.cartagoCounter + 1;
-            } else if (
-              response.results[0].address_components[2].short_name.includes('San José') ||
-              response.results[0].address_components[3].short_name.includes('San José') ||
-              response.results[0].address_components[4]?.short_name?.includes('San José')
-            ) {
-              this.sanjoseCounter = this.sanjoseCounter + 1;
-            } else if (
-              response.results[0].address_components[2].short_name.includes('Heredia') ||
-              response.results[0].address_components[3].short_name.includes('Heredia') ||
-              response.results[0].address_components[4]?.short_name?.includes('Heredia')
-            ) {
-              this.herediaCounter = this.herediaCounter + 1;
-            } else if (
-              response.results[0].address_components[2].short_name.includes('Guanacaste') ||
-              response.results[0].address_components[3].short_name.includes('Guanacaste') ||
-              response.results[0].address_components[4]?.short_name?.includes('Guanacaste')
-            ) {
-              this.guanacasteCounter = this.guanacasteCounter + 1;
-            } else if (
-              response.results[0].address_components[2].short_name.includes('Limón') ||
-              response.results[0].address_components[3].short_name.includes('Limón') ||
-              response.results[0].address_components[4]?.short_name?.includes('Limón')
-            ) {
-              this.limonCounter = this.limonCounter + 1;
-            } else if (
-              response.results[0].address_components[2].short_name.includes('Puntarenas') ||
-              response.results[0].address_components[3].short_name.includes('Puntarenas') ||
-              response.results[0].address_components[4]?.short_name?.includes('Puntarenas')
-            ) {
-              this.puntarenasCounter = this.puntarenasCounter + 1;
-            }
-          } else {
-            window.alert('No results found from geocoding');
+    this.geoCoder
+      .geocode({ location: latlng })
+      .then(response => {
+        if (response.results[0]) {
+          this.ubicacionesStartups.push(response.results[0]);
+          if (
+            response.results[0].address_components[2].short_name.includes('Alajuela') ||
+            response.results[0].address_components[3].short_name.includes('Alajuela') ||
+            response.results[0].address_components[4]?.short_name?.includes('Alajuela')
+          ) {
+            this.alajuelaCounter = this.alajuelaCounter + 1;
+          } else if (
+            response.results[0].address_components[2].short_name.includes('Cartago') ||
+            response.results[0].address_components[3].short_name.includes('Cartago') ||
+            response.results[0].address_components[4]?.short_name?.includes('Cartago')
+          ) {
+            this.cartagoCounter = this.cartagoCounter + 1;
+          } else if (
+            response.results[0].address_components[2].short_name.includes('San José') ||
+            response.results[0].address_components[3].short_name.includes('San José') ||
+            response.results[0].address_components[4]?.short_name?.includes('San José')
+          ) {
+            this.sanjoseCounter = this.sanjoseCounter + 1;
+          } else if (
+            response.results[0].address_components[2].short_name.includes('Heredia') ||
+            response.results[0].address_components[3].short_name.includes('Heredia') ||
+            response.results[0].address_components[4]?.short_name?.includes('Heredia')
+          ) {
+            this.herediaCounter = this.herediaCounter + 1;
+          } else if (
+            response.results[0].address_components[2].short_name.includes('Guanacaste') ||
+            response.results[0].address_components[3].short_name.includes('Guanacaste') ||
+            response.results[0].address_components[4]?.short_name?.includes('Guanacaste')
+          ) {
+            this.guanacasteCounter = this.guanacasteCounter + 1;
+          } else if (
+            response.results[0].address_components[2].short_name.includes('Limón') ||
+            response.results[0].address_components[3].short_name.includes('Limón') ||
+            response.results[0].address_components[4]?.short_name?.includes('Limón')
+          ) {
+            this.limonCounter = this.limonCounter + 1;
+          } else if (
+            response.results[0].address_components[2].short_name.includes('Puntarenas') ||
+            response.results[0].address_components[3].short_name.includes('Puntarenas') ||
+            response.results[0].address_components[4]?.short_name?.includes('Puntarenas')
+          ) {
+            this.puntarenasCounter = this.puntarenasCounter + 1;
           }
-        })
-        .catch(e => console.warn('Geocoder failed due to: ', e));
-    });
+        } else {
+          window.alert('No results found from geocoding');
+        }
+      })
+      .catch(e => console.warn('Geocoder failed due to: ', e));
   }
 
   //Para listado de startups en cards

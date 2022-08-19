@@ -14,6 +14,8 @@ import { NavbarUsuarioComponent } from '../navbar/navbar-usuario/navbar-usuario.
 })
 export class MainComponent implements OnInit {
   user = false;
+  loading = true;
+  loadingFooter = true;
   private renderer: Renderer2;
 
   constructor(
@@ -43,5 +45,11 @@ export class MainComponent implements OnInit {
         this.user = false;
       }
     });
+    setTimeout(() => {
+      this.loadingFooter = false;
+    }, 1500);
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   }
 }

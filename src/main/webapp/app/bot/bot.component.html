@@ -78,12 +78,12 @@
           <p class="bot__card__text">Estadísticas de startups</p>
         </div>
       </button>
-      <button class="bot__card bg-success" aria-label="Card del bot para ubicación de paquetes">
+      <button class="bot__card bg-success" aria-label="Card del bot para ubicación de paquetes" (click)="activarReuniones()">
         <div class="bot__card__cnt-icon">
-          <fa-icon [icon]="faLocationDot" class="bot__card__icon"></fa-icon>
+          <fa-icon [icon]="faCalendarDays" class="bot__card__icon"></fa-icon>
         </div>
         <div class="bot__card__cnt-text">
-          <p class="bot__card__text">Ubicación de paquetes</p>
+          <p class="bot__card__text">Reuniones</p>
         </div>
       </button>
     </div>
@@ -283,6 +283,28 @@
           </div>
         </div>
       </button>
+    </div>
+
+    <!-- Listado con mejores startups con cars -->
+    <div class="bot__content__info-startups" *ngIf="showReuniones === true">
+      <div class="bot__card-startup mt-1" aria-label="Card de reunión del bot" *ngFor="let reunion of reuniones; let i = index">
+        <div class="bot__card-startup__cnt bot__card-startup__cnt-up bg-success">
+          <p class="bot__card-startup__text--l">Reunión con {{ reunion.idUsuario.nombre }} {{ reunion.idUsuario.primerApellido }}</p>
+          <p class="bot__card-startup__text--s">{{ reunion.fechaReunion }}</p>
+        </div>
+
+        <div class="bot__card-startup__cnt bot__card-startup__cnt-down">
+          <div class="bot__card-startup__cnt-sub border-end">
+            <h5 class="description-header">Startup</h5>
+            <p class="bot__card-startup__text--s">{{ reunion.idStartup.nombreCorto }}</p>
+          </div>
+          <div class="bot__card-startup__cnt-sub">
+            <h5 class="description-header">Reunión</h5>
+            <a href="{{ reunion.url }}" class="bot__card-startup__text--s link-success">Unirse</a>
+          </div>
+        </div>
+      </div>
+      <h2 class="h2 mt-4" *ngIf="reuniones.length === 0">No hay reuniones</h2>
     </div>
   </div>
 
