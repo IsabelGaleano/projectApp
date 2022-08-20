@@ -10,6 +10,10 @@ import { PerfilComercialStartupService } from './perfil-comercial-startup.servic
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { AccountService } from 'app/core/auth/account.service';
+import {RegistrarPaqueteStartupService} from "../registrar-paquetes-startup/registrar-paquetes-startup.service";
+import {Notificaciones} from "../../entities/notificaciones/notificaciones.model";
+import {NotificacionesService} from "../../entities/notificaciones/service/notificaciones.service";
+
 
 @Component({
   selector: 'jhi-perfil-comercial-startup',
@@ -49,7 +53,8 @@ export class PerfilComercialStartupComponent implements OnInit {
     private profileService: ProfileService,
     private accountService: AccountService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private notificacionesService: NotificacionesService
   ) {
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
@@ -342,7 +347,23 @@ export class PerfilComercialStartupComponent implements OnInit {
     };
 
     this.perfilComercialStartupService.solicitarReunion(reunion).subscribe(() => {
-      this.success = true;
+
+      let notificacion = new Notificaciones();
+      let startupNotifi = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
+      let usuarioNotif = JSON.parse(sessionStorage.usuarioLoginObject);
+      let nombreUsuario:any = usuarioNotif.nombre;
+
+      notificacion.idUsuario = usuarioNotif;
+      notificacion.descripcion = 'Se agendó una reunión con ' +String(nombreUsuario);
+      notificacion.idStartup = startupNotifi;
+      notificacion.estado = 'Activo';
+      notificacion.tipoRemitente = 'Usuario';
+      notificacion.tipoReceptor = 'Startup';
+      notificacion.tipo = 'Reunión Agendada';
+
+      this.notificacionesService.create(notificacion).subscribe((data: any) => {
+        this.success = true;
+      });
       console.warn(this.success);
     });
   }
