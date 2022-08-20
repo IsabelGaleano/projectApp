@@ -154,16 +154,6 @@ export class PerfilStartupComponent implements OnInit {
       if (startup) {
         this.startup = startup;
         console.warn(startup);
-
-        //Monedero
-        const saldoMonederoF = document.getElementById('saldoMonedero') as HTMLInputElement;
-        const tipoMonederoF = document.getElementById('tipoMonedero') as HTMLInputElement;
-        const estadoMonederoF = document.getElementById('estadoMonedero') as HTMLInputElement;
-
-        saldoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.saldo);
-        tipoMonederoF.insertAdjacentText('beforeend', this.capitalizeWords(startup.idMonedero.tipo));
-        estadoMonederoF.insertAdjacentText('beforeend', startup.idMonedero.estado);
-
         //Set mapa
 
         const key = this.desencriptar('DLzaVyEXedgqnYlKekZD76jnq4zLMUN6Rfg1nI4');
