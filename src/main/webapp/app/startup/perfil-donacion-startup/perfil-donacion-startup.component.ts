@@ -5,7 +5,16 @@ import { Router } from '@angular/router';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Loader } from '@googlemaps/js-api-loader';
 import { PerfilDonacionStartupPService } from './perfil-donacion-startup.service';
-
+import {
+  faHandHoldingHeart,
+  faMessage,
+  faCalendarDay,
+  faDollarSign,
+  faEnvelope,
+  faFileSignature,
+  faPhone,
+  faIdCard,
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'jhi-perfil-donacion-startup',
   templateUrl: './perfil-donacion-startup.component.html',
@@ -34,6 +43,14 @@ export class PerfilDonacionStartupComponent implements OnInit {
   originAddresses: any;
   distancia: any;
   duracion: any;
+  faHandHoldingHeart = faHandHoldingHeart;
+  faMessage = faMessage;
+  faCalendarDay = faCalendarDay;
+  faDollarSign = faDollarSign;
+  faEnvelope = faEnvelope;
+  faFileSignature = faFileSignature;
+  faPhone = faPhone;
+  faIdCard = faIdCard;
 
   inicialForm = this.fb.group({
     fechaInicial: ['', [Validators.required]],

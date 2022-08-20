@@ -1,11 +1,10 @@
 package com.project.myapp.repository;
 
 import com.project.myapp.domain.Startups;
+import com.project.myapp.domain.Usuarios;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
-
-import com.project.myapp.domain.Usuarios;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 

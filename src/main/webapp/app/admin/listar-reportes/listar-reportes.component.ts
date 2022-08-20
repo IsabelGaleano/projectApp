@@ -43,7 +43,7 @@ export class ListarReportesComponent implements OnInit {
           const admin = document.getElementById('admin') as HTMLInputElement;
           admin.insertAdjacentText('beforeend', data.correoElectronico);
           const total = document.getElementById('total') as HTMLInputElement;
-          total.insertAdjacentText('beforeend', ': '.concat(data.idMonedero.saldo));
+          total.insertAdjacentText('beforeend', ': $'.concat(data.idMonedero.saldo));
           this.listarReportesAdminService.getMovimientosByIdMonedero(data.idMonedero.id).subscribe((dataMov: any) => {
             console.warn(dataMov);
             if (dataMov != null) {
