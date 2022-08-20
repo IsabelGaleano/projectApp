@@ -66,6 +66,8 @@ public interface ReunionesRepository extends JpaRepository<Reuniones, Long> {
     @Query(value = "SELECT R FROM Reuniones R INNER JOIN Usuarios U ON R.idUsuario = U.id WHERE U.nombre LIKE %?1%")
     List<Reuniones> findText(String nombre);
 
-    @Query(value = "SELECT R FROM Reuniones R INNER JOIN Startups S ON R.idStartup = S.id WHERE S.nombreCorto LIKE %?1% OR S.nombreLargo LIKE %?1%")
+    @Query(
+        value = "SELECT R FROM Reuniones R INNER JOIN Startups S ON R.idStartup = S.id WHERE S.nombreCorto LIKE %?1% OR S.nombreLargo LIKE %?1%"
+    )
     List<Reuniones> findByStartup(String nombre);
 }

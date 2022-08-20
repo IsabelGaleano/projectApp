@@ -42,12 +42,12 @@
                                 <tbody>
                                   <tr *ngFor="let movimiento of movimientos">
                                     <td>{{ movimiento.fecha }}</td>
-                                    <td>{{ movimiento.monto }}</td>
+                                    <td>${{ movimiento.monto }}</td>
                                     <td>{{ movimiento.descripcion }}</td>
                                     <td>{{ movimiento.estado }}</td>
                                   </tr>
                                   <tr>
-                                    <th id="total">Total de ganancia</th>
+                                    <th id="total">Ganancia Total</th>
                                   </tr>
                                 </tbody>
                               </table>

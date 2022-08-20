@@ -41,8 +41,6 @@ export class ListarReportesStartupComponent implements OnInit {
         this.account = account;
         this.listarReportesStartupService.getUsuariosByCorreoElectronico(account.email).subscribe((data: any) => {
           this.usuario = data;
-          const admin = document.getElementById('admin') as HTMLInputElement;
-          admin.insertAdjacentText('beforeend', data.correoElectronico);
           const total = document.getElementById('total') as HTMLInputElement;
           total.insertAdjacentText('beforeend', ': '.concat(data.idMonedero.saldo));
           this.listarReportesStartupService.getMovimientosByIdMonedero(this.usuario.idMonedero.id).subscribe((dataMov: any) => {
@@ -105,8 +103,8 @@ export class ListarReportesStartupComponent implements OnInit {
       doc.text('Reporte total de ganancias', 60, 20);
     }
     doc.setFontSize(12);
-    doc.text('Correo: ', 67, 30);
-    doc.text(this.usuario.correoElectronico, 82, 30);
+    doc.text('Correo: ', 77, 30);
+    doc.text(this.usuario.correoElectronico, 92, 30);
     doc.text('Fecha de reporte: ', 78, 40);
     doc.text(new Date().toLocaleDateString(), 112, 40);
     autoTable(doc, {

@@ -2,7 +2,6 @@ package com.project.myapp.repository;
 
 import com.project.myapp.domain.Codigos;
 import com.project.myapp.domain.Usuarios;
-
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -48,5 +47,4 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
 
     @Query(value = "SELECT C FROM Usuarios C WHERE C.nombre LIKE %?1% OR C.primerApellido LIKE %?1% OR C.segundoApellido LIKE %?1%")
     List<Usuarios> findText(String nombre);
-
 }
