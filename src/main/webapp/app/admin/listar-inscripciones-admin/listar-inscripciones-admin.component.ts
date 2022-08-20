@@ -75,6 +75,7 @@ export class ListarInscripcionesAdminComponent implements OnInit {
   onChange(newValue): void {
     console.warn(newValue.target.value);
     const filterList: any = [];
+    this.inscripciones = this.inscripcionesTmp;
     if (newValue.target.value === 'Todos') {
       this.inscripciones = this.inscripcionesTmp;
     } else {
