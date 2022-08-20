@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 if (account) {
                   // eslint-disable-next-line no-console
                   console.warn(account);
+                  localStorage.setItem('primerInicioSesion', 'true');
 
                   if (account.authorities[1]) {
                     this.router.navigate(['admin/profile-admin']);
