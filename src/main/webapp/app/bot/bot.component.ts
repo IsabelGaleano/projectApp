@@ -30,7 +30,8 @@ import { Router } from '@angular/router';
 })
 export class BotComponent implements OnInit {
   account!: Account;
-  opened = false;
+  primerInicioSesion = localStorage.getItem('primerInicioSesion');
+  opened = true;
   faCircleQuestion = faCircleQuestion;
   faCircleXmark = faCircleXmark;
   faMagnifyingGlass = faMagnifyingGlass;
@@ -304,6 +305,11 @@ export class BotComponent implements OnInit {
   activarReuniones(): void {
     this.showFirstContentInfo = false;
     this.showReuniones = true;
+  }
+
+  botUtilizado(): void {
+    this.primerInicioSesion = 'false';
+    localStorage.setItem('primerInicioSesion', 'false');
   }
 
   showTooltip(event: any, text: any): void {
