@@ -10,6 +10,8 @@ import { PerfilComercialStartupService } from './perfil-comercial-startup.servic
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { AccountService } from 'app/core/auth/account.service';
+import {RegistrarPaqueteStartupService} from "../registrar-paquetes-startup/registrar-paquetes-startup.service";
+
 
 @Component({
   selector: 'jhi-perfil-comercial-startup',
@@ -49,7 +51,7 @@ export class PerfilComercialStartupComponent implements OnInit {
     private profileService: ProfileService,
     private accountService: AccountService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
   ) {
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
