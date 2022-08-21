@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { PagoFinalPaqueteService } from './pago-final-paquetes.service';
+import {NotificacionesService} from "../../entities/notificaciones/service/notificaciones.service";
+import {INotificaciones, Notificaciones} from "../../entities/notificaciones/notificaciones.model";
+import dayjs from "dayjs";
 
 @Component({
   selector: 'jhi-pago-final-paquetes',
@@ -18,12 +21,14 @@ export class PagoFinalPaquetesComponent implements OnInit {
   paquete: any;
   usuario: any;
 
-  constructor(private pagoService: PagoFinalPaqueteService, private router: Router) {
+
+  constructor(private pagoService: PagoFinalPaqueteService, private router: Router, private notificacionesService: NotificacionesService) {
     this.rastreador = JSON.parse(sessionStorage.rastreadorPaquete);
     this.donacionPaquete = JSON.parse(sessionStorage.donacionPaquete);
     this.startup = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
     this.paquete = JSON.parse(sessionStorage.paqueteRegistroEnvioObject);
     this.usuario = JSON.parse(sessionStorage.usuarioLoginObject);
+
 
     console.warn(this.rastreador);
     console.warn(this.donacionPaquete);
@@ -85,9 +90,27 @@ export class PagoFinalPaquetesComponent implements OnInit {
             });
             this.pagoService.sendFactura(this.donacionPaquete).subscribe((dataFactura: any) => {
               this.success = true;
-              window.setTimeout(function () {
-                router.navigate(['usuario-final/lista-donaciones-usuario']);
-              }, 3000);
+
+              let notificacion = new Notificaciones();
+              let donacionPaquete = JSON.parse(sessionStorage.donacionPaquete);
+              let startup = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
+              let usuario = JSON.parse(sessionStorage.usuarioLoginObject);
+
+              notificacion.idUsuario = usuario;
+              notificacion.descripcion = 'Paquete de Donación Realizado por el monto de ' + donacionPaquete.montoTotal + ' dólares.';
+              notificacion.idStartup = startup;
+              notificacion.estado = 'Activo';
+              notificacion.tipoRemitente = 'Usuario';
+              notificacion.tipoReceptor = 'Startup';
+              notificacion.tipo = 'Donación Realizada';
+
+              this.notificacionesService.create(notificacion).subscribe((data: any) => {
+                  window.setTimeout(function () {
+                  router.navigate(['usuario-final/lista-donaciones-usuario']);
+                    }, 3000);
+              });
+
+
             });
           });
         },
