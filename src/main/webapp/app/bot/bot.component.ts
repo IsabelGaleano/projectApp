@@ -31,7 +31,7 @@ import { Router } from '@angular/router';
 export class BotComponent implements OnInit {
   account!: Account;
   primerInicioSesion = localStorage.getItem('primerInicioSesion');
-  opened = true;
+  opened = false;
   faCircleQuestion = faCircleQuestion;
   faCircleXmark = faCircleXmark;
   faMagnifyingGlass = faMagnifyingGlass;
@@ -118,6 +118,10 @@ export class BotComponent implements OnInit {
     private listaReunionesServiceUser: ListaReunionesService,
     private listaReunionesServiceStartup: ListaReunionesStartupService
   ) {
+    this.primerInicioSesion = localStorage.getItem('primerInicioSesion');
+    if (this.primerInicioSesion === 'true') {
+      this.opened = true;
+    }
     this.accountService.getAuthenticationState().subscribe(account => {
       if (account) {
         this.account = account;
@@ -255,6 +259,7 @@ export class BotComponent implements OnInit {
 
   ngOnInit(): void {
     console.warn('');
+    this.primerInicioSesion = localStorage.getItem('primerInicioSesion');
   }
 
   toggleBot(): void {
