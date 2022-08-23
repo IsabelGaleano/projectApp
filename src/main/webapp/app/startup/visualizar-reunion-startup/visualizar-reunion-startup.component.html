@@ -207,9 +207,12 @@
                                     <input formControlName="URL" type="text" class="form-control" placeholder="{{ reunion.url }}" />
                                   </div>
                                   <button type="submit" class="btn btn-success mt-3 mb-0">Guardar URL</button>
-                                  <button class="btn btn-primary mt-3 mb-0 btn-crear-reunion">
-                                    <a href="https://meet.google.com/new" target="_blank">Crear reunión</a>
+                                  <button type="button" (click)="crearReunion()" class="btn btn-primary mt-3 mb-0 btn-crear-reunion">
+                                    Crear reunión
                                   </button>
+                                  <!-- <button class="btn btn-primary mt-3 mb-0 btn-crear-reunion">
+                                    <a href="https://meet.google.com/new" target="_blank">Crear reunión</a>
+                                  </button> -->
                                 </form>
                               </div>
                             </div>
