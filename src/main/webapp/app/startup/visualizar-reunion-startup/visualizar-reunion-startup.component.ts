@@ -129,4 +129,8 @@ export class VisualizarReunionStartupComponent implements OnInit {
       this.urlGuardado = true;
     });
   }
+
+  crearReunion(): void {
+    window.open('https://meet.google.com/new', '_blank')!.focus();
+  }
 }
