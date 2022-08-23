@@ -35,9 +35,9 @@ export class ListaDonacionesStartupComponent implements OnInit {
         this.account = account;
         this.listaDonacionesStartupService.getDonacionesPaquetesByCorreo(account.email).subscribe(donacionesPaquetes => {
           donacionesPaquetes.forEach((plan: any) => {
-            if (plan.fechaEntrega != null) {
-              const fecha = plan.fechaEntrega.split('T');
-              plan.fechaEntrega = fecha[0];
+            if (plan.fechaDonacion != null) {
+              const fecha = plan.fechaDonacion.split('T');
+              plan.fechaDonacion = fecha[0];
             }
             this.donacionesPaquetes.push(plan);
           });
@@ -54,9 +54,9 @@ export class ListaDonacionesStartupComponent implements OnInit {
         .subscribe(donacionesPaquetes => {
           if (donacionesPaquetes != null) {
             donacionesPaquetes.forEach((donacion: any) => {
-              if (donacion.fechaEntrega != null) {
-                const fecha = donacion.fechaEntrega.split('T');
-                donacion.fechaEntrega = fecha[0];
+              if (donacion.fechaDonacion != null) {
+                const fecha = donacion.fechaDonacion.split('T');
+                donacion.fechaDonacion = fecha[0];
               }
               this.donacionesPaquetes.push(donacion);
             });
@@ -71,9 +71,9 @@ export class ListaDonacionesStartupComponent implements OnInit {
     this.listaDonacionesStartupService.getDonacionesPaquetesByCorreo(this.emailUsuario).subscribe(donacionesPaquetes => {
       this.donacionesPaquetes = [];
       donacionesPaquetes.forEach((donacion: any) => {
-        if (donacion.fechaEntrega != null) {
-          const fecha = donacion.fechaEntrega.split('T');
-          donacion.fechaEntrega = fecha[0];
+        if (donacion.fechaDonacion != null) {
+          const fecha = donacion.fechaDonacion.split('T');
+          donacion.fechaDonacion = fecha[0];
         }
         this.donacionesPaquetes.push(donacion);
       });
