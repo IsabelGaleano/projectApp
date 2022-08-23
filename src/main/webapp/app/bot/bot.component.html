@@ -60,8 +60,18 @@
 
   <!-- Contenido principal del bot -->
   <div class="bot__content__info">
+    <!-- Listado con mejores startups con cars -->
+    <div class="bot__content__info-startups" *ngIf="primerInicioSesion === 'true'">
+      <h2 class="h2 mt-4">Bienvenido a Startup Safe!</h2>
+      <button class="bot__card bg-warning" aria-label="Card del bot para mejores startups" (click)="botUtilizado()">
+        <div class="bot__card__cnt-text">
+          <p class="bot__card__text">Empezar</p>
+        </div>
+      </button>
+    </div>
+
     <!-- Primeras cards con opciones -->
-    <div class="bot__content__info-cards" *ngIf="showFirstContentInfo === true">
+    <div class="bot__content__info-cards" *ngIf="showFirstContentInfo === true && primerInicioSesion === 'false'">
       <button class="bot__card bg-primary" aria-label="Card del bot para mejores startups" (click)="mejoresStartups()">
         <div class="bot__card__cnt-icon">
           <fa-icon [icon]="faMedal" class="bot__card__icon"></fa-icon>

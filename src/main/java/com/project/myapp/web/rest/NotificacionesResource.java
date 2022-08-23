@@ -9,11 +9,9 @@ import com.project.myapp.sendgrid.SendEmail;
 import com.project.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -70,6 +68,9 @@ public class NotificacionesResource {
         log.debug("REST request to save Notificaciones : {}", notificaciones);
         if (notificaciones.getId() != null) {
             throw new BadRequestAlertException("A new notificaciones cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if(notificaciones.getFecha() == null){
+            notificaciones.setFecha(ZonedDateTime.now());
         }
         Notificaciones result = notificacionesRepository.save(notificaciones);
         return ResponseEntity
