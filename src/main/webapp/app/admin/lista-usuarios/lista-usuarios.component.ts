@@ -97,7 +97,7 @@ export class ListaUsuariosComponent implements OnInit {
               this.appService.getUsersByEmail(usuario.correoElectronico).subscribe((roles: any) => {
                 roles.forEach((rol: any) => {
                   // console.warn(ro)
-                  if (rol.name === 'ROLE_USER' && roles.length === 1) {
+                  if (rol.name === 'ROLE_USER' && roles.length === 1 && this.usuarios.findIndex(item => item.idUsuario === usuario.idUsuario) === -1) {
                     // if (rol.name === 'ROLE_USER') {
                     this.usuarios.push(usuario);
                   }
