@@ -5,7 +5,16 @@ import { Router } from '@angular/router';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Loader } from '@googlemaps/js-api-loader';
 import { PerfilDonacionStartupPService } from './perfil-donacion-startup.service';
-
+import {
+  faHandHoldingHeart,
+  faMessage,
+  faCalendarDay,
+  faDollarSign,
+  faEnvelope,
+  faFileSignature,
+  faPhone,
+  faIdCard,
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'jhi-perfil-donacion-startup',
   templateUrl: './perfil-donacion-startup.component.html',
@@ -34,6 +43,14 @@ export class PerfilDonacionStartupComponent implements OnInit {
   originAddresses: any;
   distancia: any;
   duracion: any;
+  faHandHoldingHeart = faHandHoldingHeart;
+  faMessage = faMessage;
+  faCalendarDay = faCalendarDay;
+  faDollarSign = faDollarSign;
+  faEnvelope = faEnvelope;
+  faFileSignature = faFileSignature;
+  faPhone = faPhone;
+  faIdCard = faIdCard;
 
   inicialForm = this.fb.group({
     fechaInicial: ['', [Validators.required]],
@@ -62,7 +79,7 @@ export class PerfilDonacionStartupComponent implements OnInit {
     if (this.donacionPaquete.estado === 'Finalizado') {
       this.isEnabledActualizar = true;
     }
-
+    this.cargarMapInicioEnvio();
     console.warn(this.donacionPaquete);
 
     this.perfilService.getPaquete(this.donacionPaquete.idPaquete.id).subscribe((resultP: any) => {
@@ -86,9 +103,6 @@ export class PerfilDonacionStartupComponent implements OnInit {
     this.perfilService.getUbicaciones(this.donacionPaquete).subscribe((resultUbicaciones: any) => {
       if (resultUbicaciones) {
         this.ubicaciones = resultUbicaciones;
-        this.cargarMapInicioEnvio();
-        this.cargarRastreador();
-        this.cargarMapActualizar();
       }
     });
   }
@@ -96,6 +110,9 @@ export class PerfilDonacionStartupComponent implements OnInit {
     const fechatemp = new Date(this.donacionPaquete.fechaDonacion);
     console.warn(fechatemp.toLocaleString());
     this.dateDonacion = fechatemp.toLocaleString();
+    this.cargarMapInicioEnvio();
+    this.cargarRastreador();
+    this.cargarMapActualizar();
   }
 
   iniciarEnvio(): void {

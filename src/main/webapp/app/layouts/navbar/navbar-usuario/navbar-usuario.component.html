@@ -201,8 +201,8 @@
                 </div>
                 <div class="main-notification-list Notification-scroll" *ngFor="let notificacion of notificaciones; index as i">
                   <a class="d-flex p-3 border-bottom" href="javascript:void(0);">
-                    <div class="notifyimg bg-primary">
-                      <i class="la la-check-circle text-white"></i>
+                    <div class="media-icon bg-primary-transparent text-primary">
+                      <fa-icon [icon]="faBell"></fa-icon>
                     </div>
                     <div class="ms-3">
                       <h5 class="notification-label mb-1">{{ notificacion.descripcion }}</h5>
@@ -213,7 +213,7 @@
                     </div>
                   </a>
                 </div>
-                <div *ngIf="notificaciones.length == 0" class="text-center">
+                <div *ngIf="notificaciones.length === 0" class="text-center">
                   <p></p>
                   <h6>No tiene notificaciones</h6>
                 </div>
@@ -246,14 +246,8 @@
                     </div>
                   </div>
                 </div>
-                <a class="dropdown-item" href=""
+                <a class="dropdown-item" href="usuario-final/perfil-usuario-final"
                   ><i class="bx bx-user-circle"> <fa-icon [icon]="faUserCircle"></fa-icon> </i>Perfil</a
-                >
-                <a class="dropdown-item" href=""
-                  ><i class="bx bxs-inbox"> <fa-icon [icon]="faBell"></fa-icon> </i>Notificaciones</a
-                >
-                <a class="dropdown-item" href=""
-                  ><i class="bx bx-envelope"> <fa-icon [icon]="faMessage"></fa-icon> </i>Mensajes</a
                 >
                 <a class="dropdown-item" id="cerrarSesion" (click)="logout()"
                   ><i class="bx bx-log-out">

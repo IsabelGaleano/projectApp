@@ -7,7 +7,7 @@
           <div class="card-header pb-0">
             <!-- <div class="btn-group mx-2 mt-2 mb-2" role="group" aria-label="First group"> -->
             <div class="d-flex justify-content-between">
-              <h4 style="display: inline" class="card-title mg-b-0" id="admin">Reporte mensual de ganancias de</h4>
+              <h4 style="display: inline" class="card-title mg-b-0">Reporte mensual de ganancias</h4>
               <i class="mdi mdi-dots-horizontal text-gray"></i>
             </div>
           </div>
@@ -25,7 +25,7 @@
                 <tbody>
                   <tr *ngFor="let movimiento of movimientos">
                     <td>{{ movimiento.fecha }}</td>
-                    <td>{{ movimiento.monto }}</td>
+                    <td>${{ movimiento.monto }}</td>
                     <td>{{ movimiento.descripcion }}</td>
                     <td>{{ movimiento.estado }}</td>
                   </tr>

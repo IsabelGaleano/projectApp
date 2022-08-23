@@ -270,5 +270,4 @@ public class ReunionesResource {
         List<Reuniones> reuniones = reunionesRepository.findByStartup(formattedData);
         return reuniones;
     }
-
 }
