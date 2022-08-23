@@ -71,11 +71,9 @@ export class ListaDonacionesUsuarioComponent implements OnInit {
       this.donacionesPaquetes = [];
       donacionesPaquetes.forEach((donacion: any) => {
         if (donacion.fechaDonacion != null) {
-          const fecha = donacion.fechaDonacion.toLocaleDateString();
-          fecha.split('T');
+          const fecha = donacion.fechaDonacion.split('T');
           donacion.fechaDonacion = fecha[0];
         }
-        console.warn(donacion);
         this.donacionesPaquetes.push(donacion);
       });
     });
