@@ -349,13 +349,13 @@ export class PerfilComercialStartupComponent implements OnInit {
     this.perfilComercialStartupService.solicitarReunion(reunion).subscribe(() => {
 
       let notificacion = new Notificaciones();
-      let startupNotifi = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
-      let usuarioNotif = JSON.parse(sessionStorage.usuarioLoginObject);
-      let nombreUsuario:any = usuarioNotif.nombre;
+      //let startupNotifi = JSON.parse(sessionStorage.startupEnvioPaqueteObject);
+      //let usuarioNotif = JSON.parse(sessionStorage.usuarioLoginObject);
+      let nombreUsuario:any = reunion.idUsuario.nombre;
 
-      notificacion.idUsuario = usuarioNotif;
+      notificacion.idUsuario = reunion.idUsuario;
       notificacion.descripcion = 'Se agendó una reunión con ' +String(nombreUsuario);
-      notificacion.idStartup = startupNotifi;
+      notificacion.idStartup = reunion.idStartup;
       notificacion.estado = 'Activo';
       notificacion.tipoRemitente = 'Usuario';
       notificacion.tipoReceptor = 'Startup';
